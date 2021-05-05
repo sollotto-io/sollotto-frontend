@@ -6,32 +6,76 @@
 	--tang: #ff852d;
 	--tungsten: #193650;
 	--navy-blue: #131a35;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: "Circular", Arial, Helvetica, sans-serif;
+}
+@font-face {
+	font-family: "Circular";
+	font-weight: 400;
+	src: url("../fonts/CircularStd-Book.ttf");
+}
+@font-face {
+	font-family: "Circular";
+	font-weight: 400;
+	font-style: italic;
+	src: url("../fonts/CircularStd-BookItalic.ttf");
+}
+@font-face {
+	font-family: "Circular";
+	font-weight: 600;
+	src: url("../fonts/CircularStd-Medium.ttf");
+}
+@font-face {
+	font-family: "Circular";
+	font-weight: 600;
+	font-style: italic;
+	src: url("../fonts/CircularStd-MediumItalic.ttf");
+}
+@font-face {
+	font-family: "Circular";
+	font-weight: 800;
+	src: url("../fonts/CircularStd-Bold.ttf");
+}
+@font-face {
+	font-family: "Circular";
+	font-weight: 800;
+	font-style: italic;
+	src: url("../fonts/CircularStd-BoldItalic.ttf");
+}
+@font-face {
+	font-family: "Circular";
+	font-weight: 1000;
+	src: url("../fonts/CircularStd-Black.ttf");
+}
+@font-face {
+	font-family: "Circular";
+	font-weight: 1000;
+	font-style: italic;
+	src: url("../fonts/CircularStd-BlackItalic.ttf");
 }
 * {
 	box-sizing: border-box;
 }
 h1 {
-	font-weight: 500;
+	font-weight: 600;
 	font-size: 60px;
 	letter-spacing: -2px;
 	line-height: 115%;
 }
 
 h2 {
-	font-weight: 500;
+	font-weight: 600;
 	font-size: 45px;
 	letter-spacing: -1px;
 	line-height: 140%;
 }
 h3 {
-	font-weight: 500;
+	font-weight: 600;
 	font-size: 36px;
 	letter-spacing: 0px;
 	line-height: 130%;
 }
 h4 {
-	font-weight: 500;
+	font-weight: 600;
 	font-size: 26px;
 	letter-spacing: 0px;
 	line-height: 140%;
@@ -39,7 +83,7 @@ h4 {
 
 body {
 	font-weight: 400;
-	font-size: 16px;
+	font-size: 14px;
 	letter-spacing: 0px;
 	line-height: 160%;
 	background-color: var(--navy-blue);
@@ -51,16 +95,53 @@ a {
 	color: inherit;
 	text-decoration: none;
 }
-
+.globalBtn {
+	padding: 5px 10px;
+	border-radius: 4px;
+	font-family: "Circular", Arial, Helvetica, sans-serif;
+	cursor: pointer;
+}
 .greenBtn {
-	padding: 5px 15px;
 	background-color: transparent;
 	color: #fff;
-	border-radius: 4px;
 	border: 1px solid var(--surge-green);
 	transition: color 0.5s;
 }
 .greenBtn:hover {
 	transition: color 0.5s;
 	color: var(--surge-green);
+}
+.gradientBg {
+	background: linear-gradient(
+		245.22deg,
+		#c200fb 7.97%,
+		#3772ff 49.17%,
+		#3773fe 0,
+		#5ac4be 92.1%
+	);
+}
+.gradientBg2 {
+	background: linear-gradient(150deg, #5ac4be 7.97%, #c200fb 92.1%);
+}
+.gradientBg3 {
+	background: linear-gradient(150deg, #349e98 7.97%, #3c918c 92.1%);
+}
+.gradientBorder {
+	padding: 1px;
+	border-radius: 4px;
+}
+.greenGradientSVG {
+	fill: url(#greenGradient) !important;
+}
+.greenGradientSVG2 {
+	fill: url(#greenGradient2) !important;
+}
+.purpleGradientSVG {
+	fill: url(#purpleGradient) !important;
+}
+
+@media only screen and (min-width: 600px) {
+	body {
+		font-size: 16px;
+	}
 }

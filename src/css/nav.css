@@ -61,12 +61,19 @@ nav {
 	top: 60px;
 	display: none;
 	background: var(--navy-blue);
+	z-index: 1;
 }
 .walletConnect {
 	justify-self: end;
 	align-self: center;
 	cursor: pointer;
 	margin-right: 1rem;
+	display: grid;
+	grid-template-columns: auto auto;
+}
+.walletConnect span {
+	align-self: center;
+	margin-left: 8px;
 }
 .navLink {
 	margin: 0rem;
