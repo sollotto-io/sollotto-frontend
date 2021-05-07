@@ -6,6 +6,7 @@ import PurchaseButton from "./PurchaseButton.js";
 import GreenGradientSvg from "../GreenGradientSvg";
 import GreenGradientSvg2 from "../GreenGradientSvg2";
 import PurpleGradientSvg from "../PurpleGradientSvg";
+import TicketPrice from "../TicketPrice";
 const PurchaseCard = () => {
 	return (
 		<div className='gradientBg gradientBorder'>
@@ -15,7 +16,10 @@ const PurchaseCard = () => {
 			<div className='purchaseCard'>
 				<NumberSelector />
 				<CharitySelector />
-				<PurchaseButton />
+				<div className='purchaseCardFooter'>
+					<TicketPrice value={0.01} />
+					<PurchaseButton />
+				</div>
 			</div>
 		</div>
 	);

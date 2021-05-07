@@ -7,9 +7,11 @@ import "../css/purchase.css";
 export default function Purchase() {
 	return (
 		<div id='purchaseSection'>
-			<PageTitle value='Purchase' />
-			<TicketPrice value={0.01} />
-			<HeaderInfo />
+			<div className='pageHeader'>
+				<PageTitle value='Purchase' />
+				<TicketPrice value={0.01} />
+				<HeaderInfo />
+			</div>
 			<PurchaseCard />
 		</div>
 	);
