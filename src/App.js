@@ -1,29 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Nav from "./components/Nav/";
 import Purchase from "./pages/Purchase";
 import Charities from "./pages/Charities";
 import Suggest from "./pages/Suggest";
 import Results from "./pages/Results";
+import { GlobalContext } from "./context/GlobalContext";
 function App() {
+	const [globalData, setGlobalData] = useState({
+		currentTicketprice: 0.01,
+		holdingWalletId: "QPouV0f4tNhqDCApKgmJ",
+		connectedWalletId: "nMjmjLoIp7VdwRMS",
+	});
 	return (
 		<div className='App'>
 			<Router>
-				<Nav />
-				<Switch>
-					<Route exact path='/purchase'>
-						<Purchase />
-					</Route>
-					<Route exact path='/charities'>
-						<Charities />
-					</Route>
-					<Route exact path='/suggest'>
-						<Suggest />
-					</Route>
-					<Route exact path='/results'>
-						<Results />
-					</Route>
-				</Switch>
+				<GlobalContext.Provider value={{ globalData, setGlobalData }}>
+					<Nav />
+					<Switch>
+						<Route exact path='/purchase'>
+							<Purchase />
+						</Route>
+						<Route exact path='/charities'>
+							<Charities />
+						</Route>
+						<Route exact path='/suggest'>
+							<Suggest />
+						</Route>
+						<Route exact path='/results'>
+							<Results />
+						</Route>
+					</Switch>
+				</GlobalContext.Provider>
 			</Router>
 		</div>
 	);

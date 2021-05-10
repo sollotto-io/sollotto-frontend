@@ -3,7 +3,7 @@
 	grid-template-columns: auto;
 	grid-template-rows: auto 1fr;
 	justify-content: center;
-	margin-top: 2rem;
+	margin: 2rem 0rem;
 	padding: 0rem 1rem;
 }
 .pageHeader {
@@ -95,7 +95,7 @@
 }
 .charitySelectorGrid {
 	display: grid;
-	grid-template-columns: auto auto;
+	grid-template-columns: auto;
 	margin-top: 0.2rem;
 }
 .charitySelector {
@@ -108,10 +108,10 @@
 	display: grid;
 	grid-template-columns: 100%;
 	background: rgba(19, 26, 53, 1);
-	width: 200px;
 	text-align: center;
 	height: 100%;
 	position: relative;
+	max-width: 350px;
 }
 .psuedoGreyBg {
 	transition: all 1s;
@@ -145,7 +145,6 @@
 .charityName {
 	margin: 1rem 0rem;
 	padding: 0px 0.5rem;
-	text-transform: uppercase;
 }
 .charitySelectBtn:disabled {
 	transition: all 0.5s;
@@ -170,4 +169,12 @@
 .purchaseCardFooter .ticketPrice {
 	justify-self: center;
 	margin-bottom: 0.5rem;
+}
+@media only screen and (min-width: 980px) {
+	.charitySelectorGrid {
+		grid-template-columns: auto auto;
+	}
+	.singleCharitySelector {
+		max-width: 200px;
+	}
 }

@@ -6,6 +6,7 @@
 	--tang: #ff852d;
 	--tungsten: #193650;
 	--navy-blue: #131a35;
+	--grey: #f1f1f2;
 	font-family: "Circular", Arial, Helvetica, sans-serif;
 }
 @font-face {
@@ -149,8 +150,60 @@ a {
 .blockDisplay {
 	display: block;
 }
+.connectModal {
+	display: grid;
+	place-content: center;
+}
+.connectModalItem {
+	background-color: var(--tungsten);
+	border-radius: 4px;
+}
+.modalTitle {
+	font-weight: 600;
+	border-bottom: solid 1px var(--grey);
+	padding: 1rem;
+	display: grid;
+	grid-template-columns: 1fr auto;
+}
+.modalList {
+	padding: 1rem;
+}
+.modalListItem {
+	list-style-type: none;
+	border-radius: 4px;
+	padding: 1rem;
+	margin-top: 1rem;
+	cursor: pointer;
+}
+.transpInfoToolTip {
+	font-size: 14px;
+}
+.transpInfoToolTip,
+.transpInfoToolTipTitle,
+.transpInfoToolTipBody {
+	padding: 0.3rem;
+}
+.copyText {
+	margin: 0rem 10px;
+	background-color: var(--navy-blue);
+	padding: 10px;
+	border-radius: 4px;
+}
+.transpInfoToolTipBody {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+}
+.transpInfoToolTipBody > * {
+	place-self: center;
+}
 @media only screen and (min-width: 600px) {
 	body {
 		font-size: 16px;
+	}
+}
+@media only screen and (min-width: 980px) {
+	.connectModalItem {
+		width: 550px;
+		max-width: 550px;
 	}
 }

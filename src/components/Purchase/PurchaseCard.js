@@ -14,12 +14,14 @@ const PurchaseCard = () => {
 			<GreenGradientSvg2 />
 			<PurpleGradientSvg />
 			<div className='purchaseCard'>
-				<NumberSelector />
-				<CharitySelector />
-				<div className='purchaseCardFooter'>
-					<TicketPrice value={0.01} />
-					<PurchaseButton />
-				</div>
+				<form action=''>
+					<NumberSelector />
+					<CharitySelector />
+					<div className='purchaseCardFooter'>
+						<TicketPrice />
+						<PurchaseButton />
+					</div>
+				</form>
 			</div>
 		</div>
 	);

@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext, createContext } from "react";
 import SingleCharitySelector from "./SingleCharitySelector";
+import { PurchaseContext } from "../../context/PurchaseContext";
+export const CharityIndexContext = createContext(null);
 
 export default function CharitySelectorGrid() {
 	const [selectedCharity, setSelectedCharity] = useState(null);
 	const [selectBtnRefArr, setSelectBtnRefArr] = useState([]);
+	const { purchaseData } = useContext(PurchaseContext);
 
 	var charitySelectHandler = (charityBtn, charityBlock) => {
 		if (charityBtn === selectedCharity) {
@@ -43,32 +46,20 @@ export default function CharitySelectorGrid() {
 			});
 		}
 	};
-	return (
-		<div className='charitySelectorGrid'>
-			<SingleCharitySelector
-				name='All Hands and Hearts'
-				charityId={1}
-				charitySelectHandler={charitySelectHandler}
-				selectBtnRefArr={selectBtnRefArr}
-			/>
-			<SingleCharitySelector
-				name='International Medical Corps'
-				charityId={2}
-				charitySelectHandler={charitySelectHandler}
-				selectBtnRefArr={selectBtnRefArr}
-			/>
-			<SingleCharitySelector
-				name='Opportunity International'
-				charityId={3}
-				charitySelectHandler={charitySelectHandler}
-				selectBtnRefArr={selectBtnRefArr}
-			/>
-			<SingleCharitySelector
-				name='UNICEF'
-				charityId={4}
-				charitySelectHandler={charitySelectHandler}
-				selectBtnRefArr={selectBtnRefArr}
-			/>
-		</div>
-	);
+	const displayCharities = () => {
+		const charities = [];
+		for (let index = 0; index < purchaseData.activeCharities.length; index++) {
+			charities.push(
+				<CharityIndexContext.Provider key={index} value={index}>
+					<SingleCharitySelector
+						charityId={purchaseData.activeCharities[index].id}
+						charitySelectHandler={charitySelectHandler}
+						selectBtnRefArr={selectBtnRefArr}
+					/>
+				</CharityIndexContext.Provider>
+			);
+		}
+		return charities;
+	};
+	return <div className='charitySelectorGrid'>{displayCharities()}</div>;
 }

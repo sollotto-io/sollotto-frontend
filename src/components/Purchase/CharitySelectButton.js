@@ -8,6 +8,7 @@ const CharitySelect = (props) => {
 	return (
 		<div className='gradientBg charitySelectBtnWrapper gradientBorder'>
 			<button
+				type='button'
 				className='charitySelectBtn globalBtn'
 				onClick={() => {
 					props.charityBtnHandler(btnRef.current);
