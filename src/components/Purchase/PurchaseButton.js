@@ -1,12 +1,13 @@
 import React, { useContext, useState } from "react";
-import ConnectWalletModal from "../ConnectWalletModal/ConnectWalletModal";
+import ConnectWalletModal from "../Nav/ConnectWalletModal/ConnectWalletModal";
 import { GlobalContext } from "../../context/GlobalContext";
 
 export default function PurchaseButton() {
-	const { globalData, setGlobalData } = useContext(GlobalContext);
+	const { globalData } = useContext(GlobalContext);
 	const [open, setOpen] = useState(false);
 	const handleClose = () => {
 		setOpen(false);
+	
 	};
 	const handleClickOpen = () => {
 		setOpen(true);

@@ -1,10 +1,10 @@
 import React from "react";
 
-function Card(WrappedComponenet) {
+function Card(WrappedComponent) {
 	return function (props) {
 		return (
 			<div className='card'>
-				<WrappedComponenet />
+				<WrappedComponent />
 			</div>
 		);
 	};

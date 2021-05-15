@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import CharityImage from "./CharityImage";
 import CharityName from "./CharityName";
 import CharitySelectButton from "./CharitySelectButton";
-import SolLottoLogo from "../SolLottoLogo";
+import SolLottoLogo from "./purchase-components/SolLottoLogo";
 const SingleCharitySelector = (props) => {
 	const singleCharityRef = useRef(null);
 	var charityBtnHandler = (charityBtn) => {

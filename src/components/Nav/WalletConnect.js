@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AccountBalanceWalletOutlinedIcon from "@material-ui/icons/AccountBalanceWalletOutlined";
-import ConnectWalletModal from "../ConnectWalletModal/ConnectWalletModal";
+import ConnectWalletModal from "./ConnectWalletModal/ConnectWalletModal";
 
 export default function WalletConnect() {
 	const [open, setOpen] = useState(false);

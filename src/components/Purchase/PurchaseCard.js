@@ -1,12 +1,14 @@
 import React from "react";
-import Card from "../Card";
+import Card from "./purchase-components/Card";
 import NumberSelector from "./NumberSelector";
 import CharitySelector from "./CharitySelector";
 import PurchaseButton from "./PurchaseButton.js";
-import GreenGradientSvg from "../GreenGradientSvg";
-import GreenGradientSvg2 from "../GreenGradientSvg2";
-import PurpleGradientSvg from "../PurpleGradientSvg";
-import TicketPrice from "../TicketPrice";
+import GreenGradientSvg from "./purchase-components/GreenGradientSvg";
+import GreenGradientSvg2 from "./purchase-components/GreenGradientSvg2";
+import PurpleGradientSvg from "./purchase-components/PurpleGradientSvg";
+import TicketPrice from "./purchase-components/TicketPrice";
+
+
 const PurchaseCard = () => {
 	return (
 		<div className='gradientBg gradientBorder'>
@@ -18,7 +20,7 @@ const PurchaseCard = () => {
 					<NumberSelector />
 					<CharitySelector />
 					<div className='purchaseCardFooter'>
-						<TicketPrice />
+						<TicketPrice/>
 						<PurchaseButton />
 					</div>
 				</form>

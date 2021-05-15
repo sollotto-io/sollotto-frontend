@@ -5,7 +5,7 @@ import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import Zoom from "@material-ui/core/Zoom";
 import IconButton from "@material-ui/core/IconButton";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
-import { GlobalContext } from "../context/GlobalContext";
+import { GlobalContext } from "../../../context/GlobalContext";
 const TanspInfoToolTip = withStyles({
 	tooltip: {
 		background: "var(--tungsten)",
