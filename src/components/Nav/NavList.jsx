@@ -12,7 +12,7 @@ export default function NavList(props) {
 			<NavItem url_link='charities' />
 			<NavItem url_link='suggest' />
 			<NavItem url_link='results' />
-			<NavItem url_link='pool' />
+			<NavItem url_link='pools' />
 		</div>
 	);
 }

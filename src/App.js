@@ -11,8 +11,10 @@ function App() {
 	const [globalData, setGlobalData] = useState({
 		currentTicketprice: 0.01,
 		holdingWalletId: "QPouV0f4tNhqDCApKgmJ",
-		connectedWalletId: "nMjmjLoIp7VdwRMS",
-	});
+		connectedWalletId: null,
+		ticketNumbers: [],
+		selectedCharity: null,
+		});
 	return (
 		<div className='App'>
 			<Router>
@@ -31,7 +33,7 @@ function App() {
 						<Route exact path='/results'>
 							<Results />
 						</Route>
-						<Route exact path='/pool'>
+						<Route exact path='/pools'>
 							<Pool />
 						</Route>
 					</Switch>

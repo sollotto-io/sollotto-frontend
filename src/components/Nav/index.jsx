@@ -16,7 +16,7 @@ export default function Nav() {
     <nav>
       <Logo />
       <NavList navActive={navActive} />
-      <WalletConnect />
+      <WalletConnect  />
       <HamBtn onMenuClick={menuClickHandler} />
     </nav>
   );
