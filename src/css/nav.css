@@ -87,7 +87,7 @@ nav {
 .navLink:hover {
 	transition: all 0.5s;
 	color: #fff;
-	border-bottom: 1px solid var(--purple-dino);
+	border-bottom: 1px solid var(--ocean);
 }
 @media only screen and (min-width: 980px) {
 	nav {

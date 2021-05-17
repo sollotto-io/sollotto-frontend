@@ -5,6 +5,7 @@ import Purchase from "./pages/Purchase";
 import Charities from "./pages/Charities";
 import Suggest from "./pages/Suggest";
 import Results from "./pages/Results";
+import Pool from './pages/Pool'
 import { GlobalContext } from "./context/GlobalContext";
 function App() {
 	const [globalData, setGlobalData] = useState({
@@ -29,6 +30,9 @@ function App() {
 						</Route>
 						<Route exact path='/results'>
 							<Results />
+						</Route>
+						<Route exact path='/pool'>
+							<Pool />
 						</Route>
 					</Switch>
 				</GlobalContext.Provider>
