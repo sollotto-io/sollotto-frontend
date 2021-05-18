@@ -16,8 +16,9 @@ const SingleCharitySelector = (props) => {
 			<div className='singleCharitySelector'>
 				<SolLottoLogo charitySelectorIcon={true} />
 				<CharityImage />
-				<CharityName charityIndex={props.charityIndex} />
+				<CharityName charityIndex={props.charityName} />
 				<CharitySelectButton
+					charityName = {props.charityName}
 					charityId={props.charityId}
 					charityBtnHandler={charityBtnHandler}
 					selectBtnRefArr={props.selectBtnRefArr}

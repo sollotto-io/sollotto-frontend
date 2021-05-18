@@ -1,24 +1,22 @@
 import React, { useContext } from "react";
 
+import { PurchaseContext } from "../../context/PurchaseContext";
 import { GlobalContext } from "../../context/GlobalContext";
 
-export default function PurchaseButton({ Numbers }) {
-  const { globalData, setGlobalData } = useContext(GlobalContext);
-  console.log(globalData);
+export default function PurchaseButton({ selectedCharity, Numbers }) {
+  const { purchaseData, setpurchaseData} = useContext(PurchaseContext);
+  const { globalData} = useContext(GlobalContext);
   var tempArray = [];
   const getTicket = () => {
     Numbers.current.map((el, index) => {
       return (tempArray[index] = parseInt(el.value));
     });
-    setGlobalData({
-      ...globalData,
+    setpurchaseData({
+      ...purchaseData,
       ticketNumbers: tempArray,
+      Charity: selectedCharity.value
     });
   };
-  // const handleClickOpen = ()=>{
-  // 	setOpen(true);
-
-  // }
   const connectWalletBtn = () => {
     return (
       <>

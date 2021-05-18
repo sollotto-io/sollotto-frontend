@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Nav from "./components/Nav/";
 import Purchase from "./pages/Purchase";
@@ -12,9 +12,12 @@ function App() {
 		currentTicketprice: 0.01,
 		holdingWalletId: "QPouV0f4tNhqDCApKgmJ",
 		connectedWalletId: null,
-		ticketNumbers: [],
-		selectedCharity: null,
 		});
+
+		useEffect(() => {
+			console.log(globalData)
+		}, [globalData])
+
 	return (
 		<div className='App'>
 			<Router>

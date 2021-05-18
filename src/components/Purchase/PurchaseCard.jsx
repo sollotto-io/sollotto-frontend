@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Card from "./purchase-components/Card";
 import NumberSelector from "./NumberSelector";
 import CharitySelector from "./CharitySelector";
@@ -10,6 +10,8 @@ import TicketPrice from "./purchase-components/TicketPrice";
 
 
 const PurchaseCard = () => {
+	const [selectedCharity, setSelectedCharity] = useState(null);
+
 	const ticketNumbers = useRef([])
 	return (
 		<div className='gradientBg gradientBorder'>
@@ -19,10 +21,10 @@ const PurchaseCard = () => {
 			<div className='purchaseCard'>
 				<form action=''>
 					<NumberSelector ticketNumbers ={ticketNumbers} />
-					<CharitySelector />
+					<CharitySelector selectedCharity={selectedCharity} setSelectedCharity={setSelectedCharity}  />
 					<div className='purchaseCardFooter'>
 						<TicketPrice/>
-						<PurchaseButton Numbers ={ticketNumbers} />
+						<PurchaseButton selectedCharity={selectedCharity} Numbers ={ticketNumbers} />
 					</div>
 				</form>
 			</div>

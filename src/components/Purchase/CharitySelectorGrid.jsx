@@ -1,12 +1,14 @@
 import React, { useState, useContext, createContext } from "react";
 import SingleCharitySelector from "./SingleCharitySelector";
 import { PurchaseContext } from "../../context/PurchaseContext";
+
 export const CharityIndexContext = createContext(null);
 
-export default function CharitySelectorGrid() {
-	const [selectedCharity, setSelectedCharity] = useState(null);
-	const [selectBtnRefArr, setSelectBtnRefArr] = useState([]);
-	const { purchaseData } = useContext(PurchaseContext);
+export default function CharitySelectorGrid({selectedCharity,setSelectedCharity}) {
+	const [selectBtnRefArr] = useState([]);
+	const {data}  = useContext(PurchaseContext);
+
+//------------border and button styling while selected--------------------
 
 	var charitySelectHandler = (charityBtn, charityBlock) => {
 		if (charityBtn === selectedCharity) {
@@ -46,13 +48,16 @@ export default function CharitySelectorGrid() {
 			});
 		}
 	};
+
+//---------display charities------------------
 	const displayCharities = () => {
 		const charities = [];
-		for (let index = 0; index < purchaseData.activeCharities.length; index++) {
+		for (let index = 0; index < data.getAllCharities.length; index++) {
 			charities.push(
 				<CharityIndexContext.Provider key={index} value={index}>
 					<SingleCharitySelector
-						charityId={purchaseData.activeCharities[index].id}
+						charityId={data.getAllCharities[index].id}
+						charityName = {data.getAllCharities[index].charityName}
 						charitySelectHandler={charitySelectHandler}
 						selectBtnRefArr={selectBtnRefArr}
 					/>
@@ -61,5 +66,10 @@ export default function CharitySelectorGrid() {
 		}
 		return charities;
 	};
-	return <div className='charitySelectorGrid'>{displayCharities()}</div>;
+
+	
+	return data?  <div className='charitySelectorGrid'>{displayCharities()}</div> : <h1>helo</h1>;
+
 }
+	
+
