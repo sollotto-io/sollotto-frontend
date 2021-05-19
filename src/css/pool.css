@@ -27,6 +27,7 @@
     border: 1px white solid;
     background-color: transparent;
     border-radius: 5px;
+    color: white;
 }
 #search-pool ::placeholder{
     color: white;
@@ -56,19 +57,21 @@
     font-size: 10px;
     cursor: pointer;
 }
-
-
-
-.pool-table{
-    padding: 10px;
-    background-color: var(--tungsten);
+.table{
+    min-width: 20em;
+    background-color:var(--tungsten);
+    border: 0;
+    box-shadow: 0;
 }
+
+
+
 
 
 @media only screen and (min-width: 980px) {
     #search-pool{
         margin-top: 10px;
-        width: 30rem;
+        width: 40rem;
         padding: 10px;
         border: 1px white solid;
         background-color: transparent;
@@ -86,4 +89,14 @@
         
     }
 
+}
+
+.table{
+    min-width: 40em;
+    background-color:var(--tungsten);
+    border: 0;
+    box-shadow: 0;
+}
+.tableRow{
+    cursor: pointer;
 }

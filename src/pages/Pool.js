@@ -1,27 +1,33 @@
-import React from 'react'
-import PageTitle from '../components/common/PageTitle'
-import SortHeader from '../components/Pool/sortHeader'
-import SortButtons from '../components/Pool/sortButtons'
-import "../css/pool.css"
+import React, { useContext } from "react";
+import PageTitle from "../components/common/PageTitle";
+import SortHeader from "../components/Pool/sortHeader";
+import SortButtons from "../components/Pool/sortButtons";
+import PoolTable from "../components/Pool/poolTable";
+import "../css/pool.css";
+import {GlobalContext} from "../context/GlobalContext"
 
 const Pool = () => {
-    return (
-        <div id="poolSection">
-           
-            <div id="poolHeader">
-                <PageTitle title ="Pools"/>
-                <input id="search-pool" type="text" name="name" placeholder="Search pools by name or ticker"/>
-                </div>   
-                <div className="wrapper">
-                   <SortHeader/>
-                   <SortButtons/>
-                </div>
-                <div className="pool-table">
-            <p>pool table</p>
-                </div>
-                
-        </div>
-    )
-}
+  const {globalData} = useContext(GlobalContext)
+ 
+  return (
+    <div id="poolSection">
+      <div id="poolHeader">
+        <PageTitle title="Pools" />
+        <input
+          id="search-pool"
+          type="text"
+          name="name"
+          placeholder="Search pools by name or ticker"
+        />
+      </div>
+      <div className="wrapper">
+        <SortHeader />
+        <SortButtons />
+      </div>
 
-export default Pool
+      <PoolTable rows = {globalData.pools} />
+    </div>
+  );
+};
+
+export default Pool;
