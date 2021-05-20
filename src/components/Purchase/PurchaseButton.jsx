@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-
+import WalletConnect from "../Nav/WalletConnect"
 import { PurchaseContext } from "../../context/PurchaseContext";
 import { GlobalContext } from "../../context/GlobalContext";
 
@@ -19,21 +19,7 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
   };
   const connectWalletBtn = () => {
     return (
-      <>
-        <p style={{ textAlign: "center" }}>please connect your wallet</p>
-      </>
-      // <WalletConnect/>
-
-      // <>
-      // 	<button
-      // 		type='button'
-      // 		onClick={handleClickOpen}
-      // 		className='greenBtn globalBtn'
-      // 	>
-      // 		Connect Wallet
-      // 	</button>
-      // 	<ConnectWalletModal open={open} handleClose={handleClose} />
-      // </>
+      <WalletConnect />
     );
   };
   const getTicketBtn = () => {
@@ -52,7 +38,7 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
   };
   return (
     <>
-      {globalData.connectedWalletId !== null
+      {globalData.walletConnectedFlag === true
         ? getTicketBtn()
         : connectWalletBtn()}
     </>

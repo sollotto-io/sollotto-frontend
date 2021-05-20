@@ -112,6 +112,12 @@ a {
 	transition: color 0.5s;
 	color: var(--surge-green);
 }
+.greenBtnWOHover {
+	background-color: transparent;
+	color: #fff;
+	border: 1px solid var(--surge-green);
+	transition: color 0.5s;
+}
 .gradientBg {
 	transition: all 1s;
 	background: linear-gradient(
