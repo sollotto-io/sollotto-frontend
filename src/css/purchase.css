@@ -90,10 +90,8 @@
 	color: #fff;
 	font-family: "Circular", Arial, Helvetica, sans-serif;
 }
-.numberCount{
-	
+.numberCount {
 	padding: 5px;
-
 }
 .numberSelectorArrow {
 	cursor: pointer;
@@ -172,6 +170,7 @@
 	display: grid;
 	margin-top: 1rem;
 	padding: 0.5rem;
+	justify-content: center;
 }
 .purchaseCardFooter .ticketPrice {
 	justify-self: center;
