@@ -52,12 +52,12 @@ export default function CharitySelectorGrid({selectedCharity,setSelectedCharity}
 //---------display charities------------------
 	const displayCharities = () => {
 		const charities = [];
-		for (let index = 0; index < data.getAllCharities.length; index++) {
+		for (let index = 0; index < data.getActiveCharities.length; index++) {
 			charities.push(
 				<CharityIndexContext.Provider key={index} value={index}>
 					<SingleCharitySelector
-						charityId={data.getAllCharities[index].id}
-						charityName = {data.getAllCharities[index].charityName}
+						charityId={data.getActiveCharities[index].id}
+						charityName = {data.getActiveCharities[index].charityName}
 						charitySelectHandler={charitySelectHandler}
 						selectBtnRefArr={selectBtnRefArr}
 					/>

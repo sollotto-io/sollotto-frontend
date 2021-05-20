@@ -11,19 +11,18 @@ import { FETCH_CHARITIES } from "../graphql/queries";
 function Purchase() {
   const { loading, data } = useQuery(FETCH_CHARITIES);
   const [purchaseData, setpurchaseData] = useState({
-	ticketNumbers: [],
-	Charity: null,
-  })
+    ticketNumbers: [],
+    Charity: null,
+  });
   useEffect(() => {
-	console.log(purchaseData)
-}, [purchaseData])
-
+    console.log(purchaseData);
+  }, [purchaseData]);
 
   if (loading) {
-    return "hello";
+    return "Loading";
   } else {
     return (
-      <PurchaseContext.Provider value={{data,purchaseData, setpurchaseData}}>
+      <PurchaseContext.Provider value={{ data, purchaseData, setpurchaseData }}>
         <div id="purchaseSection">
           <div className="pageHeader">
             <PageTitle title="Purchase" />

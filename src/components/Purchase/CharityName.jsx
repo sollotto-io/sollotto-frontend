@@ -6,7 +6,7 @@ export default function CharityName(props) {
 	const charityIndexValue = useContext(CharityIndexContext);
 	return (
 		<div className='charityName'>
-			{data.getAllCharities[charityIndexValue].charityName}
+			{data.getActiveCharities[charityIndexValue].charityName}
 		</div>
 	);
 }

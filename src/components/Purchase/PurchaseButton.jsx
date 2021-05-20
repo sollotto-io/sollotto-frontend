@@ -4,18 +4,25 @@ import { PurchaseContext } from "../../context/PurchaseContext";
 import { GlobalContext } from "../../context/GlobalContext";
 
 export default function PurchaseButton({ selectedCharity, Numbers }) {
-  const { purchaseData, setpurchaseData} = useContext(PurchaseContext);
-  const { globalData} = useContext(GlobalContext);
+  const { purchaseData, setpurchaseData } = useContext(PurchaseContext);
+  const { globalData } = useContext(GlobalContext);
   var tempArray = [];
   const getTicket = () => {
     Numbers.current.map((el, index) => {
-      return (tempArray[index] = parseInt(el.value));
+      return (tempArray[index] = el.value);
     });
-    setpurchaseData({
-      ...purchaseData,
-      ticketNumbers: tempArray,
-      Charity: selectedCharity.value
-    });
+    if(tempArray === [] || selectedCharity === null ){
+      console.log("empty");
+    }else{
+      setpurchaseData({
+        ...purchaseData,
+        ticketNumbers: tempArray,
+        Charity: selectedCharity.value,
+      });
+
+    }
+
+   
   };
   const connectWalletBtn = () => {
     return (

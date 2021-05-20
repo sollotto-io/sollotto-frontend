@@ -2,10 +2,9 @@ import gql from "graphql-tag";
 
 export const FETCH_CHARITIES = gql`
   {
-    getAllCharities {
+    getActiveCharities {
       id
       charityName
-      Status
     }
   }
 `;
