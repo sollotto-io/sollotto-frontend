@@ -1,15 +1,11 @@
 import React from "react";
-import moment from "moment"
-import Countdown from 'react-countdown';
-
+import Counter from "./countdown"
 const TimeRemaining = ({ time }) => {
  return (
     <div className="gradientBg">
       <div id="poolTimeR">
         <h4>Time Remaining</h4>
-        <Countdown className="timer" date={moment(time).format()}
-  
-            />
+        <Counter time ={time}/>
       </div>
     </div>
   );

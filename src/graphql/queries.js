@@ -20,6 +20,7 @@ export const FETCH_POOLS = gql`
     TotalDeposit
     TotalLiquidity
     Odds
+    currentTicketPrice
   }
   }
 `;
