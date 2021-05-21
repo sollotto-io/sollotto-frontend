@@ -8,36 +8,23 @@ import Results from "./pages/Results";
 import Pool from "./pages/Pool";
 import PoolDetailPage from "./components/Pool/poolDetailPage";
 import { GlobalContext } from "./context/GlobalContext";
+import { useQuery } from "@apollo/react-hooks";
+import { FETCH_POOLS } from "./graphql/queries";
+
+
 function App() {
+	const { loading, data } = useQuery(FETCH_POOLS);
+	
+	
 	const [globalData, setGlobalData] = useState({
 		currentTicketprice: 0.01,
 		holdingWalletId: "QPouV0f4tNhqDCApKgmJ",
 		connectedWalletId: null,
-		pools: [
-			{
-				PoolName: "SOLANA POOL",
-				Pool: "SOL",
-				PrizePool: 100.001,
-				TimeRemaining: 2,
-				PoolARP: "8.5ARP",
-				TotalDeposit: 4444.0,
-				TotalLiquidity: 24000,
-				Odds: "1 in 42",
-			},
-			{
-				PoolName: "RAYDIUM POOL",
-				Pool: "RAY",
-				PrizePool: 237.255,
-				TimeRemaining: 10,
-				PoolARP: "10.5ARP",
-				TotalDeposit: 2222.3,
-				TotalLiquidity: 48000,
-				Odds: "1 in 67",
-			},
-		],
+		pools: [],
 		selectedWallet: null,
 		walletConnectedFlag: false,
 	});
+
 	useEffect(() => {
 		if (globalData.selectedWallet) {
 			globalData.selectedWallet.on("connect", () => {
@@ -56,7 +43,15 @@ function App() {
 				globalData.selectedWallet.disconnect();
 			};
 		}
-	}, [globalData.selectedWallet]);
+		if(loading){
+			console.log("true")
+		}else{
+			setGlobalData({
+				...globalData, pools:data.getAllPools
+			})
+		}
+	
+	}, [globalData.selectedWallet,loading]);
 	return (
 		<div className='App'>
 			<Router>

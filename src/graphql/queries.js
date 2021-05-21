@@ -8,3 +8,20 @@ export const FETCH_CHARITIES = gql`
     }
   }
 `;
+export const FETCH_POOLS = gql`
+  {
+    getAllPools{
+    id
+    PoolName
+    Pool
+    PrizePool
+    TimeRemaining
+    PoolARP
+    TotalDeposit
+    TotalLiquidity
+    Odds
+  }
+  }
+`;
+
+
