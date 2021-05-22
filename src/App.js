@@ -16,7 +16,6 @@ function App() {
   const { loading, data } = useQuery(FETCH_POOLS);
 
   const [globalData, setGlobalData] = useState({
-    currentTicketprice: 0.01,
     holdingWalletId: "QPouV0f4tNhqDCApKgmJ",
     pools: [],
     selectedWallet: null,
