@@ -3,7 +3,7 @@ import React from 'react'
 const PDetails = ({poolDetail}) => {
     return (
         <section id="poolD">
-        <h4>{poolDetail.PoolName}</h4>
+        <h4> {poolDetail.PoolName}</h4>
        
         <div id="other-details">
             <section>
@@ -32,4 +32,4 @@ const PDetails = ({poolDetail}) => {
     )
 }
 
-export default PDetails
+export default PDetails;

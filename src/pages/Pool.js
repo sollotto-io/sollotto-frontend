@@ -24,8 +24,8 @@ const Pool = () => {
         <SortHeader />
         <SortButtons />
       </div>
-
-      <PoolTable rows = {globalData.pools} />
+      {globalData.pools ?  <PoolTable rows = {globalData.pools} /> : "" }
+     
     </div>
   );
 };

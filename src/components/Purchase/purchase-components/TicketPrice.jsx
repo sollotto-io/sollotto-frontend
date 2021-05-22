@@ -5,7 +5,7 @@ export default function TicketPrice() {
 	const { globalData } = useContext(GlobalContext);
 	return (
 		<div className='ticketPrice'>
-			Ticket Price: {globalData.currentTicketprice} SOL
+			Ticket Price: {globalData.pools[0].currentTicketPrice} SOL
 		</div>
 	);
 }

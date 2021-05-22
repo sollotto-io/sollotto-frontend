@@ -18,7 +18,6 @@ function App() {
   const [globalData, setGlobalData] = useState({
     currentTicketprice: 0.01,
     holdingWalletId: "QPouV0f4tNhqDCApKgmJ",
-    connectedWalletId: null,
     pools: [],
     selectedWallet: null,
     walletConnectedFlag: false,
