@@ -8,6 +8,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core";
 import { useHistory } from "react-router";
+import moment from "moment"
 
 const StyledTableCell = withStyles({
   root: {
@@ -34,7 +35,7 @@ export default function PoolTable({ rows }) {
           <TableRow>
             <StyledTableCell>Pool</StyledTableCell>
             <StyledTableCell align="right">Prize Pool</StyledTableCell>
-            <StyledTableCell align="right">Time Remaining</StyledTableCell>
+            <StyledTableCell align="right">Last Date</StyledTableCell>
             <StyledTableCell align="right">Pool ARP</StyledTableCell>
             <StyledTableCell align="right">Total Deposit</StyledTableCell>
             <StyledTableCell align="right"></StyledTableCell>
@@ -52,7 +53,7 @@ export default function PoolTable({ rows }) {
               </StyledTableCell>
               <StyledTableCell align="right">{row.PrizePool}</StyledTableCell>
               <StyledTableCell align="right">
-                {row.TimeRemaining}
+                {moment(row.TimeRemaining).format('L')}
               </StyledTableCell>
               <StyledTableCell align="right">{row.PoolARP}</StyledTableCell>
               <StyledTableCell align="right">
