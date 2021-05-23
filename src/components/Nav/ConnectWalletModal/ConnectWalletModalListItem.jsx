@@ -4,7 +4,7 @@ import Wallet from '@project-serum/sol-wallet-adapter';
 import {GlobalContext} from "../../../context/GlobalContext";
 
 export default function ConnectWalletModalListItem() {
-	const network = clusterApiUrl('devnet');
+	const network = 'http://localhost:8899';
 	const {globalData,setGlobalData}  = useContext(GlobalContext);
 	const [providerUrl, setProviderUrl] = useState('https://www.sollet.io');
 	const connection = useMemo(() => new Connection(network), [network]);
