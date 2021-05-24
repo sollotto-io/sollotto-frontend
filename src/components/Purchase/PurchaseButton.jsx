@@ -84,7 +84,7 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
   const initLottery = async () => {
     
     let lotteryInitProgramId = new PublicKey("3s4XSA1XVfqgq8YhgA4N1soza1mwKz36eh3PZqkaaLLA");
-    let holdingWalletId = new PublicKey("74PY3822qBkN81JD3rDN5vqmUPFgPpC2LXh5ZxgR2RL3");
+    let holdingWalletId = globalData.selectedWallet.publicKey;
     
     try {
         let lottery_id = 1;
@@ -95,7 +95,7 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
         const createLotteryDataAccountTx = SystemProgram.createAccount({
           space:42,
           lamports: 10,
-          fromPubkey: '74PY3822qBkN81JD3rDN5vqmUPFgPpC2LXh5ZxgR2RL3',
+          fromPubkey: globalData.selectedWallet.publicKey,
           newAccountPubkey: lotteryDataAccount.publicKey,
           programId: lotteryInitProgramId
       });
@@ -104,7 +104,7 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
           keys: [
               { pubkey: lotteryDataAccount.publicKey, isSigner: false, isWritable: true },
               { pubkey: SYSVAR_RENT_PUBKEY, isSigner: false, isWritable: false},
-              { pubkey: holdingWalletId, isSigner: true, isWritable: false},
+              { pubkey: globalData.selectedWallet.publicKey, isSigner: true, isWritable: false },
           ],
           data: Buffer.from(Uint8Array.of(1, ...new BN(dataArr).toArray("le", 8)))
       })
@@ -116,10 +116,16 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
 			  await connection.getRecentBlockhash()
 			).blockhash;
 			console.log('Sending signature request to wallet');
-			transaction.feePayer = holdingWalletId;
-			// let signed = await globalData.selectedWallet.signTransaction(transaction);
-			console.log('Got signature, submitting transaction');
-			let signature = await connection.sendTransaction(transaction, [holdingWalletId, lotteryDataAccount.publicKey], {skipPreflight: false, preflightCommitment: 'singleGossip'});
+			transaction.feePayer = globalData.selectedWallet.publicKey;
+      console.log(transaction);
+      let signed = await globalData.selectedWallet.signTransaction(transaction);
+      let signed2 = await transaction.sign({signers:[lotteryDataAccount]});
+      let verify_signed = await transaction.verifySignatures();
+      console.log(verify_signed);
+			console.log('Got signature, submitting transaction:');
+      console.log(signed);
+      console.log(signed2);
+			let signature = await connection.sendRawTransaction(signed.serialize());
 			console.log('Submitted transaction ' + signature + ', awaiting confirmation');
 			await connection.confirmTransaction(signature, 'singleGossip');
       const encodedLotteryState = (await connection.getAccountInfo(lotteryDataAccount.publicKey, 'singleGossip')).data;
