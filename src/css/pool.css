@@ -19,7 +19,7 @@
 
 #search-pool {
   margin-top: 10px;
-  width: 20rem;
+  width: 100%;
   padding: 10px;
   border: 1px white solid;
   background-color: transparent;
@@ -144,7 +144,7 @@
 @media only screen and (min-width: 980px) {
   #search-pool {
     margin-top: 10px;
-    width: 40rem;
+    width: 100%;
     padding: 10px;
     border: 1px white solid;
     background-color: transparent;

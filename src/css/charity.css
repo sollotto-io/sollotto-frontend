@@ -1,0 +1,122 @@
+.charitySection {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto 1fr;
+  justify-content: center;
+  margin: 2rem 0rem;
+  padding: 0rem 1rem;
+}
+#charityHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+#charityHeader h4 {
+  margin: 20px 0px 10px 0px;
+}
+#charityHeader div {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 10px;
+}
+#charityHeader p {
+  font-size: 12px;
+}
+#poolC {
+  background-color: rgba(0, 0, 0, 0.322);
+  padding: 10px 30px 10px 30px;
+  /* border-radius: 20px 0px 0px 20px; */
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto 1fr;
+  width: 100%;
+}
+
+#poolC hr {
+  border: 1px rgba(128, 128, 128, 0.26) solid;
+  background-color: rgba(128, 128, 128, 0.26);
+}
+#other-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+ 
+  height: 70%;
+}
+#charitySelect {
+  background: rgba(19, 26, 53, 0.9);
+  padding: 10px;
+  /* border-radius: 0px 20px 20px 0px; */
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+#charitySelect p {
+  font-size: 20px;
+}
+
+@media only screen and (min-width: 980px) {
+  #search-pool {
+    width: 100% !important;
+  }
+  #charityHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.5px gray solid;
+    padding-bottom: 10px;
+
+  }
+
+  #charityHeader div {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 20px;
+  }
+  #charityHeader p {
+    font-size: 12px;
+  margin: 20px 0px 10px 0px;
+
+  }
+
+  #poolC {
+    background-color: rgba(0, 0, 0, 0.322);
+    padding: 10px 30px 10px 30px;
+    border-radius: 20px 0px 0px 20px;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto 1fr;
+    width: 40em;
+  }
+
+  
+  #other-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+ 
+    height: 70%;
+  }
+
+  #charitySelect {
+    background: rgba(19, 26, 53, 0.9);
+    padding: 10px;
+    border-radius: 0px 20px 20px 0px;
+    height: 100%;
+    width: 20em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+  }
+
+  .gradientBg {
+    border-radius: 0px 20px 20px 0px;
+  }
+}
