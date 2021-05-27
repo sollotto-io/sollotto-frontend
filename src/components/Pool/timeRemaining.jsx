@@ -5,7 +5,7 @@ const TimeRemaining = ({ time }) => {
     <div className="gradientBg">
       <div id="poolTimeR">
         <h4>Time Remaining</h4>
-        <Counter time ={time}/>
+        <Counter message="This pool is temporarily closed while we select a winner for this drawing" time ={time}/>
       </div>
     </div>
   );

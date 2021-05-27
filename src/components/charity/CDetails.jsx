@@ -1,5 +1,6 @@
 import React from 'react'
-
+import SollotoGradient from "../common/sollotoGradient"
+import OtherButton from "../common/otherButton"
 
 const CDetails = ({charityDetail}) => {
 
@@ -8,9 +9,8 @@ const CDetails = ({charityDetail}) => {
          <div id="charityHeader">   
         <h4> {charityDetail.charityName}</h4>
         <div>
-            <p className=" gradientBorder" >
-                {charityDetail.addedBy}</p>
-            <p>{charityDetail.Status}</p>
+            <SollotoGradient addedBy= {charityDetail.addedBy}/>
+            <OtherButton others={charityDetail.Status}/>
         </div>
        
         </div>

@@ -15,13 +15,20 @@
 #charityHeader h4 {
   margin: 20px 0px 10px 0px;
 }
+
 #charityHeader div {
   display: grid;
   grid-template-columns: auto auto;
   grid-gap: 10px;
 }
+#charityHeader div span {
+  border-radius: 30px;
+}
 #charityHeader p {
-  font-size: 12px;
+  font-size: 10px;
+  margin: 0;
+  padding: 2px 7px 2px 7px;
+  border-radius: 25px;
 }
 #poolC {
   background-color: rgba(0, 0, 0, 0.322);
@@ -58,6 +65,57 @@
 }
 #charitySelect p {
   font-size: 20px;
+  
+}
+#charitySelect {
+  background: rgba(19, 26, 53, 0.9);
+  padding: 20px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+
+.charityIntroSection{
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto 1fr;
+  grid-gap:20px;
+  padding:20px
+
+}
+.charityIntroSection h4{
+  margin: 0;
+  margin-top: 10px;
+  width: fit-content;
+
+}
+#project-buttons button{
+  margin: 0px 20px 0px 0px;
+  padding: 10px;
+  color: white;
+  background-color: var(--tungsten);
+  border: 0;
+  border-radius: 5px;
+  font-size: 12px;
+}
+#project-buttons{
+  width: fit-content;
+  word-wrap: break-word;
+
+}
+#project-desc{
+  margin: 0;
+  max-width: 300px;
+  word-wrap: break-word;
+}
+#project-desc p{
+  
+  margin: 0;
 }
 
 @media only screen and (min-width: 980px) {
@@ -73,17 +131,36 @@
     padding-bottom: 10px;
 
   }
-
+#addedBy-Table{
+  padding: 7px;
+  margin: 5px;
+  background-color: rgba(0, 0, 0, 0.322);
+  font-size: 12px;
+}
+#status-table{
+  padding: 7px;
+  margin: 5px;
+ 
+  font-size: 10px;
+  border-radius: 20px 20px 20px 20px ;
+}
   #charityHeader div {
     display: grid;
     grid-template-columns: auto auto;
-    grid-gap: 20px;
+    grid-gap: 10px;
+  }
+  #charityHeader div span {
+    border-radius: 30px;
   }
   #charityHeader p {
-    font-size: 12px;
-  margin: 20px 0px 10px 0px;
+    font-size: 10px;
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.322);
+  padding: 2px 15px 2px 15px;
+  border-radius: 25px;
+  
+}
 
-  }
 
   #poolC {
     background-color: rgba(0, 0, 0, 0.322);
@@ -118,5 +195,49 @@
 
   .gradientBg {
     border-radius: 0px 20px 20px 0px;
+  }
+  .charityIntroSection{
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto 1fr;
+    grid-gap:20px;
+
+  }
+  .charityIntroSection h4{
+    margin: 0;
+    margin-top: 10px;
+    width: fit-content;
+  
+  }
+  #project-buttons button{
+    margin: 0px 20px 0px 0px;
+    padding: 10px;
+    color: white;
+    background-color: var(--tungsten);
+    border: 0;
+    border-radius: 5px;
+    font-size: 12px;
+  }
+  #project-buttons{
+    width: fit-content;
+    word-wrap: break-word;
+
+  }
+  #project-desc{
+    margin: 0;
+    max-width: 500px;
+    word-wrap: break-word;
+  }
+  #project-desc p{
+    margin: 0;
+  }
+ 
+  .charityExtraInfo{
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: center;
+    align-items: center;
+    
   }
 }

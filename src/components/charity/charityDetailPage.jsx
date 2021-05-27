@@ -5,6 +5,8 @@ import Loader from "../common/Loader";
 import CDetail from "./CDetails";
 import CharityCommunitySelect from "../Charity/CharityCommunitySelect";
 import { useHistory } from "react-router";
+import CharityIntro from "./CharityIntro"
+import CharityExtraInfo from "./CharityExtraInfo"
 
 const CharitDetailPage = () => {
   const history = useHistory();
@@ -17,12 +19,19 @@ const CharitDetailPage = () => {
 
   if (charityDetail) {
     return (
+      <>
       <div className="detailSection">
         <div className="topSection">
           <CDetail charityDetail={charityDetail} />
           <CharityCommunitySelect />
         </div>
+        <div className="bottomSection">
+        <CharityIntro charityDetail ={charityDetail.projectDetails}/>
+        <CharityExtraInfo charityDetail ={charityDetail.projectDetails}/>
+       </div>
       </div>
+      
+       </>
     );
   } else if (charityDetail === undefined) {
     sendToCharity();

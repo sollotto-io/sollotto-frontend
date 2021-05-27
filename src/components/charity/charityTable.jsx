@@ -13,6 +13,8 @@ const StyledTableCell = withStyles({
   root: {
     backgroundColor: "transparent",
     color: "white",
+    margin: 0,
+    padding: "10px 15px 10px 15px",
   },
 })(TableCell);
 const StyledPaper = withStyles({
@@ -33,11 +35,11 @@ export default function CharityTable({ rows }) {
         <TableHead>
           <TableRow>
             <StyledTableCell>Charity Name</StyledTableCell>
-            <StyledTableCell align="right">Current Votes</StyledTableCell>
-            <StyledTableCell align="right">Added By</StyledTableCell>
-            <StyledTableCell align="right">Life Time Votes</StyledTableCell>
-            <StyledTableCell align="right">Total Contribution</StyledTableCell>
-            <StyledTableCell align="right"></StyledTableCell>
+            <StyledTableCell align="center">Current Votes</StyledTableCell>
+            <StyledTableCell align="center">Added By</StyledTableCell>
+            <StyledTableCell align="center">Life Time Votes</StyledTableCell>
+            <StyledTableCell align="center">Total Contribution</StyledTableCell>
+            <StyledTableCell align="center"></StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -50,14 +52,23 @@ export default function CharityTable({ rows }) {
               <StyledTableCell component="th" scope="row">
                 {row.charityName}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.currentVotes === null ? "N/A" : row.currentVotes}</StyledTableCell>
-            
-              <StyledTableCell align="right">Sollotto</StyledTableCell>
-              <StyledTableCell align="right">
-              {row.lifeTimeVotes === null ? "N/A" : row.lifeTimeVotes}
+              <StyledTableCell align="center">
+                {row.currentVotes === null ? "N/A" : row.currentVotes}
               </StyledTableCell>
-              <StyledTableCell align="right"> {row.lifeTimeVotes === null ? "N/A" : row.lifeTimeVotes}</StyledTableCell>
-              <StyledTableCell align="right"></StyledTableCell>
+
+              <StyledTableCell align="center">
+                <p id="addedBy-Table" className="gradientBg gradientBorder">
+                  Sollotto
+                </p>
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                {row.lifeTimeVotes === null ? "N/A" : row.lifeTimeVotes}
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                {" "}
+                {row.lifeTimeVotes === null ? "N/A" : row.lifeTimeVotes}
+              </StyledTableCell>
+              <StyledTableCell align="center"><p id="status-table" className="gradientBg3 gradientBg2">{row.Status}</p></StyledTableCell>
             </TableRow>
           ))}
         </TableBody>

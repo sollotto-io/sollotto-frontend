@@ -34,11 +34,11 @@ export default function PoolTable({ rows }) {
         <TableHead>
           <TableRow>
             <StyledTableCell>Pool</StyledTableCell>
-            <StyledTableCell align="right">Prize Pool</StyledTableCell>
-            <StyledTableCell align="right">Last Date</StyledTableCell>
-            <StyledTableCell align="right">Pool ARP</StyledTableCell>
-            <StyledTableCell align="right">Total Deposit</StyledTableCell>
-            <StyledTableCell align="right"></StyledTableCell>
+            <StyledTableCell align="center">Prize Pool</StyledTableCell>
+            <StyledTableCell align="center">Last Date</StyledTableCell>
+            <StyledTableCell align="center">Pool ARP</StyledTableCell>
+            <StyledTableCell align="center">Total Deposit</StyledTableCell>
+            <StyledTableCell align="center"></StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -51,15 +51,15 @@ export default function PoolTable({ rows }) {
               <StyledTableCell component="th" scope="row">
                 {row.Pool}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.PrizePool}</StyledTableCell>
-              <StyledTableCell align="right">
+              <StyledTableCell align="center">{row.PrizePool}</StyledTableCell>
+              <StyledTableCell align="center">
                 {moment(row.TimeRemaining).format('L')}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.PoolARP}</StyledTableCell>
-              <StyledTableCell align="right">
+              <StyledTableCell align="center">{row.PoolARP}</StyledTableCell>
+              <StyledTableCell align="center">
                 {row.TotalDeposit}
               </StyledTableCell>
-              <StyledTableCell align="right"></StyledTableCell>
+              <StyledTableCell align="center"></StyledTableCell>
             </TableRow>
           ))}
         </TableBody>

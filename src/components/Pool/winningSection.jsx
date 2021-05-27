@@ -6,7 +6,6 @@ const WinningSection = ({poolDetail}) => {
         <div className="prizePoolSection">
             <div>
            <h4>{poolDetail.Pool} Price Pool #1</h4>
-           <p>This prize is split between 1 grand winner and 1 runner up</p>
            </div>
            <div id="winner-amount">
                <div id="trophy-image">
@@ -17,7 +16,7 @@ const WinningSection = ({poolDetail}) => {
                    <h4>{poolDetail.PrizePool * 0.85} {poolDetail.Pool}</h4>
                </div>
            </div>
-           <div id="winner-amount">
+           {/* <div id="winner-amount">
            <div id="trophy-image">
                    <p> &nbsp;&nbsp;Runner Up</p>
                   <img src={runnerUp} width={75} height={100} alt="runner Up"  />
@@ -26,7 +25,7 @@ const WinningSection = ({poolDetail}) => {
                    <h4>{poolDetail.PrizePool * 0.15} {poolDetail.Pool}</h4>
                </div>
 
-           </div>
+           </div> */}
 
 
         </div>
