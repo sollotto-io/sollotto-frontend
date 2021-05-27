@@ -16,7 +16,7 @@ export default function HeaderInfo(props) {
 					<AlarmIcon />
 				</IconButton>
 			</div>
-			<div className='lotteryCountdown'>Lottery is closed</div>
+			<div className='lotteryCountdown'><Counter time = {globalData.pools[0].TimeRemaining}/></div>
 		</>
 	);
 }
