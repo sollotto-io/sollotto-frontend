@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import PageTitle from "../components/common/PageTitle";
-import SortHeader from "../components/Pool/sortHeader";
+import SortHeader from "../components/common/sortHeader";
 import SortButtons from "../components/Pool/sortButtons";
 import PoolTable from "../components/Pool/poolTable";
 import "../css/pool.css";

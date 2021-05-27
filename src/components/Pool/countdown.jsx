@@ -5,7 +5,7 @@ import Countdown from "react-countdown";
 
 const renderer =({days, hours, minutes, seconds, completed}) =>{
   if(completed){
-    console.log("completed");
+    return <span id="count" >Lottery is closed</span>; 
   }else{
     return <span id="count" >{days} d  {hours} hrs  {minutes} mins  {seconds} sec </span>;  }
 }

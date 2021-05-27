@@ -7,17 +7,17 @@ import Suggest from "./pages/Suggest";
 import Results from "./pages/Results";
 import Pool from "./pages/Pool";
 import PoolDetailPage from "./components/Pool/poolDetailPage";
+import CharityDetailPage from "./components/Charity/charityDetailPage";
 import { GlobalContext } from "./context/GlobalContext";
 import { useQuery } from "@apollo/react-hooks";
 import { FETCH_POOLS } from "./graphql/queries";
 import Loader from "./components/common/Loader";
-
 function App() {
   const { loading, data } = useQuery(FETCH_POOLS);
-
   const [globalData, setGlobalData] = useState({
     holdingWalletId: "QPouV0f4tNhqDCApKgmJ",
     pools: [],
+    charities:[],
     selectedWallet: null,
     walletConnectedFlag: false,
   });
@@ -58,7 +58,7 @@ function App() {
           <Nav />
           <Switch>
             <Route exact path="/purchase">
-              <Purchase />
+              <Purchase/>
             </Route>
             <Route exact path="/charities">
               <Charities />
@@ -74,6 +74,9 @@ function App() {
             </Route>
             <Route exact path="/pools/:id">
               <PoolDetailPage />
+            </Route>
+            <Route exact path="/charities/:id">
+              <CharityDetailPage />
             </Route>
           </Switch>
         </GlobalContext.Provider>
