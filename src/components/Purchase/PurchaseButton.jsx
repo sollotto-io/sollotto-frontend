@@ -9,8 +9,7 @@ import * as borsh from "borsh";
 /**
  * Borsh schema definition for greeting accounts
  */
-
-function intToBool(i) {
+ function intToBool(i) {
   if (i === 0) {
     return false
   } else {
@@ -30,12 +29,31 @@ const boolMapper = {
   encode: boolToInt,
   decode: intToBool
 }
+class IncomingLotteryDataAccount {
+  constructor(lottery_id,charity_id_1,charity_id_2,charity_id_3,charity_id_4,ticket_price) {
+    this.lottery_id = lottery_id;
+    this.charity_id_1= charity_id_1;
+    this.charity_id_2= charity_id_2;
+    this.charity_id_3= charity_id_3;
+    this.charity_id_4= charity_id_4;
+    this.ticket_price= ticket_price;
+  }
+}
+const IncomingLotteryDataSchema = new Map([
+  [IncomingLotteryDataAccount, {kind: 'struct', fields: [['lottery_id', "u32"],['charity_id_1', "u32"],['charity_id_2', "u32"],['charity_id_3', "u32"],['charity_id_4', "u32"],['ticket_price', "u32"]]}],
+]);
 class LotteryDataAccount {
-  constructor(is_lottery_initialised,lottery_id,charity_ids,charity_vote_counts,winner_user_wallet_pk,total_pool_value,total_registrations,ticket_price) {
+  constructor(is_lottery_initialised,lottery_id,charity_1_id,charity_2_id,charity_3_id,charity_4_id,charity_1_vc,charity_2_vc,charity_3_vc,charity_4_vc,winner_user_wallet_pk,total_pool_value,total_registrations,ticket_price) {
     this.is_lottery_initialised = is_lottery_initialised;
     this.lottery_id = lottery_id;
-    this.charity_ids= charity_ids;
-    this.charity_vote_counts= charity_vote_counts;
+    this.charity_1_id= charity_1_id;
+    this.charity_2_id= charity_2_id;
+    this.charity_3_id= charity_3_id;
+    this.charity_4_id= charity_4_id;
+    this.charity_1_vc= charity_1_vc;
+    this.charity_2_vc= charity_2_vc;
+    this.charity_3_vc= charity_3_vc;
+    this.charity_4_vc= charity_4_vc;    
     this.winner_user_wallet_pk= winner_user_wallet_pk;
     this.total_pool_value= total_pool_value;
     this.total_registrations= total_registrations;
@@ -43,7 +61,7 @@ class LotteryDataAccount {
   }
 }
 const LotteryDataSchema = new Map([
-  [LotteryDataAccount, {kind: 'struct', fields: [['is_lottery_initialised', "u8", boolMapper],['lottery_id', "u32"],['charity_ids', [4]],['charity_vote_counts', [4]],['winner_user_wallet_pk', [32]],['total_pool_value', "u32"],['total_registrations', "u32"],['ticket_price', "u32"]]}],
+  [LotteryDataAccount, {kind: 'struct', fields: [['is_lottery_initialised', "u8",boolMapper],['lottery_id', "u32"],['charity_1_id',"u32"],['charity_2_id',"u32"],['charity_3_id',"u32"],['charity_4_id',"u32"],['charity_1_vc',"u32"],['charity_2_vc',"u32"],['charity_3_vc',"u32"],['charity_4_vc',"u32"],['winner_user_wallet_pk', [32]],['total_pool_value', "u32"],['total_registrations', "u32"],['ticket_price', "u32"]]}],
 ]);
 /**
  * The expected size of each greeting account.
@@ -61,7 +79,7 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
   const network = 'http://localhost:8899';
 	const connection = useMemo(() => new Connection(network), [network]);
   const getTicket = async () => {
-    let lotteryInitProgramId = new PublicKey("3s4XSA1XVfqgq8YhgA4N1soza1mwKz36eh3PZqkaaLLA");
+    let lotteryInitProgramId = new PublicKey(process.env.SOLANA_INIT_LOTTERY_PROGRAM);
     let lotteryDataAccount = "";
     try {
       const solTransferTx = SystemProgram.transfer({
@@ -131,8 +149,8 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
    
   };
   const initLottery = async () => {
-    
-    let lotteryInitProgramId = new PublicKey("3s4XSA1XVfqgq8YhgA4N1soza1mwKz36eh3PZqkaaLLA");
+    console.log(process.env.REACT_APP_SOLANA_INIT_LOTTERY_PROGRAM);
+    let lotteryInitProgramId = new PublicKey(process.env.REACT_APP_SOLANA_INIT_LOTTERY_PROGRAM);
     let holdingWalletId = globalData.selectedWallet.publicKey;
     
     try {
@@ -143,17 +161,18 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
         
         const lotteryDataAccount = new Account();
         const createLotteryDataAccountTx = SystemProgram.createAccount({
-          space:1000,
-          lamports: 10000,
+          space:81,
+          lamports: 10000000000,
           fromPubkey: globalData.selectedWallet.publicKey,
           newAccountPubkey: lotteryDataAccount.publicKey,
           programId: lotteryInitProgramId
       });
       
-      const value = new LotteryDataAccount(true,1,[1,2,3,4],[0,0,0,0],globalData.selectedWallet.publicKey.toBytes(),0,0,5);
-        const buffer = borsh.serialize(LotteryDataSchema, value);
+        const value = new IncomingLotteryDataAccount(1,1,2,3,4,1);
+        const buffer = borsh.serialize(IncomingLotteryDataSchema, value);
         const dataArr2 = new Uint8Array([0, ...buffer]);
         console.log(dataArr2);
+        console.log(dataArr2.length);
         console.log(buffer);
         console.log(buffer.length);
         const initLotteryTx = new TransactionInstruction({
@@ -199,8 +218,10 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
 			console.log('Submitted transaction ' + signature + ', awaiting confirmation');
 			await connection.confirmTransaction(signature, 'singleGossip');
       const encodedLotteryState = (await connection.getAccountInfo(lotteryDataAccount.publicKey, 'singleGossip')).data;
+      const decodedLotteryState = borsh.deserialize(LotteryDataSchema, LotteryDataAccount, encodedLotteryState);
       const encodedLotteryDataAccountPK = (await connection.getAccountInfo(lotteryDataAccount.publicKey, 'singleGossip')).owner.toBase58();
-      console.log(`Lottery Data: ${encodedLotteryState}`);
+
+      console.log(`Lottery Data: ${JSON.stringify(decodedLotteryState)}`);
       console.log(`Lottery Data Account PK: ${encodedLotteryDataAccountPK}`);
 			console.log('Transaction ' + signature + ' confirmed');
 		  } catch (e) {
