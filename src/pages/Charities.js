@@ -2,8 +2,8 @@ import React, { useContext, useEffect } from "react";
 import "../css/charity.css";
 import PageTitle from "../components/common/PageTitle";
 import SortHeader from "../components/common/sortHeader";
-import SortButtons from "../components/Charity/sortButtons";
-import CharityTable from "../components/Charity/charityTable";
+import SortButtons from "../components/charity/sortButtons";
+import CharityTable from "../components/charity/charityTable";
 import {FETCH_ALL_CHARITIES} from '../graphql/queries'
 import { useQuery } from "@apollo/client";
 import {GlobalContext} from "../context/GlobalContext"

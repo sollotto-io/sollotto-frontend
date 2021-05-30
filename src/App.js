@@ -7,7 +7,7 @@ import Suggest from "./pages/Suggest";
 import Results from "./pages/Results";
 import Pool from "./pages/Pool";
 import PoolDetailPage from "./components/Pool/poolDetailPage";
-import CharityDetailPage from "./components/Charity/charityDetailPage";
+import CharityDetailPage from "./components/charity/charityDetailPage";
 import { GlobalContext } from "./context/GlobalContext";
 import { useQuery } from "@apollo/react-hooks";
 import { FETCH_POOLS } from "./graphql/queries";
