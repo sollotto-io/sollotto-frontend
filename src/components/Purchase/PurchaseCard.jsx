@@ -7,7 +7,7 @@ import GreenGradientSvg from "../common/GreenGradientSvg";
 import GreenGradientSvg2 from "../common/GreenGradientSvg2";
 import PurpleGradientSvg from "../common/PurpleGradientSvg";
 import TicketPrice from "./purchase-components/TicketPrice";
-
+import {ToastContainer} from "react-toastify"
 
 const PurchaseCard = () => {
 	const [selectedCharity, setSelectedCharity] = useState(null);
@@ -22,6 +22,7 @@ const PurchaseCard = () => {
 				<form action=''>
 					<NumberSelector ticketNumbers ={ticketNumbers} />
 					<CharitySelector selectedCharity={selectedCharity} setSelectedCharity={setSelectedCharity}  />
+					<ToastContainer/>
 					<div className='purchaseCardFooter'>
 						<TicketPrice/>
 						<PurchaseButton selectedCharity={selectedCharity} Numbers ={ticketNumbers} />

@@ -1,13 +1,44 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from "react";
+import { GlobalContext } from "../../context/GlobalContext";
+var _ = require("lodash");
 
 const SortButtons = () => {
-    return (
-        <div id="sort-buttons">
-            <button>TIME</button>
-            <button>APR</button>
-            <button>PRIZE POOL</button>
-        </div>
-    )
-}
+  const [filter, setFilter] = useState(null);
+  const { globalData, setGlobalData } = useContext(GlobalContext);
 
-export default SortButtons
+  useEffect(() => {
+    let sortbyprize = _.sortBy(globalData.pools, filter);
+    setGlobalData({
+      ...globalData,
+      pools: sortbyprize,
+    });
+  }, [filter]);
+
+  return (
+    <div id="sort-buttons">
+      <button
+        onClick={() => {
+          setFilter("TimeRemaining");
+        }}
+      >
+        TIME
+      </button>
+      <button
+        onClick={() => {
+          setFilter("PoolARP");
+        }}
+      >
+        APR
+      </button>
+      <button
+        onClick={() => {
+          setFilter("PrizePool");
+        }}
+      >
+        PRIZE POOL
+      </button>
+    </div>
+  );
+};
+
+export default SortButtons;

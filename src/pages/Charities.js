@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import "../css/charity.css";
 import PageTitle from "../components/common/PageTitle";
 import SortHeader from "../components/common/sortHeader";
-import SortButtons from "../components/charity/sortButtons";
+import SortButtonsCharity from "../components/charity/sortButtonsCharity.jsx";
 import CharityTable from "../components/charity/charityTable";
 import {FETCH_ALL_CHARITIES} from '../graphql/queries'
 import { useQuery } from "@apollo/client";
@@ -32,12 +32,12 @@ export default function Charities() {
           id="search-pool"
           type="text"
           name="name"
-          placeholder="Search pools by name or ticker"
+          placeholder="Search charity by name "
         />
       </div>
       <div className="wrapper">
         <SortHeader />
-        <SortButtons />
+        <SortButtonsCharity />
       </div>
       {globalData.pools ? <CharityTable rows={globalData.charities} /> : ""}
     </div>

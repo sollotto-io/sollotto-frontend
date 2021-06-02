@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import PageTitle from "../components/common/PageTitle";
 import SortHeader from "../components/common/sortHeader";
 import SortButtons from "../components/Pool/sortButtons";

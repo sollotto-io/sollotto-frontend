@@ -12,6 +12,7 @@ import { GlobalContext } from "./context/GlobalContext";
 import { useQuery } from "@apollo/react-hooks";
 import { FETCH_POOLS } from "./graphql/queries";
 import Loader from "./components/common/Loader";
+import Footer from "./pages/Footer"
 function App() {
   const { loading, data } = useQuery(FETCH_POOLS);
   const [globalData, setGlobalData] = useState({
@@ -79,6 +80,7 @@ function App() {
               <CharityDetailPage />
             </Route>
           </Switch>
+          <Footer/>
         </GlobalContext.Provider>
       </Router>
     </div>
