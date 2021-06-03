@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
-import { PurchaseContext } from "../../context/PurchaseContext";
-import { CharityIndexContext } from "./CharitySelectorGrid";
+import { CharityDataContext } from "./CharitySelectorGrid";
 export default function CharityName(props) {
-	const {data} = useContext(PurchaseContext);
-	const charityIndexValue = useContext(CharityIndexContext);
+	const data = useContext(CharityDataContext);
+	
 	return (
 		<div className='charityName'>
-			{data.getActiveCharities[charityIndexValue].charityName}
+			{data.getActiveCharities[props.charityIndex].charityName}
 		</div>
 	);
 }

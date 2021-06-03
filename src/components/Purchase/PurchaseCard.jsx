@@ -8,26 +8,32 @@ import GreenGradientSvg2 from "../common/GreenGradientSvg2";
 import PurpleGradientSvg from "../common/PurpleGradientSvg";
 import TicketPrice from "./purchase-components/TicketPrice";
 import {ToastContainer} from "react-toastify"
+import {PurchaseContext} from "../../context/PurchaseContext";
 
 const PurchaseCard = () => {
-	const [selectedCharity, setSelectedCharity] = useState(null);
 
 	const ticketNumbers = useRef([])
+	const [purchaseData, setPurchaseData] = useState({
+		ticketNumberArr: [],
+		selectedCharity: null,
+	});
 	return (
 		<div className='gradientBg gradientBorder'>
 			<GreenGradientSvg />
 			<GreenGradientSvg2 />
 			<PurpleGradientSvg />
 			<div className='purchaseCard'>
-				<form action=''>
+			<PurchaseContext.Provider value={{ purchaseData, setPurchaseData }}>
+				<form>
 					<NumberSelector ticketNumbers ={ticketNumbers} />
-					<CharitySelector selectedCharity={selectedCharity} setSelectedCharity={setSelectedCharity}  />
+					<CharitySelector />
 					<ToastContainer/>
 					<div className='purchaseCardFooter'>
 						<TicketPrice/>
-						<PurchaseButton selectedCharity={selectedCharity} Numbers ={ticketNumbers} />
+						<PurchaseButton />
 					</div>
 				</form>
+			</PurchaseContext.Provider>
 			</div>
 		</div>
 	);

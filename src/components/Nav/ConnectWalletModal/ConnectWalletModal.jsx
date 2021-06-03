@@ -40,11 +40,8 @@ export default function ConnectWalletModal(props) {
 					</div>
 					<ul className='modalList'>
 						<input ref = {props.walletId} type="text" placeholder="enter your id" defaultValue="xyz"></input>
-						<ConnectWalletModalListItem />
-						<ConnectWalletModalListItem />
-						<ConnectWalletModalListItem />
-						<ConnectWalletModalListItem />
-						<ConnectWalletModalListItem />
+						<ConnectWalletModalListItem name="Sollet" />
+						<ConnectWalletModalListItem name="Phantom" />
 						<button onClick ={setConnectId}>getId</button>
 					</ul>
 				</div>
