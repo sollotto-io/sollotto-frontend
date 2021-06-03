@@ -249,6 +249,7 @@
   .bottomSection {
     display: grid;
     grid-template-columns: auto auto;
+    margin-bottom: 40px;
   }
   .prizePoolSection {
     width: 100%;

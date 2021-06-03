@@ -9,15 +9,6 @@ import {GlobalContext} from "../../../context/GlobalContext"
 export default function ConnectWalletModal(props) {
 	const {globalData, setGlobalData} = useContext(GlobalContext)
 	
-	const setConnectId =() =>{
-		setGlobalData({
-			...globalData,
-			connectedWalletId:props.walletId.current.value
-		})
-		localStorage.clear()
-		localStorage.setItem("connectedWalletId", props.walletId.current.value)
-		props.handleClose()
-	}	
 	return (
 		<Modal
 			open={props.open}
@@ -39,10 +30,8 @@ export default function ConnectWalletModal(props) {
 						/>
 					</div>
 					<ul className='modalList'>
-						<input ref = {props.walletId} type="text" placeholder="enter your id" defaultValue="xyz"></input>
 						<ConnectWalletModalListItem name="Sollet" />
 						<ConnectWalletModalListItem name="Phantom" />
-						<button onClick ={setConnectId}>getId</button>
 					</ul>
 				</div>
 			</Fade>
