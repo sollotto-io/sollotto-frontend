@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { GlobalContext } from "../../context/GlobalContext";
 import Loader from "../common/Loader";
 import CDetail from "./CDetails";
-import CharityCommunitySelect from "../charity/CharityCommunitySelect";
+import CharityCommunitySelect from "../Charity/CharityCommunitySelect";
 import { useHistory } from "react-router";
 import CharityIntro from "./CharityIntro"
 import CharityExtraInfo from "./CharityExtraInfo"
@@ -26,8 +26,8 @@ const CharitDetailPage = () => {
           <CharityCommunitySelect />
         </div>
         <div className="bottomSection">
-        <CharityIntro charityDetail ={charityDetail.projectDetails}/>
-        <CharityExtraInfo charityDetail ={charityDetail.projectDetails}/>
+        <CharityIntro charityDetail ={charityDetail}/>
+        <CharityExtraInfo charityDetail ={charityDetail}/>
        </div>
       </div>
       

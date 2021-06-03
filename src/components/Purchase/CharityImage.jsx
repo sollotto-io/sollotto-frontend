@@ -1,6 +1,10 @@
 import React from "react";
-import img from "../../images/pictures/chess.jpeg";
-
-export default function CharityImage() {
-	return <img src={img} alt='charity' className='charityImg' />;
+export default function CharityImage({charityId}) {
+	function importAll(r) {
+		return r.keys().map(r);
+	  }
+	  
+	  const images = importAll(require.context('../../images/pictures/', false, /\.(png)$/));
+	  console.log(images[charityId].default)
+	 return <img src={images[charityId-1].default} alt='charity' className='charityImg' />;
 }

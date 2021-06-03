@@ -1,0 +1,16 @@
+.resultSection{
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto 1fr;
+    justify-content: center;
+    margin: 2rem 0rem;
+    padding: 0rem 1rem;
+}
+
+
+
+@media only screen and (min-width: 980px) {
+    #search-pool {
+      width: 100% !important;
+    }
+}  

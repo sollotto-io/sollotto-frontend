@@ -56,7 +56,7 @@ export default function CharitySelectorGrid({selectedCharity,setSelectedCharity}
 			charities.push(
 				<CharityIndexContext.Provider key={index} value={index}>
 					<SingleCharitySelector
-						charityId={data.getActiveCharities[index].id}
+						charityId={data.getActiveCharities[index].ID}
 						charityName = {data.getActiveCharities[index].charityName}
 						charitySelectHandler={charitySelectHandler}
 						selectBtnRefArr={selectBtnRefArr}

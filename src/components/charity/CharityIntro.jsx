@@ -1,16 +1,17 @@
 import React from "react";
 const CharityIntro = ({charityDetail}) => {
+  console.log(charityDetail.webURL)
   return (
     <div className="charityIntroSection">
       <div>
         <h4>Project Details</h4>
       </div>
       <div id="project-buttons">
-          <button>WEBSITE</button>
+          <a href={charityDetail.webURL} target="_blank"  rel="noreferrer" ><button>WEBSITE</button></a>
           <button>SOLANA EXPLORER</button>
       </div>
         <div id="project-desc">
-           <p>{charityDetail}</p>
+           <p>{charityDetail.projectDetails}</p>
         </div>
     </div>
   );

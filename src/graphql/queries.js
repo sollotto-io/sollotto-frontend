@@ -3,6 +3,7 @@ import gql from "graphql-tag";
 export const FETCH_ACTIVE_CHARITIES = gql`
   {
     getActiveCharities {
+      ID
       id
       charityName
     }
@@ -12,6 +13,7 @@ export const FETCH_ALL_CHARITIES = gql`
  {
   getAllCharities{
     id
+    ID
     charityName
     projectDetails
     addedBy
@@ -19,6 +21,11 @@ export const FETCH_ALL_CHARITIES = gql`
     lifeTimeVotes
     lifeTimeWins
     currentVotes
+    Years
+    watchURL
+    watchGrade
+    Impact
+    webURL
   }
 }
 

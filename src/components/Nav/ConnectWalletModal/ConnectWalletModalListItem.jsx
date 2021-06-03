@@ -46,7 +46,7 @@ export default function ConnectWalletModalListItem() {
 
 	return (
 		<li className='modalListItem greenBtn'>
-			<span onClick={() => setGlobalData({...globalData, selectedWallet:urlWallet})} className='modalListItemTitle'>Ledger</span>
+			<span onClick={() => setGlobalData({...globalData, selectedWallet:urlWallet})} className='modalListItemTitle'>Sollet</span>
 		</li>
 	);
 }
