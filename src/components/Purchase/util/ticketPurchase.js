@@ -106,15 +106,10 @@ export const ticketPurchase = async (globalData, purchaseDataArr) => {
 		console.log(ticketDataAccount.publicKey);
 		console.log("Transaction " + signature + " confirmed");
 
-		const ticketToBe = {
-			DataWallet: ticketDataAccount.publicKey.toBytes() ,
-			walletID: globalData.selectedWallet.publicKey.toBytes(),
-			ticketArray: purchaseDataArr.ticketNumArr,
-			charityId: purchaseDataArr.charityId
-		}
+		
 	
 
-		console.log("ticket is:" , ticketToBe )
+		
 		// DataWallet: ticketDataAccount.publicKey.toBytes() ,walletID: globalData.selectedWallet.toBytes() ,ticketArray: purchaseDataArr.ticketNumArr,charityId: purchaseDataArr.charityId
 		// Toaster "Ticket Purchase Successfull"
 		toast.success('Ticket Purchase is Successful', {
@@ -126,6 +121,7 @@ export const ticketPurchase = async (globalData, purchaseDataArr) => {
 			draggable: true,
 			progress: undefined,
 			});
+			return {DataWallet: ticketDataAccount.publicKey.toBytes(), success:true}
 	} catch (e) {
 		console.warn(e);
 		console.log("Error: " + e.message);

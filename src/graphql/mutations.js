@@ -1,10 +1,10 @@
-import gql from "graphql-tag";
+import {gql} from "@apollo/client";
 
 export const POST_TICKET = gql`
-  mutation addTicket(
-    $walletID: [Int!]!
-    $ticketArray: [Int!]!
-    $DataWallet: [Int!]!
+  mutation addTicket (
+    $walletID: [Int]
+    $ticketArray: [String]
+    $DataWallet: [Int]
     $charityId: Int
   ) {
     addTicket(
@@ -12,12 +12,8 @@ export const POST_TICKET = gql`
       ticketArray: $ticketArray
       DataWallet: $DataWallet
       charityId: $charityId
-    ) {
-      id
-      walletID
-      ticketArray
-      DataWallet
-      charityId
-    }
+    )
   }
 `;
+
+
