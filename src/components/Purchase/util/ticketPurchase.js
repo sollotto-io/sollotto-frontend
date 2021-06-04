@@ -98,19 +98,14 @@ export const ticketPurchase = async (globalData, purchaseDataArr) => {
 			"Submitted transaction " + signature + ", awaiting confirmation"
 		);
 		await globalData.connection.confirmTransaction(signature, "singleGossip");
-		const encodedTicketState = await globalData.connection.getAccountInfo(
-			ticketDataAccount.publicKey,
-			"singleGossip"
-		);
-		const decodedTicketState = borsh.deserialize(
-			TicketDataSchema,
-			TicketDataAccount,
-			encodedTicketState.data
-		);
+
 		console.log(ticketDataAccount.publicKey);
 		console.log("Transaction " + signature + " confirmed");
+		// DataWallet: ticketDataAccount.publicKey.toBytes() ,walletID: globalData.selectedWallet.toBytes() ,ticketArray: purchaseDataArr.ticketNumArr,charityId: purchaseDataArr.charityId
+		// Toaster "Ticket Purchase Successfull"
 	} catch (e) {
 		console.warn(e);
 		console.log("Error: " + e.message);
+		//Error Toaster "Sorry Ticket Purchase Failed!"
 	}
 };

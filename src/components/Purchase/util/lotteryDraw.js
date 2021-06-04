@@ -22,7 +22,8 @@ export const lotteryDraw = async (globalData) => {
 		random.int(1, 26),
 	];
 	let winFlag = false;
-	let lotteryDataAccountPKArr = [];
+
+	let lotteryDataAccountPKArr = []; // Fetch DataWallet
 	let usersTicketNumberArr = lotteryDataAccountPKArr.map(async (publicKey) => {
 		const encodedTicketDataState = await globalData.connection.getAccountInfo(
 			publicKey,
