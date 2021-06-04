@@ -5,6 +5,8 @@ import { GlobalContext } from "../../context/GlobalContext";
 // import {initLottery} from "./util/initLottery";
 import {ticketPurchase} from "./util/ticketPurchase";
 import {lotteryDraw} from "./util/lotteryDraw";
+import { useMutation } from "@apollo/client";
+import { POST_TICKET } from "../../graphql/mutations";
 /**
  * Borsh schema definition for greeting accounts
  */
@@ -22,16 +24,34 @@ import {lotteryDraw} from "./util/lotteryDraw";
 export default function PurchaseButton({ selectedCharity, Numbers }) {
   const { purchaseData} = useContext(PurchaseContext);
   const { globalData } = useContext(GlobalContext);
+	const [addTicket, {data}] = useMutation(POST_TICKET);
+
  
   const connectWalletBtn = () => {
     return (
       <WalletConnect />
     );
   };
-  const getTicket = () =>{
+  const  getTicket = async () =>{
+    var DataWallet;
+    var success;
     let purchaseDataArr = {charityId:purchaseData.selectedCharity,userWalletPK:globalData.selectedWallet.publicKey.toBytes(),ticketNumArr:purchaseData.ticketNumberArr};
     console.log(purchaseDataArr);
-    ticketPurchase(globalData,purchaseDataArr);
+   ticketPurchase(globalData,purchaseDataArr);
+   
+    // if(success){
+      
+    //   addTicket({
+    //     variables:{DataWallet: DataWallet,
+    //     walletID: globalData.selectedWallet.publicKey.toBytes(),
+    //     ticketArray: purchaseData.ticketNumberArr,
+    //     charityId: purchaseData.selectedCharity}
+    //   })
+    // }
+   	// else{
+    //    console.log("falied")
+    //  }
+   
   }
   const getTicketBtn = () => {
     return (

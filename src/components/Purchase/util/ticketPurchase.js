@@ -10,8 +10,12 @@ import {
 import * as borsh from "borsh";
 import { TicketDataAccount, TicketDataSchema } from "./TicketDataBorsh";
 import { LotteryDataAccount, LotteryDataSchema } from "./LotteryDataBorsh";
+import { toast } from "react-toastify";
+// import { useMutation } from "@apollo/client";
+// import { POST_TICKET } from "../../../graphql/mutations";
 
 export const ticketPurchase = async (globalData, purchaseDataArr) => {
+	// const [addTicket, {data}] = useMutation(POST_TICKET);
 	let lotteryInitProgramId = new PublicKey(
 		process.env.REACT_APP_SOLANA_INIT_LOTTERY_PROGRAM
 	);
@@ -101,8 +105,27 @@ export const ticketPurchase = async (globalData, purchaseDataArr) => {
 
 		console.log(ticketDataAccount.publicKey);
 		console.log("Transaction " + signature + " confirmed");
+
+		const ticketToBe = {
+			DataWallet: ticketDataAccount.publicKey.toBytes() ,
+			walletID: globalData.selectedWallet.publicKey.toBytes(),
+			ticketArray: purchaseDataArr.ticketNumArr,
+			charityId: purchaseDataArr.charityId
+		}
+	
+
+		console.log("ticket is:" , ticketToBe )
 		// DataWallet: ticketDataAccount.publicKey.toBytes() ,walletID: globalData.selectedWallet.toBytes() ,ticketArray: purchaseDataArr.ticketNumArr,charityId: purchaseDataArr.charityId
 		// Toaster "Ticket Purchase Successfull"
+		toast.success('Ticket Purchase is Successful', {
+			position: "bottom-left",
+			autoClose: 3000,
+			hideProgressBar: true,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			});
 	} catch (e) {
 		console.warn(e);
 		console.log("Error: " + e.message);
