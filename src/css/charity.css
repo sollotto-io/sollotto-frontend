@@ -180,7 +180,9 @@
  
     height: 70%;
   }
-  
+  .wrap{
+    border-radius: 0px 20px 20px 0px;
+  }
   #charitySelect {
     background: rgba(19, 26, 53, 0.9);
     padding: 10px;
@@ -193,9 +195,6 @@
     text-align: left;
   }
 
-  .gradientBg {
-    border-radius: 0px 20px 20px 0px;
-  }
   .charityIntroSection{
     max-width: 100%;
     display: flex;

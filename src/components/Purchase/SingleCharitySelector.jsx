@@ -69,7 +69,8 @@ const SingleCharitySelector = (props) => {
 		>
 			<div className='singleCharitySelector'>
 				<SolLottoLogo charitySelectorIcon={true} />
-				<CharityImage />
+				<CharityImage charityId={data.getActiveCharities[props.index].ID}
+					/>
 				<CharityName charityIndex={props.index} />
 				<CharitySelectButton
 					charityName = {data.getActiveCharities[props.index].charityName}

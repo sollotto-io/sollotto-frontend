@@ -23,8 +23,10 @@ const StyledPaper = withStyles({
 })(Paper);
 
 export default function ResultTable({ rows }) {
-    console.log(rows)
   const history = useHistory();
+  const resultDetails = (param) => {
+    history.push(`/results/${param}`);
+  };
  
   return (
     <TableContainer component={StyledPaper}>
@@ -42,7 +44,7 @@ export default function ResultTable({ rows }) {
         <TableBody>
           {rows.map((row, index) => (
             <TableRow
-            
+            onClick={() => resultDetails(row.DrawingName)}
               className="tableRow"
               key={index}
             >

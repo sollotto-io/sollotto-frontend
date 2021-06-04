@@ -39,7 +39,7 @@ export default function Charities() {
         <SortHeader />
         <SortButtonsCharity />
       </div>
-      {globalData.pools ? <CharityTable rows={globalData.charities} /> : ""}
+      {globalData.charities ? <CharityTable rows={globalData.charities} /> : ""}
     </div>
   );
 }

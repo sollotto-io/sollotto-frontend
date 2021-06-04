@@ -1,5 +1,6 @@
 import React from "react";
 export default function CharityImage({charityId}) {
+	console.log(charityId)
 	function importAll(r) {
 		return r.keys().map(r);
 	  }

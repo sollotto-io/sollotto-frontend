@@ -14,6 +14,7 @@ import { FETCH_POOLS } from "./graphql/queries";
 import Loader from "./components/common/Loader";
 import Footer from "./pages/Footer";
 import { Connection } from "@solana/web3.js";
+import ResultDetail from "./components/Result/ResultDetail";
 
 function App() {
 	const { loading, data } = useQuery(FETCH_POOLS);
@@ -84,6 +85,9 @@ function App() {
 						</Route>
 						<Route exact path='/charities/:id'>
 							<CharityDetailPage />
+						</Route>
+						<Route exact path='/results/:id'>
+							<ResultDetail />
 						</Route>
 					</Switch>
 					<Footer />
