@@ -22,7 +22,7 @@ const TanspInfoToolTip = withStyles({
 export default function TranspInfo() {
 	const { globalData } = useContext(GlobalContext);
 	const copyText = () => {
-		var copyText = document.querySelector("#holdingWalletId").innerHTML;
+		var copyText = globalData.holdingWalletId;
 		console.log(copyText);
 		navigator.clipboard.writeText(copyText);
 		toast.success('Address copied', {
@@ -42,9 +42,9 @@ export default function TranspInfo() {
 				<div className='transpInfoToolTip'>
 					<div className='transpInfoToolTipTitle'>Addresses</div>
 					<div className='transpInfoToolTipBody'>
-						<span>RAY</span>
+						<span>SOL</span>
 						<span className='copyText' id='holdingWalletId'>
-							{globalData.holdingWalletId}
+							{globalData.holdingWalletId.substring(0,7)} ... {globalData.holdingWalletId.substring(globalData.holdingWalletId.length - 7)}
 						</span>
 						<FileCopyIcon onClick={copyText} fontSize='small' />
 					</div>

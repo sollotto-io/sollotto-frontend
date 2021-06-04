@@ -16,30 +16,28 @@ export const ticketPurchase = async (globalData, purchaseDataArr) => {
 		process.env.REACT_APP_SOLANA_INIT_LOTTERY_PROGRAM
 	);
 	let lotteryDataAccountPK = new PublicKey(
-		"2HeMM7vRAhXVo7mdw5LHxFGhdp8Qs3JDrahDjfhY255j"
+		"7M4zeQxrLTzKRLwhiNyvFox5HudffTmcNNxE2gTRiNby"
 	);
-	let holdingWalletPK = new PublicKey(
-		"Ahzfr4DwaznwiurqGMcfkLGhNqsF5VRVBzFVsJBqxbxm"
-	);
+	let holdingWalletPK = new PublicKey(globalData.holdingWalletId);
 	const encodedLotteryState = (
-		await globalData.connection.getAccountInfo(
-			lotteryDataAccountPK,
-			"singleGossip"
-		)
+		await globalData.connection.getAccountInfo(lotteryDataAccountPK)
 	).data;
 	const decodedLotteryState = borsh.deserialize(
 		LotteryDataSchema,
 		LotteryDataAccount,
 		encodedLotteryState
 	);
-	console.log(decodedLotteryState.ticketPrice);
 	try {
 		const solTransferTx = SystemProgram.transfer({
 			fromPubkey: globalData.selectedWallet.publicKey,
 			toPubkey: holdingWalletPK,
-			lamports: decodedLotteryState.ticketPrice * LAMPORTS_PER_SOL,
+			lamports: globalData.currentLottery.ticketPrice * LAMPORTS_PER_SOL,
 		});
-		const value = new TicketDataAccount(purchaseDataArr);
+		const value = new TicketDataAccount(
+			purchaseDataArr.charityId,
+			purchaseDataArr.userWalletPK,
+			purchaseDataArr.ticketNumArr
+		);
 		const buffer = borsh.serialize(TicketDataSchema, value);
 		const dataArr2 = new Uint8Array([1, ...buffer]);
 
@@ -100,27 +98,16 @@ export const ticketPurchase = async (globalData, purchaseDataArr) => {
 			"Submitted transaction " + signature + ", awaiting confirmation"
 		);
 		await globalData.connection.confirmTransaction(signature, "singleGossip");
-		const encodedTicketState = (
-			await globalData.connection.getAccountInfo(
-				ticketDataAccount.publicKey,
-				"singleGossip"
-			)
-		).data;
+		const encodedTicketState = await globalData.connection.getAccountInfo(
+			ticketDataAccount.publicKey,
+			"singleGossip"
+		);
 		const decodedTicketState = borsh.deserialize(
 			TicketDataSchema,
 			TicketDataAccount,
-			encodedTicketState
+			encodedTicketState.data
 		);
-
-		const encodedTicketDataAccountPK = (
-			await globalData.connection.getAccountInfo(
-				ticketDataAccount.publicKey,
-				"singleGossip"
-			)
-		).owner.toBase58();
-
-		console.log(`Ticket Data: ${JSON.stringify(decodedTicketState)}`);
-		console.log(`Ticket Data Account PK: ${encodedTicketDataAccountPK}`);
+		console.log(ticketDataAccount.publicKey);
 		console.log("Transaction " + signature + " confirmed");
 	} catch (e) {
 		console.warn(e);

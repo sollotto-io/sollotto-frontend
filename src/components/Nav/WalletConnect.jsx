@@ -29,7 +29,7 @@ export default function WalletConnect() {
       >
         <AccountBalanceWalletOutlinedIcon fontSize="small" />
         <span>
-        {globalData.walletConnectedFlag === true ? globalData.selectedWallet.publicKey.toBase58() : "Connect"}
+        {globalData.walletConnectedFlag === true ?  `${globalData.selectedWallet.publicKey.toBase58().substring(0,4)} ... ${globalData.selectedWallet.publicKey.toBase58().substring(globalData.selectedWallet.publicKey.toBase58().length - 4)}` : "Connect"}
         </span>
         
       </button>

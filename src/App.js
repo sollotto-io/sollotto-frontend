@@ -19,9 +19,9 @@ import ResultDetail from "./components/Result/ResultDetail";
 function App() {
 	const { loading, data } = useQuery(FETCH_POOLS);
 	const [globalData, setGlobalData] = useState({
-		holdingWalletId: "QPouV0f4tNhqDCApKgmJ",
+		holdingWalletId: "Ahzfr4DwaznwiurqGMcfkLGhNqsF5VRVBzFVsJBqxbxm",
 		currentLottery: {
-			ticketPrice: 0.01,
+			ticketPrice: 1,
 			lottertyId: 1,
 			charities: [1, 2, 3, 4],
 		},

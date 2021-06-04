@@ -4,6 +4,7 @@ import { PurchaseContext } from "../../context/PurchaseContext";
 import { GlobalContext } from "../../context/GlobalContext";
 // import {initLottery} from "./util/initLottery";
 import {ticketPurchase} from "./util/ticketPurchase";
+import {lotteryDraw} from "./util/lotteryDraw";
 /**
  * Borsh schema definition for greeting accounts
  */
@@ -19,39 +20,30 @@ import {ticketPurchase} from "./util/ticketPurchase";
 
 
 export default function PurchaseButton({ selectedCharity, Numbers }) {
-  const { purchaseData, setpurchaseData } = useContext(PurchaseContext);
+  const { purchaseData} = useContext(PurchaseContext);
   const { globalData } = useContext(GlobalContext);
-  var tempArray = [];
-  
-  // Numbers.current.map((el, index) => {
-	//   return (tempArray[index] = el.value);
-	// });
-	// if(tempArray === [] || selectedCharity === null ){
-	//   console.log("empty");
-	// }else{
-	//   setpurchaseData({
-	//     ...purchaseData,
-	//     ticketNumbers: tempArray,
-	//     Charity: selectedCharity.value,
-	//   });
-
-	// }
  
   const connectWalletBtn = () => {
     return (
       <WalletConnect />
     );
   };
+  const getTicket = () =>{
+    let purchaseDataArr = {charityId:purchaseData.selectedCharity,userWalletPK:globalData.selectedWallet.publicKey.toBytes(),ticketNumArr:purchaseData.ticketNumberArr};
+    console.log(purchaseDataArr);
+    ticketPurchase(globalData,purchaseDataArr);
+  }
   const getTicketBtn = () => {
     return (
       <>
         <button
           type="button"
-          onClick={() => ticketPurchase(globalData)}
+          onClick={getTicket}
           className="greenBtn globalBtn"
         >
           Get a Ticket
         </button>
+        <button type="button" onClick={() => lotteryDraw()} className="greenBtn globalBtn">Draw Lottery</button>
         {/* <button type="button" onClick={() => initLottery(globalData)} className="greenBtn globalBtn">Init Lottery</button> */}
         {/* <ConnectWalletModal open={open} handleClose={handleClose} /> */}
       </>

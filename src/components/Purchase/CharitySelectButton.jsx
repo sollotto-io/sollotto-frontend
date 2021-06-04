@@ -1,14 +1,9 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 
 const CharitySelect = (props) => {
 	const btnRef = useRef(null);
 	
-	useEffect(() => {
-		let arr = props.selectBtnRefArr;
-		console.log(props.selectBtnRefArr);
-		arr.push(btnRef.current);
-		props.setSelectBtnRefArr(arr);
-	},[props.selectBtnRefArr]);
+	
 	return (
 		<div className='gradientBg charitySelectBtnWrapper gradientBorder'>
 			<button
