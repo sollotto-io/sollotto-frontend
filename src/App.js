@@ -19,7 +19,7 @@ import ResultDetail from "./components/Result/ResultDetail";
 function App() {
 	const { loading, data } = useQuery(FETCH_UPCOMING_LOTTERY);
 	const [globalData, setGlobalData] = useState({
-		holdingWalletId: "Ahzfr4DwaznwiurqGMcfkLGhNqsF5VRVBzFVsJBqxbxm",
+		holdingWalletId: "86qYQ2wXLAKiD9S7qGnCd92UBEh5GWUDHwa39ifH7RJJ",
 		currentLottery: {},
 		// pools: [],
 		selectedWallet: null,
@@ -44,15 +44,14 @@ function App() {
 				globalData.selectedWallet.disconnect();
 			};
 		}
-		if(loading===false){
+		if (loading === false) {
 			setGlobalData({
 				...globalData,
-				currentLottery:data.getupcomingLottery
-			})
-			console.log(data.getupcomingLottery)
+				currentLottery: data.getupcomingLottery,
+			});
+			console.log(data.getupcomingLottery);
 		}
-		
-	}, [globalData.selectedWallet,loading]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [globalData.selectedWallet, loading]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	if (loading) {
 		return <Loader />;
