@@ -6,12 +6,14 @@ export const POST_TICKET = gql`
     $ticketArray: [String]
     $DataWallet: [Int]
     $charityId: Int
+    $LotteryId:Int
   ) {
     addTicket(
       walletID: $walletID
       ticketArray: $ticketArray
       DataWallet: $DataWallet
       charityId: $charityId
+      LotteryId:$LotteryId
     )
   }
 `;

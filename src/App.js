@@ -10,22 +10,18 @@ import PoolDetailPage from "./components/Pool/poolDetailPage";
 import CharityDetailPage from "./components/Charity/charityDetailPage";
 import { GlobalContext } from "./context/GlobalContext";
 import { useQuery } from "@apollo/react-hooks";
-import { FETCH_POOLS } from "./graphql/queries";
+import { FETCH_UPCOMING_LOTTERY } from "./graphql/queries";
 import Loader from "./components/common/Loader";
 import Footer from "./pages/Footer";
 import { Connection } from "@solana/web3.js";
 import ResultDetail from "./components/Result/ResultDetail";
 
 function App() {
-	const { loading, data } = useQuery(FETCH_POOLS);
+	const { loading, data } = useQuery(FETCH_UPCOMING_LOTTERY);
 	const [globalData, setGlobalData] = useState({
 		holdingWalletId: "Ahzfr4DwaznwiurqGMcfkLGhNqsF5VRVBzFVsJBqxbxm",
-		currentLottery: {
-			ticketPrice: 1,
-			lottertyId: 1,
-			charities: [1, 2, 3, 4],
-		},
-		pools: [],
+		currentLottery: {},
+		// pools: [],
 		selectedWallet: null,
 		walletConnectedFlag: false,
 		connection: new Connection(process.env.REACT_APP_SOLANA_NETWORK),
@@ -48,13 +44,15 @@ function App() {
 				globalData.selectedWallet.disconnect();
 			};
 		}
-		if (loading === false) {
+		if(loading===false){
 			setGlobalData({
 				...globalData,
-				pools: data.getAllPools,
-			});
+				currentLottery:data.getupcomingLottery
+			})
+			console.log(data.getupcomingLottery)
 		}
-	}, [globalData.selectedWallet, loading]); // eslint-disable-line react-hooks/exhaustive-deps
+		
+	}, [globalData.selectedWallet,loading]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	if (loading) {
 		return <Loader />;
@@ -77,12 +75,12 @@ function App() {
 						<Route exact path='/results'>
 							<Results />
 						</Route>
-						<Route exact path='/pools'>
+						{/* <Route exact path='/pools'>
 							<Pool />
 						</Route>
 						<Route exact path='/pools/:id'>
 							<PoolDetailPage />
-						</Route>
+						</Route> */}
 						<Route exact path='/charities/:id'>
 							<CharityDetailPage />
 						</Route>

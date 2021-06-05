@@ -1,12 +1,13 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import WalletConnect from "../Nav/WalletConnect";
 import { PurchaseContext } from "../../context/PurchaseContext";
 import { GlobalContext } from "../../context/GlobalContext";
 // import {initLottery} from "./util/initLottery";
 import { ticketPurchase } from "./util/ticketPurchase";
 import { lotteryDraw } from "./util/lotteryDraw";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { POST_TICKET } from "../../graphql/mutations";
+import {FETCH_TICKET} from '../../graphql/queries'
 /**
  * Borsh schema definition for greeting accounts
  */
@@ -24,6 +25,9 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
   const { globalData } = useContext(GlobalContext);
 
   const [addTicket] = useMutation(POST_TICKET);
+  const {loading, data} = useQuery(FETCH_TICKET)
+
+  
 
   const connectWalletBtn = () => {
     return <WalletConnect />;
@@ -46,6 +50,7 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
             ).toJSON().data,
             ticketArray: purchaseData.ticketNumberArr,
             charityId: purchaseData.selectedCharity,
+            LotteryId:globalData.currentLottery.Id
           },
         });
       } catch (e) {
@@ -67,7 +72,7 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
         </button>
         <button
           type="button"
-          onClick={() => lotteryDraw()}
+          onClick={() => lotteryDraw(data)}
           className="greenBtn globalBtn"
         >
           Draw Lottery

@@ -12,7 +12,9 @@ import { TicketDataAccount, TicketDataSchema } from "./TicketDataBorsh";
 import { LotteryDataAccount, LotteryDataSchema } from "./LotteryDataBorsh";
 import random from "random";
 
-export const lotteryDraw = async (globalData) => {
+export const lotteryDraw = async (data,globalData) => {
+		console.log(data.getDataWallets)
+	let lotteryDataAccountPKArr = [];
 	let winningNumberArr = [
 		random.int(1, 69),
 		random.int(1, 69),
@@ -23,7 +25,7 @@ export const lotteryDraw = async (globalData) => {
 	];
 	let winFlag = false;
 
-	let lotteryDataAccountPKArr = []; // Fetch DataWallet
+	// Fetch DataWallet
 	let usersTicketNumberArr = lotteryDataAccountPKArr.map(async (publicKey) => {
 		const encodedTicketDataState = await globalData.connection.getAccountInfo(
 			publicKey,
