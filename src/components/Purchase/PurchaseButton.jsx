@@ -68,6 +68,7 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
               ).toJSON().data,
               ticketArray: purchaseData.ticketNumberArr,
               charityId: purchaseData.selectedCharity,
+              LotteryId:globalData.currentLottery.Id
             },
           });
         } catch (e) {
