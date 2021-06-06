@@ -25,15 +25,13 @@ export class IncomingLotteryDataAccount {
 		charity_id_1,
 		charity_id_2,
 		charity_id_3,
-		charity_id_4,
-		ticket_price
+		charity_id_4
 	) {
 		this.lottery_id = lottery_id;
 		this.charity_id_1 = charity_id_1;
 		this.charity_id_2 = charity_id_2;
 		this.charity_id_3 = charity_id_3;
 		this.charity_id_4 = charity_id_4;
-		this.ticket_price = ticket_price;
 	}
 }
 
@@ -48,7 +46,6 @@ export const IncomingLotteryDataSchema = new Map([
 				["charity_id_2", "u32"],
 				["charity_id_3", "u32"],
 				["charity_id_4", "u32"],
-				["ticket_price", "u32"],
 			],
 		},
 	],
@@ -65,10 +62,8 @@ export class LotteryDataAccount {
 		charity_2_vc,
 		charity_3_vc,
 		charity_4_vc,
-		winner_user_wallet_pk,
-		total_pool_value,
-		total_registrations,
-		ticket_price
+
+		total_registrations
 	) {
 		this.is_lottery_initialised = is_lottery_initialised;
 		this.lottery_id = lottery_id;
@@ -80,10 +75,8 @@ export class LotteryDataAccount {
 		this.charity_2_vc = charity_2_vc;
 		this.charity_3_vc = charity_3_vc;
 		this.charity_4_vc = charity_4_vc;
-		this.winner_user_wallet_pk = winner_user_wallet_pk;
-		this.total_pool_value = total_pool_value;
+
 		this.total_registrations = total_registrations;
-		this.ticket_price = ticket_price;
 	}
 }
 export const LotteryDataSchema = new Map([
@@ -102,10 +95,8 @@ export const LotteryDataSchema = new Map([
 				["charity_2_vc", "u32"],
 				["charity_3_vc", "u32"],
 				["charity_4_vc", "u32"],
-				["winner_user_wallet_pk", [32]],
-				["total_pool_value", "u32"],
+
 				["total_registrations", "u32"],
-				["ticket_price", "u32"],
 			],
 		},
 	],

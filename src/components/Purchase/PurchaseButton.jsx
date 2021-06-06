@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useMemo, useState } from "react";
 import WalletConnect from "../Nav/WalletConnect";
 import { PurchaseContext } from "../../context/PurchaseContext";
 import { GlobalContext } from "../../context/GlobalContext";
-// import {initLottery} from "./util/initLottery";
+import {initLottery} from "./util/initLottery";
 import { ticketPurchase } from "./util/ticketPurchase";
 import { lotteryDraw } from "./util/lotteryDraw";
 import { useMutation, useQuery } from "@apollo/client";
@@ -111,7 +111,7 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
         >
           Draw Lottery
         </button>
-        {/* <button type="button" onClick={() => initLottery(globalData)} className="greenBtn globalBtn">Init Lottery</button> */}
+        <button type="button" onClick={() => initLottery(globalData)} className="greenBtn globalBtn">Init Lottery</button>
         {/* <ConnectWalletModal open={open} handleClose={handleClose} /> */}
       </>
     );
