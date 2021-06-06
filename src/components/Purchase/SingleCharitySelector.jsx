@@ -1,10 +1,9 @@
-import React, { useRef,useContext,useState } from "react";
+import React, { useRef,useContext } from "react";
 import CharityImage from "./CharityImage";
 import CharityName from "./CharityName";
 import CharitySelectButton from "./CharitySelectButton";
 import SolLottoLogo from "./purchase-components/SolLottoLogo";
 import {CharityDataContext} from "./CharitySelectorGrid";
-import { PurchaseContext } from "../../context/PurchaseContext";
 
 const SingleCharitySelector = (props) => {
 	

@@ -5,18 +5,16 @@ import { GlobalContext } from "../../context/GlobalContext";
 
 import { ticketPurchase } from "./util/ticketPurchase";
 
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { POST_TICKET } from "../../graphql/mutations";
 import { toast } from "react-toastify";
-import {FETCH_TICKET} from '../../graphql/queries'
 
 
 export default function PurchaseButton({ selectedCharity, Numbers }) {
-  const { purchaseData, setPurchaseData } = useContext(PurchaseContext);
+  const { purchaseData } = useContext(PurchaseContext);
   const { globalData } = useContext(GlobalContext);
 
   const [addTicket] = useMutation(POST_TICKET);
-  const {loading, data} = useQuery(FETCH_TICKET)
 
   console.log(globalData.currentLottery);
 
@@ -83,9 +81,6 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
   };
  
   const getTicketBtn = () => {
-    if(loading){
-      return null
-    }
     return (
       <>
         <button

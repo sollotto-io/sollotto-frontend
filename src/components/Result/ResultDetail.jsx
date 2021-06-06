@@ -30,7 +30,7 @@ const ResultDetail = () => {
       LotteryId: parseInt(id),
     },
   });
-  useEffect(() => refetch(), []);
+  useEffect(() => refetch(), []);// eslint-disable-line react-hooks/exhaustive-deps
   const { loading: lotteryLoading, data: lottery } = useQuery(
     FETCH_LOTTERY_BY_ID,
     { variables: { Id: parseInt(id) } }

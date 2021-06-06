@@ -1,4 +1,4 @@
-import React,{useRef,useContext} from "react";
+import React,{useRef} from "react";
 
 export default function NumberInput(props) {
 	const ticketNumRef = useRef(null);

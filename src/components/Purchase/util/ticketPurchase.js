@@ -9,13 +9,9 @@ import {
 } from "@solana/web3.js";
 import * as borsh from "borsh";
 import { TicketDataAccount, TicketDataSchema } from "./TicketDataBorsh";
-import { LotteryDataAccount, LotteryDataSchema } from "./LotteryDataBorsh";
 import { toast } from "react-toastify";
-// import { useMutation } from "@apollo/client";
-// import { POST_TICKET } from "../../../graphql/mutations";
 
 export const ticketPurchase = async (globalData, purchaseDataArr) => {
-	// const [addTicket, {data}] = useMutation(POST_TICKET);
 	let lotteryInitProgramId = new PublicKey(
 		process.env.REACT_APP_SOLANA_INIT_LOTTERY_PROGRAM
 	);

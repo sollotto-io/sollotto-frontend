@@ -1,11 +1,10 @@
-import React,{useState,useMemo,useContext} from "react";
-import { Connection, SystemProgram, Transaction, clusterApiUrl } from '@solana/web3.js';
+import React,{useContext} from "react";
 import Wallet from '@project-serum/sol-wallet-adapter';
 import {GlobalContext} from "../../../context/GlobalContext";
 
 export default function ConnectWalletModalListItem(props) {
 	const {globalData,setGlobalData}  = useContext(GlobalContext);
-	const [providerUrl, setProviderUrl] = useState('');
+	
 	let urlWallet = null;
 
 	switch (props.name) {
