@@ -162,7 +162,7 @@
 .charitySelectorIcon {
 	width: 40px;
 	position: absolute;
-	left: 80px;
+	left: 40%;
 	top: -20px;
 	display: none;
 }
@@ -177,7 +177,7 @@
 	margin-bottom: 0.5rem;
 }
 @media only screen and (min-width: 980px) {
-	#tooltip{
+	#tooltip {
 		cursor: pointer;
 	}
 	.charitySelectorGrid {

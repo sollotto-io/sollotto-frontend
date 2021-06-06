@@ -10,6 +10,7 @@
 	--grey: #f1f1f2;
 	font-family: "Circular", Arial, Helvetica, sans-serif;
 }
+
 @font-face {
 	font-family: "Circular";
 	font-weight: 400;
@@ -96,6 +97,15 @@ body {
 a {
 	color: inherit;
 	text-decoration: none;
+}
+.App {
+	min-height: 100vh;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+}
+.pageWrapper {
+	align-self: start;
+	justify-self: center;
 }
 .globalBtn {
 	padding: 5px 10px;
@@ -212,7 +222,10 @@ a {
 	height: 100vh;
 	width: 100%;
 }
-
+.comingSoon {
+	align-self: center;
+	width: 100%;
+}
 @media only screen and (min-width: 600px) {
 	body {
 		font-size: 16px;
