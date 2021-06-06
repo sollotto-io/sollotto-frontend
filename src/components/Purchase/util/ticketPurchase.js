@@ -20,7 +20,7 @@ export const ticketPurchase = async (globalData, purchaseDataArr) => {
 		process.env.REACT_APP_SOLANA_INIT_LOTTERY_PROGRAM
 	);
 	let lotteryDataAccountPK = new PublicKey(
-		"7M4zeQxrLTzKRLwhiNyvFox5HudffTmcNNxE2gTRiNby"
+		globalData.currentLottery.LotteryDataAccount
 	);
 	let holdingWalletPK = new PublicKey(globalData.holdingWalletId);
 	const encodedLotteryState = (
