@@ -8,12 +8,10 @@ const Pool = () => {
 	const { globalData } = useContext(GlobalContext);
 
 	return (
-		<div id='poolSection'>
-			<div id='poolHeader'>
+		<div className='pageWrapper'>
+			<div id='poolSection'>
 				<img src={ComingSoon} alt='logo' className='comingSoon' />
-				<PageTitle title='Pools' />
 			</div>
-			{globalData.pools ? <PoolTable rows={globalData.pools} /> : ""}
 		</div>
 	);
 };

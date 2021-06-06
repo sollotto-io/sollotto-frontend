@@ -5,6 +5,7 @@ import Purchase from "./pages/Purchase";
 import Charities from "./pages/Charities";
 import Suggest from "./pages/Suggest";
 import Results from "./pages/Results";
+import Pool from "./pages/Pool";
 import CharityDetailPage from "./components/Charity/charityDetailPage";
 import { GlobalContext } from "./context/GlobalContext";
 import { useQuery } from "@apollo/react-hooks";
@@ -45,17 +46,16 @@ function App() {
 				globalData.selectedWallet.disconnect();
 			};
 		}
-		if (loading === false) {
-			setGlobalData({
-				...globalData,
-				currentLottery: data.getupcomingLottery,
-			});
-			console.log(data.getupcomingLottery);
-		}
 		if (charityloading === false) {
 			setGlobalData({
 				...globalData,
 				charities: charities.getAllCharities,
+			});
+		}
+		if (loading === false) {
+			setGlobalData({
+				...globalData,
+				currentLottery: data.getupcomingLottery,
 			});
 		}
 	}, [globalData.selectedWallet, loading, charityloading]); // eslint-disable-line react-hooks/exhaustive-deps
