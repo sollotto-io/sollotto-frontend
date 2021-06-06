@@ -1,14 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useParams } from "react-router";
 import RDetail from "./RDetails";
-import GreenGradientSvg from "../common/GreenGradientSvg";
+import {GlobalContext} from "../../context/GlobalContext"
+import { useQuery } from "@apollo/client";
+import { FETCH_LOTTERY_BY_ID, FETCH_USER_TICKET } from "../../graphql/queries";
+import Loader from "../common/Loader";
 
 const ResultDetail = () => {
+  const {globalData} = useContext(GlobalContext)
+  console.log(Buffer.from(
+    globalData.selectedWallet.publicKey.toBytes()
+  ).toJSON().data)
   const { id } = useParams();
+  console.log(id)
+  const {loading:lotteryLoading, data:lottery} = useQuery(FETCH_LOTTERY_BY_ID,{variables:{Id: parseInt(id) }})
+  const {loading: ticketLoading, data:usertickets} = useQuery(FETCH_USER_TICKET,{variables:{walletID: [1,2,3],LotteryId: parseInt(id) }})
+ 
+  
+  if(lotteryLoading && ticketLoading ){
+    return <Loader/>
+  }
+  else{
+    console.log(lottery, usertickets)
+  }
   return (
     <div className="detailSection">
+      
       <div className="topSection">
-        <RDetail id={id} />
+        <RDetail data= {lottery.getLotteryById} />
         <div className="wrap gradientBg ">
           <div className="win">
             <h4>No Winning Ticket</h4>

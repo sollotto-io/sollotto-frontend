@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -8,6 +8,12 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core";
 import { useHistory } from "react-router";
+import moment from "moment";
+import { useQuery } from "@apollo/client";
+import { FETCH_ALL_LOTTERIES } from "../../graphql/queries";
+import Loader from "../common/Loader";
+import { GlobalContext } from "../../context/GlobalContext";
+import { toast, ToastContainer } from "react-toastify";
 
 const StyledTableCell = withStyles({
   root: {
@@ -22,56 +28,104 @@ const StyledPaper = withStyles({
   },
 })(Paper);
 
-export default function ResultTable({ rows }) {
+export default function ResultTable() {
+  const { globalData } = useContext(GlobalContext);
+  const connectWallet = ()=>{
+
+    toast.error('PLease connect your wallet first!! ', {
+      position: "bottom-left",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      })
+  }
+  const { loading, data, refetch } = useQuery(FETCH_ALL_LOTTERIES);
+  useEffect(() => {
+    console.log("hello")
+    refetch()
+  }, [])
+
   const history = useHistory();
   const resultDetails = (param) => {
     history.push(`/results/${param}`);
   };
- 
-  return (
-    <TableContainer component={StyledPaper}>
-      <Table className="table" aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Drawing Name</StyledTableCell>
-            <StyledTableCell align="center">Drawing Date</StyledTableCell>
-            <StyledTableCell align="center">Winners</StyledTableCell>
-            <StyledTableCell align="center">Prize Pool</StyledTableCell>
-            <StyledTableCell align="center">Total Winners</StyledTableCell>
-            <StyledTableCell align="center"></StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row, index) => (
-            <TableRow
-            onClick={() => resultDetails(row.DrawingName)}
-              className="tableRow"
-              key={index}
-            >
-              <StyledTableCell component="th" scope="row">
-                {row.DrawingName}
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                { row.DrawingDate}
-              </StyledTableCell>
-
-              <StyledTableCell align="center">
-                
-                 {row.Winners}
-                
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                {row.PrizePool}
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                {" "}
-                {row.TotalWinner}
-              </StyledTableCell>
-              <StyledTableCell align="center">Winner</StyledTableCell>
+  if (loading) {
+    return <Loader />;
+  } else {
+    return (
+      <TableContainer component={StyledPaper}>
+        <ToastContainer/>
+        <Table className="table" aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Drawing Name</StyledTableCell>
+              <StyledTableCell align="center">Drawing Date</StyledTableCell>
+              <StyledTableCell align="center">Winners</StyledTableCell>
+              <StyledTableCell align="center">Prize Pool</StyledTableCell>
+              <StyledTableCell align="center">Total Winners</StyledTableCell>
+              <StyledTableCell align="center">Winning Charity</StyledTableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
+          </TableHead>
+          <TableBody>
+            {data.getAllLotteries.map((row, index) =>
+              globalData.selectedWallet === null ? (
+                <TableRow className="tableRow" onClick = {connectWallet} key={index}>
+                  <StyledTableCell component="th" scope="row">
+                    Pick 6
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {moment(row.EndDate).format("MMM Do YY")}
+                  </StyledTableCell>
+
+                  <StyledTableCell align="center">
+                    {row.WinnerWallet.length}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.TotalPoolValue}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {" "}
+                    {row.WinnerWallet.length}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.WinningCharity}
+                  </StyledTableCell>
+                </TableRow>
+              ) : (
+                <TableRow
+                  onClick={() => resultDetails(row.Id)}
+                  className="tableRow"
+                  key={index}
+                >
+                  <StyledTableCell component="th" scope="row">
+                    Pick 6
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {moment(row.EndDate).format("MMM Do YY")}
+                  </StyledTableCell>
+
+                  <StyledTableCell align="center">
+                    {row.WinnerWallet.length}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.TotalPoolValue}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {" "}
+                    {row.WinnerWallet.length}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.WinningCharity}
+                  </StyledTableCell>
+                </TableRow>
+              )
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
+  }
 }

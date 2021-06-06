@@ -30,7 +30,7 @@ const PurchaseCard = () => {
 					<ToastContainer/>
 					<div className='purchaseCardFooter'>
 						<TicketPrice/>
-						<PurchaseButton />
+						<PurchaseButton  />
 					</div>
 				</form>
 			</PurchaseContext.Provider>

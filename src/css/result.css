@@ -6,6 +6,9 @@
   margin: 2rem 0rem;
   padding: 0rem 1rem;
 }
+.disable{
+  cursor: none;
+}
 
 @media only screen and (min-width: 980px) {
   #search-pool {
