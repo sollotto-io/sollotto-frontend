@@ -1,10 +1,10 @@
-import React from "react";
+
 import ReactDOM from "react-dom";
-import App from "./App";
+import ApolloProvider from "./apolloProvider";
 import "./css/global.css";
 ReactDOM.render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>,
+	
+		ApolloProvider,
+	
 	document.getElementById("root")
 );

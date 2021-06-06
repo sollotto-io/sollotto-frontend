@@ -1,16 +1,23 @@
 import React from "react";
-import PageTitle from "../components/PageTitle";
-import TicketPrice from "../components/TicketPrice";
+import PageTitle from "../components/common/PageTitle";
+import TicketPrice from "../components/Purchase/purchase-components/TicketPrice";
 import HeaderInfo from "../components/Purchase/HeaderInfo";
 import PurchaseCard from "../components/Purchase/PurchaseCard";
 import "../css/purchase.css";
-export default function Purchase() {
+
+function Purchase() {
 	return (
-		<div id='purchaseSection'>
-			<PageTitle value='Purchase' />
-			<TicketPrice value={0.01} />
-			<HeaderInfo />
-			<PurchaseCard />
+		<div className='pageWrapper'>
+			<div id='purchaseSection'>
+				<div className='pageHeader'>
+					<PageTitle title='Purchase' />
+					<TicketPrice />
+					<HeaderInfo />
+				</div>
+				<PurchaseCard />
+			</div>
 		</div>
 	);
 }
+
+export default Purchase;
