@@ -49,7 +49,7 @@ function App() {
 		if (charityloading === false) {
 			setGlobalData({
 				...globalData,
-				charities: charities.getAllCharities,
+				currentLottery: data.getupcomingLottery,
 			});
 		}
 		if (loading === false) {

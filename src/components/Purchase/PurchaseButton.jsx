@@ -16,6 +16,7 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
 
   const [addTicket] = useMutation(POST_TICKET);
 
+  
 
   const connectWalletBtn = () => {
     return <WalletConnect />;
