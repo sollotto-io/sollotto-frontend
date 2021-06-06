@@ -19,7 +19,7 @@ const PoolDetailPage = () => {
           <>
             {" "}
             <PDetails poolDetail={poolDetail} />
-            <TimeRemaining time={poolDetail.TimeRemaining} />{" "}
+            <TimeRemaining  />{" "}
           </>
         ) : (
           <Loader/>

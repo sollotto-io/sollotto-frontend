@@ -1,6 +1,5 @@
 import React from 'react'
 import SollotoGradient from "../common/sollotoGradient"
-import OtherButton from "../common/otherButton"
 
 const CDetails = ({charityDetail}) => {
 

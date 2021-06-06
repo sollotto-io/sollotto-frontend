@@ -44,19 +44,20 @@ function App() {
 				globalData.selectedWallet.disconnect();
 			};
 		}
-		if (loading === false) {
-			setGlobalData({
-				...globalData,
-				currentLottery: data.getupcomingLottery,
-			});
-			console.log(data.getupcomingLottery);
-		}
 		if(charityloading===false){
 			setGlobalData({
 			  ...globalData,
 			  charities: charities.getAllCharities
 			})
 		}
+		if (loading === false) {
+			setGlobalData({
+				...globalData,
+				currentLottery: data.getupcomingLottery,
+			});
+			
+		}
+		
 	}, [globalData.selectedWallet, loading,charityloading]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	if (loading) {

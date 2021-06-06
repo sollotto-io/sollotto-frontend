@@ -16,7 +16,7 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
 
   const [addTicket] = useMutation(POST_TICKET);
 
-  console.log(globalData.currentLottery);
+  
 
   const connectWalletBtn = () => {
     return <WalletConnect />;
