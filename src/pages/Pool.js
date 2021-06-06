@@ -1,22 +1,13 @@
-import React, { useContext } from "react";
-import PageTitle from "../components/common/PageTitle";
-import PoolTable from "../components/Pool/poolTable";
-import "../css/pool.css";
-import {GlobalContext} from "../context/GlobalContext"
-
+import React from "react";
+import ComingSoon from "../images/pictures/coming-soon.png";
 const Pool = () => {
-  const {globalData} = useContext(GlobalContext)
- 
-  return (
-    <div id="poolSection">
-      <div id="poolHeader">
-        <PageTitle title="Pools" />
-       
-      </div>
-      {globalData.pools ?  <PoolTable rows = {globalData.pools} /> : "" }
-     
-    </div>
-  );
+	return (
+		<div className='pageWrapper'>
+			<div id='poolSection'>
+				<img src={ComingSoon} alt='logo' className='comingSoon' />
+			</div>
+		</div>
+	);
 };
 
 export default Pool;

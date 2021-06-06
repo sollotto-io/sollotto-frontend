@@ -7,7 +7,7 @@ const LeftCountdown = ({ lotteryData, ticketData }) => {
 
   if (lotteryData.WinnerWallet.length === 0) {
     return (
-      <div className="wrap gradientBg ">
+      <div id="winTicket" className="wrap gradientBg">
         <div className="win">
           <h4>No Winning Ticket</h4>
           <p>Better Luck Next Time</p>
@@ -16,7 +16,7 @@ const LeftCountdown = ({ lotteryData, ticketData }) => {
     );
   } 
   else {
-    lotteryData.WinnerWallet.map((l) => {
+    lotteryData.WinnerWallet.forEach((l) => {
       if (
         l ===
         Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data

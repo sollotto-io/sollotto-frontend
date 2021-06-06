@@ -111,7 +111,7 @@ export default function ResultTable() {
                     {row.WinnerWallet.length}
                   </StyledTableCell>
                   <StyledTableCell align="center">
-                    {row.TotalPoolValue}
+                    {row.TotalPoolValue.toFixed(2)}
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {" "}

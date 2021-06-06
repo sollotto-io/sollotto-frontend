@@ -5,6 +5,7 @@ import Purchase from "./pages/Purchase";
 import Charities from "./pages/Charities";
 import Suggest from "./pages/Suggest";
 import Results from "./pages/Results";
+import Pool from "./pages/Pool";
 import CharityDetailPage from "./components/Charity/charityDetailPage";
 import { GlobalContext } from "./context/GlobalContext";
 import { useQuery } from "@apollo/react-hooks";
@@ -13,15 +14,16 @@ import Loader from "./components/common/Loader";
 import Footer from "./pages/Footer";
 import { Connection } from "@solana/web3.js";
 import ResultDetail from "./components/Result/ResultDetail";
-
+import "./css/pool.css";
 function App() {
 	const { loading, data } = useQuery(FETCH_UPCOMING_LOTTERY);
-	const {loading:charityloading,data:charities} = useQuery(FETCH_ALL_CHARITIES)
+	const { loading: charityloading, data: charities } =
+		useQuery(FETCH_ALL_CHARITIES);
 
 	const [globalData, setGlobalData] = useState({
 		holdingWalletId: "86qYQ2wXLAKiD9S7qGnCd92UBEh5GWUDHwa39ifH7RJJ",
 		currentLottery: {},
-		charities:[],
+		charities: [],
 		selectedWallet: null,
 		walletConnectedFlag: false,
 		connection: new Connection(process.env.REACT_APP_SOLANA_NETWORK),
@@ -30,14 +32,9 @@ function App() {
 		if (globalData.selectedWallet) {
 			globalData.selectedWallet.on("connect", () => {
 				setGlobalData({ ...globalData, walletConnectedFlag: true });
-				console.log(
-					"Connected to wallet " +
-						globalData.selectedWallet.publicKey.toBase58()
-				);
 			});
 			globalData.selectedWallet.on("disconnect", () => {
 				setGlobalData({ ...globalData, walletConnectedFlag: false });
-				console.log("Disconnected from wallet");
 			});
 			globalData.selectedWallet.connect();
 			return () => {
@@ -51,8 +48,7 @@ function App() {
 				charities: charities.getAllCharities,
 			});
 		}
-		
-	}, [globalData.selectedWallet, loading,charityloading]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [globalData.selectedWallet, loading, charityloading]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	if (loading) {
 		return <Loader />;
@@ -74,6 +70,9 @@ function App() {
 						</Route>
 						<Route exact path='/results'>
 							<Results />
+						</Route>
+						<Route exact path='/pools'>
+							<Pool />
 						</Route>
 						{/* <Route exact path='/pools'>
 							<Pool />

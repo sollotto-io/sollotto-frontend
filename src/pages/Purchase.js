@@ -7,13 +7,15 @@ import "../css/purchase.css";
 
 function Purchase() {
 	return (
-		<div id='purchaseSection'>
-			<div className='pageHeader'>
-				<PageTitle title='Purchase' />
-				<TicketPrice />
-				<HeaderInfo />
+		<div className='pageWrapper'>
+			<div id='purchaseSection'>
+				<div className='pageHeader'>
+					<PageTitle title='Purchase' />
+					<TicketPrice />
+					<HeaderInfo />
+				</div>
+				<PurchaseCard />
 			</div>
-			<PurchaseCard />
 		</div>
 	);
 }

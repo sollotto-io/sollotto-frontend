@@ -19,7 +19,6 @@ export const ticketPurchase = async (globalData, purchaseDataArr) => {
 		globalData.currentLottery.LotteryDataAccount
 	);
 	let holdingWalletPK = new PublicKey(globalData.holdingWalletId);
-	console.log(globalData.currentLottery.TicketPrice);
 	try {
 		const solTransferTx = SystemProgram.transfer({
 			fromPubkey: globalData.selectedWallet.publicKey,
@@ -87,16 +86,9 @@ export const ticketPurchase = async (globalData, purchaseDataArr) => {
 		let signature = await globalData.connection.sendRawTransaction(
 			signedTx.serialize()
 		);
-		console.log(
-			"Submitted transaction " + signature + ", awaiting confirmation"
-		);
+
 		await globalData.connection.confirmTransaction(signature, "singleGossip");
 
-		console.log(ticketDataAccount.publicKey);
-		console.log("Transaction " + signature + " confirmed");
-
-		// DataWallet: ticketDataAccount.publicKey.toBytes() ,walletID: globalData.selectedWallet.toBytes() ,ticketArray: purchaseDataArr.ticketNumArr,charityId: purchaseDataArr.charityId
-		// Toaster "Ticket Purchase Successfull"
 		toast.success("Ticket Purchase is Successful", {
 			position: "bottom-left",
 			autoClose: 3000,
@@ -110,6 +102,5 @@ export const ticketPurchase = async (globalData, purchaseDataArr) => {
 	} catch (e) {
 		console.warn(e);
 		console.log("Error: " + e.message);
-		//Error Toaster "Sorry Ticket Purchase Failed!"
 	}
 };
