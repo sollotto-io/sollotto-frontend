@@ -23,12 +23,12 @@ export const ticketPurchase = async (globalData, purchaseDataArr) => {
 		globalData.currentLottery.LotteryDataAccount
 	);
 	let holdingWalletPK = new PublicKey(globalData.holdingWalletId);
-
+	console.log(globalData.currentLottery.TicketPrice);
 	try {
 		const solTransferTx = SystemProgram.transfer({
 			fromPubkey: globalData.selectedWallet.publicKey,
 			toPubkey: holdingWalletPK,
-			lamports: globalData.currentLottery.ticketPrice * LAMPORTS_PER_SOL,
+			lamports: globalData.currentLottery.TicketPrice * LAMPORTS_PER_SOL,
 		});
 		const value = new TicketDataAccount(
 			purchaseDataArr.charityId,
