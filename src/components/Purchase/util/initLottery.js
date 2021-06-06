@@ -22,9 +22,9 @@ export const initLottery = async (globalData) => {
 	try {
 		const lotteryDataAccount = new Account();
 		const createLotteryDataAccountTx = SystemProgram.createAccount({
-			space: 81,
+			space: 41,
 			lamports: await globalData.connection.getMinimumBalanceForRentExemption(
-				81,
+				41,
 				"singleGossip"
 			),
 			fromPubkey: globalData.selectedWallet.publicKey,
@@ -32,7 +32,7 @@ export const initLottery = async (globalData) => {
 			programId: solanaProgramId,
 		});
 
-		const value = new IncomingLotteryDataAccount(1, 1, 2, 3, 4, 1);
+		const value = new IncomingLotteryDataAccount(1, 1, 2, 3, 4);
 		const buffer = borsh.serialize(IncomingLotteryDataSchema, value);
 		const dataArr = new Uint8Array([0, ...buffer]);
 
@@ -92,6 +92,8 @@ export const initLottery = async (globalData) => {
 		console.log(
 			`Lottery Data Account PK: ${lotteryDataAccount.publicKey.toBase58()}`
 		);
+		console.log(`Lottery Data Account PK Bytes: ${lotteryDataAccount}`);
+		console.log(lotteryDataAccount.publicKey.toBytes());
 		console.log("Transaction " + signature + " confirmed");
 	} catch (e) {
 		console.warn(e);
