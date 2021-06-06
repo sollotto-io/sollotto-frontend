@@ -23,19 +23,12 @@ export const ticketPurchase = async (globalData, purchaseDataArr) => {
 		globalData.currentLottery.LotteryDataAccount
 	);
 	let holdingWalletPK = new PublicKey(globalData.holdingWalletId);
-	const encodedLotteryState = (
-		await globalData.connection.getAccountInfo(lotteryDataAccountPK)
-	).data;
-	const decodedLotteryState = borsh.deserialize(
-		LotteryDataSchema,
-		LotteryDataAccount,
-		encodedLotteryState
-	);
+	console.log(globalData.currentLottery.TicketPrice);
 	try {
 		const solTransferTx = SystemProgram.transfer({
 			fromPubkey: globalData.selectedWallet.publicKey,
 			toPubkey: holdingWalletPK,
-			lamports: globalData.currentLottery.ticketPrice * LAMPORTS_PER_SOL,
+			lamports: globalData.currentLottery.TicketPrice * LAMPORTS_PER_SOL,
 		});
 		const value = new TicketDataAccount(
 			purchaseDataArr.charityId,
@@ -106,13 +99,9 @@ export const ticketPurchase = async (globalData, purchaseDataArr) => {
 		console.log(ticketDataAccount.publicKey);
 		console.log("Transaction " + signature + " confirmed");
 
-		
-	
-
-		
 		// DataWallet: ticketDataAccount.publicKey.toBytes() ,walletID: globalData.selectedWallet.toBytes() ,ticketArray: purchaseDataArr.ticketNumArr,charityId: purchaseDataArr.charityId
 		// Toaster "Ticket Purchase Successfull"
-		toast.success('Ticket Purchase is Successful', {
+		toast.success("Ticket Purchase is Successful", {
 			position: "bottom-left",
 			autoClose: 3000,
 			hideProgressBar: true,
@@ -120,8 +109,8 @@ export const ticketPurchase = async (globalData, purchaseDataArr) => {
 			pauseOnHover: true,
 			draggable: true,
 			progress: undefined,
-			});
-			return {DataWallet: ticketDataAccount.publicKey.toBytes(), success:true}
+		});
+		return { DataWallet: ticketDataAccount.publicKey.toBytes(), success: true };
 	} catch (e) {
 		console.warn(e);
 		console.log("Error: " + e.message);

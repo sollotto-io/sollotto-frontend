@@ -1,33 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext} from "react";
 import WalletConnect from "../Nav/WalletConnect";
 import { PurchaseContext } from "../../context/PurchaseContext";
 import { GlobalContext } from "../../context/GlobalContext";
-import { initLottery } from "./util/initLottery";
+
 import { ticketPurchase } from "./util/ticketPurchase";
-import { lotteryDraw } from "./util/lotteryDraw";
+
 import { useMutation, useQuery } from "@apollo/client";
 import { POST_TICKET } from "../../graphql/mutations";
 import { toast } from "react-toastify";
+import {FETCH_TICKET} from '../../graphql/queries'
 
-import { FETCH_TICKET } from "../../graphql/queries";
-/**
- * Borsh schema definition for greeting accounts
- */
-
-/**
- * The expected size of each greeting account.
- */
-// const LOTTERY_DATA_SIZE = borsh.serialize(
-//   LotteryDataSchema,
-//   new LotteryDataAccount(),
-// ).length;
 
 export default function PurchaseButton({ selectedCharity, Numbers }) {
   const { purchaseData, setPurchaseData } = useContext(PurchaseContext);
   const { globalData } = useContext(GlobalContext);
 
   const [addTicket] = useMutation(POST_TICKET);
-  const { loading, data } = useQuery(FETCH_TICKET);
+  const {loading, data} = useQuery(FETCH_TICKET)
+
+  console.log(globalData.currentLottery);
 
   const connectWalletBtn = () => {
     return <WalletConnect />;
@@ -103,20 +94,6 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
           className="greenBtn globalBtn"
         >
           Get a Ticket
-        </button>
-        <button
-          type="button"
-          onClick={() => lotteryDraw(data)}
-          className="greenBtn globalBtn"
-        >
-          Draw Lottery
-        </button>
-        <button
-          type="button"
-          onClick={() => initLottery(globalData)}
-          className="greenBtn globalBtn"
-        >
-          Init Lottery
         </button>
         {/* <ConnectWalletModal open={open} handleClose={handleClose} /> */}
       </>
