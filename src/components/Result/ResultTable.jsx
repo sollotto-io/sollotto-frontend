@@ -30,6 +30,7 @@ const StyledPaper = withStyles({
 
 export default function ResultTable() {
   const { globalData } = useContext(GlobalContext);
+  
   const connectWallet = ()=>{
 
     toast.error('PLease connect your wallet first!! ', {
@@ -43,10 +44,8 @@ export default function ResultTable() {
       })
   }
   const { loading, data, refetch } = useQuery(FETCH_ALL_LOTTERIES);
-  useEffect(() => {
-    console.log("hello")
-    refetch()
-  }, [])
+  useEffect(() => refetch()
+, [])
 
   const history = useHistory();
   const resultDetails = (param) => {
@@ -54,7 +53,8 @@ export default function ResultTable() {
   };
   if (loading) {
     return <Loader />;
-  } else {
+  }
+  else {
     return (
       <TableContainer component={StyledPaper}>
         <ToastContainer/>
@@ -84,14 +84,14 @@ export default function ResultTable() {
                     {row.WinnerWallet.length}
                   </StyledTableCell>
                   <StyledTableCell align="center">
-                    {row.TotalPoolValue}
+                    {row.TotalPoolValue.toFixed(2)}
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {" "}
                     {row.WinnerWallet.length}
                   </StyledTableCell>
                   <StyledTableCell align="center">
-                    {row.WinningCharity}
+                    {row.WinningCharity.length}
                   </StyledTableCell>
                 </TableRow>
               ) : (
@@ -118,7 +118,7 @@ export default function ResultTable() {
                     {row.WinnerWallet.length}
                   </StyledTableCell>
                   <StyledTableCell align="center">
-                    {row.WinningCharity}
+                    {row.WinningCharity.length}
                   </StyledTableCell>
                 </TableRow>
               )

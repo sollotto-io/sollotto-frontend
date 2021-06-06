@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext } from "react";
 import WalletConnect from "../Nav/WalletConnect";
 import { PurchaseContext } from "../../context/PurchaseContext";
 import { GlobalContext } from "../../context/GlobalContext";
-import {initLottery} from "./util/initLottery";
+import { initLottery } from "./util/initLottery";
 import { ticketPurchase } from "./util/ticketPurchase";
 import { lotteryDraw } from "./util/lotteryDraw";
 import { useMutation, useQuery } from "@apollo/client";
 import { POST_TICKET } from "../../graphql/mutations";
 import { toast } from "react-toastify";
 
-import {FETCH_TICKET} from '../../graphql/queries'
+import { FETCH_TICKET } from "../../graphql/queries";
 /**
  * Borsh schema definition for greeting accounts
  */
@@ -23,24 +23,23 @@ import {FETCH_TICKET} from '../../graphql/queries'
 // ).length;
 
 export default function PurchaseButton({ selectedCharity, Numbers }) {
-  const { purchaseData,setPurchaseData } = useContext(PurchaseContext);
+  const { purchaseData, setPurchaseData } = useContext(PurchaseContext);
   const { globalData } = useContext(GlobalContext);
 
   const [addTicket] = useMutation(POST_TICKET);
-  const {loading, data} = useQuery(FETCH_TICKET)
-
-  
+  const { loading, data } = useQuery(FETCH_TICKET);
 
   const connectWalletBtn = () => {
     return <WalletConnect />;
   };
   const getTicket = async () => {
-    
-
-
-    if(purchaseData.selectedCharity != null && purchaseData.ticketNumberArr.length === 6 && purchaseData.ticketNumberArr.every(element => element != null)){
-      if(globalData.selectedWallet === null){
-        toast.error('Please Connect your Wallet! ', {
+    if (
+      purchaseData.selectedCharity != null &&
+      purchaseData.ticketNumberArr.length === 6 &&
+      purchaseData.ticketNumberArr.every((element) => element != null)
+    ) {
+      if (globalData.selectedWallet === null) {
+        toast.error("Please Connect your Wallet! ", {
           position: "bottom-left",
           autoClose: 3000,
           hideProgressBar: true,
@@ -48,17 +47,17 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          });
-          return;
+        });
+        return;
       }
       let purchaseDataArr = {
         charityId: purchaseData.selectedCharity,
         userWalletPK: globalData.selectedWallet.publicKey.toBytes(),
         ticketNumArr: purchaseData.ticketNumberArr,
       };
-      
+
       const result = await ticketPurchase(globalData, purchaseDataArr);
-  
+
       if (result.success) {
         try {
           addTicket({
@@ -69,20 +68,17 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
               ).toJSON().data,
               ticketArray: purchaseData.ticketNumberArr,
               charityId: purchaseData.selectedCharity,
-              LotteryId:globalData.currentLottery.Id
+              LotteryId: globalData.currentLottery.Id,
             },
           });
-
         } catch (e) {
           console.log(e);
         }
       } else {
         console.log("falider");
       }
-      
-    }
-    else{
-      toast.error('Please pick all numbers and a charity! ', {
+    } else {
+      toast.error("Please pick all numbers and a charity! ", {
         position: "bottom-left",
         autoClose: 3000,
         hideProgressBar: true,
@@ -90,13 +86,15 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        });
-        return;
+      });
+      return;
     }
-    
-    
   };
+ 
   const getTicketBtn = () => {
+    if(loading){
+      return null
+    }
     return (
       <>
         <button
@@ -113,7 +111,13 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
         >
           Draw Lottery
         </button>
-        <button type="button" onClick={() => initLottery(globalData)} className="greenBtn globalBtn">Init Lottery</button>
+        <button
+          type="button"
+          onClick={() => initLottery(globalData)}
+          className="greenBtn globalBtn"
+        >
+          Init Lottery
+        </button>
         {/* <ConnectWalletModal open={open} handleClose={handleClose} /> */}
       </>
     );

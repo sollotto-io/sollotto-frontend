@@ -10,7 +10,7 @@ import PoolDetailPage from "./components/Pool/poolDetailPage";
 import CharityDetailPage from "./components/Charity/charityDetailPage";
 import { GlobalContext } from "./context/GlobalContext";
 import { useQuery } from "@apollo/react-hooks";
-import { FETCH_UPCOMING_LOTTERY } from "./graphql/queries";
+import { FETCH_ALL_CHARITIES, FETCH_UPCOMING_LOTTERY } from "./graphql/queries";
 import Loader from "./components/common/Loader";
 import Footer from "./pages/Footer";
 import { Connection } from "@solana/web3.js";
@@ -18,10 +18,12 @@ import ResultDetail from "./components/Result/ResultDetail";
 
 function App() {
 	const { loading, data } = useQuery(FETCH_UPCOMING_LOTTERY);
+	const {loading:charityloading,data:charities} = useQuery(FETCH_ALL_CHARITIES)
+
 	const [globalData, setGlobalData] = useState({
 		holdingWalletId: "86qYQ2wXLAKiD9S7qGnCd92UBEh5GWUDHwa39ifH7RJJ",
 		currentLottery: {},
-		// pools: [],
+		charities:[],
 		selectedWallet: null,
 		walletConnectedFlag: false,
 		connection: new Connection(process.env.REACT_APP_SOLANA_NETWORK),
@@ -51,7 +53,13 @@ function App() {
 			});
 			console.log(data.getupcomingLottery);
 		}
-	}, [globalData.selectedWallet, loading]); // eslint-disable-line react-hooks/exhaustive-deps
+		if(charityloading===false){
+			setGlobalData({
+			  ...globalData,
+			  charities: charities.getAllCharities
+			})
+		}
+	}, [globalData.selectedWallet, loading,charityloading]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	if (loading) {
 		return <Loader />;

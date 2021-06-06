@@ -11,19 +11,10 @@ import {GlobalContext} from "../context/GlobalContext"
 
 
 export default function Charities() {
-  const {loading,data} = useQuery(FETCH_ALL_CHARITIES)
   const {globalData, setGlobalData} = useContext(GlobalContext)
 
 
-  useEffect(() => {
-   if(loading===false){
-    setGlobalData({
-      ...globalData,
-      charities: data.getAllCharities
-    })
-   }
-   
-  }, [loading]) // eslint-disable-line react-hooks/exhaustive-deps
+  
   return (
     <div className="charitySection">
       <div id="poolHeader">
