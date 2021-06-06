@@ -1,6 +1,5 @@
 import React from "react";
 const CharityIntro = ({charityDetail}) => {
-  console.log(charityDetail.webURL)
   return (
     <div className="charityIntroSection">
       <div>

@@ -2,8 +2,6 @@ import moment from 'moment'
 import React from 'react'
 
 const RDetail = ({globalData,data}) => {
-    console.log(globalData)
-    console.log(data)
     if(data){
         return (
             <section id="poolC">
@@ -37,7 +35,6 @@ const RDetail = ({globalData,data}) => {
                <p>Winning Charities</p>
                   {data.WinningCharity.map((c,i)=>{
                       var cha = globalData.charities.find((t)=>(t.ID ===c))
-                      console.log(cha)
                        return <p key={i}>{cha.charityName}</p>
                   })}
                </section>

@@ -32,30 +32,21 @@ function App() {
 		if (globalData.selectedWallet) {
 			globalData.selectedWallet.on("connect", () => {
 				setGlobalData({ ...globalData, walletConnectedFlag: true });
-				console.log(
-					"Connected to wallet " +
-						globalData.selectedWallet.publicKey.toBase58()
-				);
 			});
 			globalData.selectedWallet.on("disconnect", () => {
 				setGlobalData({ ...globalData, walletConnectedFlag: false });
-				console.log("Disconnected from wallet");
 			});
 			globalData.selectedWallet.connect();
 			return () => {
 				globalData.selectedWallet.disconnect();
 			};
 		}
-		if (charityloading === false) {
+
+		if (loading === false && charityloading === false) {
 			setGlobalData({
 				...globalData,
 				currentLottery: data.getupcomingLottery,
-			});
-		}
-		if (loading === false) {
-			setGlobalData({
-				...globalData,
-				currentLottery: data.getupcomingLottery,
+				charities: charities.getAllCharities,
 			});
 		}
 	}, [globalData.selectedWallet, loading, charityloading]); // eslint-disable-line react-hooks/exhaustive-deps
