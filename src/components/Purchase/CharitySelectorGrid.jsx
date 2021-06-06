@@ -18,7 +18,7 @@ export default function CharitySelectorGrid() {
 		  lotteryCharities: data.getActiveCharities
 		})}
 	 
-	}, [loading])
+	}, [loading])// eslint-disable-line react-hooks/exhaustive-deps
 	
 
 	

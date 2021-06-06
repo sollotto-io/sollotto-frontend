@@ -1,13 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import Modal from "@material-ui/core/Modal";
 import Fade from "@material-ui/core/Fade";
 import Backdrop from "@material-ui/core/Backdrop";
 import ConnectWalletModalListItem from "./ConnectWalletModalListItem";
 import CloseIcon from "@material-ui/icons/Close";
-import {GlobalContext} from "../../../context/GlobalContext"
 
 export default function ConnectWalletModal(props) {
-	const {globalData, setGlobalData} = useContext(GlobalContext)
 	
 	return (
 		<Modal

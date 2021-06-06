@@ -8,7 +8,7 @@ const CharityIntro = ({charityDetail}) => {
       </div>
       <div id="project-buttons">
           <a href={charityDetail.webURL} target="_blank"  rel="noreferrer" ><button>WEBSITE</button></a>
-          <button>SOLANA EXPLORER</button>
+         
       </div>
         <div id="project-desc">
            <p>{charityDetail.projectDetails}</p>

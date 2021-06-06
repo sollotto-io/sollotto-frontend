@@ -35,11 +35,11 @@ export default function CharityTable({ rows }) {
         <TableHead>
           <TableRow>
             <StyledTableCell>Charity Name</StyledTableCell>
-            <StyledTableCell align="center">Current Votes</StyledTableCell>
+            <StyledTableCell align="center">Current Votes (coming soon)</StyledTableCell>
             <StyledTableCell align="center">Added By</StyledTableCell>
-            <StyledTableCell align="center">Life Time Votes</StyledTableCell>
-            <StyledTableCell align="center">Total Contribution</StyledTableCell>
-            <StyledTableCell align="center"></StyledTableCell>
+            <StyledTableCell align="center">Life Time Votes (coming soon)</StyledTableCell>
+            <StyledTableCell align="center">Total Contribution (coming soon)</StyledTableCell>
+            
           </TableRow>
         </TableHead>
         <TableBody>
@@ -53,7 +53,7 @@ export default function CharityTable({ rows }) {
                 {row.charityName}
               </StyledTableCell>
               <StyledTableCell align="center">
-                {row.currentVotes === null ? "N/A" : row.currentVotes}
+                {row.currentVotes === null ? "-" : row.currentVotes}
               </StyledTableCell>
 
               <StyledTableCell align="center">
@@ -62,14 +62,13 @@ export default function CharityTable({ rows }) {
                 </p>
               </StyledTableCell>
               <StyledTableCell align="center">
-                {row.lifeTimeVotes === null ? "N/A" : row.lifeTimeVotes}
+                {row.lifeTimeVotes === null ? "-" : row.lifeTimeVotes}
               </StyledTableCell>
               <StyledTableCell align="center">
                 {" "}
-                {row.lifeTimeVotes === null ? "N/A" : row.lifeTimeVotes}
+                {row.lifeTimeVotes === null ? "-" : row.lifeTimeVotes}
               </StyledTableCell>
-              <StyledTableCell align="center"><p id="status-table" className="gradientBg3 gradientBg2">{row.Status}</p></StyledTableCell>
-            </TableRow>
+             </TableRow>
           ))}
         </TableBody>
       </Table>

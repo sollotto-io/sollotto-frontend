@@ -12,7 +12,7 @@ const SortButtons = () => {
       ...globalData,
       pools: sortbyprize,
     });
-  }, [filter]);
+  }, [filter]);// eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div id="sort-buttons">

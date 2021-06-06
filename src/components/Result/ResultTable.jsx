@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -45,7 +45,7 @@ export default function ResultTable() {
   }
   const { loading, data, refetch } = useQuery(FETCH_ALL_LOTTERIES);
   useEffect(() => refetch()
-, [])
+, [])// eslint-disable-line react-hooks/exhaustive-deps
 
   const history = useHistory();
   const resultDetails = (param) => {
