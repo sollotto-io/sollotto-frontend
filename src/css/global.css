@@ -6,7 +6,7 @@
 	--tang: #ff852d;
 	--tungsten: #193650;
 	--navy-blue: #131a35;
-	--dark-blue:#1B274F;
+	--dark-blue: #1b274f;
 	--grey: #f1f1f2;
 	font-family: "Circular", Arial, Helvetica, sans-serif;
 }
@@ -164,6 +164,7 @@ a {
 .connectModalItem {
 	background-color: var(--tungsten);
 	border-radius: 4px;
+	min-width: 300px;
 }
 .modalTitle {
 	font-weight: 600;
@@ -204,7 +205,7 @@ a {
 	place-self: center;
 }
 
-#loader{
+#loader {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -223,4 +224,3 @@ a {
 		max-width: 550px;
 	}
 }
-
