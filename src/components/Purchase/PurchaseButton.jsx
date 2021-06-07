@@ -5,7 +5,7 @@ import { GlobalContext } from "../../context/GlobalContext";
 
 import { ticketPurchase } from "./util/ticketPurchase";
 
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/react-hooks";
 import { POST_TICKET } from "../../graphql/mutations";
 import { toast } from "react-toastify";
 

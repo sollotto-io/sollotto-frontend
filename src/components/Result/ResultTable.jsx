@@ -9,7 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core";
 import { useHistory } from "react-router";
 import moment from "moment";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/react-hooks";
 import { FETCH_ALL_LOTTERIES } from "../../graphql/queries";
 import Loader from "../common/Loader";
 import { GlobalContext } from "../../context/GlobalContext";

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router";
 import RDetail from "./RDetails";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/react-hooks";
 import { FETCH_LOTTERY_BY_ID, FETCH_USER_TICKET } from "../../graphql/queries";
 import Loader from "../common/Loader";
 import LeftCountdown from "../Result/leftCountdown";
