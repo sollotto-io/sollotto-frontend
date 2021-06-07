@@ -100,7 +100,14 @@ export const ticketPurchase = async (globalData, purchaseDataArr) => {
 		});
 		return { DataWallet: ticketDataAccount.publicKey.toBytes(), success: true };
 	} catch (e) {
-		console.warn(e);
-		console.log("Error: " + e.message);
+		toast.error("Ticket Purchase Unsuccessful", {
+			position: "bottom-left",
+			autoClose: 3000,
+			hideProgressBar: true,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+		});
 	}
 };

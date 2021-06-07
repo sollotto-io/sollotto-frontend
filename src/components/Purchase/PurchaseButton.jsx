@@ -64,10 +64,18 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
           console.log(e);
         }
       } else {
-       return null
+        toast.error("Ticket Purchase Unsuccessful", {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       }
     } else {
-      toast.error("Please pick all numbers and a charity! ", {
+      toast.error("Please pick all numbers and a charity", {
         position: "bottom-left",
         autoClose: 3000,
         hideProgressBar: true,
@@ -90,7 +98,6 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
         >
           Get a Ticket
         </button>
-        {/* <ConnectWalletModal open={open} handleClose={handleClose} /> */}
       </>
     );
   };
