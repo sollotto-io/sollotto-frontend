@@ -2,6 +2,29 @@ import moment from 'moment'
 import React from 'react'
 
 const RDetail = ({globalData,data}) => {
+    function userResult() {
+        let result = null;
+        if(data.isActive === true){
+              result = <p>TBD</p>
+          }
+          else if(data.isActive === false){
+            if (data.WinnerWallet !== 0) {
+                result = <p>TBD</p>
+            }
+            else{
+                data.WinnerWallet.forEach((val) => {
+                    if (val !== globalData.selectedWallet.publicKey.toBytes()) {
+                        result = <p>Lost</p>
+                      }
+                      else if(val === globalData.selectedWallet.publicKey.toBytes()){
+                        result = <p>Won</p>
+                      }
+                });
+              
+            }
+          } 
+          return result;
+    }
     if(data){
         return (
             <section id="poolC">
@@ -29,7 +52,7 @@ const RDetail = ({globalData,data}) => {
                </section>
                <section>
                <p>Your Result</p>
-                   <p>No Winner</p> 
+               {userResult()}
                </section>
                <section>
                <p>Winning Charities</p>
