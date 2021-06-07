@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "../css/charity.css";
 import PageTitle from "../components/common/PageTitle";
-import CharityTable from "../components/Charity/charityTable";
+import CharityTable from "../components/charity/charityTable";
 import { GlobalContext } from "../context/GlobalContext";
 import "../css/pool.css";
 

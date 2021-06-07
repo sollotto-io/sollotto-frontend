@@ -6,7 +6,7 @@ import Charities from "./pages/Charities";
 import Suggest from "./pages/Suggest";
 import Results from "./pages/Results";
 import Pool from "./pages/Pool";
-import CharityDetailPage from "./components/Charity/charityDetailPage";
+import CharityDetailPage from "./components/charity/charityDetailPage";
 import { GlobalContext } from "./context/GlobalContext";
 import { useQuery } from "@apollo/react-hooks";
 import { FETCH_ALL_CHARITIES, FETCH_UPCOMING_LOTTERY } from "./graphql/queries";
