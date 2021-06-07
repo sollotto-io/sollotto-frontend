@@ -18,8 +18,8 @@ const client = new ApolloClient({
 
 export default (
   <ApolloProvider client={client}>
-      <React.StrictMode>
+      
     <App />
-    </React.StrictMode>
+    
   </ApolloProvider> 
 );
