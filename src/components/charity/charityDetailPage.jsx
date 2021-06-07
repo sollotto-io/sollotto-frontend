@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { GlobalContext } from "../../context/GlobalContext";
 import Loader from "../common/Loader";
 import CDetail from "./CDetails";
-import CharityCommunitySelect from "../Charity/CharityCommunitySelect";
+import CharityCommunitySelect from "./CharityCommunitySelect";
 import { useHistory } from "react-router";
 import CharityIntro from "./CharityIntro"
 import CharityExtraInfo from "./CharityExtraInfo"
