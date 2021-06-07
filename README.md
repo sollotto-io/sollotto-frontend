@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+SolLotto Readme
+Welcome to SolLotto
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An open and fair pooled giveaway protocol that enables community-driven effective altruism. SolLotto is the first lottery system built on the Solana blockchain.
 
-## Available Scripts
+WEBSITE: https://sollotto.io - The Official SolLotto Website!
 
-In the project directory, you can run:
+PROBLEM: Traditional lotteries have excessive administrative fees and a fixed set of charities the funding goes towards. This reduces the effectiveness of the charitable contributions.
 
-### `yarn start`
+SOLUTION: SolLotto is the first decentralized, peer-to-peer giveaway system built on the Solana blockchain. Our plan is to operate a number of pooled giveaways compatible with various SPL tokens, offering convenience of entry to members of the Solana ecosystem. Our blockchain based protocols are designed to offer consumers greater transparency and choice compared to traditional lotteries in three primary ways:
+1. Eliminating the need to trust traditional intermediaries.
+2. Reducing administrative fees and expenses.
+3. Creating meaningful differences in how the pool giveaways are structured.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
+Built With
+React - User interface
+Rust & Solana - Smart Contracts & on-chain data storage
+MongoDB - Off-chain database
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Data Sources
+Winning Number Generation
+To ensure highest standards of trustlessness, we aim to use Chainlink for secure random number generation on-chain when possible. Currently we generate random numbers off-chain and store those value on-chain. We plan to integrate our own random number generation with Chainlink as soon as Chainlink has made those features available on the Solana blockchain.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Eligible Charities
+Charities will be pre-vetted for inclusion on the platform by the SolLotto team. While we hope to develop or encourage the development of independent ranking systems as more transactions take place on-chain, we currently rely on third-party partners to verify the effectiveness of the charities we include. Currently we accept charities that have a ranking of A- or better from CharityWatch.org, or appear on GiveWell.orgs top charities list.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+Initial Contributors
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Kashyap Pavra - Lead Developer
+Rushi Chandalia - Development Team
+Conor Holds - Protocol Design, UI & UX Design
+Bishop Smith - Protocol Design
+David Seo - Protocol Design
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Roadmap
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+May 2021 - Protocol & Platform Design, Team Building, & Community Building
+SolLotto was started on May 5, 2021. In addition to designing the protocols and platforms behind the five pooled giveaway models described in our litepaper, we welcomed new team members that will be key contributors to the success of SolLotto. 
 
-## Learn More
+June 2021 - Alpha Testing Begins. 
+Initial testing on the Solana dev-net for the Standard Lottery model (model #1) and continued development of additional models for inclusion on the platform. Our alpha-test will use a UI similar to Raydium’s open-sourced front-end to speed up development time. During this time we will address any issues found with the functionality of the platform and begin implementing our own customized SolLotto UI. 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+July 2021 - Open-Beta Testing. 
+We will open the platform to the public for testing on Solana’s dev-net in order to collect additional feedback and recommendations from community members on what is needed most for the platform to be successful. We will also continue the development of lottery model #2 as well as improving the usability and user experience of the platform itself. 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+August 2021 - IDO & Platform Launch
+After successfully launching the SolLotto platform, we plan to expand the number of “deposit pools” available to include other SPL tokens that generate staking rewards. We will also implement an instant-reward giveaway system for participants in the model #1 giveaway (they will receive some type of reward instantly and automatically when they purchase a ticket).
 
-### Code Splitting
+September 2021 - Core Platform Development Continues
+Initial selection for which charities are included in the next drawing will be done using web2.0 technology while the core features of the platform are finished. Soon after launch we plan to transition this voting process to be blockchain verifiable as well. Additionally, we will continue development on models 3-5 found in our litepaper. Models #4 and #5 will be introduced to the platform when the share of the staking rewards generated in the SolLotto Foundation Rewards pool and allocated to each model for any one drawing is greater than $1000 USDC per model.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+October 2021 - Community Feature Development Continues
+In commitment to  increasing the value that our platform provides to our community, we will first implement an NFT rewards system for the most active participants on the platform. This will be based on a number of different measurements of overall activity and specific engagements. We will additionally be further developing the results and reporting functionalities of the SolLotto platform to improve the participant experience.
 
-### Analyzing the Bundle Size
+November 2021 - Platform Development Continues
+Continued development of the platform to include functionality which improves user experience. We plan to implement quick-pick & bulk quick-pick functionalities for model #1, as well as a tiered prize pool system for both the lottery and charity winners.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+December 2021 - UI / UX Development Continues
+Introduction of a fully SolLotto branded version of the UI, featuring increased gamification and multiple style options for the end user to choose from.
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+2022 - Charity Eligibility Expansion + Protocol Development
+After successfully launching the SolLotto platform, the team at SolLotto will:
+Expand the quantity of charities eligible to participate in the SolLotto protocol by growing a charity verification team.
+Develop our protocol to make it easier for other Solana projects to seamlessly integrate SolLotto protocols into their own platforms (Defi, Wallet’s, CEXs).
+Depending on the effectiveness of the third-party verification organizations we rely on to determine the eligibility of charities, we may develop our own system for transparently and trustlessly tracking the effectiveness of the charitable contributions.
 
-### Advanced Configuration
+2023 - Introducing Governance Tokens & Transitioning Platform Governance to a DAO
+We will enable community-driven decisions in platform governance by introducing the LGOV token. Holders of LGOV will be able to participate in votes and propose changes around the key aspects of the SolLotto platform. Individuals will only be able to hold a capped amount of LGOV in order to ensure the key benefits of decentralization are maintained.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
+2024 & Beyond
+The SolLotto team will take the necessary steps to ensure that the SolLotto platform and protocol will transition into a fully decentralized, autonomous organization (DAO), while ensuring the continued security & usability of the platform and protocol are taken into consideration.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `yarn build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

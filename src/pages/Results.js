@@ -1,5 +1,18 @@
 import React from "react";
+import PageTitle from "../components/common/PageTitle";
+import "../css/result.css";
+import ResultTable from "../components/Result/ResultTable";
 
 export default function Results() {
-	return <div>Results</div>;
+	return (
+		<div className='pageWrapper'>
+			<div className='resultSection'>
+				<div id='resultHeader'>
+					<PageTitle title='Result' />
+				</div>
+
+				<ResultTable />
+			</div>
+		</div>
+	);
 }

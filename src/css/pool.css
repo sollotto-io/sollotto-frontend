@@ -1,0 +1,313 @@
+#poolSection {
+	display: grid;
+	grid-template-columns: auto;
+	grid-template-rows: auto 1fr;
+	justify-content: center;
+	margin: 2rem 0rem;
+	padding: 0rem 1rem;
+}
+.pageTitle {
+	margin: 0;
+}
+
+#poolHeader {
+	display: grid;
+	grid-template-columns: auto;
+	grid-template-rows: auto auto 1fr;
+	justify-content: stretch;
+}
+
+#search-pool {
+	margin-top: 10px;
+	width: 100%;
+	padding: 10px;
+	border: 1px white solid;
+	background-color: transparent;
+	border-radius: 5px;
+	color: white;
+}
+#search-pool ::placeholder {
+	color: white;
+}
+
+.wrapper {
+	background-color: rgba(0, 0, 0, 0.322);
+	padding: 10px;
+	margin-top: 1em;
+	display: grid;
+	grid-template-columns: auto;
+	grid-template-rows: auto auto 1fr;
+	grid-gap: 5px;
+}
+.wrapper p {
+	margin: 0;
+}
+#sort-buttons button {
+	background-color: var(--tungsten);
+	border: 1px black solid;
+	padding: 5px 7px 5px 7px;
+	margin-right: 1em;
+	color: white;
+	border-radius: 5px;
+	font-size: 10px;
+	cursor: pointer;
+}
+.table {
+	min-width: 20em;
+	background-color: var(--dark-blue);
+	border: 0;
+	box-shadow: 0;
+}
+.tableRow {
+	cursor: pointer;
+}
+.topSection {
+	display: grid;
+	grid-template-columns: auto;
+	width: auto;
+	margin-bottom: 1rem;
+}
+
+#poolD {
+	background-color: rgba(0, 0, 0, 0.322);
+	padding: 10px 20px 10px 20px;
+	border-radius: 0;
+	display: grid;
+	grid-template-columns: auto;
+	grid-template-rows: auto 1fr;
+	width: 100%;
+}
+#poolD h4 {
+	margin: 0;
+	padding: 15px 0px 15px 0px;
+	border-bottom: 0.5px gray solid;
+}
+#poolD p {
+	font-size: 14px;
+}
+
+#poolD hr {
+	border: 1px rgba(128, 128, 128, 0.26) solid;
+	background-color: rgba(128, 128, 128, 0.26);
+	opacity: 0.5;
+}
+
+#other-details {
+	display: grid;
+	grid-template-columns: auto auto;
+	justify-content: space-between;
+	border-bottom: 0.5px gray solid;
+	height: 100%;
+}
+.timer {
+	font-size: 25px;
+}
+#poolTimeR {
+	background: rgba(19, 26, 53, 0.9);
+	padding: 10px;
+	border-radius: 0;
+	height: 100%;
+	width: 100%;
+	display: grid;
+	grid-template-columns: auto;
+	grid-template-rows: auto 1fr;
+	text-align: center;
+}
+
+.bottomSection {
+	display: grid;
+	grid-template-columns: auto;
+}
+.prizePoolSection {
+	grid-template-columns: auto;
+	padding: 20px;
+}
+#winner-amount {
+	display: grid;
+	grid-template-columns: auto auto;
+	grid-template-rows: auto 1fr;
+	align-items: stretch;
+	width: 100%;
+}
+#trophy-image {
+	width: 100%;
+	grid-template-columns: auto;
+	grid-template-rows: auto 1fr;
+}
+#amount {
+	display: flex;
+	align-items: center;
+}
+.poolExtraInfo {
+	display: grid;
+	padding: 20px;
+	grid-template-columns: auto;
+	grid-template-rows: auto 1fr;
+}
+
+#infoHeader {
+	background-color: rgba(0, 0, 0, 0.322);
+	color: white;
+	width: 100%;
+	padding: 15px 20px 15px 20px;
+}
+
+#other-info {
+	display: grid;
+	background-color: var(--dark-blue);
+	grid-template-columns: auto;
+}
+#info {
+	padding: 15px 20px 15px 20px;
+	width: 100%;
+	height: fit-content;
+	border-bottom: 1px rgba(128, 128, 128, 0.459) solid;
+}
+.detailSection {
+	margin: 1rem;
+}
+@media only screen and (min-width: 980px) {
+	#search-pool {
+		margin-top: 10px;
+		width: 100%;
+		padding: 10px;
+		border: 1px white solid;
+		background-color: transparent;
+		border-radius: 5px;
+	}
+
+	#sort-buttons button {
+		background-color: var(--tungsten);
+		border: 1px black solid;
+		padding: 7px 10px 7px 10px;
+		margin-right: 1em;
+		color: white;
+		border-radius: 5px;
+		font-size: 12px;
+	}
+	.table {
+		min-width: 40em;
+		background-color: var(--dark-blue);
+		border: 0;
+		box-shadow: 0;
+	}
+	.tableRow {
+		cursor: pointer;
+	}
+
+	.detailSection {
+		display: grid;
+		grid-template-columns: auto;
+		grid-template-rows: auto 1fr;
+		grid-gap: 20px;
+		justify-content: center;
+		margin: 2rem 0rem;
+		padding: 0rem 1rem;
+	}
+	.topSection {
+		display: grid;
+		grid-template-columns: auto auto;
+		height: 40vh;
+		margin-bottom: 0px;
+	}
+	#poolD {
+		background-color: rgba(0, 0, 0, 0.322);
+		padding: 10px 30px 10px 30px;
+		border-radius: 20px 0px 0px 20px;
+		display: grid;
+		grid-template-columns: auto;
+		grid-template-rows: auto 1fr;
+		width: 40em;
+	}
+
+	#poolD hr {
+		border: 1px rgba(128, 128, 128, 0.26) solid;
+		background-color: rgba(128, 128, 128, 0.26);
+	}
+	#other-details {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		border-bottom: 0.5px gray solid;
+		height: 70%;
+	}
+
+	#poolTimeR {
+		background: rgba(19, 26, 53, 0.9);
+		padding: 10px;
+		border-radius: 0px 20px 20px 0px;
+		height: 100%;
+		width: 20em;
+		display: grid;
+		grid-template-columns: auto;
+		grid-template-rows: auto 1fr;
+		text-align: center;
+	}
+
+	.bottomSection {
+		display: grid;
+		grid-template-columns: auto auto;
+		margin-bottom: 40px;
+	}
+	.prizePoolSection {
+		width: 100%;
+		display: grid;
+		grid-template-columns: auto;
+		grid-template-rows: auto 1fr;
+		grid-gap: 30px;
+	}
+	.prizePoolSection h4 {
+		margin: 0;
+		margin-top: 10px;
+		width: fit-content;
+	}
+	.prizePoolSection p {
+		margin: 0;
+		width: fit-content;
+		font-size: 15px;
+	}
+
+	#winner-amount {
+		display: grid;
+		grid-template-columns: auto auto;
+		grid-template-rows: auto 1fr;
+		align-items: stretch;
+		width: 60%;
+	}
+	#trophy-image {
+		width: 100%;
+		padding: 10px;
+	}
+	#amount {
+		display: flex;
+		align-items: center;
+	}
+	#count {
+		font-size: 20px;
+	}
+	.poolExtraInfo {
+		display: grid;
+		grid-template-columns: auto;
+		grid-template-rows: auto 1fr;
+		padding: 0;
+	}
+
+	#infoHeader {
+		background-color: rgba(0, 0, 0, 0.322);
+		color: white;
+		width: 100%;
+		padding: 0px 20px 0px 20px;
+	}
+
+	#other-info {
+		display: grid;
+		background-color: var(--dark-blue);
+		grid-template-columns: auto;
+	}
+	#info {
+		padding: 15px 20px 15px 20px;
+		width: 100%;
+		height: fit-content;
+		border-bottom: 1px rgba(128, 128, 128, 0.459) solid;
+	}
+}
