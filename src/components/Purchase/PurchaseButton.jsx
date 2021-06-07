@@ -64,7 +64,7 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
           console.log(e);
         }
       } else {
-        console.log("falider");
+       return null
       }
     } else {
       toast.error("Please pick all numbers and a charity! ", {

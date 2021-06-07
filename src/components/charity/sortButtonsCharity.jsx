@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import {GlobalContext} from "../../context/GlobalContext"
 const SortButtonsCharity = () => {
     const {globalData} = useContext(GlobalContext)
-    (globalData)
+    console.log(globalData)
     return (
         <div id="sort-buttons">
             <button>ALL</button>
