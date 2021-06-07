@@ -29,7 +29,6 @@ export default function ConnectWalletModal(props) {
 					</div>
 					<ul className='modalList'>
 						<ConnectWalletModalListItem name="Sollet" />
-						<ConnectWalletModalListItem name="Phantom" />
 					</ul>
 				</div>
 			</Fade>

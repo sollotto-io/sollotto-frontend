@@ -80,6 +80,7 @@ export const FETCH_ALL_LOTTERIES = gql`
       StartDate
       EndDate
       WinnerWallet
+      WinningNumbers
       TotalPoolValue
       TotalRegistrations
       isActive

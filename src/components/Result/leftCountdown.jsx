@@ -4,8 +4,17 @@ import { GlobalContext } from "../../context/GlobalContext";
 const LeftCountdown = ({ lotteryData, ticketData }) => {
   const { globalData } = useContext(GlobalContext);
 
-
-  if (lotteryData.WinnerWallet.length === 0) {
+  if(lotteryData.WinningNumbers.length === 0){
+    return (
+      <div id="winTicket" className="wrap gradientBg">
+        <div className="win">
+          <h4>Lottery In Pogress</h4>
+            
+        </div>
+      </div>
+    );
+  }
+  else if (lotteryData.WinnerWallet.length === 0) {
     return (
       <div id="winTicket" className="wrap gradientBg">
         <div className="win">
@@ -14,7 +23,7 @@ const LeftCountdown = ({ lotteryData, ticketData }) => {
         </div>
       </div>
     );
-  } 
+  }
   else {
     lotteryData.WinnerWallet.forEach((l) => {
       if (
