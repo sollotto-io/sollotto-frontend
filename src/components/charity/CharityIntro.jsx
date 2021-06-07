@@ -6,7 +6,7 @@ const CharityIntro = ({charityDetail}) => {
         <h4>Project Details</h4>
       </div>
       <div id="project-buttons">
-          <a href={charityDetail.webURL} target="_blank"  rel="noreferrer" ><button>WEBSITE</button></a>
+          <a href={charityDetail.webURL} target="_blank"  rel="noopener noreferrer"><button>WEBSITE</button></a>
          
       </div>
         <div id="project-desc">

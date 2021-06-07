@@ -6,6 +6,7 @@ export default function NavItem(props) {
 	const isDesktop = useMediaQuery({ query: "(min-width: 980px)" });
 	return (
 		<NavLink
+			onClick={props.onNavLinkClick}
 			className='navLink'
 			to={`/${props.url_link}`}
 			activeStyle={

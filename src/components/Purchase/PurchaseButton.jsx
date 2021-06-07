@@ -39,6 +39,18 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
         });
         return;
       }
+      if(purchaseData.ticketNumberArr[0] < 1 || purchaseData.ticketNumberArr[0] > 69 || purchaseData.ticketNumberArr[1] < 1 || purchaseData.ticketNumberArr[1] > 69 || purchaseData.ticketNumberArr[2] < 1 || purchaseData.ticketNumberArr[2] > 69 || purchaseData.ticketNumberArr[3] < 1 || purchaseData.ticketNumberArr[3] > 69 || purchaseData.ticketNumberArr[4] < 1 || purchaseData.ticketNumberArr[4] > 69 || purchaseData.ticketNumberArr[5] < 1 || purchaseData.ticketNumberArr[5] > 26){
+        toast.error("First 5 Numbers should be 1-69 and last number should be 1-26 ", {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        return;
+      }
       let purchaseDataArr = {
         charityId: purchaseData.selectedCharity,
         userWalletPK: globalData.selectedWallet.publicKey.toBytes(),
@@ -46,7 +58,7 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
       };
 
       const result = await ticketPurchase(globalData, purchaseDataArr);
-
+      
       if (result.success) {
         try {
           addTicket({
@@ -63,7 +75,7 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
         } catch (e) {
           console.log(e);
         }
-      } else {
+      } else if(result.success===false) {
         toast.error("Ticket Purchase Unsuccessful", {
           position: "bottom-left",
           autoClose: 3000,

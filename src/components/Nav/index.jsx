@@ -7,15 +7,18 @@ import HamBtn from "./HamBtn";
 export default function Nav() {
   const [navActive, setNavActive] = useState(false);
 
-  var menuClickHandler = function () {
+  let menuClickHandler = () => {
     document.querySelector(".hamBtn").classList.toggle("change");
     setNavActive(!navActive);
   };
-
+  let navLinkClickHandler = () => {
+    document.querySelector(".hamBtn").classList.toggle("change");
+    setNavActive(!navActive);
+  }
   return (
     <nav>
       <Logo />
-      <NavList navActive={navActive} />
+      <NavList navActive={navActive} onNavLinkClick={navLinkClickHandler} />
       <WalletConnect  />
       <HamBtn onMenuClick={menuClickHandler} />
     </nav>

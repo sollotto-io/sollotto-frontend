@@ -8,14 +8,14 @@ const Footer = () => {
 	return (
 		<div id='footerSection'>
 			<div id='logo'>
-				<a href='/'>
+				<a href='/purchase'>
 					<img src={logo} width='auto' height='40px' alt='logo' />
 				</a>
 			</div>
 			<div id='web-links'>
-				<a href='/'>Home</a>
+				<a href='/purchase'>Home</a>
 				<Link to='/purchase'>App</Link>
-				<a href='/about'>Info</a>
+				<a href='https://sollotto.io/about'>Info</a>
 			</div>
 			<div id='social-links'>
 				<a href='https://twitter.com/TeamSolLotto'>
