@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { useHistory, useParams } from "react-router";
+import { useParams } from "react-router";
 import RDetail from "./RDetails";
 import { useQuery } from "@apollo/client";
 import { FETCH_LOTTERY_BY_ID, FETCH_USER_TICKET } from "../../graphql/queries";
@@ -11,12 +11,13 @@ import moment from "moment";
 const ResultDetail = () => {
   const { id } = useParams();
   const { globalData } = useContext(GlobalContext);
-  const history = useHistory();
+  
 
   if (globalData.selectedWallet === null) {
     console.log("empty");
-    history.push("/results");
+    window.location.href="/results"
   }
+
 
   const {
     loading: ticketLoading,
@@ -56,10 +57,10 @@ const ResultDetail = () => {
             </div>
             <div className="rightColumn">
               <h4 style={{marginBottom:"2rem"}}>Your Numbers and Charities</h4>
-                {usertickets.getUserTickets.map((t, i) => {
+                { usertickets.getUserTickets.length === 0 ? <p>No Tickets Bought</p> :   usertickets.getUserTickets.map((t, i) => {
                   var cha = globalData.charities.find((c)=>(c.ID ===t.charityId))
                   return (
-                    <div className="entryRow">
+                    <div className="entryRow" key={i}>
                       <p className="numColumn" key={i}>
                         {t.ticketArray[0]}&nbsp;&nbsp;{t.ticketArray[1]}&nbsp;&nbsp;
                         {t.ticketArray[2]}&nbsp;&nbsp;{t.ticketArray[3]}&nbsp;&nbsp;

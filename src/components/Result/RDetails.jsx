@@ -24,7 +24,7 @@ const RDetail = ({globalData,data}) => {
                </section>
                <section>
                <p>Winner Numbers</p>
-               <p>{data.WinningNumbers[0]}&nbsp; {data.WinningNumbers[1]}&nbsp; {data.WinningNumbers[2]}&nbsp; {data.WinningNumbers[3]}&nbsp; {data.WinningNumbers[4]}&nbsp; {data.WinningNumbers[5]} </p> 
+               <p>{data.WinningNumbers.length === 0 ? "TBD" : data.WinningNumbers[0]}&nbsp; {data.WinningNumbers[1]}&nbsp; {data.WinningNumbers[2]}&nbsp; {data.WinningNumbers[3]}&nbsp; {data.WinningNumbers[4]}&nbsp; {data.WinningNumbers[5]} </p> 
                   
                </section>
                <section>
@@ -33,7 +33,7 @@ const RDetail = ({globalData,data}) => {
                </section>
                <section>
                <p>Winning Charities</p>
-                  {data.WinningCharity.map((c,i)=>{
+                  {data.WinningCharity.length === 0 ? "TBD" :data.WinningCharity.map((c,i)=>{
                       var cha = globalData.charities.find((t)=>(t.ID ===c))
                        return <p key={i}>{cha.charityName}</p>
                   })}

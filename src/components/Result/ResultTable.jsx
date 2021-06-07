@@ -108,7 +108,7 @@ export default function ResultTable() {
                   </StyledTableCell>
 
                   <StyledTableCell align="center">
-                    {row.WinnerWallet.length}
+                    {row.WinningNumbers[0]}&nbsp;&nbsp;{row.WinningNumbers[1]}&nbsp;&nbsp;{row.WinningNumbers[2]}&nbsp;&nbsp;{row.WinningNumbers[3]}&nbsp;&nbsp;{row.WinningNumbers[4]}&nbsp;&nbsp;{row.WinningNumbers[5]}
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {row.TotalPoolValue.toFixed(2)}
