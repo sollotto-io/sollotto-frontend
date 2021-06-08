@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Redirect,
+} from "react-router-dom";
 import Nav from "./components/Nav/";
 import Purchase from "./pages/Purchase";
 import Charities from "./pages/Charities";
@@ -59,6 +64,9 @@ function App() {
 				<GlobalContext.Provider value={{ globalData, setGlobalData }}>
 					<Nav />
 					<Switch>
+						<Route exact path='/'>
+							<Redirect to='/purchase' />
+						</Route>
 						<Route exact path='/purchase'>
 							<Purchase />
 						</Route>

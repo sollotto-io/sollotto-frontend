@@ -100,7 +100,6 @@ export const ticketPurchase = async (globalData, purchaseDataArr) => {
 		});
 		return { DataWallet: ticketDataAccount.publicKey.toBytes(), success: true };
 	} catch (e) {
-		console.warn(e);
-		console.log("Error: " + e.message);
+		return { success: false };
 	}
 };

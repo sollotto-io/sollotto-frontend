@@ -51,6 +51,70 @@ export default function ResultTable() {
   const resultDetails = (param) => {
     history.push(`/results/${param}`);
   };
+  function getLotteries(){
+    let displayLotteries = [];
+    data.getAllLotteries.forEach((row, index) =>{
+
+      if(row.Id <= globalData.currentLottery.Id + 1){
+        if(globalData.selectedWallet === null){
+         
+          displayLotteries.push(<TableRow className="tableRow" onClick = {connectWallet} key={index}>
+          <StyledTableCell component="th" scope="row">
+            Pick 6
+          </StyledTableCell>
+          <StyledTableCell align="center">
+            {moment(row.EndDate).format("MMM Do YY")}
+          </StyledTableCell>
+
+          <StyledTableCell align="center">
+            {row.WinnerWallet.length}
+          </StyledTableCell>
+          <StyledTableCell align="center">
+            {row.TotalPoolValue.toFixed(2)}
+          </StyledTableCell>
+          <StyledTableCell align="center">
+            {" "}
+            {row.WinnerWallet.length}
+          </StyledTableCell>
+          <StyledTableCell align="center">
+            {row.WinningCharity.length}
+          </StyledTableCell>
+        </TableRow>) 
+        }else{
+          displayLotteries.push(<TableRow
+                    onClick={() => resultDetails(row.Id)}
+                    className="tableRow"
+                    key={index}
+                  >
+                    <StyledTableCell component="th" scope="row">
+                      Pick 6
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {moment(row.EndDate).format("MMM Do YY")}
+                    </StyledTableCell>
+  
+                    <StyledTableCell align="center">
+                      {row.WinningNumbers[0]}&nbsp;&nbsp;{row.WinningNumbers[1]}&nbsp;&nbsp;{row.WinningNumbers[2]}&nbsp;&nbsp;{row.WinningNumbers[3]}&nbsp;&nbsp;{row.WinningNumbers[4]}&nbsp;&nbsp;{row.WinningNumbers[5]}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {row.TotalPoolValue.toFixed(2)}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {" "}
+                      {row.WinnerWallet.length}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {row.WinningCharity.length}
+                    </StyledTableCell>
+                  </TableRow>)
+        }
+      }
+      
+              }
+            );
+      return displayLotteries;
+  }
+
   if (loading) {
     return <Loader />;
   }
@@ -70,59 +134,7 @@ export default function ResultTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.getAllLotteries.map((row, index) =>
-              globalData.selectedWallet === null ? (
-                <TableRow className="tableRow" onClick = {connectWallet} key={index}>
-                  <StyledTableCell component="th" scope="row">
-                    Pick 6
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {moment(row.EndDate).format("MMM Do YY")}
-                  </StyledTableCell>
-
-                  <StyledTableCell align="center">
-                    {row.WinnerWallet.length}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {row.TotalPoolValue.toFixed(2)}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {" "}
-                    {row.WinnerWallet.length}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {row.WinningCharity.length}
-                  </StyledTableCell>
-                </TableRow>
-              ) : (
-                <TableRow
-                  onClick={() => resultDetails(row.Id)}
-                  className="tableRow"
-                  key={index}
-                >
-                  <StyledTableCell component="th" scope="row">
-                    Pick 6
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {moment(row.EndDate).format("MMM Do YY")}
-                  </StyledTableCell>
-
-                  <StyledTableCell align="center">
-                    {row.WinningNumbers[0]}&nbsp;&nbsp;{row.WinningNumbers[1]}&nbsp;&nbsp;{row.WinningNumbers[2]}&nbsp;&nbsp;{row.WinningNumbers[3]}&nbsp;&nbsp;{row.WinningNumbers[4]}&nbsp;&nbsp;{row.WinningNumbers[5]}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {row.TotalPoolValue.toFixed(2)}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {" "}
-                    {row.WinnerWallet.length}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {row.WinningCharity.length}
-                  </StyledTableCell>
-                </TableRow>
-              )
-            )}
+            {getLotteries()}
           </TableBody>
         </Table>
       </TableContainer>

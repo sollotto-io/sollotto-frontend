@@ -10,7 +10,7 @@ const CharityExtraInfo = ({charityDetail}) => {
             Years Operating : {charityDetail.Years}
             </div>  
          <div id="info">
-            WatchURL :{charityDetail.watchURL}
+         <a style={{color:"var(--purple-dino)"}} rel="noopener noreferrer" target="_blank"  href={charityDetail.watchURL}>Charity Watch Link  </a>
             </div>  
          <div id="info">
          Charity Watch Grade : {charityDetail.watchGrade}
