@@ -6,6 +6,9 @@
 	margin: 2rem 0rem;
 	padding: 0rem 1rem;
 }
+#counter{
+	font-size: 20px;
+}
 .pageHeader {
 	display: grid;
 	grid-template-columns: auto auto;

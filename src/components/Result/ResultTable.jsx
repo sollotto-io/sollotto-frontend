@@ -33,7 +33,7 @@ export default function ResultTable() {
   
   const connectWallet = ()=>{
 
-    toast.error('PLease connect your wallet first!! ', {
+    toast.error('Please connect your wallet first!', {
       position: "bottom-left",
       autoClose: 3000,
       hideProgressBar: true,
@@ -54,7 +54,6 @@ export default function ResultTable() {
   function getLotteries(){
     let displayLotteries = [];
     data.getAllLotteries.forEach((row, index) =>{
-
       if(row.Id <= globalData.currentLottery.Id + 1){
         if(globalData.selectedWallet === null){
          
