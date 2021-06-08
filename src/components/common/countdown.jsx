@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 const Counter = ({ time }) => {
+  const timerComponents = [];
+  var flag = 0
   const calculateTimeLeft = () => {
    
     let EndDate = new Date(time).getTime() 
@@ -17,10 +19,9 @@ const Counter = ({ time }) => {
       };
     }
     else{
-      timeLeft={
-        "currently closed": "This lottery is"
-      }
+     flag =1
     }
+   
 
     return timeLeft;
   };
@@ -34,10 +35,11 @@ const Counter = ({ time }) => {
     return () => clearTimeout();
   });
 
-  const timerComponents = [];
+  
 
   Object.keys(timeLeft).forEach((interval, i) => {
-   
+    
+  
    timerComponents.push(
       <span style={{fontSize:20}} key={i}>
         {timeLeft[interval]} {interval}{" "}
@@ -45,11 +47,19 @@ const Counter = ({ time }) => {
     );
   });
  
+  if(flag === 1){
+    return (
+      <p>Lottery is currently closed</p>
+    )
+  }
+  else{
     return (
       <div>
         {timerComponents.length ? timerComponents : "loading.."}
       </div>
     );
+  }
+  
 
   
  

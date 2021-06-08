@@ -19,7 +19,7 @@ export default function NumberInput(props) {
 				id={`ticketNum_${props.numPos}`}
 				className='numberSelectorInput'
 				name={`ticketNum_${props.numPos}`}
-				max={props.numPos >= 1 && props.numPos <= 4 ? 69 : 26}
+				max={props.numPos >= 0 && props.numPos <= 4 ? 69 : 26}
 				min='1'
 				placeholder='1'
 				onChange={() => props.ticketNumChangeHandler(ticketNumRef.current.value)}

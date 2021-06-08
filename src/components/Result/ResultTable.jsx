@@ -54,6 +54,7 @@ export default function ResultTable() {
   function getLotteries(){
     let displayLotteries = [];
     data.getAllLotteries.forEach((row, index) =>{
+    
       if(row.Id <= globalData.currentLottery.Id + 1){
         if(globalData.selectedWallet === null){
          
@@ -66,7 +67,7 @@ export default function ResultTable() {
           </StyledTableCell>
 
           <StyledTableCell align="center">
-            {row.WinnerWallet.length}
+          {row.WinningNumbers.length === 0 ? "TBD" : row.WinningNumbers[0]}&nbsp; {row.WinningNumbers[1]}&nbsp; {row.WinningNumbers[2]}&nbsp; {row.WinningNumbers[3]}&nbsp; {row.WinningNumbers[4]}&nbsp; {row.WinningNumbers[5]}
           </StyledTableCell>
           <StyledTableCell align="center">
             {row.TotalPoolValue.toFixed(2)}
@@ -80,6 +81,7 @@ export default function ResultTable() {
           </StyledTableCell>
         </TableRow>) 
         }else{
+        
           displayLotteries.push(<TableRow
                     onClick={() => resultDetails(row.Id)}
                     className="tableRow"
@@ -93,7 +95,7 @@ export default function ResultTable() {
                     </StyledTableCell>
   
                     <StyledTableCell align="center">
-                      {row.WinningNumbers[0]}&nbsp;&nbsp;{row.WinningNumbers[1]}&nbsp;&nbsp;{row.WinningNumbers[2]}&nbsp;&nbsp;{row.WinningNumbers[3]}&nbsp;&nbsp;{row.WinningNumbers[4]}&nbsp;&nbsp;{row.WinningNumbers[5]}
+                    {row.WinningNumbers.length === 0 ? "TBD" : row.WinningNumbers[0]}&nbsp; {row.WinningNumbers[1]}&nbsp; {row.WinningNumbers[2]}&nbsp; {row.WinningNumbers[3]}&nbsp; {row.WinningNumbers[4]}&nbsp; {row.WinningNumbers[5]}
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       {row.TotalPoolValue.toFixed(2)}
@@ -126,7 +128,7 @@ export default function ResultTable() {
             <TableRow>
               <StyledTableCell>Drawing Name</StyledTableCell>
               <StyledTableCell align="center">Drawing Date</StyledTableCell>
-              <StyledTableCell align="center">Winners</StyledTableCell>
+              <StyledTableCell align="center">Winning Numbers</StyledTableCell>
               <StyledTableCell align="center">Prize Pool</StyledTableCell>
               <StyledTableCell align="center">Total Winners</StyledTableCell>
               <StyledTableCell align="center">Winning Charity</StyledTableCell>
