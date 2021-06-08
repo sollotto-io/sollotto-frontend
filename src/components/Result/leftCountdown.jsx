@@ -8,7 +8,7 @@ const LeftCountdown = ({ lotteryData, ticketData }) => {
     return (
       <div id="winTicket" className="wrap gradientBg">
         <div className="win">
-          <h4>Lottery In Pogress</h4>
+          <h4>Lottery In Progress</h4>
             
         </div>
       </div>

@@ -52,7 +52,7 @@ const ResultDetail = () => {
         <div className="bottomSectionResult gradientBg2">
           <div id="ticket-details">
             <div className="leftColumn">
-            <h4>Solana Pick 6</h4>
+            <h4>SolLotto Pick 6</h4>
             <h4>{moment(lottery.getLotteryById.EndDate).format("LL")}</h4>
             </div>
             <div className="rightColumn">

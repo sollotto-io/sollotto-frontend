@@ -35,10 +35,10 @@ export default function CharityTable({ rows }) {
         <TableHead>
           <TableRow>
             <StyledTableCell>Charity Name</StyledTableCell>
-            <StyledTableCell align="center">Current Votes (coming soon)</StyledTableCell>
+            <StyledTableCell align="center">Current Votes <i>(Coming Soon)</i></StyledTableCell>
             <StyledTableCell align="center">Added By</StyledTableCell>
-            <StyledTableCell align="center">Life Time Votes (coming soon)</StyledTableCell>
-            <StyledTableCell align="center">Total Contribution (coming soon)</StyledTableCell>
+            <StyledTableCell align="center">Lifetime Votes <i>(Coming Soon)</i></StyledTableCell>
+            <StyledTableCell align="center">Total Contribution <i>(Coming Soon)</i></StyledTableCell>
             
           </TableRow>
         </TableHead>
@@ -58,7 +58,7 @@ export default function CharityTable({ rows }) {
 
               <StyledTableCell align="center">
                 <p id="addedBy-Table" className="gradientBg gradientBorder">
-                  Sollotto
+                  SolLotto
                 </p>
               </StyledTableCell>
               <StyledTableCell align="center">
