@@ -56,7 +56,7 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
         userWalletPK: globalData.selectedWallet.publicKey.toBytes(),
         ticketNumArr: purchaseData.ticketNumberArr,
       };
-
+   
       const result = await ticketPurchase(globalData, purchaseDataArr);
       
       if (result.success) {

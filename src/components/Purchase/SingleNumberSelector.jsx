@@ -8,7 +8,7 @@ export default function SingleNumberSelector(props) {
 	const { purchaseData,setPurchaseData } = useContext(PurchaseContext);
 	const ticketNumChangeHandler = (value) =>{
 		const tempNumArr= purchaseData.ticketNumberArr;
-		tempNumArr[props.numPos] = value;
+		tempNumArr[props.numPos] = parseInt(value);
 		setPurchaseData({...purchaseData, ticketNumberArr:tempNumArr});
 	}
 	function stepUpClickHandler(numPos) {
