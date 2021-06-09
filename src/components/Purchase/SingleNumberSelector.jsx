@@ -25,7 +25,8 @@ export default function SingleNumberSelector(props) {
 		<div
 			className='singleNumberSelector'
 			id={`singleNumberSelector_${props.numPos}`}
-		>
+		>	
+		
 			<KeyboardArrowUpOutlinedIcon
 				id={`numStepUp_${props.numPos}`}
 				onClick={() => stepUpClickHandler(props.numPos)}

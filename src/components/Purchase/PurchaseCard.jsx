@@ -24,6 +24,7 @@ const PurchaseCard = () => {
 			<PurpleGradientSvg />
 			<div className='purchaseCard'>
 			<PurchaseContext.Provider value={{ purchaseData, setPurchaseData }}>
+				<p style ={{marginTop:0, maxWidth:400}}>Pick your numbers. Choose a number 1-69 for the first 5 numbers and a number 1-26 for the sixth number</p>
 				<form>
 					<NumberSelector ticketNumbers ={ticketNumbers} />
 					<CharitySelector />
