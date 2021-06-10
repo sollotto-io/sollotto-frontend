@@ -12,13 +12,79 @@ export default function SingleNumberSelector(props) {
 		setPurchaseData({...purchaseData, ticketNumberArr:tempNumArr});
 	}
 	function stepUpClickHandler(numPos) {
-		document.querySelector(`#ticketNum_${numPos}`).stepUp();
-		ticketNumChangeHandler(document.querySelector(`#ticketNum_${numPos}`).value);
+		try{
 
+			if(numPos === 5){
+				if(Number(document.querySelector(`#ticketNum_${numPos}`).value) === 26 || document.querySelector(`#ticketNum_${numPos}`).value.length === 0){
+						document.querySelector(`#ticketNum_${numPos}`).value = 1;
+				}
+				else{
+					document.querySelector(`#ticketNum_${numPos}`).stepUp();
+				}
+			}
+			else{
+				if(Number(document.querySelector(`#ticketNum_${numPos}`).value) === 69 || document.querySelector(`#ticketNum_${numPos}`).value.length === 0){
+					document.querySelector(`#ticketNum_${numPos}`).value = 1;
+				}
+				else{
+					document.querySelector(`#ticketNum_${numPos}`).stepUp();
+				}
+			}
+			
+			ticketNumChangeHandler(document.querySelector(`#ticketNum_${numPos}`).value);
+		}catch(ex){
+			var step=Number(document.querySelector(`#ticketNum_${numPos}`).step);
+
+			if(numPos === 5){
+				if(Number(document.querySelector(`#ticketNum_${numPos}`).value) === 26 || document.querySelector(`#ticketNum_${numPos}`).value.length === 0){
+						document.querySelector(`#ticketNum_${numPos}`).value = 1;
+				}
+				else{
+					document.querySelector(`#ticketNum_${numPos}`).value = Number(document.querySelector(`#ticketNum_${numPos}`).value) + step;
+				}
+			}
+			else{
+				if(Number(document.querySelector(`#ticketNum_${numPos}`).value) === 69 || document.querySelector(`#ticketNum_${numPos}`).value.length === 0){
+					document.querySelector(`#ticketNum_${numPos}`).value = 1;
+				}
+				else{
+					document.querySelector(`#ticketNum_${numPos}`).value = Number(document.querySelector(`#ticketNum_${numPos}`).value) + step;
+				}
+			}
+			ticketNumChangeHandler(document.querySelector(`#ticketNum_${numPos}`).value);
+		}	
+		
 	}
 	function stepDownClickHandler(numPos) {
-		document.querySelector(`#ticketNum_${numPos}`).stepDown();
-		ticketNumChangeHandler(document.querySelector(`#ticketNum_${numPos}`).value);
+		try{
+				if(Number(document.querySelector(`#ticketNum_${numPos}`).value) === 1 || document.querySelector(`#ticketNum_${numPos}`).value.length === 0){
+					if(numPos === 5){
+						document.querySelector(`#ticketNum_${numPos}`).value = 26;
+					}
+					else{
+						document.querySelector(`#ticketNum_${numPos}`).value = 69;
+					}
+				}
+				else{
+					document.querySelector(`#ticketNum_${numPos}`).stepDown();
+				}
+				ticketNumChangeHandler(document.querySelector(`#ticketNum_${numPos}`).value);
+
+			}catch(ex){
+				let step=Number(document.querySelector(`#ticketNum_${numPos}`).step);
+				if(Number(document.querySelector(`#ticketNum_${numPos}`).value) === 1 || document.querySelector(`#ticketNum_${numPos}`).value.length === 0){
+					if(numPos === 5){
+						document.querySelector(`#ticketNum_${numPos}`).value = 26;
+					}
+					else{
+						document.querySelector(`#ticketNum_${numPos}`).value = 69;
+					}
+				}
+				else{
+					document.querySelector(`#ticketNum_${numPos}`).value = Number(document.querySelector(`#ticketNum_${numPos}`).value) - step;
+				}
+				ticketNumChangeHandler(document.querySelector(`#ticketNum_${numPos}`).value);
+			}	
 	}
 	
 	return (

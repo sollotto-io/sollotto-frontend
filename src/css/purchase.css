@@ -6,7 +6,7 @@
 	margin: 2rem 0rem;
 	padding: 0rem 1rem;
 }
-#counter{
+#counter {
 	font-size: 20px;
 }
 .pageHeader {
@@ -38,6 +38,12 @@
 	justify-self: end;
 }
 
+.numberInputWrapper {
+	max-width: 30px;
+	max-height: 30px;
+	justify-self: center;
+	display: grid;
+}
 #purchaseSection .card {
 	justify-self: start;
 	margin-top: 1.5rem;
@@ -52,13 +58,11 @@
 	border-radius: 4px;
 }
 
-/* Chrome, Safari, Edge, Opera */
 #purchaseSection input::-webkit-outer-spin-button,
 #purchaseSection input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
 }
-/* Firefox */
 #purchaseSection input[type="number"] {
 	-moz-appearance: textfield;
 }
@@ -92,6 +96,7 @@
 	width: 100%;
 	color: #fff;
 	font-family: "Circular", Arial, Helvetica, sans-serif;
+	align-self: stretch;
 }
 .numberCount {
 	padding: 5px;
@@ -130,6 +135,7 @@
 .singleCharitySelectorWrapper {
 	margin: 0.5rem;
 	margin-bottom: 1rem;
+	justify-self: center;
 }
 .charityImg {
 	width: 100%;

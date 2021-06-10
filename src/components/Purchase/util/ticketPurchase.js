@@ -89,15 +89,18 @@ export const ticketPurchase = async (globalData, purchaseDataArr) => {
 
 		await globalData.connection.confirmTransaction(signature, "singleGossip");
 
-		toast.success("Ticket Purchase is Successful, Your purchased tickets can be found on the results page, under the day of your drawing", {
-			position: "bottom-left",
-			autoClose: 3000,
-			hideProgressBar: true,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-		});
+		toast.success(
+			"Ticket Purchase is Successful, Your purchased tickets can be found on the results page, under the day of your drawing",
+			{
+				position: "bottom-left",
+				autoClose: 6000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			}
+		);
 		return { DataWallet: ticketDataAccount.publicKey.toBytes(), success: true };
 	} catch (e) {
 		return { success: false };

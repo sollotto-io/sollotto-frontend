@@ -10,7 +10,7 @@ export default function CharitySelectorGrid() {
 	const { loading, data } = useQuery(FETCH_ACTIVE_CHARITIES);
 	const {purchaseData,setPurchaseData} = useContext(PurchaseContext);
 	const [selectedCharityBtn, setSelectedCharityBtn] = useState(null);
-
+	const [selectedCharityBlock, setSelectedCharityBlock] = useState(null);
 	useEffect(() => {
 		if(loading===false){
 		setPurchaseData({
@@ -43,27 +43,45 @@ export default function CharitySelectorGrid() {
 				}
 			});
 			
-		} else if (charityBtn.disabled === true) {
-			return;
-		} else if (
-			charityBtn !== selectedCharityBtn &&
-			charityBtn.disabled === false
+		}  else if (
+			charityBtn !== selectedCharityBtn 
 		) {
-			await charityBtn.classList.add("active");
+			if(selectedCharityBtn !==null ){
+				selectedCharityBtn.classList.remove("active");
+				selectedCharityBtn.innerHTML = "SELECT";
+				selectedCharityBlock.classList.add("psuedoGreyBg");
+				selectedCharityBlock
+				.querySelector(".charitySelectorIcon")
+				.classList.remove("blockDisplay");
+				selectedCharityBlock.classList.remove("gradientBg");
+
+			charityBtn.classList.add("active");
 			charityBtn.innerHTML = "SELECTED";
-			await charityBlock.classList.remove("psuedoGreyBg");
-			await charityBlock.classList.add("gradientBg");
-			await charityBlock
+			charityBlock.classList.remove("psuedoGreyBg");
+			charityBlock.classList.add("gradientBg");
+			charityBlock
 				.querySelector(".charitySelectorIcon")
 				.classList.add("blockDisplay");
 			setSelectedCharityBtn(charityBtn);
-			await setPurchaseData({...purchaseData,selectedCharity:charityIndex});
+			setSelectedCharityBlock(charityBlock);
+			setPurchaseData({...purchaseData,selectedCharity:charityIndex});
+			}
+			charityBtn.classList.add("active");
+			charityBtn.innerHTML = "SELECTED";
+			charityBlock.classList.remove("psuedoGreyBg");
+			charityBlock.classList.add("gradientBg");
+			charityBlock
+				.querySelector(".charitySelectorIcon")
+				.classList.add("blockDisplay");
+			setSelectedCharityBtn(charityBtn);
+			setSelectedCharityBlock(charityBlock);
+			setPurchaseData({...purchaseData,selectedCharity:charityIndex});
 	
-			document.querySelectorAll('.charitySelectBtn').forEach(async (charity,index) => {
-				if (!charity.classList.contains('active')) {
-					charity.disabled = true;
-				}
-			});
+			// document.querySelectorAll('.charitySelectBtn').forEach(async (charity,index) => {
+			// 	if (!charity.classList.contains('active')) {
+			// 		charity.disabled = true;
+			// 	}
+			// });
 
 		}
 	};	

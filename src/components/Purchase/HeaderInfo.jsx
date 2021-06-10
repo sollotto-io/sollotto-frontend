@@ -28,7 +28,7 @@ export default function HeaderInfo(props) {
           title={
             <div className="transpInfoToolTip">
               <div className="transpInfoToolTipBody">
-              <span>{moment(globalData.currentLottery.EndDate).format('LL')}</span>
+              <span>The next lottery will be held on <br/>{moment(globalData.currentLottery.EndDate).format('LL')} at 12am UTC</span>
               </div>
             </div>
           }
@@ -36,6 +36,7 @@ export default function HeaderInfo(props) {
           arrow
           TransitionComponent={Zoom}
           placement="bottom-end"
+          leaveTouchDelay={2000} enterTouchDelay={50}
         >
           <IconButton color="inherit" component="span">
             <AlarmIcon />

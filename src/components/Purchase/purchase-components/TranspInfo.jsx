@@ -21,7 +21,7 @@ export default function TranspInfo() {
 
 
 	return (
-		<TanspInfoToolTip
+		<TanspInfoToolTip leaveTouchDelay={2000} enterTouchDelay={50}
 		id="tooltip"
 			title={
 				<div className='transpInfoToolTip'>
