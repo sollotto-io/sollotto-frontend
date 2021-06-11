@@ -1,65 +1,78 @@
-import moment from "moment";
-import React from "react";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import { IconButton } from "@material-ui/core";
-import { useHistory } from "react-router";
+import React, { useContext } from "react";
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { IconButton } from '@material-ui/core';
+import { useHistory } from 'react-router';
+import checkIfWinner from './utils/checkIfWinner';
+import { GlobalContext } from "../../context/GlobalContext";
+import moment from 'moment';
 
-const RDetail = ({ globalData, data }) => {
-    const history = useHistory();
-    const sendToResults = () =>{
-        history.push(`/results/`);
-    }
+const RDetail = (props) => {
+  const { globalData } = useContext(GlobalContext);
+
+  const history = useHistory();
+  const sendToResults = () => {
+    history.push(`/results/`);
+  };
+  var EndDate = moment(props.lotteryData.EndDate);
+  var Today = moment();
+
+  var dif = EndDate.diff(Today);
   function userResult() {
     let result = null;
-    if (data.isActive === true) {
-      result = <p>TBD</p>;
-    } else if (data.isActive === false) {
-      if (data.WinnerWallet !== 0) {
+
+    if (props.lotteryData.WinnerWallet.length === 0) {
+      if (props.lotteryData.isActive === true) {
         result = <p>TBD</p>;
+      } else if (props.lotteryData.isActive === false) {
+        if (dif > 0) {
+          result = <p>TBD</p>;
+        } else {
+          result = <p>Lost</p>;
+        }
+      }
+    } else {
+      if (checkIfWinner(props.lotteryData, globalData.selectedWallet.publicKey.toBytes())) {
+        result = <p>Won</p>;
       } else {
-        data.WinnerWallet.forEach((val) => {
-          if (val !== globalData.selectedWallet.publicKey.toBytes()) {
-            result = <p>Lost</p>;
-          } else if (val === globalData.selectedWallet.publicKey.toBytes()) {
-            result = <p>Won</p>;
-          }
-        });
+        result = <p>Lost</p>;
       }
     }
     return result;
   }
-  if (data) {
+  if (props.lotteryData) {
     return (
       <section id="poolC">
         <div id="charityHeader">
           <div id="back-button">
-              <IconButton onClick ={sendToResults} style={{color:"white"}}>
-            <ArrowBackIcon />
+            <IconButton onClick={sendToResults} style={{ color: 'white' }}>
+              <ArrowBackIcon />
             </IconButton>
             <h4>Pick 6</h4>
           </div>
           <div>
-            <h4>{moment(data.EndDate).format("LL")}</h4>
+            <h4>{moment(props.lotteryData.EndDate).format('LL')}</h4>
           </div>
         </div>
         <div id="other-details">
           <section>
             <p>Prize Pool</p>
-            <p>{data.TotalPoolValue.toFixed(2)}</p>
+            <p>{props.lotteryData.TotalPoolValue.toFixed(2)}</p>
           </section>
           <section>
             <p>Total Winners</p>
-            <p>{data.WinnerWallet.length}</p>
+            <p>{props.lotteryData.WinnerWallet.length}</p>
           </section>
           <section>
-            <p>Winner Numbers</p>
+            <p>Winning Numbers</p>
             <p>
-              {data.WinningNumbers.length === 0
-                ? "TBD"
-                : data.WinningNumbers[0]}
-              &nbsp; {data.WinningNumbers[1]}&nbsp; {data.WinningNumbers[2]}
-              &nbsp; {data.WinningNumbers[3]}&nbsp; {data.WinningNumbers[4]}
-              &nbsp; {data.WinningNumbers[5]}{" "}
+              {props.lotteryData.WinningNumbers.length === 0
+                ? 'TBD'
+                : props.lotteryData.WinningNumbers[0]}
+              &nbsp; {props.lotteryData.WinningNumbers[1]}&nbsp;{' '}
+              {props.lotteryData.WinningNumbers[2]}
+              &nbsp; {props.lotteryData.WinningNumbers[3]}&nbsp;{' '}
+              {props.lotteryData.WinningNumbers[4]}
+              &nbsp; {props.lotteryData.WinningNumbers[5]}{' '}
             </p>
           </section>
           <section>
@@ -67,10 +80,14 @@ const RDetail = ({ globalData, data }) => {
             {userResult()}
           </section>
           <section>
-            <p>Winning Charities</p>
-            {data.WinningCharity.length === 0
-              ? "TBD"
-              : data.WinningCharity.map((c, i) => {
+            <p>
+              {props.lotteryData.WinningCharity.length === 1
+                ? 'Winning Charity'
+                : 'Winning Charities'}
+            </p>
+            {props.lotteryData.WinningCharity.length === 0
+              ? 'TBD'
+              : props.lotteryData.WinningCharity.map((c, i) => {
                   var cha = globalData.charities.find((t) => t.ID === c);
                   return <p key={i}>{cha.charityName}</p>;
                 })}

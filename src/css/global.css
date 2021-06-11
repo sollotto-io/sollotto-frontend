@@ -129,6 +129,13 @@ a {
 	border: 1px solid var(--surge-green);
 	transition: color 0.5s;
 }
+.greenBtn:disabled {
+	opacity: 0.5;
+}
+.greenBtn:hover:disabled {
+	cursor: not-allowed;
+	color: #fff;
+}
 .gradientBg {
 	transition: all 1s;
 	background: linear-gradient(

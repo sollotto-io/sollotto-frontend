@@ -8,6 +8,7 @@ import { ticketPurchase } from "./util/ticketPurchase";
 import { useMutation } from "@apollo/react-hooks";
 import { POST_TICKET } from "../../graphql/mutations";
 import { toast } from "react-toastify";
+import moment from 'moment';
 
 
 export default function PurchaseButton({ selectedCharity, Numbers }) {
@@ -15,7 +16,10 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
   const { globalData } = useContext(GlobalContext);
 
   const [addTicket] = useMutation(POST_TICKET);
+  var EndDate = moment(globalData.currentLottery.EndDate);
+  var Today = moment();
 
+  var dif = EndDate.diff(Today);
   
 
   const connectWalletBtn = () => {
@@ -25,7 +29,7 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
     if (
       purchaseData.selectedCharity != null &&
       purchaseData.ticketNumberArr.length === 6 &&
-      purchaseData.ticketNumberArr.every((element) => element != null)
+      !purchaseData.ticketNumberArr.includes(undefined)
     ) {
       if (globalData.selectedWallet === null) {
         toast.error("Please Connect your Wallet! ", {
@@ -101,12 +105,15 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
   };
  
   const getTicketBtn = () => {
+    console.log(purchaseData.ticketNumberArr);
+    console.log(!purchaseData.ticketNumberArr.includes(undefined));
     return (
       <>
         <button
           type="button"
           onClick={getTicket}
           className="greenBtn globalBtn"
+          disabled={dif<0 ? false :true}
         >
           Get a Ticket
         </button>

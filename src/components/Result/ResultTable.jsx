@@ -55,7 +55,7 @@ export default function ResultTable() {
     let displayLotteries = [];
     data.getAllLotteries.forEach((row, index) =>{
     
-      if(row.Id <= globalData.currentLottery.Id + 1){
+      if(row.Id <= globalData.currentLottery.Id){
         if(globalData.selectedWallet === null){
          
           displayLotteries.push(<TableRow className="tableRow" onClick = {connectWallet} key={index}>
