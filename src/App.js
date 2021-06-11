@@ -31,7 +31,7 @@ function App() {
 		charities: [],
 		selectedWallet: null,
 		walletConnectedFlag: false,
-		connection: new Connection(process.env.REACT_APP_SOLANA_NETWORK),
+		connection: new Connection(" https://api.devnet.solana.com"),
 	});
 	useEffect(() => {
 		if (globalData.selectedWallet) {

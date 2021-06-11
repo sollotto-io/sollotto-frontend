@@ -6,6 +6,15 @@
 	margin: 2rem 0rem;
 	padding: 0rem 1rem;
 }
+#back-button{
+	display: grid;
+	grid-template-columns: auto auto;
+	align-items: center;
+}
+#back-button h4{
+	margin: 0;
+	align-items: center;
+}
 .disable {
 	cursor: none;
 }
