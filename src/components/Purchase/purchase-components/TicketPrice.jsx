@@ -1,11 +1,9 @@
-import React,{useContext} from "react";
-import { GlobalContext } from "../../../context/GlobalContext";
+import React, { useContext } from 'react';
+import { LotteryContext } from '../../../context/LotteryContext';
 
 export default function TicketPrice() {
-	const { globalData } = useContext(GlobalContext);
-	return (
-		<div className='ticketPrice'>
-			Ticket Price: {globalData.currentLottery.TicketPrice} SOL
-		</div>
-	);
+  const { lotteryData } = useContext(LotteryContext);
+  return (
+    <div className="ticketPrice">Ticket Price: {lotteryData.currentLottery.TicketPrice} SOL</div>
+  );
 }

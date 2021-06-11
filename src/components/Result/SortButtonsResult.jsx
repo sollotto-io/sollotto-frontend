@@ -1,14 +1,13 @@
-import React from 'react'
+import React from 'react';
 
 const SortButtonsResult = () => {
-    return (
-        <div id="sort-buttons">
-        <button>DATE</button>
-        <button>TYPE</button>
-        <button>PRIZE POOL</button>
+  return (
+    <div id="sort-buttons">
+      <button>DATE</button>
+      <button>TYPE</button>
+      <button>PRIZE POOL</button>
     </div>
-)
- 
-}
+  );
+};
 
-export default SortButtonsResult
+export default SortButtonsResult;

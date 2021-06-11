@@ -1,19 +1,19 @@
-import React from "react";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import { withStyles } from "@material-ui/core";
-import { useHistory } from "react-router";
-import moment from "moment"
+import React from 'react';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core';
+import { useHistory } from 'react-router';
+import moment from 'moment';
 
 const StyledTableCell = withStyles({
   root: {
-    backgroundColor: "transparent",
-    color: "white",
+    backgroundColor: 'transparent',
+    color: 'white',
   },
 })(TableCell);
 const StyledPaper = withStyles({
@@ -43,11 +43,7 @@ export default function PoolTable({ rows }) {
         </TableHead>
         <TableBody>
           {rows.map((row, index) => (
-            <TableRow
-              onClick={() => poolDetails(row.Pool)}
-              className="tableRow"
-              key={index}
-            >
+            <TableRow onClick={() => poolDetails(row.Pool)} className="tableRow" key={index}>
               <StyledTableCell component="th" scope="row">
                 {row.Pool}
               </StyledTableCell>
@@ -56,9 +52,7 @@ export default function PoolTable({ rows }) {
                 {moment(row.TimeRemaining).format('L')}
               </StyledTableCell>
               <StyledTableCell align="center">{row.PoolARP}</StyledTableCell>
-              <StyledTableCell align="center">
-                {row.TotalDeposit}
-              </StyledTableCell>
+              <StyledTableCell align="center">{row.TotalDeposit}</StyledTableCell>
               <StyledTableCell align="center"></StyledTableCell>
             </TableRow>
           ))}

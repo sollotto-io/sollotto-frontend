@@ -1,21 +1,19 @@
-import {gql} from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const POST_TICKET = gql`
-  mutation addTicket (
+  mutation addTicket(
     $walletID: [Int]
     $ticketArray: [Int]
     $DataWallet: [Int]
     $charityId: Int
-    $LotteryId:Int
+    $LotteryId: Int
   ) {
     addTicket(
       walletID: $walletID
       ticketArray: $ticketArray
       DataWallet: $DataWallet
       charityId: $charityId
-      LotteryId:$LotteryId
+      LotteryId: $LotteryId
     )
   }
 `;
-
-

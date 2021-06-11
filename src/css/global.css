@@ -1,239 +1,233 @@
 :root {
-	--surge-green: #00ffa3;
-	--ocean: #03e1ff;
-	--purple-dino: #dc1fff;
-	--sunshine: #ffdb20;
-	--tang: #ff852d;
-	--tungsten: #193650;
-	--navy-blue: #131a35;
-	--dark-blue: #1b274f;
-	--grey: #f1f1f2;
-	font-family: "Circular", Arial, Helvetica, sans-serif;
+  --surge-green: #00ffa3;
+  --ocean: #03e1ff;
+  --purple-dino: #dc1fff;
+  --sunshine: #ffdb20;
+  --tang: #ff852d;
+  --tungsten: #193650;
+  --navy-blue: #131a35;
+  --dark-blue: #1b274f;
+  --grey: #f1f1f2;
+  font-family: 'Circular', Arial, Helvetica, sans-serif;
 }
 
 @font-face {
-	font-family: "Circular";
-	font-weight: 400;
-	src: url("../fonts/CircularStd-Book.ttf");
+  font-family: 'Circular';
+  font-weight: 400;
+  src: url('../fonts/CircularStd-Book.ttf');
 }
 @font-face {
-	font-family: "Circular";
-	font-weight: 400;
-	font-style: italic;
-	src: url("../fonts/CircularStd-BookItalic.ttf");
+  font-family: 'Circular';
+  font-weight: 400;
+  font-style: italic;
+  src: url('../fonts/CircularStd-BookItalic.ttf');
 }
 @font-face {
-	font-family: "Circular";
-	font-weight: 600;
-	src: url("../fonts/CircularStd-Medium.ttf");
+  font-family: 'Circular';
+  font-weight: 600;
+  src: url('../fonts/CircularStd-Medium.ttf');
 }
 @font-face {
-	font-family: "Circular";
-	font-weight: 600;
-	font-style: italic;
-	src: url("../fonts/CircularStd-MediumItalic.ttf");
+  font-family: 'Circular';
+  font-weight: 600;
+  font-style: italic;
+  src: url('../fonts/CircularStd-MediumItalic.ttf');
 }
 @font-face {
-	font-family: "Circular";
-	font-weight: 800;
-	src: url("../fonts/CircularStd-Bold.ttf");
+  font-family: 'Circular';
+  font-weight: 800;
+  src: url('../fonts/CircularStd-Bold.ttf');
 }
 @font-face {
-	font-family: "Circular";
-	font-weight: 800;
-	font-style: italic;
-	src: url("../fonts/CircularStd-BoldItalic.ttf");
+  font-family: 'Circular';
+  font-weight: 800;
+  font-style: italic;
+  src: url('../fonts/CircularStd-BoldItalic.ttf');
 }
 @font-face {
-	font-family: "Circular";
-	font-weight: 1000;
-	src: url("../fonts/CircularStd-Black.ttf");
+  font-family: 'Circular';
+  font-weight: 1000;
+  src: url('../fonts/CircularStd-Black.ttf');
 }
 @font-face {
-	font-family: "Circular";
-	font-weight: 1000;
-	font-style: italic;
-	src: url("../fonts/CircularStd-BlackItalic.ttf");
+  font-family: 'Circular';
+  font-weight: 1000;
+  font-style: italic;
+  src: url('../fonts/CircularStd-BlackItalic.ttf');
 }
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 h1 {
-	font-weight: 600;
-	font-size: 60px;
-	letter-spacing: -2px;
-	line-height: 115%;
+  font-weight: 600;
+  font-size: 60px;
+  letter-spacing: -2px;
+  line-height: 115%;
 }
 
 h2 {
-	font-weight: 600;
-	font-size: 45px;
-	letter-spacing: -1px;
-	line-height: 140%;
+  font-weight: 600;
+  font-size: 45px;
+  letter-spacing: -1px;
+  line-height: 140%;
 }
 h3 {
-	font-weight: 600;
-	font-size: 36px;
-	letter-spacing: 0px;
-	line-height: 130%;
+  font-weight: 600;
+  font-size: 36px;
+  letter-spacing: 0px;
+  line-height: 130%;
 }
 h4 {
-	font-weight: 600;
-	font-size: 26px;
-	letter-spacing: 0px;
-	line-height: 140%;
+  font-weight: 600;
+  font-size: 26px;
+  letter-spacing: 0px;
+  line-height: 140%;
 }
 
 body {
-	font-weight: 400;
-	font-size: 14px;
-	letter-spacing: 0px;
-	line-height: 160%;
-	background-color: var(--navy-blue);
-	color: #f1f1f2;
-	margin: 0px;
-	min-width: 350px;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 0px;
+  line-height: 160%;
+  background-color: var(--navy-blue);
+  color: #f1f1f2;
+  margin: 0px;
+  min-width: 350px;
 }
 a {
-	color: inherit;
-	text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 .App {
-	min-height: 100vh;
-	display: grid;
-	grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
 .pageWrapper {
-	align-self: start;
-	justify-self: center;
+  align-self: start;
+  justify-self: center;
 }
 .globalBtn {
-	padding: 5px 10px;
-	border-radius: 4px;
-	font-family: "Circular", Arial, Helvetica, sans-serif;
-	cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-family: 'Circular', Arial, Helvetica, sans-serif;
+  cursor: pointer;
 }
 .greenBtn {
-	background-color: transparent;
-	color: #fff;
-	border: 1px solid var(--surge-green);
-	transition: color 0.5s;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid var(--surge-green);
+  transition: color 0.5s;
 }
 .greenBtn:hover {
-	transition: color 0.5s;
-	color: var(--surge-green);
+  transition: color 0.5s;
+  color: var(--surge-green);
 }
 .greenBtnWOHover {
-	background-color: transparent;
-	color: #fff;
-	border: 1px solid var(--surge-green);
-	transition: color 0.5s;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid var(--surge-green);
+  transition: color 0.5s;
 }
 .gradientBg {
-	transition: all 1s;
-	background: linear-gradient(
-		245.22deg,
-		#c200fb 7.97%,
-		#3772ff 49.17%,
-		#3773fe 0,
-		#5ac4be 92.1%
-	);
+  transition: all 1s;
+  background: linear-gradient(245.22deg, #c200fb 7.97%, #3772ff 49.17%, #3773fe 0, #5ac4be 92.1%);
 }
 .gradientBg2 {
-	background: linear-gradient(150deg, #5ac4be 7.97%, #c200fb 92.1%);
+  background: linear-gradient(150deg, #5ac4be 7.97%, #c200fb 92.1%);
 }
 .gradientBg3 {
-	background: linear-gradient(150deg, #349e98 7.97%, #3c918c 92.1%);
+  background: linear-gradient(150deg, #349e98 7.97%, #3c918c 92.1%);
 }
 .gradientBorder {
-	padding: 1px;
-	border-radius: 4px;
+  padding: 1px;
+  border-radius: 4px;
 }
 .greenGradientSVG {
-	fill: url(#greenGradient) !important;
+  fill: url(#greenGradient) !important;
 }
 .greenGradientSVG2 {
-	fill: url(#greenGradient2) !important;
+  fill: url(#greenGradient2) !important;
 }
 .purpleGradientSVG {
-	fill: url(#purpleGradient) !important;
+  fill: url(#purpleGradient) !important;
 }
 .iconLogo {
-	max-width: 100%;
+  max-width: 100%;
 }
 .noDisplay {
-	display: none;
+  display: none;
 }
 .blockDisplay {
-	display: block;
+  display: block;
 }
 .connectModal {
-	display: grid;
-	place-content: center;
+  display: grid;
+  place-content: center;
 }
 .connectModalItem {
-	background-color: var(--tungsten);
-	border-radius: 4px;
-	min-width: 300px;
+  background-color: var(--tungsten);
+  border-radius: 4px;
+  min-width: 300px;
 }
 .modalTitle {
-	font-weight: 600;
-	border-bottom: solid 1px var(--grey);
-	padding: 1rem;
-	display: grid;
-	grid-template-columns: 1fr auto;
+  font-weight: 600;
+  border-bottom: solid 1px var(--grey);
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
 }
 .modalList {
-	padding: 1rem;
+  padding: 1rem;
 }
 .modalListItem {
-	list-style-type: none;
-	border-radius: 4px;
-	padding: 1rem;
-	margin-top: 1rem;
-	cursor: pointer;
+  list-style-type: none;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-top: 1rem;
+  cursor: pointer;
 }
 .transpInfoToolTip {
-	font-size: 14px;
+  font-size: 14px;
 }
 .transpInfoToolTip,
 .transpInfoToolTipTitle,
 .transpInfoToolTipBody {
-	padding: 0.3rem;
+  padding: 0.3rem;
 }
 .copyText {
-	margin: 0rem 10px;
-	background-color: var(--navy-blue);
-	padding: 10px;
-	border-radius: 4px;
+  margin: 0rem 10px;
+  background-color: var(--navy-blue);
+  padding: 10px;
+  border-radius: 4px;
 }
 .transpInfoToolTipBody {
-	display: grid;
-	grid-template-columns: auto 1fr auto;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
 }
 .transpInfoToolTipBody > * {
-	place-self: center;
+  place-self: center;
 }
 
 #loader {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
 }
 .comingSoon {
-	align-self: center;
-	width: 100%;
+  align-self: center;
+  width: 100%;
 }
 @media only screen and (min-width: 600px) {
-	body {
-		font-size: 16px;
-	}
+  body {
+    font-size: 16px;
+  }
 }
 @media only screen and (min-width: 980px) {
-	.connectModalItem {
-		width: 550px;
-		max-width: 550px;
-	}
+  .connectModalItem {
+    width: 550px;
+    max-width: 550px;
+  }
 }

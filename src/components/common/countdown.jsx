@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 const Counter = ({ time }) => {
   const timerComponents = [];
@@ -36,17 +36,15 @@ const Counter = ({ time }) => {
   Object.keys(timeLeft).forEach((interval, i) => {
     timerComponents.push(
       <span style={{ fontSize: 20 }} key={i}>
-        {timeLeft[interval]} {interval}{" "}
-      </span>
+        {timeLeft[interval]} {interval}{' '}
+      </span>,
     );
   });
 
   if (flag === 1) {
-    return (
-      <p style={{ margin: 0, fontSize: 20 }}>Lottery is currently closed</p>
-    );
+    return <p style={{ margin: 0, fontSize: 20 }}>Lottery is currently closed</p>;
   } else {
-    return <div>{timerComponents.length ? timerComponents : "loading.."}</div>;
+    return <div>{timerComponents.length ? timerComponents : 'loading..'}</div>;
   }
 };
 

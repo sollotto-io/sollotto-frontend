@@ -1,22 +1,19 @@
-import React, { useContext} from "react";
-import WalletConnect from "../Nav/WalletConnect";
-import { PurchaseContext } from "../../context/PurchaseContext";
-import { GlobalContext } from "../../context/GlobalContext";
+import React, { useContext } from 'react';
+import WalletConnect from '../Nav/WalletConnect';
+import { PurchaseContext } from '../../context/PurchaseContext';
+import { GlobalContext } from '../../context/GlobalContext';
 
-import { ticketPurchase } from "./util/ticketPurchase";
+import { ticketPurchase } from './util/ticketPurchase';
 
-import { useMutation } from "@apollo/react-hooks";
-import { POST_TICKET } from "../../graphql/mutations";
-import { toast } from "react-toastify";
-
+import { useMutation } from '@apollo/react-hooks';
+import { POST_TICKET } from '../../graphql/mutations';
+import { toast } from 'react-toastify';
 
 export default function PurchaseButton({ selectedCharity, Numbers }) {
   const { purchaseData } = useContext(PurchaseContext);
   const { globalData } = useContext(GlobalContext);
 
   const [addTicket] = useMutation(POST_TICKET);
-
-  
 
   const connectWalletBtn = () => {
     return <WalletConnect />;
@@ -28,8 +25,8 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
       purchaseData.ticketNumberArr.every((element) => element != null)
     ) {
       if (globalData.selectedWallet === null) {
-        toast.error("Please Connect your Wallet! ", {
-          position: "bottom-left",
+        toast.error('Please Connect your Wallet! ', {
+          position: 'bottom-left',
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
@@ -39,9 +36,22 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
         });
         return;
       }
-      if(purchaseData.ticketNumberArr[0] < 1 || purchaseData.ticketNumberArr[0] > 69 || purchaseData.ticketNumberArr[1] < 1 || purchaseData.ticketNumberArr[1] > 69 || purchaseData.ticketNumberArr[2] < 1 || purchaseData.ticketNumberArr[2] > 69 || purchaseData.ticketNumberArr[3] < 1 || purchaseData.ticketNumberArr[3] > 69 || purchaseData.ticketNumberArr[4] < 1 || purchaseData.ticketNumberArr[4] > 69 || purchaseData.ticketNumberArr[5] < 1 || purchaseData.ticketNumberArr[5] > 26){
-        toast.error("First 5 Numbers should be 1-69 and last number should be 1-26 ", {
-          position: "bottom-left",
+      if (
+        purchaseData.ticketNumberArr[0] < 1 ||
+        purchaseData.ticketNumberArr[0] > 69 ||
+        purchaseData.ticketNumberArr[1] < 1 ||
+        purchaseData.ticketNumberArr[1] > 69 ||
+        purchaseData.ticketNumberArr[2] < 1 ||
+        purchaseData.ticketNumberArr[2] > 69 ||
+        purchaseData.ticketNumberArr[3] < 1 ||
+        purchaseData.ticketNumberArr[3] > 69 ||
+        purchaseData.ticketNumberArr[4] < 1 ||
+        purchaseData.ticketNumberArr[4] > 69 ||
+        purchaseData.ticketNumberArr[5] < 1 ||
+        purchaseData.ticketNumberArr[5] > 26
+      ) {
+        toast.error('First 5 Numbers should be 1-69 and last number should be 1-26 ', {
+          position: 'bottom-left',
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
@@ -56,17 +66,15 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
         userWalletPK: globalData.selectedWallet.publicKey.toBytes(),
         ticketNumArr: purchaseData.ticketNumberArr,
       };
-   
+
       const result = await ticketPurchase(globalData, purchaseDataArr);
-      
+
       if (result.success) {
         try {
           addTicket({
             variables: {
               DataWallet: Buffer.from(result.DataWallet).toJSON().data,
-              walletID: Buffer.from(
-                globalData.selectedWallet.publicKey.toBytes()
-              ).toJSON().data,
+              walletID: Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data,
               ticketArray: purchaseData.ticketNumberArr,
               charityId: purchaseData.selectedCharity,
               LotteryId: globalData.currentLottery.Id,
@@ -75,9 +83,9 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
         } catch (e) {
           console.log(e);
         }
-      } else if(result.success===false) {
-        toast.error("Ticket Purchase Unsuccessful", {
-          position: "bottom-left",
+      } else if (result.success === false) {
+        toast.error('Ticket Purchase Unsuccessful', {
+          position: 'bottom-left',
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
@@ -87,8 +95,8 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
         });
       }
     } else {
-      toast.error("Please pick all numbers and a charity", {
-        position: "bottom-left",
+      toast.error('Please pick all numbers and a charity', {
+        position: 'bottom-left',
         autoClose: 3000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -99,25 +107,15 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
       return;
     }
   };
- 
+
   const getTicketBtn = () => {
     return (
       <>
-        <button
-          type="button"
-          onClick={getTicket}
-          className="greenBtn globalBtn"
-        >
+        <button type="button" onClick={getTicket} className="greenBtn globalBtn">
           Get a Ticket
         </button>
       </>
     );
   };
-  return (
-    <>
-      {globalData.walletConnectedFlag === true
-        ? getTicketBtn()
-        : connectWalletBtn()}
-    </>
-  );
+  return <>{globalData.walletConnectedFlag === true ? getTicketBtn() : connectWalletBtn()}</>;
 }
