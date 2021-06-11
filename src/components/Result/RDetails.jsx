@@ -52,7 +52,7 @@ const RDetail = ({ globalData, data }) => {
             <p>{data.WinnerWallet.length}</p>
           </section>
           <section>
-            <p>Winner Numbers</p>
+            <p>Winning Numbers</p>
             <p>
               {data.WinningNumbers.length === 0
                 ? "TBD"
@@ -67,7 +67,8 @@ const RDetail = ({ globalData, data }) => {
             {userResult()}
           </section>
           <section>
-            <p>Winning Charities</p>
+
+            <p>{data.WinningCharity.length===1 ? "Winning Charity": "Winning Charities"}</p>
             {data.WinningCharity.length === 0
               ? "TBD"
               : data.WinningCharity.map((c, i) => {

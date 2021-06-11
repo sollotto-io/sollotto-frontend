@@ -30,7 +30,7 @@ const StyledPaper = withStyles({
 
 export default function ResultTable() {
   const { globalData } = useContext(GlobalContext);
-  
+  console.log(globalData.charities)
   const connectWallet = ()=>{
 
     toast.error('Please connect your wallet first!', {
@@ -77,7 +77,7 @@ export default function ResultTable() {
             {row.WinnerWallet.length}
           </StyledTableCell>
           <StyledTableCell align="center">
-            {row.WinningCharity.length}
+            {row.WinningCharity.length===1}
           </StyledTableCell>
         </TableRow>) 
         }else{

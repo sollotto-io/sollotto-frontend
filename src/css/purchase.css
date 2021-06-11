@@ -6,6 +6,11 @@
 	margin: 2rem 0rem;
 	padding: 0rem 1rem;
 }
+#info-circle{
+	color: white;
+	position:absolute;
+	right: 0;
+}
 #counter {
 	font-size: 20px;
 }

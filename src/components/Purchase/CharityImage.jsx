@@ -5,5 +5,5 @@ export default function CharityImage({charityId}) {
 	  }
 	  
 	  const images = importAll(require.context('../../images/pictures/', false, /\.(png)$/));
-	 return <img src={images[charityId-1].default} alt='charity' className='charityImg' />;
+	 return <img src={images[charityId-1].default} height={150} alt='charity' className='charityImg' />;
 }
