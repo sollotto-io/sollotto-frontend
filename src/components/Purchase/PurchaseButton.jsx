@@ -113,7 +113,7 @@ export default function PurchaseButton({ selectedCharity, Numbers }) {
           type="button"
           onClick={getTicket}
           className="greenBtn globalBtn"
-          disabled={dif<0 ? false :true}
+          disabled={dif>0 ? false :true}
         >
           Get a Ticket
         </button>
