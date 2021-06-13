@@ -1,30 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import Nav from './components/Nav/';
+import { useQuery } from '@apollo/react-hooks';
+import { Connection } from '@solana/web3.js';
+import Nav from './components/Nav';
 import Purchase from './pages/Purchase';
 import Charities from './pages/Charities';
 import Suggest from './pages/Suggest';
 import Results from './pages/Results';
 import Pool from './pages/Pool';
-import CharityDetailPage from './components/charity/charityDetailPage';
+import CharityDetailPage from './components/Charity/charityDetailPage';
 import { GlobalContext } from './context/GlobalContext';
 import { LotteryContext } from './context/LotteryContext';
-import { useQuery } from '@apollo/react-hooks';
-import { FETCH_ALL_CHARITIES, FETCH_CURRENT_LOTTERY } from './graphql/queries';
+import { FETCH_ALL_CHARITIES, FETCH_UPCOMING_LOTTERY } from './graphql/queries';
 import Loader from './components/common/Loader';
 import Footer from './pages/Footer';
-import { Connection } from '@solana/web3.js';
 import ResultDetail from './components/Result/ResultDetail';
 import './css/pool.css';
 
 function App() {
-  const { loading, data } = useQuery(FETCH_CURRENT_LOTTERY);
-  // const { loading: charityloading, data: charities } =
-  // 	useQuery(FETCH_ALL_CHARITIES);
-
+  const { loading, data } = useQuery(FETCH_UPCOMING_LOTTERY);
+  const { loading: charityloading, data: charities } = useQuery(FETCH_ALL_CHARITIES);
   const [globalData, setGlobalData] = useState({
     holdingWalletId: process.env.REACT_APP_HOLDING_WALLET_PK_STRING,
-    // charities: [],
+    charities: [],
     selectedWallet: null,
     walletConnectedFlag: false,
     connection: new Connection(process.env.REACT_APP_SOLANA_NETWORK),
@@ -34,10 +32,14 @@ function App() {
     allLotteries: {},
   });
   useEffect(() => {
-    if (loading === false) {
+    if (loading === false && charityloading === false) {
       setLotteryData({
         ...lotteryData,
-        currentLottery: data.getCurrentLottery,
+        currentLottery: data.getupcomingLottery,
+      });
+      setGlobalData({
+        ...globalData,
+        charities: charities.getAllCharities,
       });
       if (globalData.selectedWallet) {
         globalData.selectedWallet.on('connect', () => {
@@ -61,14 +63,15 @@ function App() {
     <div className="App">
       <Router>
         <GlobalContext.Provider value={{ globalData, setGlobalData }}>
-          <Nav />
-          <Switch>
-            {/* Redirecting to purchase page if at '/' */}
-            <Route exact path="/">
-              <Redirect to="/purchase" />
-            </Route>
-            {/* Routes  */}
-            <LotteryContext.Provider value={{ lotteryData }}>
+          <LotteryContext.Provider value={{ lotteryData }}>
+            <Nav />
+            <Switch>
+              {/* Redirecting to purchase page if at '/' */}
+              <Route exact path="/">
+                <Redirect to="/purchase" />
+              </Route>
+              {/* Routes  */}
+
               <Route exact path="/purchase">
                 <Purchase />
               </Route>
@@ -78,21 +81,22 @@ function App() {
               <Route exact path="/results/:id">
                 <ResultDetail />
               </Route>
-            </LotteryContext.Provider>
-            <Route exact path="/charities">
-              <Charities />
-            </Route>
-            <Route exact path="/suggest">
-              <Suggest />
-            </Route>
-            <Route exact path="/pools">
-              <Pool />
-            </Route>
-            <Route exact path="/charities/:id">
-              <CharityDetailPage />
-            </Route>
-          </Switch>
-          <Footer />
+
+              <Route exact path="/charities">
+                <Charities />
+              </Route>
+              <Route exact path="/suggest">
+                <Suggest />
+              </Route>
+              <Route exact path="/pools">
+                <Pool />
+              </Route>
+              <Route exact path="/charities/:id">
+                <CharityDetailPage />
+              </Route>
+            </Switch>
+            <Footer />
+          </LotteryContext.Provider>
         </GlobalContext.Provider>
       </Router>
     </div>

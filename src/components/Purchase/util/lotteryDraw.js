@@ -8,14 +8,14 @@ import {
   LAMPORTS_PER_SOL,
 } from '@solana/web3.js';
 import * as borsh from 'borsh';
+import random from 'random';
 import { TicketDataAccount, TicketDataSchema } from './TicketDataBorsh';
 import { LotteryDataAccount, LotteryDataSchema } from './LotteryDataBorsh';
-import random from 'random';
 
 export const lotteryDraw = async (data, globalData) => {
   console.log(data.getDataWallets);
-  let lotteryDataAccountPKArr = [];
-  let winningNumberArr = [
+  const lotteryDataAccountPKArr = [];
+  const winningNumberArr = [
     random.int(1, 69),
     random.int(1, 69),
     random.int(1, 69),
@@ -26,7 +26,7 @@ export const lotteryDraw = async (data, globalData) => {
   let winFlag = false;
 
   // Fetch DataWallet
-  let usersTicketNumberArr = lotteryDataAccountPKArr.map(async (publicKey) => {
+  const usersTicketNumberArr = lotteryDataAccountPKArr.map(async (publicKey) => {
     const encodedTicketDataState = await globalData.connection.getAccountInfo(
       publicKey,
       'singleGossip',
@@ -52,7 +52,7 @@ export const lotteryDraw = async (data, globalData) => {
   console.log(winFlag);
   alert(
     `Winning Numbers: ${winningNumberArr} \nWinner Wallet: ${
-      winnerUserWalletPK ? winnerUserWalletPK : 'None'
+      winnerUserWalletPK || 'None'
     } \n`,
   );
 };

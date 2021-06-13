@@ -22,6 +22,7 @@
     "graphql": "^15.5.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
+    "prop-types": "^15.7.2",
     "random": "^3.0.6",
     "react": "^17.0.2",
     "react-countdown": "^2.3.2",
@@ -31,7 +32,8 @@
     "react-scripts": "4.0.3",
     "react-toastify": "^7.0.4",
     "rollup-plugin-node-polyfills": "^0.2.1",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",

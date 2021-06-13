@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/footer.css';
-import logo from '../images/logos/SolLotto-logo-horizontal.png';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import TelegramIcon from '@material-ui/icons/Telegram';
-const Footer = () => {
-  return (
+import logo from '../images/logos/SolLotto-logo-horizontal.png';
+
+const Footer = () => (
     <div id="footerSection">
       <div id="logo">
         <a href="/purchase">
@@ -19,17 +19,16 @@ const Footer = () => {
       </div>
       <div id="social-links">
         <a href="https://twitter.com/TeamSolLotto">
-          <TwitterIcon fontSize={'small'} />
+          <TwitterIcon fontSize="small" />
         </a>
         <a href="https://t.me/joinchat/Dj3oGbIKRlA5M2Fh">
-          <TelegramIcon fontSize={'small'} />
+          <TelegramIcon fontSize="small" />
         </a>
         <a href="https://discord.gg/SolLotto">
-          <span className="iconify" data-icon="mdi-discord" data-inline="false"></span>
+          <span className="iconify" data-icon="mdi-discord" data-inline="false" />
         </a>
       </div>
     </div>
   );
-};
 
 export default Footer;

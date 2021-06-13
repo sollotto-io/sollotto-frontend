@@ -13,6 +13,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { FETCH_ALL_LOTTERIES } from '../../graphql/queries';
 import Loader from '../common/Loader';
 import { GlobalContext } from '../../context/GlobalContext';
+import { LotteryContext } from '../../context/LotteryContext';
 import { toast, ToastContainer } from 'react-toastify';
 
 const StyledTableCell = withStyles({
@@ -30,6 +31,7 @@ const StyledPaper = withStyles({
 
 export default function ResultTable() {
   const { globalData } = useContext(GlobalContext);
+  const { lotteryData } = useContext(LotteryContext);
   console.log(globalData.charities);
   const connectWallet = () => {
     toast.error('Please connect your wallet first!', {
@@ -52,7 +54,7 @@ export default function ResultTable() {
   function getLotteries() {
     let displayLotteries = [];
     data.getAllLotteries.forEach((row, index) => {
-      if (row.Id <= globalData.currentLottery.Id + 1) {
+      if (row.Id <= lotteryData.currentLottery.Id + 1) {
         if (globalData.selectedWallet === null) {
           displayLotteries.push(
             <TableRow className="tableRow" onClick={connectWallet} key={index}>

@@ -1,17 +1,17 @@
 function intToBool(i) {
   if (i === 0) {
     return false;
-  } else {
+  } 
     return true;
-  }
+  
 }
 
 function boolToInt(t) {
   if (t) {
     return 1;
-  } else {
+  } 
     return 0;
-  }
+  
 }
 
 const boolMapper = {

@@ -15,7 +15,7 @@ import {
 } from './LotteryDataBorsh';
 
 export const initLottery = async (globalData) => {
-  let solanaProgramId = new PublicKey(process.env.REACT_APP_SOLANA_INIT_LOTTERY_PROGRAM);
+  const solanaProgramId = new PublicKey(process.env.REACT_APP_SOLANA_INIT_LOTTERY_PROGRAM);
 
   try {
     const lotteryDataAccount = new Account();
@@ -48,16 +48,16 @@ export const initLottery = async (globalData) => {
       ],
       data: dataArr,
     });
-    let transaction = new Transaction().add(createLotteryDataAccountTx, initLotteryTx);
-    let signers = [lotteryDataAccount];
+    const transaction = new Transaction().add(createLotteryDataAccountTx, initLotteryTx);
+    const signers = [lotteryDataAccount];
     transaction.recentBlockhash = (await globalData.connection.getRecentBlockhash()).blockhash;
     transaction.setSigners(globalData.selectedWallet.publicKey, ...signers.map((s) => s.publicKey));
     if (signers.length > 0) {
       transaction.partialSign(...signers);
     }
-    let signedTx = await globalData.selectedWallet.signTransaction(transaction);
-    let signature = await globalData.connection.sendRawTransaction(signedTx.serialize());
-    console.log('Submitted transaction ' + signature + ', awaiting confirmation');
+    const signedTx = await globalData.selectedWallet.signTransaction(transaction);
+    const signature = await globalData.connection.sendRawTransaction(signedTx.serialize());
+    console.log(`Submitted transaction ${  signature  }, awaiting confirmation`);
     await globalData.connection.confirmTransaction(signature, 'singleGossip');
     const encodedLotteryState = (
       await globalData.connection.getAccountInfo(lotteryDataAccount.publicKey, 'singleGossip')
@@ -72,9 +72,9 @@ export const initLottery = async (globalData) => {
     console.log(`Lottery Data Account PK: ${lotteryDataAccount.publicKey.toBase58()}`);
     console.log(`Lottery Data Account PK Bytes: ${lotteryDataAccount}`);
     console.log(lotteryDataAccount.publicKey.toBytes());
-    console.log('Transaction ' + signature + ' confirmed');
+    console.log(`Transaction ${  signature  } confirmed`);
   } catch (e) {
     console.warn(e);
-    console.log('Error: ' + e.message);
+    console.log(`Error: ${  e.message}`);
   }
 };

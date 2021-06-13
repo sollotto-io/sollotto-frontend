@@ -38,7 +38,7 @@ const ResultDetail = () => {
     return (
       <div className="detailSection">
         <div className="topSection">
-          <RDetail globalData={globalData} data={lottery.getLotteryById} />
+          <RDetail globalData={globalData} lotteryData={lottery.getLotteryById} />
           <LeftCountdown
             lotteryData={lottery.getLotteryById}
             ticketData={usertickets.getUserTickets}

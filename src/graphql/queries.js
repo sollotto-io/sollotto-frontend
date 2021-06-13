@@ -55,9 +55,9 @@ export const FETCH_TICKET = gql`
   }
 `;
 
-export const FETCH_CURRENT_LOTTERY = gql`
+export const FETCH_UPCOMING_LOTTERY = gql`
   {
-    getCurrentLottery(isActive: true) {
+    getupcomingLottery {
       Id
       Charities
       TicketPrice

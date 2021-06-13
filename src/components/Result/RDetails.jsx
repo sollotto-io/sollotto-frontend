@@ -1,16 +1,18 @@
-import moment from 'moment';
-import React from 'react';
+import React, { useContext } from "react";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { IconButton } from '@material-ui/core';
 import { useHistory } from 'react-router';
 import checkIfWinner from './utils/checkIfWinner';
+import { GlobalContext } from "../../context/GlobalContext";
+import moment from 'moment';
 
-const RDetail = ({ globalData, lotteryData }) => {
+const RDetail = (props) => {
+  const { globalData } = useContext(GlobalContext);
+
   const history = useHistory();
   const sendToResults = () => {
     history.push(`/results/`);
   };
-  console.log(props.lotteryData);
   var EndDate = moment(props.lotteryData.EndDate);
   var Today = moment();
 
@@ -35,22 +37,6 @@ const RDetail = ({ globalData, lotteryData }) => {
         result = <p>Lost</p>;
       }
     }
-
-    // if (data.isActive === true) {
-    //   result = <p>TBD</p>;
-    // } else if (data.isActive === false) {
-    //   if (data.WinnerWallet !== 0) {
-    //     result = <p>TBD</p>;
-    //   } else {
-    //     data.WinnerWallet.forEach((val) => {
-    //       if (val !== globalData.selectedWallet.publicKey.toBytes()) {
-    //         result = <p>Lost</p>;
-    //       } else if (val === globalData.selectedWallet.publicKey.toBytes()) {
-    //         result = <p>Won</p>;
-    //       }
-    //     });
-    //   }
-    // }
     return result;
   }
   if (props.lotteryData) {

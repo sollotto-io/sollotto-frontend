@@ -1,9 +1,9 @@
 import React, { useState, useContext, createContext, useEffect } from 'react';
 import SingleCharitySelector from './SingleCharitySelector';
-import { PurchaseContext } from '../../context/PurchaseContext';
+import { PurchaseContext } from '../../../context/PurchaseContext';
 import { useQuery } from '@apollo/react-hooks';
-import { FETCH_ACTIVE_CHARITIES } from '../../graphql/queries';
-import Loader from '../../components/common/Loader';
+import { FETCH_ACTIVE_CHARITIES } from '../../../graphql/queries';
+import Loader from '../../../components/common/Loader';
 export const CharityDataContext = createContext(null);
 
 export default function CharitySelectorGrid() {

@@ -8,18 +8,17 @@ import {
   LAMPORTS_PER_SOL,
 } from '@solana/web3.js';
 import * as borsh from 'borsh';
-import { TicketDataAccount, TicketDataSchema } from './TicketDataBorsh';
 import { toast } from 'react-toastify';
+import { TicketDataAccount, TicketDataSchema } from './TicketDataBorsh';
 
-export const ticketPurchase = async (globalData, purchaseDataArr) => {
-  let lotteryInitProgramId = new PublicKey(process.env.REACT_APP_SOLANA_INIT_LOTTERY_PROGRAM);
-  let lotteryDataAccountPK = new PublicKey(globalData.currentLottery.LotteryDataAccount);
-  let holdingWalletPK = new PublicKey(globalData.holdingWalletId);
+export const ticketPurchase = async (globalData, purchaseDataArr, lotteryData) => {
+  const lotteryInitProgramId = new PublicKey(process.env.REACT_APP_SOLANA_INIT_LOTTERY_PROGRAM);
+  const holdingWalletPK = new PublicKey(globalData.holdingWalletId);
   try {
     const solTransferTx = SystemProgram.transfer({
       fromPubkey: globalData.selectedWallet.publicKey,
       toPubkey: holdingWalletPK,
-      lamports: globalData.currentLottery.TicketPrice * LAMPORTS_PER_SOL,
+      lamports: lotteryData.currentLottery.TicketPrice * LAMPORTS_PER_SOL,
     });
     const value = new TicketDataAccount(
       purchaseDataArr.charityId,
@@ -41,7 +40,6 @@ export const ticketPurchase = async (globalData, purchaseDataArr) => {
     const purchaseTicketTx = new TransactionInstruction({
       programId: lotteryInitProgramId,
       keys: [
-        { pubkey: lotteryDataAccountPK, isSigner: false, isWritable: true },
         {
           pubkey: ticketDataAccount.publicKey,
           isSigner: false,
@@ -56,12 +54,12 @@ export const ticketPurchase = async (globalData, purchaseDataArr) => {
       ],
       data: dataArr2,
     });
-    let transaction = new Transaction().add(
+    const transaction = new Transaction().add(
       solTransferTx,
       createTicketDataAccountTx,
       purchaseTicketTx,
     );
-    let signers = [ticketDataAccount];
+    const signers = [ticketDataAccount];
 
     transaction.recentBlockhash = (await globalData.connection.getRecentBlockhash()).blockhash;
     transaction.setSigners(globalData.selectedWallet.publicKey, ...signers.map((s) => s.publicKey));
@@ -69,9 +67,9 @@ export const ticketPurchase = async (globalData, purchaseDataArr) => {
       transaction.partialSign(...signers);
     }
 
-    let signedTx = await globalData.selectedWallet.signTransaction(transaction);
+    const signedTx = await globalData.selectedWallet.signTransaction(transaction);
 
-    let signature = await globalData.connection.sendRawTransaction(signedTx.serialize());
+    const signature = await globalData.connection.sendRawTransaction(signedTx.serialize());
 
     await globalData.connection.confirmTransaction(signature, 'singleGossip');
 
