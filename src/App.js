@@ -29,7 +29,6 @@ function App() {
   });
   const [lotteryData, setLotteryData] = useState({
     currentLottery: {},
-    allLotteries: {},
   });
   useEffect(() => {
     if (loading === false && charityloading === false) {
