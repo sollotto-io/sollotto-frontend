@@ -5,15 +5,15 @@ export const POST_TICKET = gql`
     $walletID: [Int]
     $ticketArray: [Int]
     $DataWallet: [Int]
-    $charityId: Int
-    $LotteryId: Int
+    $charityId: String!
+    $drawingId: String!
   ) {
     addTicket(
       walletID: $walletID
       ticketArray: $ticketArray
       DataWallet: $DataWallet
       charityId: $charityId
-      LotteryId: $LotteryId
+      drawingId: $drawingId
     )
   }
 `;

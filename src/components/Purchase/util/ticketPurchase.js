@@ -18,7 +18,7 @@ export const ticketPurchase = async (globalData, purchaseDataArr, lotteryData) =
     const solTransferTx = SystemProgram.transfer({
       fromPubkey: globalData.selectedWallet.publicKey,
       toPubkey: holdingWalletPK,
-      lamports: lotteryData.currentLottery.TicketPrice * LAMPORTS_PER_SOL,
+      lamports: lotteryData.TicketPrice * LAMPORTS_PER_SOL,
     });
     const value = new TicketDataAccount(
       purchaseDataArr.charityId,
@@ -73,20 +73,10 @@ export const ticketPurchase = async (globalData, purchaseDataArr, lotteryData) =
 
     await globalData.connection.confirmTransaction(signature, 'singleGossip');
 
-    toast.success(
-      'Ticket Purchase is Successful, Your purchased tickets can be found on the results page, under the day of your drawing',
-      {
-        position: 'bottom-left',
-        autoClose: 6000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      },
-    );
+  
     return { DataWallet: ticketDataAccount.publicKey.toBytes(), success: true };
   } catch (e) {
+    console.log(e)
     return { success: false };
   }
 };

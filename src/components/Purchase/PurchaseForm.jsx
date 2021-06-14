@@ -53,20 +53,34 @@ export default function PurchaseForm() {
         ticketNumArr: purchaseData.ticketNumberArr,
 
       };
-
       const result = await ticketPurchase(globalData, ticketData,lotteryData);
-
-      if (result.success) {
+     
+      if (result.success === true) {
         try {
           addTicket({
             variables: {
-              DataWallet: Buffer.from(result.DataWallet).toJSON().data,
-              walletID: Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data,
-              ticketArray: purchaseData.ticketNumberArr,
-              charityId: purchaseData.selectedCharity,
-              drawingId: lotteryData.id,
+              
+                DataWallet: Buffer.from(result.DataWallet).toJSON().data,
+                walletID: Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data,
+                ticketArray: purchaseData.ticketNumberArr,
+                charityId: ticketData.charityId,
+                drawingId: lotteryData.id,
+              
+             
             },
           });
+          toast.success(
+            'Ticket Purchase is Successful, Your purchased tickets can be found on the results page, under the day of your drawing',
+            {
+              position: 'bottom-left',
+              autoClose: 6000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            },
+          );
         } catch (e) {
           console.log(e);
         }

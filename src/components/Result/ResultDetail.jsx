@@ -7,6 +7,7 @@ import Loader from '../common/Loader';
 import LeftCountdown from '../Result/leftCountdown';
 import { GlobalContext } from '../../context/GlobalContext';
 import moment from 'moment';
+import _ from "lodash"
 
 const ResultDetail = () => {
   const { id } = useParams();
@@ -27,27 +28,32 @@ const ResultDetail = () => {
   //     LotteryId: parseInt(id),
   //   },
   // });
-  const { loading: lotteryLoading, data: lottery, refetch } = useQuery(FETCH_LOTTERY_BY_ID, {
-    variables: { Id: id },
+  const { loading, data:lottery, refetch } = useQuery(FETCH_LOTTERY_BY_ID, {
+    variables: { id: id },
   });
 
-  const [tickets, setTickets] = useState(null)
 
-  useEffect(() => {
-    var myTickets = []
-    if(!lotteryLoading){
-      myTickets = lottery.getDrawingById.Tickets.filter((d)=>(d.walletID === Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data))
-      setTickets(myTickets)
-    }
+  useEffect(() =>   
     refetch()
-  }, [lotteryLoading]); // eslint-disable-line react-hooks/exhaustive-deps
+  , []); // eslint-disable-line react-hooks/exhaustive-deps
 
 
 
-  if (lotteryLoading) {
+  if (loading) {
     return <Loader />;
   } else {
+    var userTickets = []
+    lottery.getDrawingById.Tickets.map((t)=>{
+
+      
+     var flag =  _.isEqual(t.walletID,Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data)
+     if(flag){
+       userTickets.push({array: t.ticketArray, charity: t.charityId.charityName})
+     }
+    
+    })
     return (
+
       <div className="detailSection">
         <div className="topSection">
           <RDetail globalData={globalData} lotteryData={lottery.getDrawingById} />
@@ -64,19 +70,18 @@ const ResultDetail = () => {
             </div>
             <div className="rightColumn">
               <h4 style={{ marginBottom: '2rem' }}>Your Numbers and Charities</h4>
-              {tickets.length === 0 ? (
+              {userTickets.length === 0 ? (
                 <p>No Tickets Bought</p>
               ) : (
-                tickets.map((t, i) => {
-                  var cha = globalData.charities.find((c) => c.id === t.charityId);
+                userTickets.map((t, i) => {
                   return (
                     <div className="entryRow" key={i}>
                       <p className="numColumn" key={i}>
-                        {t.ticketArray[0]}&nbsp;&nbsp;{t.ticketArray[1]}&nbsp;&nbsp;
-                        {t.ticketArray[2]}&nbsp;&nbsp;{t.ticketArray[3]}&nbsp;&nbsp;
-                        {t.ticketArray[4]}&nbsp;&nbsp;{t.ticketArray[5]}&nbsp;&nbsp;
+                        {t.array[0]}&nbsp;&nbsp;{t.array[1]}&nbsp;&nbsp;
+                        {t.array[2]}&nbsp;&nbsp;{t.array[3]}&nbsp;&nbsp;
+                        {t.array[4]}&nbsp;&nbsp;{t.array[5]}&nbsp;&nbsp;
                       </p>{' '}
-                      <p className="chaColumn">{cha.charityName}</p>
+                      <p className="chaColumn">{t.charity}</p>
                     </div>
                   );
                 })

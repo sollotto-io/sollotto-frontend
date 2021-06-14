@@ -86,7 +86,7 @@ export const FETCH_ALL_LOTTERIES = gql`
 `;
 
 export const FETCH_LOTTERY_BY_ID = gql`
-  query getDrawingById($Id: ID) {
+  query getDrawingById($id: ID) {
   getDrawingById(id:$id){
     id
     WinningCharity{
@@ -95,11 +95,16 @@ export const FETCH_LOTTERY_BY_ID = gql`
     }
     Tickets{
       walletID
+      ticketArray
+      charityId{
+        charityName
+      }
     }
     WinningNumbers
     EndDate
     WinnerWallet
     TotalPoolValue
+    isActive
   }
 }
   

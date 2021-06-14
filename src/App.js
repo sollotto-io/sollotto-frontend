@@ -18,7 +18,7 @@ import ResultDetail from './components/Result/ResultDetail';
 import './css/pool.css';
 
 function App() {
-  const { loading, data } = useQuery(FETCH_UPCOMING_DRAWING);
+  const { loading, data,refetch } = useQuery(FETCH_UPCOMING_DRAWING);
   const { loading: charityloading, data: charities } = useQuery(FETCH_ALL_CHARITIES);
   const [globalData, setGlobalData] = useState({
     holdingWalletId: process.env.REACT_APP_HOLDING_WALLET_PK_STRING,
@@ -29,6 +29,7 @@ function App() {
   });
   const [lotteryData, setLotteryData] = useState(null);
   useEffect(() => {
+
     if (loading === false && charityloading === false) {
         
     
@@ -51,6 +52,7 @@ function App() {
         };
       }
     }
+    refetch()
   }, [globalData.selectedWallet, loading]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (loading) {
