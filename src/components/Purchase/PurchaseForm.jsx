@@ -51,6 +51,7 @@ export default function PurchaseForm() {
         charityId: purchaseData.selectedCharity,
         userWalletPK: globalData.selectedWallet.publicKey.toBytes(),
         ticketNumArr: purchaseData.ticketNumberArr,
+
       };
 
       const result = await ticketPurchase(globalData, ticketData,lotteryData);
@@ -63,7 +64,7 @@ export default function PurchaseForm() {
               walletID: Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data,
               ticketArray: purchaseData.ticketNumberArr,
               charityId: purchaseData.selectedCharity,
-              LotteryId: lotteryData.currentLottery.Id,
+              drawingId: lotteryData.id,
             },
           });
         } catch (e) {

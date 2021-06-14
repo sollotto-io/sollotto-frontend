@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import RDetail from './RDetails';
 import { useQuery } from '@apollo/react-hooks';
-import { FETCH_LOTTERY_BY_ID, FETCH_USER_TICKET } from '../../graphql/queries';
+import { FETCH_LOTTERY_BY_ID } from '../../graphql/queries';
 import Loader from '../common/Loader';
 import LeftCountdown from '../Result/leftCountdown';
 import { GlobalContext } from '../../context/GlobalContext';
@@ -17,46 +17,58 @@ const ResultDetail = () => {
     window.location.href = '/results';
   }
 
-  const {
-    loading: ticketLoading,
-    data: usertickets,
-    refetch,
-  } = useQuery(FETCH_USER_TICKET, {
-    variables: {
-      walletID: Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data,
-      LotteryId: parseInt(id),
-    },
-  });
-  useEffect(() => refetch(), []); // eslint-disable-line react-hooks/exhaustive-deps
-  const { loading: lotteryLoading, data: lottery } = useQuery(FETCH_LOTTERY_BY_ID, {
-    variables: { Id: parseInt(id) },
+  // const {
+  //   loading: ticketLoading,
+  //   data: usertickets,
+  //   refetch,
+  // } = useQuery(FETCH_USER_TICKET, {
+  //   variables: {
+  //     walletID: Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data,
+  //     LotteryId: parseInt(id),
+  //   },
+  // });
+  const { loading: lotteryLoading, data: lottery, refetch } = useQuery(FETCH_LOTTERY_BY_ID, {
+    variables: { Id: id },
   });
 
-  if (lotteryLoading || ticketLoading) {
+  const [tickets, setTickets] = useState(null)
+
+  useEffect(() => {
+    var myTickets = []
+    if(!lotteryLoading){
+      myTickets = lottery.getDrawingById.Tickets.filter((d)=>(d.walletID === Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data))
+      setTickets(myTickets)
+    }
+    refetch()
+  }, [lotteryLoading]); // eslint-disable-line react-hooks/exhaustive-deps
+
+
+
+  if (lotteryLoading) {
     return <Loader />;
   } else {
     return (
       <div className="detailSection">
         <div className="topSection">
-          <RDetail globalData={globalData} lotteryData={lottery.getLotteryById} />
+          <RDetail globalData={globalData} lotteryData={lottery.getDrawingById} />
           <LeftCountdown
-            lotteryData={lottery.getLotteryById}
-            ticketData={usertickets.getUserTickets}
+            lotteryData={lottery.getDrawingById}
+    
           />
         </div>
         <div className="bottomSectionResult gradientBg2">
           <div id="ticket-details">
             <div className="leftColumn">
               <h4>SolLotto Pick 6</h4>
-              <h4>{moment(lottery.getLotteryById.EndDate).format('LL')}</h4>
+              <h4>{moment(lottery.getDrawingById.EndDate).format('LL')}</h4>
             </div>
             <div className="rightColumn">
               <h4 style={{ marginBottom: '2rem' }}>Your Numbers and Charities</h4>
-              {usertickets.getUserTickets.length === 0 ? (
+              {tickets.length === 0 ? (
                 <p>No Tickets Bought</p>
               ) : (
-                usertickets.getUserTickets.map((t, i) => {
-                  var cha = globalData.charities.find((c) => c.ID === t.charityId);
+                tickets.map((t, i) => {
+                  var cha = globalData.charities.find((c) => c.id === t.charityId);
                   return (
                     <div className="entryRow" key={i}>
                       <p className="numColumn" key={i}>

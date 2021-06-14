@@ -1,34 +1,25 @@
 import gql from 'graphql-tag';
 
-export const FETCH_ACTIVE_CHARITIES = gql`
-  {
-    getActiveCharities {
-      ID
-      id
-      charityName
-    }
-  }
-`;
+
 export const FETCH_ALL_CHARITIES = gql`
-  {
-    getAllCharities {
-      id
-      ID
-      charityName
-      projectDetails
-      fundUse
-      addedBy
-      Status
-      lifeTimeVotes
-      lifeTimeWins
-      currentVotes
-      Years
-      watchURL
-      watchGrade
-      Impact
-      webURL
-    }
+ {
+  getAllCharities{
+    id
+    charityName
+    projectDetails
+    fundUse
+    currentVotes
+    addedBy
+    lifeTimeVotes
+    lifeTimeWins
+    Status
+    Years
+    watchURL
+     watchGrade
+    Impact
+    webURL
   }
+}
 `;
 export const FETCH_POOLS = gql`
   {
@@ -47,83 +38,71 @@ export const FETCH_POOLS = gql`
   }
 `;
 
-export const FETCH_TICKET = gql`
-  {
-    getDataWallets {
-      DataWallet
-    }
-  }
-`;
 
-export const FETCH_UPCOMING_LOTTERY = gql`
-  {
-    getupcomingLottery {
-      Id
-      Charities
-      TicketPrice
-      StartDate
-      EndDate
-      LotteryDataAccount
-      isActive
+export const FETCH_UPCOMING_DRAWING = gql`
+ {
+  getActiveDrawing{
+    id
+   	Charities{
+      id
+      charityName
+     projectDetails
+      fundUse
+      currentVotes
+      addedBy
+      lifeTimeVotes
+      lifeTimeWins
+      Status
+      Years
+      watchURL
+      watchGrade
+      Impact
+      webURL
     }
+    StartDate
+    EndDate
+    
   }
+}
 `;
 
 export const FETCH_ALL_LOTTERIES = gql`
   {
-    getAllLotteries {
-      Id
-      Charities
-      CharityVoteCount {
-        charityId
-        votes
-      }
-      TicketPrice
-      StartDate
-      EndDate
-      WinnerWallet
-      WinningNumbers
-      TotalPoolValue
-      TotalRegistrations
-      isActive
-      LotteryDataAccount
-      WinningCharity
+  getAllDrawing{
+    id
+    StartDate
+    EndDate
+    WinnerWallet
+    isActive
+    WinningCharity{
+      id
+      charityName
     }
+    WinningNumbers
+    TotalPoolValue
+    
   }
+}
 `;
 
 export const FETCH_LOTTERY_BY_ID = gql`
-  query getLotteryById($Id: Int) {
-    getLotteryById(Id: $Id) {
-      Id
-      Charities
-      CharityVoteCount {
-        charityId
-        votes
-      }
-      TicketPrice
-      StartDate
-      EndDate
-      WinnerWallet
-      TotalPoolValue
-      WinningCharityName
-      TotalRegistrations
-      WinningCharity
-      LotteryDataAccount
-      WinningNumbers
-      isActive
+  query getDrawingById($Id: ID) {
+  getDrawingById(id:$id){
+    id
+    WinningCharity{
+      id
+      charityName
     }
+    Tickets{
+      walletID
+    }
+    WinningNumbers
+    EndDate
+    WinnerWallet
+    TotalPoolValue
   }
+}
+  
 `;
 
-export const FETCH_USER_TICKET = gql`
-  query getUserTickets($walletID: [Int!], $LotteryId: Int!) {
-    getUserTickets(walletID: $walletID, LotteryId: $LotteryId) {
-      walletID
-      ticketArray
-      DataWallet
-      charityId
-      LotteryId
-    }
-  }
-`;
+

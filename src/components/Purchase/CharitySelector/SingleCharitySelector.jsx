@@ -3,15 +3,16 @@ import CharityImage from './CharityImage';
 import CharityName from './CharityName';
 import CharitySelectButton from './CharitySelectButton';
 import SolLottoLogo from '../purchase-components/SolLottoLogo';
-import { CharityDataContext } from './CharitySelectorGrid';
 import { IconButton } from '@material-ui/core';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import {Link} from 'react-router-dom';
+import { LotteryContext } from '../../../context/LotteryContext';
+
 
 const SingleCharitySelector = (props) => {
+  const { lotteryData } = useContext(LotteryContext);
   const singleCharityBlockRef = useRef(null);
 
-  const data = useContext(CharityDataContext);
   var charityBtnHandler = (charityBtn) => {
     props.charitySelectHandler(charityBtn, singleCharityBlockRef.current, props.charityId);
   };
@@ -22,7 +23,7 @@ const SingleCharitySelector = (props) => {
       ref={singleCharityBlockRef}
     >
       <div className="singleCharitySelector">
-      <Link to={`/charities/${data.getActiveCharities[props.index].charityName}`}>
+      <Link to={`/charities/${lotteryData.Charities[props.index].charityName}`}>
           <IconButton
             id="info-circle"
           >
@@ -30,11 +31,11 @@ const SingleCharitySelector = (props) => {
           </IconButton>
         </Link>
         <SolLottoLogo charitySelectorIcon={true} />
-        <CharityImage charityId={data.getActiveCharities[props.index].ID} />
+        <CharityImage charityId={lotteryData.Charities[props.index].charityName} />
         <CharityName charityIndex={props.index} />
         <CharitySelectButton
-          charityName={data.getActiveCharities[props.index].charityName}
-          charityId={data.getActiveCharities[props.index].id}
+          charityName={lotteryData.Charities[props.index].charityName}
+          charityId={lotteryData.Charities[props.index].id}
           charityBtnHandler={charityBtnHandler}
         />
       </div>

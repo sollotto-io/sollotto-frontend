@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { CharityDataContext } from './CharitySelectorGrid';
+import {  LotteryContext} from '../../../context/LotteryContext';
 export default function CharityName(props) {
-  const data = useContext(CharityDataContext);
+  const {lotteryData} = useContext(LotteryContext);
 
   return (
-    <div className="charityName">{data.getActiveCharities[props.charityIndex].charityName}</div>
+    <div className="charityName">{lotteryData.Charities[props.charityIndex].charityName}</div>
   );
 }

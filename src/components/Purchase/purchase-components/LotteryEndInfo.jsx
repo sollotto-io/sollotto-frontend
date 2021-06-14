@@ -27,7 +27,7 @@ export default function LotteryEndInfo() {
           <div className="transpInfoToolTipBody">
             <span>
               The next lottery will be held on <br />
-              {moment(lotteryData.currentLottery.EndDate).format('LL')} at 12am UTC
+              {moment(lotteryData.EndDate).format('LL')} at 12am UTC
             </span>
           </div>
         </div>

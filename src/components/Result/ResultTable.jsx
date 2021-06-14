@@ -13,7 +13,6 @@ import { useQuery } from '@apollo/react-hooks';
 import { FETCH_ALL_LOTTERIES } from '../../graphql/queries';
 import Loader from '../common/Loader';
 import { GlobalContext } from '../../context/GlobalContext';
-import { LotteryContext } from '../../context/LotteryContext';
 import { toast, ToastContainer } from 'react-toastify';
 
 const StyledTableCell = withStyles({
@@ -31,8 +30,7 @@ const StyledPaper = withStyles({
 
 export default function ResultTable() {
   const { globalData } = useContext(GlobalContext);
-  const { lotteryData } = useContext(LotteryContext);
-  console.log(globalData.charities);
+
   const connectWallet = () => {
     toast.error('Please connect your wallet first!', {
       position: 'bottom-left',
@@ -51,76 +49,87 @@ export default function ResultTable() {
   const resultDetails = (param) => {
     history.push(`/results/${param}`);
   };
-  function getLotteries() {
-    let displayLotteries = [];
-    data.getAllLotteries.forEach((row, index) => {
-      if (row.Id <= lotteryData.currentLottery.Id + 1) {
-        if (globalData.selectedWallet === null) {
-          displayLotteries.push(
-            <TableRow className="tableRow" onClick={connectWallet} key={index}>
-              <StyledTableCell component="th" scope="row">
-                Pick 6
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                {moment(row.EndDate).format('MMM Do YY')}
-              </StyledTableCell>
+  if(loading){
+    return <Loader/>
+  }
+  else{
 
-              <StyledTableCell align="center">
-                {row.WinningNumbers.length === 0 ? 'TBD' : row.WinningNumbers[0]}&nbsp;{' '}
-                {row.WinningNumbers[1]}&nbsp; {row.WinningNumbers[2]}&nbsp; {row.WinningNumbers[3]}
-                &nbsp; {row.WinningNumbers[4]}&nbsp; {row.WinningNumbers[5]}
-              </StyledTableCell>
-              <StyledTableCell align="center">{row.TotalPoolValue.toFixed(2)}</StyledTableCell>
-              <StyledTableCell align="center"> {row.WinnerWallet.length}</StyledTableCell>
-              <StyledTableCell align="center">{row.WinningCharity.length === 1}</StyledTableCell>
-            </TableRow>,
-          );
-        } else {
-          displayLotteries.push(
-            <TableRow onClick={() => resultDetails(row.Id)} className="tableRow" key={index}>
-              <StyledTableCell component="th" scope="row">
-                Pick 6
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                {moment(row.EndDate).format('MMM Do YY')}
-              </StyledTableCell>
+  
+  return(
+  <TableContainer component={StyledPaper}>
+  <ToastContainer/>
+  <Table className="table" aria-label="simple table">
+    <TableHead>
+      <TableRow>
+        <StyledTableCell>Drawing Name</StyledTableCell>
+        <StyledTableCell align="center">Drawing Date</StyledTableCell>
+        <StyledTableCell align="center">Winners</StyledTableCell>
+        <StyledTableCell align="center">Prize Pool</StyledTableCell>
+        <StyledTableCell align="center">Total Winners</StyledTableCell>
+        <StyledTableCell align="center">Winning Charity</StyledTableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      {data.getAllDrawing.map((row, index) =>
+        globalData.selectedWallet === null ? (
+          <TableRow className="tableRow" onClick = {connectWallet} key={index}>
+            <StyledTableCell component="th" scope="row">
+              Pick 6
+            </StyledTableCell>
+            <StyledTableCell align="center">
+              {moment(row.EndDate).format("MMM Do YY")}
+            </StyledTableCell>
 
-              <StyledTableCell align="center">
-                {row.WinningNumbers.length === 0 ? 'TBD' : row.WinningNumbers[0]}&nbsp;{' '}
-                {row.WinningNumbers[1]}&nbsp; {row.WinningNumbers[2]}&nbsp; {row.WinningNumbers[3]}
-                &nbsp; {row.WinningNumbers[4]}&nbsp; {row.WinningNumbers[5]}
-              </StyledTableCell>
-              <StyledTableCell align="center">{row.TotalPoolValue.toFixed(2)}</StyledTableCell>
-              <StyledTableCell align="center"> {row.WinnerWallet.length}</StyledTableCell>
-              <StyledTableCell align="center">{row.WinningCharity.length}</StyledTableCell>
-            </TableRow>,
-          );
+            <StyledTableCell align="center">
+            {row.WinningNumbers.length === 0 ? "TBD" : row.WinningNumbers[0]}&nbsp; {row.WinningNumbers[1]}&nbsp; {row.WinningNumbers[2]}&nbsp; {row.WinningNumbers[3]}&nbsp; {row.WinningNumbers[4]}&nbsp; {row.WinningNumbers[5]}
+          
+            </StyledTableCell>
+            <StyledTableCell align="center">
+              {row.TotalPoolValue === null? 0 :row.TotalPoolValue.toFixed(2)}
+            </StyledTableCell>
+            <StyledTableCell align="center">
+              {" "}
+              {row.WinnerWallet.length === 0 ?"TBD" :row.WinnerWallet.length}
+            </StyledTableCell>
+            <StyledTableCell align="center">
+              {row.WinningCharity.length === 0 ? "TBD" : row.WinningCharity.length === 1 ? row.WinningCharity[0].charityName :row.WinningCharity.length }
+            </StyledTableCell>
+          </TableRow>
+        ) : (
+          <TableRow
+            onClick={() => resultDetails(row.id)}
+            className="tableRow"
+            key={index}
+          >
+            <StyledTableCell component="th" scope="row">
+              Pick 6
+            </StyledTableCell>
+            <StyledTableCell align="center">
+              {moment(row.EndDate).format("MMM Do YY")}
+            </StyledTableCell>
+
+            <StyledTableCell align="center">
+            {row.WinningNumbers.length === 0 ? "TBD" : row.WinningNumbers[0]}&nbsp; {row.WinningNumbers[1]}&nbsp; {row.WinningNumbers[2]}&nbsp; {row.WinningNumbers[3]}&nbsp; {row.WinningNumbers[4]}&nbsp; {row.WinningNumbers[5]}
+          
+            </StyledTableCell>
+            <StyledTableCell align="center">
+              {row.TotalPoolValue === null? 0 :row.TotalPoolValue.toFixed(2)}
+              
+            </StyledTableCell>
+            <StyledTableCell align="center">
+              {" "}
+              {row.WinnerWallet.length === 0 ?"TBD" :row.WinnerWallet.length}
+            </StyledTableCell>
+            <StyledTableCell align="center">
+            {row.WinningCharity.length === 0 ? "TBD" : row.WinningCharity.length === 1 ? row.WinningCharity[0].charityName :row.WinningCharity.length }
+
+            </StyledTableCell>
+          </TableRow>
+        )
+      )}
+    </TableBody>
+  </Table>
+</TableContainer>
+);
         }
-      }
-    });
-    return displayLotteries;
-  }
-
-  if (loading) {
-    return <Loader />;
-  } else {
-    return (
-      <TableContainer component={StyledPaper}>
-        <ToastContainer />
-        <Table className="table" aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Drawing Name</StyledTableCell>
-              <StyledTableCell align="center">Drawing Date</StyledTableCell>
-              <StyledTableCell align="center">Winning Numbers</StyledTableCell>
-              <StyledTableCell align="center">Prize Pool</StyledTableCell>
-              <StyledTableCell align="center">Total Winners</StyledTableCell>
-              <StyledTableCell align="center">Winning Charity</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>{getLotteries()}</TableBody>
-        </Table>
-      </TableContainer>
-    );
-  }
 }
