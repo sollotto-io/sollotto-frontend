@@ -21,6 +21,7 @@ function App() {
   const { loading, data,refetch } = useQuery(FETCH_UPCOMING_DRAWING);
   const [globalData, setGlobalData] = useState({
     holdingWalletId: process.env.REACT_APP_HOLDING_WALLET_PK_STRING,
+    charities:[],
     selectedWallet: null,
     walletConnectedFlag: false,
     connection: new Connection("https://api.devnet.solana.com"),
