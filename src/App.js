@@ -28,7 +28,7 @@ function App() {
   });
   const [lotteryData, setLotteryData] = useState(null);
   useEffect(() => {
-    console.log("inside useeffect")
+    
     if (loading === false ) {
         
     
