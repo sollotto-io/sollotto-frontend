@@ -19,7 +19,7 @@ useEffect(() => {
         charities:charities.getAllCharities
       })
   }
-}, [charityloading])
+}, [charityloading])// eslint-disable-line react-hooks/exhaustive-deps
 
 
   if(charityloading){
