@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
-import { GlobalContext } from "../../context/GlobalContext";
-var _ = require("lodash");
+import React, { useContext, useEffect, useState } from 'react';
+import { GlobalContext } from '../../context/GlobalContext';
+var _ = require('lodash');
 
 const SortButtons = () => {
   const [filter, setFilter] = useState(null);
@@ -12,27 +12,27 @@ const SortButtons = () => {
       ...globalData,
       pools: sortbyprize,
     });
-  }, [filter]);// eslint-disable-line react-hooks/exhaustive-deps
+  }, [filter]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div id="sort-buttons">
       <button
         onClick={() => {
-          setFilter("TimeRemaining");
+          setFilter('TimeRemaining');
         }}
       >
         TIME
       </button>
       <button
         onClick={() => {
-          setFilter("PoolARP");
+          setFilter('PoolARP');
         }}
       >
         APR
       </button>
       <button
         onClick={() => {
-          setFilter("PrizePool");
+          setFilter('PrizePool');
         }}
       >
         PRIZE POOL

@@ -2,7 +2,7 @@ import moment from 'moment';
 import React, { useContext } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
 import checkIfWinner from './utils/checkIfWinner';
-const LeftCountdown = ({ lotteryData, ticketData }) => {
+const LeftCountdown = ({ lotteryData }) => {
   var EndDate = moment(lotteryData.EndDate);
   var Today = moment();
 

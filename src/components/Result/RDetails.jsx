@@ -56,7 +56,7 @@ const RDetail = (props) => {
         <div id="other-details">
           <section>
             <p>Prize Pool</p>
-            <p>{props.lotteryData.TotalPoolValue.toFixed(2)}</p>
+            <p>{props.lotteryData.TotalPoolValue === null ? "TBD" : props.lotteryData.TotalPoolValue.toFixed(2)}</p>
           </section>
           <section>
             <p>Total Winners</p>
@@ -88,8 +88,8 @@ const RDetail = (props) => {
             {props.lotteryData.WinningCharity.length === 0
               ? 'TBD'
               : props.lotteryData.WinningCharity.map((c, i) => {
-                  var cha = globalData.charities.find((t) => t.ID === c);
-                  return <p key={i}>{cha.charityName}</p>;
+               
+                  return <p key={i}>{c.charityName}</p>;
                 })}
           </section>
         </div>

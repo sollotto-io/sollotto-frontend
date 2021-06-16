@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
-import { useParams } from "react-router";
-import { GlobalContext } from "../../context/GlobalContext";
-import Loader from "../common/Loader";
-import CDetail from "./CDetails";
-import CharityCommunitySelect from "./CharityCommunitySelect";
-import { useHistory } from "react-router";
-import CharityIntro from "./CharityIntro"
-import CharityExtraInfo from "./CharityExtraInfo"
+import React, { useContext } from 'react';
+import { useParams } from 'react-router';
+import { GlobalContext } from '../../context/GlobalContext';
+import Loader from '../common/Loader';
+import CDetail from './CDetails';
+import CharityCommunitySelect from './CharityCommunitySelect';
+import { useHistory } from 'react-router';
+import CharityIntro from './CharityIntro';
+import CharityExtraInfo from './CharityExtraInfo';
 
 const CharitDetailPage = () => {
   const history = useHistory();
@@ -20,18 +20,17 @@ const CharitDetailPage = () => {
   if (charityDetail) {
     return (
       <>
-      <div className="detailSection">
-        <div className="topSection">
-          <CDetail charityDetail={charityDetail} />
-          <CharityCommunitySelect />
+        <div className="detailSection">
+          <div className="topSection">
+            <CDetail charityDetail={charityDetail} />
+            <CharityCommunitySelect />
+          </div>
+          <div className="bottomSection">
+            <CharityIntro charityDetail={charityDetail} />
+            <CharityExtraInfo charityDetail={charityDetail} />
+          </div>
         </div>
-        <div className="bottomSection">
-        <CharityIntro charityDetail ={charityDetail}/>
-        <CharityExtraInfo charityDetail ={charityDetail}/>
-       </div>
-      </div>
-      
-       </>
+      </>
     );
   } else if (charityDetail === undefined) {
     sendToCharity();
