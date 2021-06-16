@@ -11,13 +11,14 @@ import * as borsh from 'borsh';
 import { TicketDataAccount, TicketDataSchema } from './TicketDataBorsh';
 
 export const ticketPurchase = async (globalData, purchaseDataArr, lotteryData) => {
+  console.log(lotteryData)
   const lotteryInitProgramId = new PublicKey(process.env.REACT_APP_SOLANA_INIT_LOTTERY_PROGRAM);
   const holdingWalletPK = new PublicKey(globalData.holdingWalletId);
   try {
     const solTransferTx = SystemProgram.transfer({
       fromPubkey: globalData.selectedWallet.publicKey,
       toPubkey: holdingWalletPK,
-      lamports: lotteryData.TicketPrice * LAMPORTS_PER_SOL,
+      lamports: 0.1 * LAMPORTS_PER_SOL,
     });
     const value = new TicketDataAccount(
       purchaseDataArr.charityId,
