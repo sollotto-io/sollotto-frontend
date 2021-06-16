@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router';
 import RDetail from './RDetails';
 import { useQuery } from '@apollo/react-hooks';
@@ -47,10 +47,11 @@ const ResultDetail = () => {
 
       
      var flag =  _.isEqual(t.walletID,Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data)
+    
      if(flag){
        userTickets.push({array: t.ticketArray, charity: t.charityId.charityName})
      }
-    
+     return null
     })
     return (
 

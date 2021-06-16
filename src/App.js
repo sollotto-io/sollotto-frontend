@@ -11,7 +11,7 @@ import Pool from './pages/Pool';
 import CharityDetailPage from './components/charity/charityDetailPage';
 import { GlobalContext } from './context/GlobalContext';
 import { LotteryContext } from './context/LotteryContext';
-import { FETCH_ALL_CHARITIES, FETCH_UPCOMING_DRAWING } from './graphql/queries';
+import {  FETCH_UPCOMING_DRAWING } from './graphql/queries';
 import Loader from './components/common/Loader';
 import Footer from './pages/Footer';
 import ResultDetail from './components/Result/ResultDetail';
@@ -19,26 +19,24 @@ import './css/pool.css';
 
 function App() {
   const { loading, data,refetch } = useQuery(FETCH_UPCOMING_DRAWING);
-  const { loading: charityloading, data: charities } = useQuery(FETCH_ALL_CHARITIES);
   const [globalData, setGlobalData] = useState({
     holdingWalletId: process.env.REACT_APP_HOLDING_WALLET_PK_STRING,
-    charities: [],
     selectedWallet: null,
     walletConnectedFlag: false,
     connection: new Connection("https://api.devnet.solana.com"),
   });
   const [lotteryData, setLotteryData] = useState(null);
   useEffect(() => {
-
-    if (loading === false && charityloading === false) {
+    console.log("inside useeffect")
+    if (loading === false ) {
         
     
       setLotteryData(data.getActiveDrawing);
     
-      setGlobalData({
-        ...globalData,
-        charities: charities.getAllCharities,
-      });
+      // setGlobalData({
+      //   ...globalData,
+      //   charities: charities.getAllCharities,
+      // });
       if (globalData.selectedWallet) {
         globalData.selectedWallet.on('connect', () => {
           setGlobalData({ ...globalData, walletConnectedFlag: true });
@@ -56,6 +54,7 @@ function App() {
   }, [globalData.selectedWallet, loading]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (loading) {
+    console.log(loading)
     return <Loader />;
   }
   return (

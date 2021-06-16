@@ -8,7 +8,6 @@ import {
   LAMPORTS_PER_SOL,
 } from '@solana/web3.js';
 import * as borsh from 'borsh';
-import { toast } from 'react-toastify';
 import { TicketDataAccount, TicketDataSchema } from './TicketDataBorsh';
 
 export const ticketPurchase = async (globalData, purchaseDataArr, lotteryData) => {
