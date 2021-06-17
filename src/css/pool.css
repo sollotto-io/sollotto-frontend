@@ -96,7 +96,6 @@
   display: grid;
   grid-template-columns: auto auto;
   justify-content: space-between;
-  border-bottom: 0.5px gray solid;
   height: 100%;
 }
 .timer {
@@ -228,7 +227,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    border-bottom: 0.5px gray solid;
     height: 70%;
   }
 

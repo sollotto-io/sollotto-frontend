@@ -18,6 +18,7 @@ export const FETCH_ALL_CHARITIES = gql`
      watchGrade
     Impact
     webURL
+    socialMedia
   }
 }
 `;

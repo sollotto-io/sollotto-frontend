@@ -6,6 +6,17 @@
   margin: 2rem 0rem;
   padding: 0rem 1rem;
 }
+
+#charity-list{
+  height: 120px;
+  overflow: scroll;
+ 
+}
+#charity-list::-webkit-scrollbar {
+  display: block;
+  height: 100%;
+  width: 1px;
+}
 #back-button {
   display: grid;
   grid-template-columns: auto auto;
