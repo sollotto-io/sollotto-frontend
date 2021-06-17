@@ -10,6 +10,8 @@ import { ticketPurchase } from './util/ticketPurchase';
 import { useMutation } from '@apollo/react-hooks';
 import { POST_TICKET } from '../../graphql/mutations';
 import { LotteryContext } from '../../context/LotteryContext';
+import { sortTicketNumber } from '../utils/hepers';
+
 export default function PurchaseForm() {
   const [addTicket] = useMutation(POST_TICKET);
   const {purchaseData} = useContext(PurchaseContext);
@@ -18,10 +20,12 @@ export default function PurchaseForm() {
 
   async function handleSubmit() {
 
+    const ticketNumbers=sortTicketNumber(purchaseData.ticketNumberArr);
+
     if (
       purchaseData.selectedCharity != null &&
-      purchaseData.ticketNumberArr.length === 6 &&
-      purchaseData.ticketNumberArr.every((element) => element != null)
+      ticketNumbers.length === 6 &&
+      ticketNumbers.every((element) => element != null)
     ) {
       if (globalData.selectedWallet === null) {
         toast.error('Please Connect your Wallet! ', {
@@ -35,7 +39,7 @@ export default function PurchaseForm() {
         });
         return;
       }
-      if(purchaseData.ticketNumberArr[0] < 1 || purchaseData.ticketNumberArr[0] > 69 || purchaseData.ticketNumberArr[1] < 1 || purchaseData.ticketNumberArr[1] > 69 || purchaseData.ticketNumberArr[2] < 1 || purchaseData.ticketNumberArr[2] > 69 || purchaseData.ticketNumberArr[3] < 1 || purchaseData.ticketNumberArr[3] > 69 || purchaseData.ticketNumberArr[4] < 1 || purchaseData.ticketNumberArr[4] > 69 || purchaseData.ticketNumberArr[5] < 1 || purchaseData.ticketNumberArr[5] > 26){
+      if(ticketNumbers[0] < 1 || ticketNumbers[0] > 69 || ticketNumbers[1] < 1 || ticketNumbers[1] > 69 || ticketNumbers[2] < 1 || ticketNumbers[2] > 69 || ticketNumbers[3] < 1 || ticketNumbers[3] > 69 || ticketNumbers[4] < 1 || ticketNumbers[4] > 69 || ticketNumbers[5] < 1 || ticketNumbers[5] > 26){
         toast.error("First 5 Numbers should be 1-69 and last number should be 1-26 ", {
           position: "bottom-left",
           autoClose: 3000,
@@ -50,7 +54,7 @@ export default function PurchaseForm() {
       const ticketData = {
         charityId: purchaseData.selectedCharity,
         userWalletPK: globalData.selectedWallet.publicKey.toBytes(),
-        ticketNumArr: purchaseData.ticketNumberArr,
+        ticketNumArr: ticketNumbers,
 
       };
       const result = await ticketPurchase(globalData, ticketData,lotteryData);
@@ -62,7 +66,7 @@ export default function PurchaseForm() {
               
                 DataWallet: Buffer.from(result.DataWallet).toJSON().data,
                 walletID: Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data,
-                ticketArray: purchaseData.ticketNumberArr,
+                ticketArray: ticketNumbers,
                 charityId: ticketData.charityId,
                 drawingId: lotteryData.id,
               

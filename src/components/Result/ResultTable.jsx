@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -9,8 +9,6 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core';
 import { useHistory } from 'react-router';
 import moment from 'moment';
-import { useQuery } from '@apollo/react-hooks';
-import { FETCH_ALL_LOTTERIES } from '../../graphql/queries';
 import Loader from '../common/Loader';
 import { GlobalContext } from '../../context/GlobalContext';
 import { toast, ToastContainer } from 'react-toastify';
@@ -28,7 +26,7 @@ const StyledPaper = withStyles({
   },
 })(Paper);
 
-export default function ResultTable() {
+export default function ResultTable({loading,rows}) {
   const { globalData } = useContext(GlobalContext);
 
   const connectWallet = () => {
@@ -42,13 +40,14 @@ export default function ResultTable() {
       progress: undefined,
     });
   };
-  const { loading, data, refetch } = useQuery(FETCH_ALL_LOTTERIES);
-  useEffect(() => refetch(), []); // eslint-disable-line react-hooks/exhaustive-deps
+ // eslint-disable-line react-hooks/exhaustive-deps
 
   const history = useHistory();
   const resultDetails = (param) => {
     history.push(`/results/${param}`);
   };
+
+
   if(loading){
     return <Loader/>
   }
@@ -70,7 +69,7 @@ export default function ResultTable() {
       </TableRow>
     </TableHead>
     <TableBody>
-      {data.getAllDrawing.map((row, index) =>
+      {rows.map((row, index) =>
         globalData.selectedWallet === null ? (
           <TableRow className="tableRow" onClick = {connectWallet} key={index}>
             <StyledTableCell component="th" scope="row">

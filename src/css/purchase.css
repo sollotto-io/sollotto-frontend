@@ -6,11 +6,6 @@
   margin: 2rem 0rem;
   padding: 0rem 1rem;
 }
-#info-circle {
-  color: white;
-  position: absolute;
-  right: 0;
-}
 #counter {
   font-size: 20px;
 }
@@ -24,6 +19,14 @@
   grid-column: 1/2;
   grid-row: 1/2;
   margin: 0px;
+  justify-self: start;
+  font-weight: 700;
+}
+
+#purchaseSection .pageSubTitle {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  margin: 15px 0px;
   justify-self: start;
   font-weight: 700;
 }
@@ -68,7 +71,7 @@
   -webkit-appearance: none;
   margin: 0;
 }
-#purchaseSection input[type='number'] {
+#purchaseSection input[type="number"] {
   -moz-appearance: textfield;
 }
 .numberSelector {
@@ -100,7 +103,7 @@
   height: 100%;
   width: 100%;
   color: #fff;
-  font-family: 'Circular', Arial, Helvetica, sans-serif;
+  font-family: "Circular", Arial, Helvetica, sans-serif;
   align-self: stretch;
 }
 .numberCount {
