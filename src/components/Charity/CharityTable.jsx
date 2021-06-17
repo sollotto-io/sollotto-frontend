@@ -24,7 +24,6 @@ const StyledPaper = withStyles({
 })(Paper);
 
 export default function CharityTable({ rows }) {
-  console.log(rows)
   const history = useHistory();
   const poolDetails = (param) => {
     history.push(`/charities/${param}`);
