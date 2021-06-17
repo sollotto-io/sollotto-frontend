@@ -23,7 +23,7 @@ export default function Results() {
           <div id="resultHeader">
             <PageTitle title="Result" />
           </div>
-          <PageSubTitle subtitle="Comming Soon" />
+          <PageSubTitle subtitle="Coming Soon" />
 
           <ResultTable
             loading={loading}
