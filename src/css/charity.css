@@ -113,23 +113,22 @@
 #project-desc p {
   margin: 0;
 }
-#suggest-charity{
+#suggest-charity {
   margin-top: 15px;
   /* background-color: aqua; */
 }
-#suggest-charity h4{
+#suggest-charity h4 {
   margin: 0;
 }
-#suggest-charity p{
+#suggest-charity p {
   margin: 0;
   margin-top: 10px;
-  width: 100%;
+  width: 50%;
 }
-#suggest-charity button{
-  padding: 8px;
-  margin-top: 15px;
-  font-size: 12px;
-
+#suggest-charity button {
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 15px;
 }
 .border-gradient {
   border: 10px solid;
@@ -137,9 +136,14 @@
   border-width: 1px;
 }
 .border-gradient-purple {
-  border-image-source: linear-gradient(245.22deg, #c200fb 7.97%, #3772ff 49.17%, #3773fe 0, #5ac4be 92.1%);
+  border-image-source: linear-gradient(
+    245.22deg,
+    #c200fb 7.97%,
+    #3772ff 49.17%,
+    #3773fe 0,
+    #5ac4be 92.1%
+  );
 }
-
 @media only screen and (min-width: 980px) {
   #search-pool {
     width: 100% !important;
@@ -259,17 +263,4 @@
   #info {
     font-size: 12px;
   }
-  #suggest-charity p{
-    margin: 0;
-    margin-top: 10px;
-    width: 50%;
-  }
-  #suggest-charity button{
-    padding: 10px;
-    margin-top: 15px;
-    font-size: 15px;
-  
-  }
-  
- 
 }
