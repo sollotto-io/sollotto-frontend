@@ -6,7 +6,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import App from './App';
 
 const httpLink = createHttpLink({
-  uri: 'https://sollotto-backend.herokuapp.com/',
+  uri: process.env.REACT_APP_BACKEND_SERVER,
 });
 
 const client = new ApolloClient({
