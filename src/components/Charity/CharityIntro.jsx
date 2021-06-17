@@ -1,5 +1,10 @@
 import React from 'react';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import { IconButton } from '@material-ui/core';
 const CharityIntro = ({ charityDetail }) => {
+  const TwitterLink = ()=>{
+    
+  }
   return (
     <div className="charityIntroSection">
       <div>
@@ -9,6 +14,8 @@ const CharityIntro = ({ charityDetail }) => {
         <a href={charityDetail.webURL} target="_blank" rel="noopener noreferrer">
           <button>WEBSITE</button>
         </a>
+        <IconButton onClick={TwitterLink}><TwitterIcon fontSize="small"/></IconButton>
+
       </div>
       <div id="project-desc">
         <b>Mission:</b> <p>{charityDetail.projectDetails}</p>
