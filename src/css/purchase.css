@@ -71,7 +71,7 @@
   -webkit-appearance: none;
   margin: 0;
 }
-#purchaseSection input[type="number"] {
+#purchaseSection input[type='number'] {
   -moz-appearance: textfield;
 }
 .numberSelector {
@@ -103,7 +103,7 @@
   height: 100%;
   width: 100%;
   color: #fff;
-  font-family: "Circular", Arial, Helvetica, sans-serif;
+  font-family: 'Circular', Arial, Helvetica, sans-serif;
   align-self: stretch;
 }
 .numberCount {
@@ -193,6 +193,10 @@
   justify-self: center;
   margin-bottom: 0.5rem;
 }
+.singleCharitySelector {
+  position: relative;
+}
+
 @media only screen and (min-width: 980px) {
   #tooltip {
     cursor: pointer;
