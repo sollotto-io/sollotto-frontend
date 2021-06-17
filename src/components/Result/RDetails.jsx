@@ -5,25 +5,28 @@ import { useHistory } from 'react-router';
 import checkIfWinner from './utils/checkIfWinner';
 import { GlobalContext } from "../../context/GlobalContext";
 import moment from 'moment';
+import { sortTicketNumber } from "../utils/hepers";
 
-const RDetail = (props) => {
+const RDetail = ({lotteryData}) => {
   const { globalData } = useContext(GlobalContext);
 
   const history = useHistory();
   const sendToResults = () => {
     history.push(`/results/`);
   };
-  var EndDate = moment(props.lotteryData.EndDate);
+  var EndDate = moment(lotteryData.EndDate);
   var Today = moment();
 
   var dif = EndDate.diff(Today);
+
+  const WinningNumbers = sortTicketNumber(lotteryData.WinningNumbers)
   function userResult() {
     let result = null;
 
-    if (props.lotteryData.WinnerWallet.length === 0) {
-      if (props.lotteryData.isActive === true) {
+    if (lotteryData.WinnerWallet.length === 0) {
+      if (lotteryData.isActive === true) {
         result = <p>TBD</p>;
-      } else if (props.lotteryData.isActive === false) {
+      } else if (lotteryData.isActive === false) {
         if (dif > 0) {
           result = <p>TBD</p>;
         } else {
@@ -31,7 +34,7 @@ const RDetail = (props) => {
         }
       }
     } else {
-      if (checkIfWinner(props.lotteryData, globalData.selectedWallet.publicKey.toBytes())) {
+      if (checkIfWinner(lotteryData, globalData.selectedWallet.publicKey.toBytes())) {
         result = <p>Won</p>;
       } else {
         result = <p>Lost</p>;
@@ -39,7 +42,7 @@ const RDetail = (props) => {
     }
     return result;
   }
-  if (props.lotteryData) {
+  if (lotteryData) {
     return (
       <section id="poolC">
         <div id="charityHeader">
@@ -50,29 +53,29 @@ const RDetail = (props) => {
             <h4>Pick 6</h4>
           </div>
           <div>
-            <h4>{moment(props.lotteryData.EndDate).format('LL')}</h4>
+            <h4>{moment(lotteryData.EndDate).format('LL')}</h4>
           </div>
         </div>
         <div id="other-details">
           <section>
             <p>Prize Pool</p>
-            <p>{props.lotteryData.TotalPoolValue === null ? "TBD" : props.lotteryData.TotalPoolValue.toFixed(2)}</p>
+            <p>{lotteryData.TotalPoolValue === null ? "TBD" : lotteryData.TotalPoolValue.toFixed(2)}</p>
           </section>
           <section>
             <p>Total Winners</p>
-            <p>{props.lotteryData.WinnerWallet.length}</p>
+            <p>{lotteryData.WinnerWallet.length}</p>
           </section>
           <section>
             <p>Winning Numbers</p>
             <p>
-              {props.lotteryData.WinningNumbers.length === 0
+              {WinningNumbers.length === 0
                 ? 'TBD'
-                : props.lotteryData.WinningNumbers[0]}
-              &nbsp; {props.lotteryData.WinningNumbers[1]}&nbsp;{' '}
-              {props.lotteryData.WinningNumbers[2]}
-              &nbsp; {props.lotteryData.WinningNumbers[3]}&nbsp;{' '}
-              {props.lotteryData.WinningNumbers[4]}
-              &nbsp; {props.lotteryData.WinningNumbers[5]}{' '}
+                : WinningNumbers[0]}
+              &nbsp; {WinningNumbers[1]}&nbsp;{' '}
+              {WinningNumbers[2]}
+              &nbsp; {WinningNumbers[3]}&nbsp;{' '}
+              {WinningNumbers[4]}
+              &nbsp; {WinningNumbers[5]}{' '}
             </p>
           </section>
           <section>
@@ -81,13 +84,13 @@ const RDetail = (props) => {
           </section>
           <section>
             <p>
-              {props.lotteryData.WinningCharity.length === 1
+              {lotteryData.WinningCharity.length === 1
                 ? 'Winning Charity'
                 : 'Winning Charities'}
             </p>
-            {props.lotteryData.WinningCharity.length === 0
+            {lotteryData.WinningCharity.length === 0
               ? 'TBD'
-              : props.lotteryData.WinningCharity.map((c, i) => {
+              : lotteryData.WinningCharity.map((c, i) => {
                
                   return <p key={i}>{c.charityName}</p>;
                 })}
