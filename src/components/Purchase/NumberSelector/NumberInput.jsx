@@ -15,6 +15,7 @@ export default function NumberInput(props) {
         name={`ticketNumber${props.ticketPos}`}
         max={props.ticketPos >= 0 && props.ticketPos <= 4 ? 69 : 26}
         min="1"
+        placeholder='#'
         onBlur={(event) => {
           if (props.ticketPos >= 0 && props.ticketPos <= 4) {
             event.target.value = Math.min(Math.max(event.target.value, 1), 69);
@@ -23,7 +24,6 @@ export default function NumberInput(props) {
           }
         }}
         onChange={props.validateNum}
-        placeholder="1"
       />
     </div>
   );

@@ -30,7 +30,6 @@ function App() {
   useEffect(() => {
     if (loading === false) {
       setLotteryData(data.getActiveDrawing);
-
       // setGlobalData({
       //   ...globalData,
       //   charities: charities.getAllCharities,
@@ -48,18 +47,17 @@ function App() {
         };
       }
     }
-    refetch();
+   
   }, [globalData.selectedWallet, loading]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (loading) {
-    console.log(loading);
     return <Loader />;
   }
   return (
     <div className="App">
       <Router>
         <GlobalContext.Provider value={{ globalData, setGlobalData }}>
-          <LotteryContext.Provider value={{ lotteryData }}>
+          <LotteryContext.Provider value={{ lotteryData , refetch }}>
             <Nav />
             <Switch>
               {/* Redirecting to purchase page if at '/' */}

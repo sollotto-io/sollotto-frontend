@@ -14,9 +14,10 @@ import { sortTicketNumber, ticketNumberValidator } from '../utils/helpers';
 
 export default function PurchaseForm() {
   const [addTicket] = useMutation(POST_TICKET);
-  const { purchaseData } = useContext(PurchaseContext);
-  const { globalData } = useContext(GlobalContext);
-  const { lotteryData } = useContext(LotteryContext);
+  const {purchaseData} = useContext(PurchaseContext);
+  const {globalData} = useContext(GlobalContext);
+  const {lotteryData, refetch} = useContext(LotteryContext);
+
 
   async function handleSubmit() {
     const ticketNumbers = sortTicketNumber(purchaseData.ticketNumberArr);
@@ -64,6 +65,7 @@ export default function PurchaseForm() {
               progress: undefined,
             },
           );
+          refetch();
         } catch (e) {
           console.log(e);
         }

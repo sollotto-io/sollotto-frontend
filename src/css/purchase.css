@@ -44,6 +44,10 @@
   grid-column: 2/3;
   grid-row: 2/3;
   justify-self: end;
+  
+}
+.lotteryCountdown p{
+  margin: 0;
 }
 
 .numberInputWrapper {

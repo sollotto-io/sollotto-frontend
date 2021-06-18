@@ -80,7 +80,7 @@ const RDetail = ({ lotteryData }) => {
             <p>Your Result</p>
             {userResult()}
           </section>
-          <section>
+          <section id="charity-list">
             <p>
               {lotteryData.WinningCharity.length === 1 ? 'Winning Charity' : 'Winning Charities'}
             </p>
