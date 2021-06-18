@@ -16,7 +16,7 @@ export default function PurchaseForm() {
   const [addTicket] = useMutation(POST_TICKET);
   const {purchaseData} = useContext(PurchaseContext);
   const {globalData} = useContext(GlobalContext);
-  const {lotteryData} = useContext(LotteryContext);
+  const {lotteryData, refetch} = useContext(LotteryContext);
 
   async function handleSubmit() {
 
@@ -85,6 +85,7 @@ export default function PurchaseForm() {
               progress: undefined,
             },
           );
+          refetch();
         } catch (e) {
           console.log(e);
         }

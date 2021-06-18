@@ -47,7 +47,7 @@ function App() {
         };
       }
     }
-    refetch();
+   
   }, [globalData.selectedWallet, loading]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (loading) {
@@ -57,7 +57,7 @@ function App() {
     <div className="App">
       <Router>
         <GlobalContext.Provider value={{ globalData, setGlobalData }}>
-          <LotteryContext.Provider value={{ lotteryData }}>
+          <LotteryContext.Provider value={{ lotteryData , refetch }}>
             <Nav />
             <Switch>
               {/* Redirecting to purchase page if at '/' */}
