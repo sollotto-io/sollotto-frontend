@@ -38,13 +38,13 @@ export default function Results() {
 
           {nextLotteries.length > 0 ? (
             <>
-              <PageSubTitle subtitle="Comming Soon" />
+              <PageSubTitle subtitle="Coming Soon" />
               <ResultTable loading={loading} rows={nextLotteries} />
             </>
           ) : (
             <>
-              <PageSubTitle subtitle="Comming Soon" />
-              <div className="comming-soon gradientBg gradientBorder">
+              <PageSubTitle subtitle="Coming Soon" />
+              <div className="coming-soon gradientBg gradientBorder">
                 <div>
                   <PageSubTitle subtitle="Not Yet" />
                 </div>
@@ -59,7 +59,7 @@ export default function Results() {
           ) : (
             <>
               <PageSubTitle subtitle="Past Lotteries" />
-              <div className="comming-soon gradientBg gradientBorder">
+              <div className="coming-soon gradientBg gradientBorder">
                 <div>
                   <PageSubTitle subtitle="Not Yet" />
                 </div>
