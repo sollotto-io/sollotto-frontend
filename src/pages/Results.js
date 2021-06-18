@@ -10,7 +10,6 @@ import { sortTicketNumber } from '../components/utils/hepers';
 
 export default function Results() {
   const { loading, data, refetch } = useQuery(FETCH_ALL_LOTTERIES);
-  console.log(!loading ? data.getAllDrawing : 'hola');
   // eslint-disable-next-line
   useEffect(() => refetch(), []);
 

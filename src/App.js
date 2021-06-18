@@ -30,7 +30,6 @@ function App() {
   useEffect(() => {
     if (loading === false) {
       setLotteryData(data.getActiveDrawing);
-      console.log(data.getActiveDrawing)
       // setGlobalData({
       //   ...globalData,
       //   charities: charities.getAllCharities,
@@ -52,7 +51,6 @@ function App() {
   }, [globalData.selectedWallet, loading]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (loading) {
-    console.log(loading);
     return <Loader />;
   }
   return (

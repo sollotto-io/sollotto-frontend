@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TimeRemaining = ({charityDetail}) => {
-  console.log(charityDetail.charityName)
+  
   return (
     <div id="charitySelection" className=" wrap gradientBg">
       <div id="charitySelect">

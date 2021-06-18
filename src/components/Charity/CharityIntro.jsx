@@ -2,7 +2,7 @@ import React from 'react';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import { IconButton } from '@material-ui/core';
 const CharityIntro = ({ charityDetail }) => {
-  console.log(charityDetail)
+  
   const TwitterLink = ()=>{
       window.open(`${charityDetail.socialMedia}`, '_blank')
   }
