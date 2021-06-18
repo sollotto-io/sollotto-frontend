@@ -7,16 +7,11 @@ import PurpleGradientSvg from '../common/PurpleGradientSvg';
 import { PurchaseContext } from '../../context/PurchaseContext';
 import PurchaseForm from './PurchaseForm';
 
-
 const PurchaseCard = () => {
-
-
   const [purchaseData, setPurchaseData] = useState({
-    ticketNumberArr:Array(6),
+    ticketNumberArr: Array(6),
     selectedCharity: null,
   });
-
-
 
   return (
     <div className="gradientBg gradientBorder">
@@ -25,11 +20,9 @@ const PurchaseCard = () => {
       <PurpleGradientSvg />
       <div className="purchaseCard">
         <PurchaseContext.Provider value={{ purchaseData, setPurchaseData }}>
-          <p
-          className="ticketNumInst"
-          style={{ marginTop: 0, maxWidth: 400 }}>
-            Pick your numbers. Choose a number 1-69 for the first 5 numbers and a number 1-26 for
-            the sixth number
+          <p className="ticketNumInst" style={{ marginTop: 0, maxWidth: 400 }}>
+            Please pick your numbers. Choose a number between 1-69 for the first 5 selections, and a
+            number between 1-26 for the 6th selection
           </p>
           <PurchaseForm />
         </PurchaseContext.Provider>

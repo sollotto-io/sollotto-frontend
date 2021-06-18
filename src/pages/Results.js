@@ -17,32 +17,55 @@ export default function Results() {
   if (loading) {
     return <Loader />;
   } else {
+    const pastLotteries = data.getAllDrawing
+      .filter((row) => new Date(row.EndDate) < Date.now())
+      .map((row) => {
+        return { ...row, WinningNumbers: sortTicketNumber(row.WinningNumbers) };
+      });
+
+    const nextLotteries = data.getAllDrawing
+      .filter((row) => new Date(row.EndDate) > Date.now())
+      .map((row) => {
+        return { ...row, WinningNumbers: sortTicketNumber(row.WinningNumbers) };
+      });
+
     return (
       <div className="pageWrapper">
         <div className="resultSection">
           <div id="resultHeader">
             <PageTitle title="Result" />
           </div>
-          <PageSubTitle subtitle="Comming Soon" />
 
-          <ResultTable
-            loading={loading}
-            rows={data.getAllDrawing
-              .filter((row) => new Date(row.EndDate) > Date.now())
-              .map((row) => {
-                return { ...row, WinningNumbers: sortTicketNumber(row.WinningNumbers) };
-              })}
-          />
-
-          <PageSubTitle subtitle="Past Lotteries" />
-          <ResultTable
-            loading={loading}
-            rows={data.getAllDrawing
-              .filter((row) => new Date(row.EndDate) < Date.now())
-              .map((row) => {
-                return { ...row, WinningNumbers: sortTicketNumber(row.WinningNumbers) };
-              })}
-          />
+          {nextLotteries.length > 0 ? (
+            <>
+              <PageSubTitle subtitle="Comming Soon" />
+              <ResultTable loading={loading} rows={nextLotteries} />
+            </>
+          ) : (
+            <>
+              <PageSubTitle subtitle="Comming Soon" />
+              <div className="comming-soon gradientBg gradientBorder">
+                <div>
+                  <PageSubTitle subtitle="Not Yet" />
+                </div>
+              </div>
+            </>
+          )}
+          {pastLotteries.length > 0 ? (
+            <>
+              <PageSubTitle subtitle="Past Lotteries" />
+              <ResultTable loading={loading} rows={pastLotteries} />
+            </>
+          ) : (
+            <>
+              <PageSubTitle subtitle="Past Lotteries" />
+              <div className="comming-soon gradientBg gradientBorder">
+                <div>
+                  <PageSubTitle subtitle="Not Yet" />
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     );

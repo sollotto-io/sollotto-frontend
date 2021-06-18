@@ -8,7 +8,7 @@ import Charities from './pages/Charities';
 import Suggest from './pages/Suggest';
 import Results from './pages/Results';
 import Pool from './pages/Pool';
-import CharityDetailPage from './components/Charity/CharityDetailPage';
+import CharityDetailPage from './components/charity/CharityDetailPage';
 import { GlobalContext } from './context/GlobalContext';
 import { LotteryContext } from './context/LotteryContext';
 import { FETCH_UPCOMING_DRAWING } from './graphql/queries';

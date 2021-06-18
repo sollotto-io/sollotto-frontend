@@ -54,7 +54,7 @@ export default function CharityTable({ rows }) {
                 {row.charityName}
               </StyledTableCell>
               <StyledTableCell align="center">
-                {row.currentVotes === null ? '-' : row.currentVotes}
+                {row.currentVotes ? row.currentVotes : '0'}
               </StyledTableCell>
 
               <StyledTableCell align="center">
@@ -63,11 +63,11 @@ export default function CharityTable({ rows }) {
                 </p>
               </StyledTableCell>
               <StyledTableCell align="center">
-                {row.lifeTimeVotes === null ? '-' : row.lifeTimeVotes}
+                {row.lifeTimeVotes ? row.lifeTimeVotes : '0'}
               </StyledTableCell>
               <StyledTableCell align="center">
                 {' '}
-                {row.lifeTimeVotes === null ? '-' : row.lifeTimeVotes}
+                {row.lifeTimeVotes ? row.lifeTimeVotes : '0'}
               </StyledTableCell>
             </TableRow>
           ))}
