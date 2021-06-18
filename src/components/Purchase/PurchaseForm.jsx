@@ -65,8 +65,9 @@ export default function PurchaseForm() {
               progress: undefined,
             },
           );
-          console.log(refetch)
-          refetch();
+         await refetch();
+          
+
         } catch (e) {
           console.log(e);
         }
