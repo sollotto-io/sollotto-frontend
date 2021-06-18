@@ -15,7 +15,7 @@ export default function NumberInput(props) {
 				name={`ticketNumber${props.ticketPos}`}
 				max={props.ticketPos >= 0 && props.ticketPos <= 4 ? 69 : 26}
 				min='1'
-				placeholder='1'
+				placeholder='#'
         onChange={props.validateNum}
 			/>
 		</div>

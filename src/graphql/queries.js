@@ -62,6 +62,10 @@ export const FETCH_UPCOMING_DRAWING = gql`
     }
     StartDate
     EndDate
+    TotalPoolValue
+    Tickets{
+      walletID
+    }
     
   }
 }

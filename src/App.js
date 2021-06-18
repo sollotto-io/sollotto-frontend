@@ -30,7 +30,7 @@ function App() {
   useEffect(() => {
     if (loading === false) {
       setLotteryData(data.getActiveDrawing);
-
+      console.log(data.getActiveDrawing)
       // setGlobalData({
       //   ...globalData,
       //   charities: charities.getAllCharities,
