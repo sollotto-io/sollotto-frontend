@@ -23,7 +23,7 @@ const CharitDetailPage = () => {
         <div className="detailSection">
           <div className="topSection">
             <CDetail charityDetail={charityDetail} />
-            <CharityCommunitySelect />
+            <CharityCommunitySelect charityDetail={charityDetail} />
           </div>
           <div className="bottomSection">
             <CharityIntro charityDetail={charityDetail} />

@@ -12,7 +12,7 @@ return <Loader/>
   }
   else{
 
-  
+
   return (
     <>
       <div className="headerIcons">
@@ -22,6 +22,9 @@ return <Loader/>
       <div className="lotteryCountdown">
         <Counter time={lotteryData.EndDate} />
       </div>
+
+      {/* <p style={{margin:0, width:250}} >Total Tickets Purchased :Please connect your wallet</p> */}
+      <p style={{textAlign:'left',margin:0}}>Prize Pool : {lotteryData.TotalPoolValue.toFixed(2)}</p>
     </>
   );}
 }

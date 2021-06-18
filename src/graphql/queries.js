@@ -18,6 +18,7 @@ export const FETCH_ALL_CHARITIES = gql`
      watchGrade
     Impact
     webURL
+    socialMedia
   }
 }
 `;
@@ -61,6 +62,10 @@ export const FETCH_UPCOMING_DRAWING = gql`
     }
     StartDate
     EndDate
+    TotalPoolValue
+    Tickets{
+      walletID
+    }
     
   }
 }
