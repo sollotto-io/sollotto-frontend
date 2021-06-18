@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import '../css/charity.css';
 import PageTitle from '../components/common/PageTitle';
-import CharityTable from '../components/charity/CharityTable.jsx';
+import CharityTable from '../components/Charity/CharityTable.jsx';
 import '../css/pool.css';
 import { useQuery } from '@apollo/react-hooks';
 import { FETCH_ALL_CHARITIES } from '../graphql/queries';

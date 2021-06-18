@@ -6,7 +6,7 @@ import ResultTable from '../components/Result/ResultTable';
 import { useQuery } from '@apollo/react-hooks';
 import { FETCH_ALL_LOTTERIES } from '../graphql/queries';
 import Loader from '../components/common/Loader';
-import { sortTicketNumber } from '../components/utils/hepers';
+import { sortTicketNumber } from '../components/utils/helpers';
 
 export default function Results() {
   const { loading, data, refetch } = useQuery(FETCH_ALL_LOTTERIES);

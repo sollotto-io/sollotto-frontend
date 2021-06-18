@@ -1,8 +1,8 @@
-import React,{useContext} from 'react'
+import React, { useContext } from 'react';
 import NumberSelector from './NumberSelector/NumberSelector';
 import CharitySelector from './CharitySelector/CharitySelector';
 import PurchaseButton from './PurchaseButton';
-import { ToastContainer,toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import TicketPrice from './purchase-components/TicketPrice';
 import { PurchaseContext } from '../../context/PurchaseContext';
 import { GlobalContext } from '../../context/GlobalContext';
@@ -10,20 +10,18 @@ import { ticketPurchase } from './util/ticketPurchase';
 import { useMutation } from '@apollo/react-hooks';
 import { POST_TICKET } from '../../graphql/mutations';
 import { LotteryContext } from '../../context/LotteryContext';
-import { sortTicketNumber,ticketNumberValidator } from '../utils/hepers';
+import { sortTicketNumber, ticketNumberValidator } from '../utils/helpers';
 
 export default function PurchaseForm() {
   const [addTicket] = useMutation(POST_TICKET);
-  const {purchaseData} = useContext(PurchaseContext);
-  const {globalData} = useContext(GlobalContext);
-  const {lotteryData} = useContext(LotteryContext);
+  const { purchaseData } = useContext(PurchaseContext);
+  const { globalData } = useContext(GlobalContext);
+  const { lotteryData } = useContext(LotteryContext);
 
   async function handleSubmit() {
+    const ticketNumbers = sortTicketNumber(purchaseData.ticketNumberArr);
 
-    const ticketNumbers=sortTicketNumber(purchaseData.ticketNumberArr);
-
-
-    if(ticketNumberValidator(ticketNumbers) &&  purchaseData.selectedCharity != null){
+    if (ticketNumberValidator(ticketNumbers) && purchaseData.selectedCharity != null) {
       if (globalData.selectedWallet === null) {
         toast.error('Please Connect your Wallet! ', {
           position: 'bottom-left',
@@ -40,22 +38,18 @@ export default function PurchaseForm() {
         charityId: purchaseData.selectedCharity,
         userWalletPK: globalData.selectedWallet.publicKey.toBytes(),
         ticketNumArr: ticketNumbers,
-
       };
-      const result = await ticketPurchase(globalData, ticketData,lotteryData);
-     
+      const result = await ticketPurchase(globalData, ticketData, lotteryData);
+
       if (result.success === true) {
         try {
           addTicket({
             variables: {
-              
-                DataWallet: Buffer.from(result.DataWallet).toJSON().data,
-                walletID: Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data,
-                ticketArray: ticketNumbers,
-                charityId: ticketData.charityId,
-                drawingId: lotteryData.id,
-              
-             
+              DataWallet: Buffer.from(result.DataWallet).toJSON().data,
+              walletID: Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data,
+              ticketArray: ticketNumbers,
+              charityId: ticketData.charityId,
+              drawingId: lotteryData.id,
             },
           });
           toast.success(
@@ -73,8 +67,8 @@ export default function PurchaseForm() {
         } catch (e) {
           console.log(e);
         }
-      } 
-      
+      }
+
       if (result.success === false) {
         toast.error('Ticket Purchase Unsuccessful', {
           position: 'bottom-left',
@@ -87,18 +81,17 @@ export default function PurchaseForm() {
         });
       }
     }
-
   }
 
   return (
     <form onSubmit={handleSubmit}>
-            <NumberSelector/>
-            <CharitySelector />
-            <ToastContainer />
-            <div className="purchaseCardFooter">
-              <TicketPrice />
-              <PurchaseButton handleSubmit={handleSubmit} />
-            </div>
-          </form>
-  )
+      <NumberSelector />
+      <CharitySelector />
+      <ToastContainer />
+      <div className="purchaseCardFooter">
+        <TicketPrice />
+        <PurchaseButton handleSubmit={handleSubmit} />
+      </div>
+    </form>
+  );
 }
