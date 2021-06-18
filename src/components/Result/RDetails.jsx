@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { IconButton } from '@material-ui/core';
 import { useHistory } from 'react-router';
 import checkIfWinner from './utils/checkIfWinner';
-import { GlobalContext } from "../../context/GlobalContext";
+import { GlobalContext } from '../../context/GlobalContext';
 import moment from 'moment';
-import { sortTicketNumber } from "../utils/hepers";
+import { sortTicketNumber } from '../utils/helpers';
 
-const RDetail = ({lotteryData}) => {
+const RDetail = ({ lotteryData }) => {
   const { globalData } = useContext(GlobalContext);
 
   const history = useHistory();
@@ -19,7 +19,7 @@ const RDetail = ({lotteryData}) => {
 
   var dif = EndDate.diff(Today);
 
-  const WinningNumbers = sortTicketNumber(lotteryData.WinningNumbers)
+  const WinningNumbers = sortTicketNumber(lotteryData.WinningNumbers);
   function userResult() {
     let result = null;
 
@@ -59,7 +59,9 @@ const RDetail = ({lotteryData}) => {
         <div id="other-details">
           <section>
             <p>Prize Pool</p>
-            <p>{lotteryData.TotalPoolValue === null ? "TBD" : lotteryData.TotalPoolValue.toFixed(2)}</p>
+            <p>
+              {lotteryData.TotalPoolValue === null ? 'TBD' : lotteryData.TotalPoolValue.toFixed(2)}
+            </p>
           </section>
           <section>
             <p>Total Winners</p>
@@ -68,13 +70,9 @@ const RDetail = ({lotteryData}) => {
           <section>
             <p>Winning Numbers</p>
             <p>
-              {WinningNumbers.length === 0
-                ? 'TBD'
-                : WinningNumbers[0]}
-              &nbsp; {WinningNumbers[1]}&nbsp;{' '}
-              {WinningNumbers[2]}
-              &nbsp; {WinningNumbers[3]}&nbsp;{' '}
-              {WinningNumbers[4]}
+              {WinningNumbers.length === 0 ? 'TBD' : WinningNumbers[0]}
+              &nbsp; {WinningNumbers[1]}&nbsp; {WinningNumbers[2]}
+              &nbsp; {WinningNumbers[3]}&nbsp; {WinningNumbers[4]}
               &nbsp; {WinningNumbers[5]}{' '}
             </p>
           </section>
@@ -84,14 +82,11 @@ const RDetail = ({lotteryData}) => {
           </section>
           <section id="charity-list">
             <p>
-              {lotteryData.WinningCharity.length === 1
-                ? 'Winning Charity'
-                : 'Winning Charities'}
+              {lotteryData.WinningCharity.length === 1 ? 'Winning Charity' : 'Winning Charities'}
             </p>
             {lotteryData.WinningCharity.length === 0
               ? 'TBD'
               : lotteryData.WinningCharity.map((c, i) => {
-               
                   return <p key={i}>{c.charityName}</p>;
                 })}
           </section>
