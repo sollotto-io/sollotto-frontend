@@ -11,7 +11,7 @@ import * as borsh from 'borsh';
 import { TicketDataAccount, TicketDataSchema } from './TicketDataBorsh';
 
 export const ticketPurchase = async (globalData, purchaseDataArr, lotteryData) => {
-  console.log(lotteryData)
+ 
   const lotteryInitProgramId = new PublicKey(process.env.REACT_APP_SOLANA_INIT_LOTTERY_PROGRAM);
   const holdingWalletPK = new PublicKey(globalData.holdingWalletId);
   try {
