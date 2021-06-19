@@ -27,6 +27,7 @@ const StyledPaper = withStyles({
 })(Paper);
 
 export default function ResultTable({loading,rows}) {
+  
   const { globalData } = useContext(GlobalContext);
 
   const connectWallet = () => {
@@ -52,7 +53,7 @@ export default function ResultTable({loading,rows}) {
     return <Loader/>
   }
   else{
-
+    
   
   return(
   <TableContainer component={StyledPaper}>
@@ -88,7 +89,7 @@ export default function ResultTable({loading,rows}) {
             </StyledTableCell>
             <StyledTableCell align="center">
               {" "}
-              {row.WinnerWallet.length === 0 ?"TBD" :row.WinnerWallet.length}
+              {(row.WinnerWallet.length === 0 && new Date(row.EndDate) < Date.now()) ? 0  : (row.WinnerWallet.length === 0 && new Date(row.EndDate) > Date.now()) ? "TBD" : row.WinnerWallet.length}
             </StyledTableCell>
             <StyledTableCell align="center">
               {row.WinningCharity.length === 0 ? "TBD" : row.WinningCharity.length === 1 ? row.WinningCharity[0].charityName :row.WinningCharity.length }
@@ -117,7 +118,8 @@ export default function ResultTable({loading,rows}) {
             </StyledTableCell>
             <StyledTableCell align="center">
               {" "}
-              {row.WinnerWallet.length === 0 ?"TBD" :row.WinnerWallet.length}
+              {(row.WinnerWallet.length === 0 && new Date(row.EndDate) < Date.now()) ? 0  : (row.WinnerWallet.length === 0 && new Date(row.EndDate) > Date.now()) ? "TBD" : row.WinnerWallet.length}
+
             </StyledTableCell>
             <StyledTableCell align="center">
             {row.WinningCharity.length === 0 ? "TBD" : row.WinningCharity.length === 1 ? row.WinningCharity[0].charityName :row.WinningCharity.length }
