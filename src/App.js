@@ -16,6 +16,7 @@ import ResultDetail from './components/Result/ResultDetail';
 import './css/pool.css';
 
 function App() {
+
   const [globalData, setGlobalData] = useState({
     holdingWalletId: process.env.REACT_APP_HOLDING_WALLET_PK_STRING,
     charities: [],
@@ -24,6 +25,7 @@ function App() {
     connection: new Connection('https://api.devnet.solana.com'),
   });
 const {loading} = useContext(LotteryContext) 
+
  useEffect(() => {
       if (globalData.selectedWallet) {
         globalData.selectedWallet.on('connect', () => {

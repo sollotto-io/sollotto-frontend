@@ -13,7 +13,7 @@ import { LotteryContext } from '../../context/LotteryContext';
 import { sortTicketNumber, ticketNumberValidator } from '../utils/helpers';
 
 export default function PurchaseForm() {
-  const [addTicket] = useMutation(POST_TICKET);
+  const [addTicket,{loading, data}] = useMutation(POST_TICKET);
   const {purchaseData} = useContext(PurchaseContext);
   const {globalData} = useContext(GlobalContext);
   const {lotteryData, refetch} = useContext(LotteryContext);
@@ -44,7 +44,7 @@ export default function PurchaseForm() {
 
       if (result.success === true) {
         try {
-          addTicket({
+         await addTicket({
             variables: {
               DataWallet: Buffer.from(result.DataWallet).toJSON().data,
               walletID: Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data,
@@ -53,6 +53,8 @@ export default function PurchaseForm() {
               drawingId: lotteryData.id,
             },
           });
+            
+          await refetch();
           toast.success(
             'Ticket Purchase is Successful, Your purchased tickets can be found on the results page, under the day of your drawing',
             {
@@ -65,9 +67,6 @@ export default function PurchaseForm() {
               progress: undefined,
             },
           );
-         await refetch();
-          
-
         } catch (e) {
           console.log(e);
         }
