@@ -13,7 +13,7 @@ import { LotteryContext } from '../../context/LotteryContext';
 import { sortTicketNumber, ticketNumberValidator } from '../utils/helpers';
 
 export default function PurchaseForm() {
-  const [addTicket,{loading, data}] = useMutation(POST_TICKET);
+  const [addTicket] = useMutation(POST_TICKET);
   const {purchaseData} = useContext(PurchaseContext);
   const {globalData} = useContext(GlobalContext);
   const {lotteryData, refetch} = useContext(LotteryContext);
