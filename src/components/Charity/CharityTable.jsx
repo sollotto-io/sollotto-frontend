@@ -36,14 +36,14 @@ export default function CharityTable({ rows }) {
           <TableRow>
             <StyledTableCell>Charity Name</StyledTableCell>
             <StyledTableCell align="center">
-              Current Votes <i>(Coming Soon)</i>
+              Current Votes 
             </StyledTableCell>
             <StyledTableCell align="center">Added By</StyledTableCell>
             <StyledTableCell align="center">
-              Lifetime Votes <i>(Coming Soon)</i>
+              Lifetime Votes 
             </StyledTableCell>
             <StyledTableCell align="center">
-              Total Contribution <i>(Coming Soon)</i>
+              Total Wins 
             </StyledTableCell>
           </TableRow>
         </TableHead>
