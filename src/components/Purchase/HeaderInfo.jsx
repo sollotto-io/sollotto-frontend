@@ -52,7 +52,7 @@ return <Loader/>
       </div>
 
       <p style={{margin:0, width:250}} > {flag ? `Total Tickets Purchased : # ${myTickets.length}` : "Please connect your wallet"}</p>
-      <p style={{textAlign:'right',margin:0}}>Prize Pool : {lotteryData.TotalPoolValue.toFixed(2)}</p>
+      <p style={{textAlign:'right',margin:0}}>Prize Pool: {lotteryData.TotalPoolValue.toFixed(2)}</p>
     </>
   );}
 }
