@@ -53,7 +53,24 @@ export default function PurchaseForm() {
             },
           });
           toast.success(
-            'Ticket Purchase is Successful, Your purchased tickets can be found on the results page, under the day of your drawing',
+            <div>
+              Ticket Purchase is Successful, Your purchased tickets can be found on the results
+              page, under the day of your drawing
+              <br />
+              <br />
+              TicketNumber:
+              {[...purchaseData.ticketNumberArr]
+                .splice(0, purchaseData.ticketNumberArr.length - 1)
+                .join('-')}
+              -{purchaseData.ticketNumberArr[5]}
+              <br />
+              Charity:
+              {
+                lotteryData.Charities[
+                  lotteryData.Charities.findIndex((charity) => charity.id === ticketData.charityId)
+                ].charityName
+              }
+            </div>,
             {
               position: 'bottom-left',
               autoClose: 6000,
@@ -62,6 +79,7 @@ export default function PurchaseForm() {
               pauseOnHover: true,
               draggable: true,
               progress: undefined,
+              allowHtml: true,
             },
           );
         } catch (e) {
