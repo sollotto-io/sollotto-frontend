@@ -9,12 +9,7 @@ import Loader from '../components/common/Loader';
 import { GlobalContext } from '../context/GlobalContext';
 
 export default function Charities() {
-  const suggestionForm = () => {
-    window.open(
-      'https://docs.google.com/forms/d/e/1FAIpQLSdMRU7GzeNDukSv-Gq9VJk_rtjVxR5CL-M33GZn8fjrCNxmwA/viewform',
-      '_blank',
-    );
-  };
+  
   const { loading: charityloading, data: charities } = useQuery(FETCH_ALL_CHARITIES);
   const { globalData, setGlobalData } = useContext(GlobalContext);
 
@@ -41,13 +36,13 @@ export default function Charities() {
           <div id="suggest-charity">
             <h4>Suggest</h4>
             <p>
-              Want to suggest a charity to be included on the SolLotto platform. Please fill out the
-              form here
+              Want to suggest a charity to be included on the SolLotto platform? Please fill out the
+              form here.
             </p>
 
-            <button type="button" className="greenBtn globalBtn " onClick={suggestionForm}>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdMRU7GzeNDukSv-Gq9VJk_rtjVxR5CL-M33GZn8fjrCNxmwA/viewform" target="_blank" rel="noreferrer"  className="greenBtn globalBtn" >
               Suggest a Charity
-            </button>
+            </a>
           </div>
         </div>
       </div>

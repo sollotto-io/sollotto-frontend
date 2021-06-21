@@ -9,7 +9,7 @@ export const CharityDataContext = createContext(null);
 export default function CharitySelectorGrid() {
  
   const { purchaseData, setPurchaseData } = useContext(PurchaseContext);
-  const { lotteryData } = useContext(LotteryContext);
+  const { lotteryData,loading } = useContext(LotteryContext);
   const [selectedCharityBtn, setSelectedCharityBtn] = useState(null);
   const [selectedCharityBlock, setSelectedCharityBlock] = useState(null);
   // eslint-disable-line react-hooks/exhaustive-deps
@@ -63,10 +63,13 @@ export default function CharitySelectorGrid() {
       // });
     }
   };
-  if(lotteryData===null){
+  if(loading===true){
     return <Loader/>
   }
-  else{
+  else if (lotteryData ===null){
+    return null
+
+  }else{
 
     return (
         <div className="charitySelectorGrid">
