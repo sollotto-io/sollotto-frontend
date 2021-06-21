@@ -32,7 +32,7 @@ export default function Results() {
       <div className="pageWrapper">
         <div className="resultSection">
           <div id="resultHeader">
-            <PageTitle title="Result" />
+            <PageTitle title="Results" />
           </div>
 
           {nextLotteries.length > 0 ? (
