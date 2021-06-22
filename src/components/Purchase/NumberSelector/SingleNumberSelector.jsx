@@ -1,148 +1,187 @@
-import React,{useContext} from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import KeyboardArrowUpOutlinedIcon from '@material-ui/icons/KeyboardArrowUpOutlined';
 import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
 import NumberInput from './NumberInput';
 import { PurchaseContext } from '../../../context/PurchaseContext';
 
-
-
-export default function SingleNumberSelector({ticketPos}) {
+export default function SingleNumberSelector({ ticketPos }) {
   const { purchaseData, setPurchaseData } = useContext(PurchaseContext);
-  const ticketNumChangeHandler = (value) =>{
-    const tempNumArr= purchaseData.ticketNumberArr;
-    tempNumArr[ticketPos] = parseInt(value);
-    setPurchaseData({...purchaseData, ticketNumberArr:tempNumArr});
-  }
-  const validateNum = () => {
+
+  /*   const [timer, setTimer] = useState(false); */
+  let timer = React.useRef(null);
+  const validateNum = (value) => {
+    const ticketNumberArr = Array.from(purchaseData.ticketNumberArr);
+    ticketNumberArr[ticketPos] = parseInt(value);
+    if (ticketPos === 5) {
+      setPurchaseData({ ...purchaseData, ticketNumberArr, valid: !(value < 1 || value > 26) });
+    } else {
+      setPurchaseData({ ...purchaseData, ticketNumberArr, valid: !(value < 1 || value > 69) });
+    }
+  };
+
+  /*   function stepUpClickHandler() {
     let ele = document.querySelector(`#ticketNumber${ticketPos}`);
-    if(ticketPos === 5){
-      if(ele.value < 1 || ele.value > 26){
-        document.querySelector('.ticketNumInst').style.color = '#ff604f';
-        ticketNumChangeHandler("");
+    let event = new Event('input', { bubbles: true });
+    try {
+      if (ticketPos === 5) {
+        if (Number(ele.value) === 26 || ele.value.length === 0) {
+          ele.value = 1;
+          ele.dispatchEvent(event);
+        } else {
+          ele.stepUp();
+          ele.dispatchEvent(event);
+        }
+      } else {
+        if (Number(ele.value) === 69 || ele.value.length === 0) {
+          ele.value = 1;
+          ele.dispatchEvent(event);
+        } else {
+          ele.stepUp();
+          ele.dispatchEvent(event);
+        }
       }
-      else{
-          document.querySelector('.ticketNumInst').style.color = '#FFF';
-          ticketNumChangeHandler(ele.value);
+
+      validateNum(ele.value);
+    } catch (ex) {
+      var step = Number(ele.step);
+
+      if (ticketPos === 5) {
+        if (Number(ele.value) === 26 || ele.value.length === 0) {
+          ele.value = 1;
+          ele.dispatchEvent(event);
+        } else {
+          ele.value = Number(ele.value) + step;
+          ele.dispatchEvent(event);
+        }
+      } else {
+        if (Number(ele.value) === 69 || ele.value.length === 0) {
+          ele.value = 1;
+          ele.dispatchEvent(event);
+        } else {
+          ele.value = Number(ele.value) + step;
+          ele.dispatchEvent(event);
+        }
       }
+      validateNum(ele.value);
     }
-    else{
-      if(ele.value < 1 || ele.value > 69){
-        document.querySelector('.ticketNumInst').style.color = '#ff604f';
-        ticketNumChangeHandler("");
+  } */
+
+  /*  function stepDownClickHandler() {
+    let ele = document.querySelector(`#ticketNumber${ticketPos}`);
+    let event = new Event('input', { bubbles: true });
+    try {
+      if (Number(ele.value) === 1 || ele.value.length === 0) {
+        if (ticketPos === 5) {
+          ele.value = 26;
+          ele.dispatchEvent(event);
+        } else {
+          ele.value = 69;
+          ele.dispatchEvent(event);
+        }
+      } else {
+        ele.stepDown();
       }
-      else{
-          document.querySelector('.ticketNumInst').style.color = '#FFF';
-          ticketNumChangeHandler(ele.value);
+      validateNum(ele.value);
+    } catch (ex) {
+      let step = Number(ele.step);
+      if (Number(ele.value) === 1 || ele.value.length === 0) {
+        if (ticketPos === 5) {
+          ele.value = 26;
+          ele.dispatchEvent(event);
+        } else {
+          ele.value = 69;
+          ele.dispatchEvent(event);
+        }
+      } else {
+        ele.value = Number(ele.value) - step;
+        ele.dispatchEvent(event);
       }
+      validateNum(ele.value);
     }
-  }
+  } */
+
   function stepUpClickHandler() {
-    let ele = document.querySelector(`#ticketNumber${ticketPos}`);
-    let event = new Event('input', { bubbles: true });
-		try{
+    const ticketNumberArr = Array.from(purchaseData.ticketNumberArr);
 
-			if(ticketPos === 5){
-				if(Number(ele.value) === 26 || ele.value.length === 0){
-						ele.value = 1;
-            ele.dispatchEvent(event);
-				}
-				else{
-					ele.stepUp();
-          ele.dispatchEvent(event);
-				}
-			}
-			else{
-				if(Number(ele.value) === 69 || ele.value.length === 0){
-					ele.value = 1;
-          ele.dispatchEvent(event);
-				}
-				else{
-					ele.stepUp();
-          ele.dispatchEvent(event);
-				}
-			}
+    ticketNumberArr[ticketPos] = ticketNumberArr[ticketPos] ? ticketNumberArr[ticketPos] + 1 : 1;
 
-			ticketNumChangeHandler(ele.value);
-		}catch(ex){
-			var step=Number(ele.step);
+    if (ticketPos === 5 && ticketNumberArr[ticketPos] <= 26) {
+      validateNum(ticketNumberArr[ticketPos]);
+    }
+    if (ticketPos < 5 && ticketNumberArr[ticketPos] <= 69) {
+      validateNum(ticketNumberArr[ticketPos]);
+    }
+  }
 
-			if(ticketPos === 5){
-				if(Number(ele.value) === 26 || ele.value.length === 0){
-						ele.value = 1;
-            ele.dispatchEvent(event);
-				}
-				else{
-					ele.value = Number(ele.value) + step;
-          ele.dispatchEvent(event);
-				}
-			}
-			else{
-				if(Number(ele.value) === 69 || ele.value.length === 0){
-					ele.value = 1;
-          ele.dispatchEvent(event);
-				}
-				else{
-					ele.value = Number(ele.value) + step;
-          ele.dispatchEvent(event);
-				}
-			}
-			ticketNumChangeHandler(ele.value);
-		}
+  function stepDownClickHandler() {
+    const ticketNumberArr = Array.from(purchaseData.ticketNumberArr);
+    ticketNumberArr[ticketPos] = ticketNumberArr[ticketPos] ? ticketNumberArr[ticketPos] - 1 : 1;
+    if (ticketNumberArr[ticketPos] >= 1) {
+      validateNum(ticketNumberArr[ticketPos]);
+    }
+  }
 
-	}
-	function stepDownClickHandler() {
-    let ele = document.querySelector(`#ticketNumber${ticketPos}`);
-    let event = new Event('input', { bubbles: true });
-		try{
-				if(Number(ele.value) === 1 || ele.value.length === 0){
-					if(ticketPos === 5){
-						ele.value = 26;
-            ele.dispatchEvent(event);
-					}
-					else{
-						ele.value = 69;
-            ele.dispatchEvent(event);
-					}
-				}
-				else{
-					ele.stepDown();
-				}
-				ticketNumChangeHandler(ele.value);
+  function beginConstantIncrement() {
+    const ticketNumberArr = Array.from(purchaseData.ticketNumberArr);
+    ticketNumberArr[ticketPos] = ticketNumberArr[ticketPos] ?? 1;
+    let value = ticketNumberArr[ticketPos];
+    timer.current = setInterval(() => {
+      value += 1;
+      if (ticketPos < 5 && value <= 69) validateNum(value);
+      if (ticketPos === 5 && value <= 26) validateNum(value);
+    }, 200);
+  }
 
-			}catch(ex){
-				let step=Number(ele.step);
-				if(Number(ele.value) === 1 || ele.value.length === 0){
-					if(ticketPos === 5){
-						ele.value = 26;
-            ele.dispatchEvent(event);
-					}
-					else{
-						ele.value = 69;
-            ele.dispatchEvent(event);
-					}
-				}
-				else{
-					ele.value = Number(ele.value) - step;
-          ele.dispatchEvent(event);
-				}
-				ticketNumChangeHandler(ele.value);
-			}
-	}
+  function endConstantIncrement() {
+    clearInterval(timer.current);
+  }
+
+  function beginConstantDecrement() {
+    const ticketNumberArr = Array.from(purchaseData.ticketNumberArr);
+    ticketNumberArr[ticketPos] = ticketNumberArr[ticketPos] ?? 1;
+    let value = ticketNumberArr[ticketPos];
+    timer.current = setInterval(() => {
+      value -= 1;
+      if (value >= 1) validateNum(value);
+    }, 200);
+  }
+
+  function endConstantDecrement() {
+    clearInterval(timer.current);
+  }
+  /* 
+  useEffect(() => {
+    let interval;
+
+    if (timer) {
+      console.log('AAAAAH');
+      const value = purchaseData.ticketNumberArr[ticketPos];
+      interval = setInterval(() => validateNum(value ? value + 1 : 1), 200);
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [timer]); */
+
   return (
     <div className="singleNumberSelector" id={`singleNumberSelector_${ticketPos}`}>
       <KeyboardArrowUpOutlinedIcon
         id={`numStepUp_${ticketPos}`}
-        onClick={() => stepUpClickHandler(ticketPos)}
+        onClick={stepUpClickHandler}
+        onMouseDown={() => beginConstantIncrement()}
+        onMouseUp={() => endConstantIncrement()}
+        onMouseLeave={() => endConstantIncrement()}
         className="numberSelectorUp numberSelectorArrow greenGradientSVG"
       />
-      <NumberInput
-        ticketPos={ticketPos}
-        validateNum={validateNum}
-      />
+      <NumberInput ticketPos={ticketPos} validateNum={validateNum} setTicketNumber={validateNum} />
       <KeyboardArrowDownOutlinedIcon
         id={`numStepUp_${ticketPos}`}
-        onClick={() => stepDownClickHandler(ticketPos)}
+        onClick={() => stepDownClickHandler()}
+        onMouseDown={() => beginConstantDecrement()}
+        onMouseUp={() => endConstantDecrement()}
+        onMouseLeave={() => endConstantDecrement()}
         className={
           ticketPos === 5
             ? 'numberSelectorDown numberSelectorArrow greenGradientSVG2'
@@ -153,7 +192,6 @@ export default function SingleNumberSelector({ticketPos}) {
   );
 }
 
-
 SingleNumberSelector.propTypes = {
-  ticketPos: PropTypes.number.isRequired
-}
+  ticketPos: PropTypes.number.isRequired,
+};

@@ -6,7 +6,7 @@ export default function NavList(props) {
     <div className="navList" style={props.navActive === true ? { display: 'grid' } : null}>
       <NavItem onNavLinkClick={props.onNavLinkClick} url_link="purchase" />
       <NavItem onNavLinkClick={props.onNavLinkClick} url_link="charities" />
-      <a
+      {/*       <a
         onClick={props.onNavLinkClick}
         rel="noopener noreferrer"
         target="_blank"
@@ -14,7 +14,7 @@ export default function NavList(props) {
         className="navLink"
       >
         Suggest
-      </a>
+      </a> */}
       <NavItem onNavLinkClick={props.onNavLinkClick} url_link="results" />
       <NavItem onNavLinkClick={props.onNavLinkClick} url_link="pools" />
     </div>
