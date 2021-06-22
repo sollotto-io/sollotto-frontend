@@ -61,37 +61,37 @@ export default function ResultTable({loading,rows}) {
   <Table className="table" aria-label="simple table">
     <TableHead>
       <TableRow>
-        <StyledTableCell>Drawing Name</StyledTableCell>
-        <StyledTableCell align="center">Drawing Date</StyledTableCell>
-        <StyledTableCell align="center">Winners</StyledTableCell>
-        <StyledTableCell align="center">Prize Pool</StyledTableCell>
-        <StyledTableCell align="center">Total Winners</StyledTableCell>
-        <StyledTableCell align="center">Winning Charity</StyledTableCell>
+        <StyledTableCell align="left">Drawing Name</StyledTableCell>
+        <StyledTableCell align="left">Drawing Date</StyledTableCell>
+        <StyledTableCell align="left">Winners</StyledTableCell>
+        <StyledTableCell align="left">Prize Pool</StyledTableCell>
+        <StyledTableCell align="left">Total Winners</StyledTableCell>
+        <StyledTableCell align="left">Winning Charity</StyledTableCell>
       </TableRow>
     </TableHead>
     <TableBody>
       {rows.map((row, index) =>
         globalData.selectedWallet === null ? (
           <TableRow className="tableRow" onClick = {connectWallet} key={index}>
-            <StyledTableCell component="th" scope="row">
+            <StyledTableCell align="left" component="th" scope="row">
               Pick 6
             </StyledTableCell>
-            <StyledTableCell align="center">
+            <StyledTableCell align="left">
               {moment(row.EndDate).format("MMM Do YY")}
             </StyledTableCell>
 
-            <StyledTableCell align="center">
+            <StyledTableCell align="left">
             {row.WinningNumbers.length === 0 ? "TBD" : row.WinningNumbers[0]}&nbsp; {row.WinningNumbers[1]}&nbsp; {row.WinningNumbers[2]}&nbsp; {row.WinningNumbers[3]}&nbsp; {row.WinningNumbers[4]}&nbsp; {row.WinningNumbers[5]}
           
             </StyledTableCell>
-            <StyledTableCell align="center">
+            <StyledTableCell align="left">
               {row.TotalPoolValue === null? 0 :row.TotalPoolValue.toFixed(2)}
             </StyledTableCell>
-            <StyledTableCell align="center">
+            <StyledTableCell align="left">
               {" "}
               {(row.WinnerWallet.length === 0 && new Date(row.EndDate) < Date.now()) ? 0  : (row.WinnerWallet.length === 0 && new Date(row.EndDate) > Date.now()) ? "TBD" : row.WinnerWallet.length}
             </StyledTableCell>
-            <StyledTableCell align="center">
+            <StyledTableCell align="left">
               {row.WinningCharity.length === 0 ? "TBD" : row.WinningCharity.length === 1 ? row.WinningCharity[0].charityName :row.WinningCharity.length }
             </StyledTableCell>
           </TableRow>
