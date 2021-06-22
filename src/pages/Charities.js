@@ -36,8 +36,8 @@ export default function Charities() {
           <div id="suggest-charity">
             <h4>Suggest</h4>
             <p>
-              Want to suggest a charity to be included on the SolLotto platform. Please fill out the
-              form here
+              Want to suggest a charity to be included on the SolLotto platform? Please fill out the
+              form here.
             </p>
 
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSdMRU7GzeNDukSv-Gq9VJk_rtjVxR5CL-M33GZn8fjrCNxmwA/viewform" target="_blank" rel="noreferrer"  className="greenBtn globalBtn" >

@@ -115,6 +115,7 @@
 }
 #suggest-charity {
   margin-top: 15px;
+  
   /* background-color: aqua; */
 }
 #suggest-charity h4 {
@@ -123,11 +124,11 @@
 #suggest-charity p {
   margin: 0;
   margin-top: 10px;
+  margin-bottom: 15px;
   width: 50%;
 }
-#suggest-charity button {
+#suggest-charity a {
   padding: 10px;
-  margin-top: 10px;
   font-size: 15px;
 }
 .border-gradient {

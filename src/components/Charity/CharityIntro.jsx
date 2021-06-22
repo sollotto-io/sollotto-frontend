@@ -13,7 +13,7 @@ const CharityIntro = ({ charityDetail }) => {
       </div>
       <div id="project-buttons">
         <a href={charityDetail.webURL} target="_blank" rel="noopener noreferrer">
-          <button>WEBSITE</button>
+          <button style={{cursor:'pointer'}}>WEBSITE</button>
         </a>
         <IconButton onClick={TwitterLink}><TwitterIcon fontSize="small"/></IconButton>
 

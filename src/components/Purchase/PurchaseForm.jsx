@@ -44,7 +44,7 @@ export default function PurchaseForm() {
 
       if (result.success === true) {
         try {
-          addTicket({
+         await addTicket({
             variables: {
               DataWallet: Buffer.from(result.DataWallet).toJSON().data,
               walletID: Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data,
@@ -53,8 +53,27 @@ export default function PurchaseForm() {
               drawingId: lotteryData.id,
             },
           });
+            
+          await refetch();
           toast.success(
-            'Ticket Purchase is Successful, Your purchased tickets can be found on the results page, under the day of your drawing',
+            <div>
+              Ticket Purchase is Successful, Your purchased tickets can be found on the results
+              page, under the day of your drawing
+              <br />
+              <br />
+              TicketNumber:
+              {[...purchaseData.ticketNumberArr]
+                .splice(0, purchaseData.ticketNumberArr.length - 1)
+                .join('-')}
+              -{purchaseData.ticketNumberArr[5]}
+              <br />
+              Charity:
+              {
+                lotteryData.Charities[
+                  lotteryData.Charities.findIndex((charity) => charity.id === ticketData.charityId)
+                ].charityName
+              }
+            </div>,
             {
               position: 'bottom-left',
               autoClose: 6000,
@@ -63,10 +82,9 @@ export default function PurchaseForm() {
               pauseOnHover: true,
               draggable: true,
               progress: undefined,
+              allowHtml: true,
             },
           );
-          console.log(refetch)
-          refetch();
         } catch (e) {
           console.log(e);
         }
