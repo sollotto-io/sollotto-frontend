@@ -181,10 +181,10 @@
   background: rgba(19, 26, 53, 0);
 }
 .charitySelectorIcon {
-  width: 40px;
+  width: 50px;
   position: absolute;
   left: 40%;
-  top: -20px;
+  top: -25px;
   display: none;
 }
 .purchaseCardFooter {
