@@ -82,6 +82,7 @@ export const FETCH_ALL_LOTTERIES = gql`
     WinningCharity{
       id
       charityName
+      currentVotes
     }
     WinningNumbers
     TotalPoolValue
