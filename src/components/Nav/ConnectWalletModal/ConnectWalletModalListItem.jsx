@@ -5,29 +5,33 @@ import { GlobalContext } from '../../../context/GlobalContext';
 export default function ConnectWalletModalListItem(props) {
   const { globalData, setGlobalData } = useContext(GlobalContext);
 
-  let urlWallet = null;
+  const selectWallet = () => {
+    let urlWallet = null;
 
-  console.log(window.solana.connect());
+    switch (props.name) {
+      case 'Sollet':
+        urlWallet = new Wallet('https://www.sollet.io', process.env.REACT_APP_SOLANA_NETWORK);
+        break;
+      case 'Phantom':
+        if (window.solana && window.solana.isPhantom) {
+          if (!window.solana.isConnected) {
+            window.solana.connect();
+          }
+          urlWallet = window.solana;
+        } else {
+          urlWallet = new Wallet('https://phantom.app/', process.env.REACT_APP_SOLANA_NETWORK);
+        }
 
-  switch (props.name) {
-    case 'Sollet':
-      urlWallet = new Wallet('https://www.sollet.io', process.env.REACT_APP_SOLANA_NETWORK);
-      break;
-    case 'Phantom':
-      urlWallet =
-        window.solana && window.solana.isPhantom
-          ? window.solana
-          : new Wallet('https://phantom.app/', process.env.REACT_APP_SOLANA_NETWORK);
-      break;
-    default:
-      break;
-  }
+        break;
+      default:
+        break;
+    }
+
+    setGlobalData({ ...globalData, selectedWallet: urlWallet });
+  };
 
   return (
-    <li
-      onClick={() => setGlobalData({ ...globalData, selectedWallet: urlWallet })}
-      className="modalListItem greenBtn"
-    >
+    <li onClick={selectWallet} className="modalListItem greenBtn">
       <span className="modalListItemTitle">{props.name}</span>
     </li>
   );
