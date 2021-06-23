@@ -7,12 +7,17 @@ export default function ConnectWalletModalListItem(props) {
 
   let urlWallet = null;
 
+  console.log(window.solana.connect());
+
   switch (props.name) {
     case 'Sollet':
       urlWallet = new Wallet('https://www.sollet.io', process.env.REACT_APP_SOLANA_NETWORK);
       break;
     case 'Phantom':
-      urlWallet = new Wallet('https://phantom.app/', process.env.REACT_APP_SOLANA_NETWORK);
+      urlWallet =
+        window.solana && window.solana.isPhantom
+          ? window.solana
+          : new Wallet('https://phantom.app/', process.env.REACT_APP_SOLANA_NETWORK);
       break;
     default:
       break;
