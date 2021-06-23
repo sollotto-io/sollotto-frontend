@@ -75,78 +75,6 @@ export default function ResultTable({ loading, rows }) {
                     {moment(row.EndDate).format('MMM Do YY')}
                   </StyledTableCell>
 
-<<<<<<< HEAD
-  if(loading){
-    return <Loader/>
-  }
-  else{
-    
-  
-  return(
-  <TableContainer component={StyledPaper}>
-  <ToastContainer/>
-  <Table className="table" aria-label="simple table">
-    <TableHead>
-      <TableRow>
-        <StyledTableCell align="left">Drawing Name</StyledTableCell>
-        <StyledTableCell align="left">Drawing Date</StyledTableCell>
-        <StyledTableCell align="left">Winners</StyledTableCell>
-        <StyledTableCell align="left">Prize Pool</StyledTableCell>
-        <StyledTableCell align="left">Total Winners</StyledTableCell>
-        <StyledTableCell align="left">Winning Charity</StyledTableCell>
-      </TableRow>
-    </TableHead>
-    <TableBody>
-      {rows.map((row, index) =>
-        globalData.selectedWallet === null ? (
-          <TableRow className="tableRow" onClick = {connectWallet} key={index}>
-            <StyledTableCell align="left" component="th" scope="row">
-              Pick 6
-            </StyledTableCell>
-            <StyledTableCell align="left">
-              {moment(row.EndDate).format("MMM Do YY")}
-            </StyledTableCell>
-
-            <StyledTableCell align="left">
-            {row.WinningNumbers.length === 0 ? "TBD" : row.WinningNumbers[0]}&nbsp; {row.WinningNumbers[1]}&nbsp; {row.WinningNumbers[2]}&nbsp; {row.WinningNumbers[3]}&nbsp; {row.WinningNumbers[4]}&nbsp; {row.WinningNumbers[5]}
-          
-            </StyledTableCell>
-            <StyledTableCell align="left">
-              {row.TotalPoolValue === null? 0 :row.TotalPoolValue.toFixed(2)}
-            </StyledTableCell>
-            <StyledTableCell align="left">
-              {" "}
-              {(row.WinnerWallet.length === 0 && new Date(row.EndDate) < Date.now()) ? 0  : (row.WinnerWallet.length === 0 && new Date(row.EndDate) > Date.now()) ? "TBD" : row.WinnerWallet.length}
-            </StyledTableCell>
-            <StyledTableCell align="left">
-              {row.WinningCharity.length === 0 ? "TBD" : row.WinningCharity.length === 1 ? row.WinningCharity[0].charityName :row.WinningCharity.length }
-            </StyledTableCell>
-          </TableRow>
-        ) : (
-          <TableRow
-            onClick={() => resultDetails(row.id)}
-            className="tableRow"
-            key={index}
-          >
-            <StyledTableCell component="th" scope="row">
-              Pick 6
-            </StyledTableCell>
-            <StyledTableCell align="center">
-              {moment(row.EndDate).format("MMM Do YY")}
-            </StyledTableCell>
-
-            <StyledTableCell align="center">
-            {row.WinningNumbers.length === 0 ? "TBD" : row.WinningNumbers[0]}&nbsp; {row.WinningNumbers[1]}&nbsp; {row.WinningNumbers[2]}&nbsp; {row.WinningNumbers[3]}&nbsp; {row.WinningNumbers[4]}&nbsp; {row.WinningNumbers[5]}
-          
-            </StyledTableCell>
-            <StyledTableCell align="center">
-              {row.TotalPoolValue === null? 0 :row.TotalPoolValue.toFixed(2)}
-              
-            </StyledTableCell>
-            <StyledTableCell align="center">
-              {" "}
-              {(row.WinnerWallet.length === 0 && new Date(row.EndDate) < Date.now()) ? 0  : (row.WinnerWallet.length === 0 && new Date(row.EndDate) > Date.now()) ? "TBD" : row.WinnerWallet.length}
-=======
                   <StyledTableCell align="center">
                     {row.WinningNumbers.length === 0 ? 'TBD' : row.WinningNumbers[0]}&nbsp;{' '}
                     {row.WinningNumbers[1]}&nbsp; {row.WinningNumbers[2]}&nbsp;{' '}
@@ -158,7 +86,8 @@ export default function ResultTable({ loading, rows }) {
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {' '}
-                    {row.WinnerWallet.length === 0 ? 'TBD' : row.WinnerWallet.length}
+                    {(row.WinnerWallet.length === 0 && new Date(row.EndDate)< Date.now()) ? 0  :(row.WinnerWallet.length === 0 && new Date(row.EndDate)> Date.now()) ?"TBD" :  row.WinnerWallet.length}
+
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {row.WinningCharity.length === 0
@@ -176,7 +105,6 @@ export default function ResultTable({ loading, rows }) {
                   <StyledTableCell align="center">
                     {moment(row.EndDate).format('MMM Do YY')}
                   </StyledTableCell>
->>>>>>> 25d27226cfed87b81ec724d3ed25c5682559daba
 
                   <StyledTableCell align="center">
                     {row.WinningNumbers.length === 0 ? 'TBD' : row.WinningNumbers[0]}&nbsp;{' '}
@@ -189,7 +117,7 @@ export default function ResultTable({ loading, rows }) {
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {' '}
-                    {row.WinnerWallet.length === 0 ? 'TBD' : row.WinnerWallet.length}
+                    {(row.WinnerWallet.length === 0 && new Date(row.EndDate)< Date.now()) ? 0  :(row.WinnerWallet.length === 0 && new Date(row.EndDate)> Date.now()) ?"TBD" :  row.WinnerWallet.length}
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {row.WinningCharity.length === 0
