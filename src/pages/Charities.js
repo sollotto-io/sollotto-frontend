@@ -25,7 +25,6 @@ export default function Charities() {
   if (charityloading) {
     return <Loader />;
   } else {
-    console.log(charities.getAllCharities);
     return (
       <div className="pageWrapper">
         <div className="charitySection">

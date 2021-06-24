@@ -26,7 +26,7 @@ export default function NumberInput({ ticketPos, validateNum, setTicketNumber })
           }
         }}
         onChange={(event) => validateNum(event.target.value)}
-        placeholder="1"
+        placeholder="#"
       />
     </div>
   );

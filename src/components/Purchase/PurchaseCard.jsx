@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {  useState } from 'react';
 import Card from './purchase-components/Card';
 
 import GreenGradientSvg from '../common/GreenGradientSvg';
