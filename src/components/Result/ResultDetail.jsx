@@ -7,7 +7,7 @@ import Loader from '../common/Loader';
 import LeftCountdown from '../Result/leftCountdown';
 import { GlobalContext } from '../../context/GlobalContext';
 import moment from 'moment';
-import _ from "lodash"
+import _ from 'lodash';
 
 const ResultDetail = () => {
   const { id } = useParams();
@@ -28,40 +28,36 @@ const ResultDetail = () => {
   //     LotteryId: parseInt(id),
   //   },
   // });
-  const { loading, data:lottery, refetch } = useQuery(FETCH_LOTTERY_BY_ID, {
+  const {
+    loading,
+    data: lottery,
+    refetch,
+  } = useQuery(FETCH_LOTTERY_BY_ID, {
     variables: { id: id },
   });
 
-
-  useEffect(() =>   
-    refetch()
-  , []); // eslint-disable-line react-hooks/exhaustive-deps
-
-
+  useEffect(() => refetch(), []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (loading) {
     return <Loader />;
   } else {
-    var userTickets = []
-    lottery.getDrawingById.Tickets.map((t)=>{
+    var userTickets = [];
+    lottery.getDrawingById.Tickets.map((t) => {
+      var flag = _.isEqual(
+        t.walletID,
+        Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data,
+      );
 
-      
-     var flag =  _.isEqual(t.walletID,Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data)
-    
-     if(flag){
-       userTickets.push({array: t.ticketArray, charity: t.charityId.charityName})
-     }
-     return null
-    })
+      if (flag) {
+        userTickets.push({ array: t.ticketArray, charity: t.charityId.charityName });
+      }
+      return null;
+    });
     return (
-
       <div className="detailSection">
         <div className="topSection">
           <RDetail globalData={globalData} lotteryData={lottery.getDrawingById} />
-          <LeftCountdown
-            lotteryData={lottery.getDrawingById}
-    
-          />
+          <LeftCountdown lotteryData={lottery.getDrawingById} />
         </div>
         <div className="bottomSectionResult gradientBg2">
           <div id="ticket-details">
@@ -70,7 +66,11 @@ const ResultDetail = () => {
               <h4>{moment(lottery.getDrawingById.EndDate).format('LL')}</h4>
             </div>
             <div className="rightColumn">
-              <h4 style={{ marginBottom: '2rem' }}>Your Numbers and Charities</h4>
+              <h4 style={{ marginBottom: '0px' }}>Your Numbers and Charities</h4>
+              <p style={{ marginBottom: '20px' }}>
+                (Your choices have been reordered from smallest to largest for the first five
+                numbers)
+              </p>
               {userTickets.length === 0 ? (
                 <p>No Tickets Bought</p>
               ) : (

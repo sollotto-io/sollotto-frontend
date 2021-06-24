@@ -28,7 +28,7 @@ const StyledPaper = withStyles({
 
 export default function ResultTable({ loading, rows }) {
   const { globalData } = useContext(GlobalContext);
-
+  
   const connectWallet = () => {
     toast.error('Please connect your wallet first!', {
       position: 'bottom-left',
@@ -59,7 +59,7 @@ export default function ResultTable({ loading, rows }) {
               <StyledTableCell>Drawing Name</StyledTableCell>
               <StyledTableCell align="center">Drawing Date</StyledTableCell>
               <StyledTableCell align="center">Winning Numbers</StyledTableCell>
-              <StyledTableCell align="center">Prize Pool</StyledTableCell>
+              <StyledTableCell align="center">Prize Pool (SOL)</StyledTableCell>
               <StyledTableCell align="center">Total Winners</StyledTableCell>
               <StyledTableCell align="center">Winning Charity</StyledTableCell>
             </TableRow>
@@ -86,7 +86,8 @@ export default function ResultTable({ loading, rows }) {
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {' '}
-                    {row.WinnerWallet.length === 0 ? 'TBD' : row.WinnerWallet.length}
+                    {(row.WinnerWallet.length === 0 && new Date(row.EndDate)< Date.now()) ? 0  :(row.WinnerWallet.length === 0 && new Date(row.EndDate)> Date.now()) ?"TBD" :  row.WinnerWallet.length}
+
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {row.WinningCharity.length === 0
@@ -116,7 +117,7 @@ export default function ResultTable({ loading, rows }) {
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {' '}
-                    {row.WinnerWallet.length === 0 ? 'TBD' : row.WinnerWallet.length}
+                    {(row.WinnerWallet.length === 0 && new Date(row.EndDate)< Date.now()) ? 0  :(row.WinnerWallet.length === 0 && new Date(row.EndDate)> Date.now()) ?"TBD" :  row.WinnerWallet.length}
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {row.WinningCharity.length === 0

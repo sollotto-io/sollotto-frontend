@@ -14,10 +14,9 @@ import { sortTicketNumber, ticketNumberValidator } from '../utils/helpers';
 
 export default function PurchaseForm() {
   const [addTicket] = useMutation(POST_TICKET);
-  const {purchaseData} = useContext(PurchaseContext);
-  const {globalData} = useContext(GlobalContext);
-  const {lotteryData, refetch} = useContext(LotteryContext);
-
+  const { purchaseData } = useContext(PurchaseContext);
+  const { globalData } = useContext(GlobalContext);
+  const { lotteryData, refetch } = useContext(LotteryContext);
 
   async function handleSubmit() {
     const ticketNumbers = sortTicketNumber(purchaseData.ticketNumberArr);
@@ -43,8 +42,17 @@ export default function PurchaseForm() {
       const result = await ticketPurchase(globalData, ticketData, lotteryData);
 
       if (result.success === true) {
+        console.log('AAAAH');
+        console.log({
+          DataWallet: Buffer.from(result.DataWallet).toJSON().data,
+          walletID: Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data,
+          ticketArray: ticketNumbers,
+          charityId: ticketData.charityId,
+          drawingId: lotteryData.id,
+        });
+
         try {
-         await addTicket({
+          await addTicket({
             variables: {
               DataWallet: Buffer.from(result.DataWallet).toJSON().data,
               walletID: Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data,
@@ -53,7 +61,7 @@ export default function PurchaseForm() {
               drawingId: lotteryData.id,
             },
           });
-            
+
           await refetch();
           toast.success(
             <div>
