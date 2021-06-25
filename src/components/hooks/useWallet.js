@@ -1,11 +1,24 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import Wallet from '@project-serum/sol-wallet-adapter';
+import useDidUpdateEffect from './useDidUpdateEffect';
 
 export default function useWallet() {
   const [wallet, setWallet] = useState(null);
   const [walletName, setWalletName] = useState('');
-  useEffect(() => {
+
+  const getPhantomProvider = () => {
+    if ('solana' in window) {
+      const provider = window.solana;
+      if (provider.isPhantom) {
+        return provider;
+      }
+    }
+    return new Wallet('https://phantom.app/', process.env.REACT_APP_SOLANA_NETWORK);
+  };
+  useDidUpdateEffect(() => {
+    console.log(walletName);
     if (walletName !== '') {
+      console.log('alkfdfbdfhkdsb');
       let urlWallet;
       switch (walletName) {
         case 'Sollet':
@@ -14,11 +27,14 @@ export default function useWallet() {
           break;
         case 'Phantom':
           if (window.solana && window.solana.isPhantom) {
+            const phantomWallet = getPhantomProvider();
             if (!window.solana.isConnected) {
-              window.solana.connect();
-              console.log(window.solana);
+              phantomWallet.connect({ onlyIfTrusted: true });
+              phantomWallet.on('connect', () => {
+                urlWallet = phantomWallet;
+              });
             }
-            urlWallet = window.solana;
+            urlWallet = phantomWallet;
           } else {
             urlWallet = new Wallet('https://phantom.app/', process.env.REACT_APP_SOLANA_NETWORK);
           }

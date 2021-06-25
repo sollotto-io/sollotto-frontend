@@ -42,7 +42,7 @@ const ResultDetail = () => {
     return <Loader />;
   } else {
     var userTickets = [];
-    lottery.getDrawingById.Tickets.map((t) => {
+    lottery.getDrawingById.Tickets.forEach((t) => {
       var flag = _.isEqual(
         t.walletID,
         Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data,
@@ -51,7 +51,6 @@ const ResultDetail = () => {
       if (flag) {
         userTickets.push({ array: t.ticketArray, charity: t.charityId.charityName });
       }
-      return null;
     });
     return (
       <div className="detailSection">

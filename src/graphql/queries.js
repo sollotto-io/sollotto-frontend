@@ -1,26 +1,25 @@
 import gql from 'graphql-tag';
 
-
 export const FETCH_ALL_CHARITIES = gql`
- {
-  getAllCharities{
-    id
-    charityName
-    projectDetails
-    fundUse
-    currentVotes
-    addedBy
-    lifeTimeVotes
-    lifeTimeWins
-    Status
-    Years
-    watchURL
-     watchGrade
-    Impact
-    webURL
-    socialMedia
+  {
+    getAllCharities {
+      id
+      charityName
+      projectDetails
+      fundUse
+      currentVotes
+      addedBy
+      lifeTimeVotes
+      lifeTimeWins
+      Status
+      Years
+      watchURL
+      watchGrade
+      Impact
+      webURL
+      socialMedia
+    }
   }
-}
 `;
 export const FETCH_POOLS = gql`
   {
@@ -39,80 +38,74 @@ export const FETCH_POOLS = gql`
   }
 `;
 
-
 export const FETCH_UPCOMING_DRAWING = gql`
- {
-  getActiveDrawing{
-    id
-   	Charities{
+  {
+    getActiveDrawing {
       id
-      charityName
-     projectDetails
-      fundUse
-      currentVotes
-      addedBy
-      lifeTimeVotes
-      lifeTimeWins
-      Status
-      Years
-      watchURL
-      watchGrade
-      Impact
-      webURL
+      Charities {
+        id
+        charityName
+        projectDetails
+        fundUse
+        currentVotes
+        addedBy
+        lifeTimeVotes
+        lifeTimeWins
+        Status
+        Years
+        watchURL
+        watchGrade
+        Impact
+        webURL
+      }
+      StartDate
+      EndDate
+      TotalPoolValue
+      Tickets {
+        walletID
+      }
     }
-    StartDate
-    EndDate
-    TotalPoolValue
-    Tickets{
-      walletID
-    }
-    
   }
-}
 `;
 
 export const FETCH_ALL_LOTTERIES = gql`
   {
-  getAllDrawing{
-    id
-    StartDate
-    EndDate
-    WinnerWallet
-    isActive
-    WinningCharity{
+    getAllDrawing {
       id
-      charityName
+      StartDate
+      EndDate
+      WinnerWallet
+      isActive
+      WinningCharity {
+        id
+        charityName
+      }
+      WinningNumbers
+      TotalPoolValue
     }
-    WinningNumbers
-    TotalPoolValue
-    
   }
-}
 `;
 
 export const FETCH_LOTTERY_BY_ID = gql`
   query getDrawingById($id: ID) {
-  getDrawingById(id:$id){
-    id
-    WinningCharity{
+    getDrawingById(id: $id) {
       id
-      charityName
-    }
-    Tickets{
-      walletID
-      ticketArray
-      charityId{
+      WinningCharity {
+        id
         charityName
       }
+      Tickets {
+        walletID
+        ticketArray
+        charityId {
+          charityName
+        }
+      }
+      WinningNumbers
+      EndDate
+      WinnerWallet
+      TotalPoolValue
+      isActive
     }
-    WinningNumbers
-    EndDate
-    WinnerWallet
-    TotalPoolValue
-    isActive
   }
-}
-  
 `;
-
-

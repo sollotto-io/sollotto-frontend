@@ -5,7 +5,9 @@ import GreenGradientSvg from '../common/GreenGradientSvg';
 import GreenGradientSvg2 from '../common/GreenGradientSvg2';
 import PurpleGradientSvg from '../common/PurpleGradientSvg';
 import { PurchaseContext } from '../../context/PurchaseContext';
+import { toast } from 'react-toastify';
 import PurchaseForm from './PurchaseForm';
+import useDidUpdateEffect from '../hooks/useDidUpdateEffect';
 
 import { RandomTicketGenerator } from '../utils/helpers';
 
@@ -17,6 +19,36 @@ const PurchaseCard = () => {
     selectedCharity: null,
     valid: true,
   });
+
+  /*   const [userTickets, setUserTickets] = useState([]);
+
+  useEffect(() => {
+    if (!userTickets.length) {
+      const {
+        loading,
+        data: lottery,
+        refetch,
+      } = useQuery(FETCH_LOTTERY_BY_ID, {
+        variables: { id: id },
+      });
+    }
+  }, []); */
+
+  useDidUpdateEffect(() => {
+    console.log(purchaseData.ticketNumberArr);
+    if (!purchaseData.ticketNumberArr.some((n) => n === undefined)) {
+      toast.warn('OYOYOYOYOYOYOY', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      console.log('hola');
+    }
+  }, [purchaseData]);
 
   return (
     <div className="gradientBg gradientBorder">

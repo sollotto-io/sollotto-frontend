@@ -42,15 +42,6 @@ export default function PurchaseForm() {
       const result = await ticketPurchase(globalData, ticketData, lotteryData);
 
       if (result.success === true) {
-        console.log('AAAAH');
-        console.log({
-          DataWallet: Buffer.from(result.DataWallet).toJSON().data,
-          walletID: Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data,
-          ticketArray: ticketNumbers,
-          charityId: ticketData.charityId,
-          drawingId: lotteryData.id,
-        });
-
         try {
           await addTicket({
             variables: {
