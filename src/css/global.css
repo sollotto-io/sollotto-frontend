@@ -130,11 +130,11 @@ a {
   transition: color 0.5s;
 }
 .greenBtn:disabled {
-	opacity: 0.5;
+  opacity: 0.5;
 }
 .greenBtn:hover:disabled {
-	cursor: not-allowed;
-	color: #fff;
+  cursor: not-allowed;
+  color: #fff;
 }
 .gradientBg {
   transition: all 1s;

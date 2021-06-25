@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import '../../css/nav.css';
 import Logo from './Logo';
 import NavList from './NavList';
 import WalletConnect from './WalletConnect';
 import HamBtn from './HamBtn';
-/* import WalletDisconnect from './WalletDisconnect'; */
+import WalletDisconnect from './WalletDisconnect';
+import { GlobalContext } from '../../context/GlobalContext';
 export default function Nav() {
   const [navActive, setNavActive] = useState(false);
+  const { globalData } = useContext(GlobalContext);
 
   let menuClickHandler = () => {
     document.querySelector('.hamBtn').classList.toggle('change');
@@ -21,7 +23,7 @@ export default function Nav() {
       <Logo />
       <NavList navActive={navActive} onNavLinkClick={navLinkClickHandler} />
       <WalletConnect />
-      {/* <WalletDisconnect /> */}
+      {globalData.walletConnectedFlag && <WalletDisconnect />}
       <HamBtn onMenuClick={menuClickHandler} />
     </nav>
   );

@@ -31,7 +31,7 @@ function App() {
         setGlobalData({ ...globalData, walletConnectedFlag: true });
       });
       globalData.selectedWallet.on('disconnect', () => {
-        setGlobalData({ ...globalData, walletConnectedFlag: false });
+        setGlobalData({ ...globalData, walletConnectedFlag: false, selectedWallet: null });
       });
       globalData.selectedWallet.connect();
       return () => {

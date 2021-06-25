@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import NumberSelector from './NumberSelector/NumberSelector';
 import CharitySelector from './CharitySelector/CharitySelector';
 import PurchaseButton from './PurchaseButton';
@@ -11,12 +11,14 @@ import { useMutation } from '@apollo/react-hooks';
 import { POST_TICKET } from '../../graphql/mutations';
 import { LotteryContext } from '../../context/LotteryContext';
 import { sortTicketNumber, ticketNumberValidator } from '../utils/helpers';
+import Loader from '../common/Loader';
 
 export default function PurchaseForm() {
   const [addTicket] = useMutation(POST_TICKET);
   const { purchaseData } = useContext(PurchaseContext);
   const { globalData } = useContext(GlobalContext);
   const { lotteryData, refetch } = useContext(LotteryContext);
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit() {
     const ticketNumbers = sortTicketNumber(purchaseData.ticketNumberArr);
@@ -39,6 +41,7 @@ export default function PurchaseForm() {
         userWalletPK: globalData.selectedWallet.publicKey.toBytes(),
         ticketNumArr: ticketNumbers,
       };
+      setLoading(true);
       const result = await ticketPurchase(globalData, ticketData, lotteryData);
 
       if (result.success === true) {
@@ -54,6 +57,7 @@ export default function PurchaseForm() {
           });
 
           await refetch();
+          setLoading(false);
           toast.success(
             <div>
               Ticket Purchase is Successful, Your purchased tickets can be found on the results
@@ -90,6 +94,7 @@ export default function PurchaseForm() {
       }
 
       if (result.success === false) {
+        setLoading(false);
         toast.error('Ticket Purchase Unsuccessful', {
           position: 'bottom-left',
           autoClose: 3000,
@@ -110,7 +115,11 @@ export default function PurchaseForm() {
       <ToastContainer />
       <div className="purchaseCardFooter">
         <TicketPrice />
-        <PurchaseButton handleSubmit={handleSubmit} />
+        {loading ? (
+          <Loader style={{ height: '100%' }} />
+        ) : (
+          <PurchaseButton handleSubmit={handleSubmit} />
+        )}
       </div>
     </form>
   );
