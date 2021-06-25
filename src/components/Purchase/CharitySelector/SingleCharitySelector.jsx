@@ -19,7 +19,7 @@ const SingleCharitySelector = (props) => {
 
   return (
     <div
-      className="psuedoGreyBg psuedoBorder singleCharitySelectorWrapper"
+      className="psuedoGreyBg psuedoBorder  singleCharitySelectorWrapper"
       ref={singleCharityBlockRef}
      
     >
