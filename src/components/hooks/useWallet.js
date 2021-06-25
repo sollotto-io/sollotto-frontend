@@ -9,8 +9,7 @@ export default function useWallet() {
       let urlWallet;
       switch (walletName) {
         case 'Sollet':
-          urlWallet = new Wallet('https://www.sollet.io', process.env.REACT_APP_SOLANA_NETWORK);
-          console.log(urlWallet);
+      urlWallet = new Wallet('https://www.sollet.io', process.env.REACT_APP_SOLANA_NETWORK);
           break;
         case 'Phantom':
           if (window.solana && window.solana.isPhantom) {
