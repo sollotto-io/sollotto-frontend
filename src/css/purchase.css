@@ -151,6 +151,10 @@
   margin-top: 1rem;
   margin-bottom: 1rem;
   justify-self: center;
+  padding: 2px;
+}
+.givepadding{
+  padding: 4px;
 }
 .charityImg {
   width: 100%;
