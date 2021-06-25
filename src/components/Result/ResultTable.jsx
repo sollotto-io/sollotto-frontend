@@ -40,6 +40,8 @@ export default function ResultTable({ loading, rows }) {
       progress: undefined,
     });
   };
+
+  console.log(globalData.selectedWallet === null && globalData.walletConnectedFlag);
   // eslint-disable-line react-hooks/exhaustive-deps
 
   const history = useHistory();
@@ -66,7 +68,7 @@ export default function ResultTable({ loading, rows }) {
           </TableHead>
           <TableBody>
             {rows.map((row, index) =>
-              globalData.selectedWallet === null ? (
+              !globalData.walletConnectedFlag ? (
                 <TableRow className="tableRow" onClick={connectWallet} key={index}>
                   <StyledTableCell component="th" scope="row">
                     Pick 6
@@ -86,8 +88,11 @@ export default function ResultTable({ loading, rows }) {
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {' '}
-                    {(row.WinnerWallet.length === 0 && new Date(row.EndDate)< Date.now()) ? 0  :(row.WinnerWallet.length === 0 && new Date(row.EndDate)> Date.now()) ?"TBD" :  row.WinnerWallet.length}
-
+                    {row.WinnerWallet.length === 0 && new Date(row.EndDate) < Date.now()
+                      ? 0
+                      : row.WinnerWallet.length === 0 && new Date(row.EndDate) > Date.now()
+                      ? 'TBD'
+                      : row.WinnerWallet.length}
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {row.WinningCharity.length === 0
@@ -117,7 +122,11 @@ export default function ResultTable({ loading, rows }) {
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {' '}
-                    {(row.WinnerWallet.length === 0 && new Date(row.EndDate)< Date.now()) ? 0  :(row.WinnerWallet.length === 0 && new Date(row.EndDate)> Date.now()) ?"TBD" :  row.WinnerWallet.length}
+                    {row.WinnerWallet.length === 0 && new Date(row.EndDate) < Date.now()
+                      ? 0
+                      : row.WinnerWallet.length === 0 && new Date(row.EndDate) > Date.now()
+                      ? 'TBD'
+                      : row.WinnerWallet.length}
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {row.WinningCharity.length === 0
