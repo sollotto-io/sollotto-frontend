@@ -23,6 +23,7 @@ export default function CharitySelectorGrid() {
       charityBlock.classList.add('psuedoGreyBg');
       charityBlock.querySelector('.charitySelectorIcon').classList.remove('blockDisplay');
       charityBlock.classList.remove('gradientBg');
+      charityBlock.classList.remove('givepadding');
       setSelectedCharityBtn(null);
       setPurchaseData({ ...purchaseData, selectedCharity: null });
       document.querySelectorAll('.charitySelectBtn').forEach(async (charity) => {
@@ -37,11 +38,13 @@ export default function CharitySelectorGrid() {
         selectedCharityBlock.classList.add('psuedoGreyBg');
         selectedCharityBlock.querySelector('.charitySelectorIcon').classList.remove('blockDisplay');
         selectedCharityBlock.classList.remove('gradientBg');
+        selectedCharityBlock.classList.remove('givepadding');
 
         charityBtn.classList.add('active');
         charityBtn.innerHTML = 'SELECTED';
         charityBlock.classList.remove('psuedoGreyBg');
         charityBlock.classList.add('gradientBg');
+        charityBlock.classList.add('givepadding');
         charityBlock.querySelector('.charitySelectorIcon').classList.add('blockDisplay');
         setSelectedCharityBtn(charityBtn);
         setSelectedCharityBlock(charityBlock);
@@ -51,6 +54,9 @@ export default function CharitySelectorGrid() {
       charityBtn.innerHTML = 'SELECTED';
       charityBlock.classList.remove('psuedoGreyBg');
       charityBlock.classList.add('gradientBg');
+      charityBlock.classList.add('givepadding');
+      
+
       charityBlock.querySelector('.charitySelectorIcon').classList.add('blockDisplay');
       setSelectedCharityBtn(charityBtn);
       setSelectedCharityBlock(charityBlock);

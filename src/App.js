@@ -20,6 +20,7 @@ function App() {
     holdingWalletId: process.env.REACT_APP_HOLDING_WALLET_PK_STRING,
     charities: [],
     selectedWallet: null,
+    walletBalance:null,
     walletConnectedFlag: false,
     connection: new Connection('https://api.devnet.solana.com'),
   });
