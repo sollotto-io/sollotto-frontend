@@ -16,7 +16,6 @@ import ResultDetail from './components/Result/ResultDetail';
 import './css/pool.css';
 
 function App() {
-
   const [globalData, setGlobalData] = useState({
     holdingWalletId: process.env.REACT_APP_HOLDING_WALLET_PK_STRING,
     charities: [],
@@ -24,22 +23,21 @@ function App() {
     walletConnectedFlag: false,
     connection: new Connection('https://api.devnet.solana.com'),
   });
-const {loading} = useContext(LotteryContext) 
+  const { loading } = useContext(LotteryContext);
 
- useEffect(() => {
-      if (globalData.selectedWallet) {
-        globalData.selectedWallet.on('connect', () => {
-          setGlobalData({ ...globalData, walletConnectedFlag: true });
-        });
-        globalData.selectedWallet.on('disconnect', () => {
-          setGlobalData({ ...globalData, walletConnectedFlag: false });
-        });
-        globalData.selectedWallet.connect();
-        return () => {
-          globalData.selectedWallet.disconnect();
-        };
-      }
-   
+  useEffect(() => {
+    if (globalData.selectedWallet) {
+      globalData.selectedWallet.on('connect', () => {
+        setGlobalData({ ...globalData, walletConnectedFlag: true });
+      });
+      globalData.selectedWallet.on('disconnect', () => {
+        setGlobalData({ ...globalData, walletConnectedFlag: false });
+      });
+      globalData.selectedWallet.connect();
+      return () => {
+        globalData.selectedWallet.disconnect();
+      };
+    }
   }, [globalData.selectedWallet]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (loading) {
@@ -49,39 +47,39 @@ const {loading} = useContext(LotteryContext)
     <div className="App">
       <Router>
         <GlobalContext.Provider value={{ globalData, setGlobalData }}>
-            <Nav />
-            <Switch>
-              {/* Redirecting to purchase page if at '/' */}
-              <Route exact path="/">
-                <Redirect to="/purchase" />
-              </Route>
-              {/* Routes  */}
+          <Nav />
+          <Switch>
+            {/* Redirecting to purchase page if at '/' */}
+            <Route exact path="/">
+              <Redirect to="/purchase" />
+            </Route>
+            {/* Routes  */}
 
-              <Route exact path="/purchase">
-                <Purchase />
-              </Route>
-              <Route exact path="/results">
-                <Results />
-              </Route>
-              <Route exact path="/results/:id">
-                <ResultDetail />
-              </Route>
+            <Route exact path="/purchase">
+              <Purchase />
+            </Route>
+            <Route exact path="/results">
+              <Results />
+            </Route>
+            <Route exact path="/results/:id">
+              <ResultDetail />
+            </Route>
 
-              <Route exact path="/charities">
-                <Charities />
-              </Route>
-              <Route exact path="/suggest">
-                <Suggest />
-              </Route>
-              <Route exact path="/pools">
-                <Pool />
-              </Route>
-              <Route exact path="/charities/:id">
-                <CharityDetailPage />
-              </Route>
-            </Switch>
-            <Footer />
-         </GlobalContext.Provider>
+            <Route exact path="/charities">
+              <Charities />
+            </Route>
+            <Route exact path="/suggest">
+              <Suggest />
+            </Route>
+            <Route exact path="/pools">
+              <Pool />
+            </Route>
+            <Route exact path="/charities/:id">
+              <CharityDetailPage />
+            </Route>
+          </Switch>
+          <Footer />
+        </GlobalContext.Provider>
       </Router>
     </div>
   );

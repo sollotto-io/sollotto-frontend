@@ -35,16 +35,16 @@ const Counter = ({ time }) => {
 
   Object.keys(timeLeft).forEach((interval, i) => {
     timerComponents.push(
-      <span style={{ fontSize: 20 }} key={i}>
+      <span id="timer" key={i}>
         {timeLeft[interval]} {interval}{' '}
       </span>,
     );
   });
 
   if (flag === 1) {
-    return <p style={{ margin: 0, fontSize: 20 }}>Lottery is currently closed</p>;
+    return <p id="timer">Lottery is currently closed</p>;
   } else {
-    return <div>{timerComponents.length ? timerComponents : 'loading..'}</div>;
+    return <div style={{width:"100%"}}>{timerComponents.length ? timerComponents : 'loading..'}</div>;
   }
 };
 

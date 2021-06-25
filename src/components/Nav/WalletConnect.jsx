@@ -43,6 +43,7 @@ export default function WalletConnect() {
             : 'Connect'}
         </span>
       </button>
+
       <ConnectWalletModal walletId={walletId} open={open} handleClose={handleClose} />{' '}
     </>
   );
