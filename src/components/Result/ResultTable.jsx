@@ -57,11 +57,11 @@ export default function ResultTable({ loading, rows }) {
           <TableHead>
             <TableRow>
               <StyledTableCell>Drawing Name</StyledTableCell>
-              <StyledTableCell align="center">Drawing Date</StyledTableCell>
-              <StyledTableCell align="center">Winning Numbers</StyledTableCell>
-              <StyledTableCell align="center">Prize Pool (SOL)</StyledTableCell>
-              <StyledTableCell align="center">Total Winners</StyledTableCell>
-              <StyledTableCell align="center">Winning Charity</StyledTableCell>
+              <StyledTableCell align="left">Drawing Date</StyledTableCell>
+              <StyledTableCell align="left">Winning Numbers</StyledTableCell>
+              <StyledTableCell align="left">Prize Pool</StyledTableCell>
+              <StyledTableCell align="left">Total Winners</StyledTableCell>
+              <StyledTableCell align="left">Winning Charity</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -71,25 +71,25 @@ export default function ResultTable({ loading, rows }) {
                   <StyledTableCell component="th" scope="row">
                     Pick 6
                   </StyledTableCell>
-                  <StyledTableCell align="center">
+                  <StyledTableCell align="left">
                     {moment(row.EndDate).format('MMM Do YY')}
                   </StyledTableCell>
 
-                  <StyledTableCell align="center">
+                  <StyledTableCell align="left">
                     {row.WinningNumbers.length === 0 ? 'TBD' : row.WinningNumbers[0]}&nbsp;{' '}
                     {row.WinningNumbers[1]}&nbsp; {row.WinningNumbers[2]}&nbsp;{' '}
                     {row.WinningNumbers[3]}&nbsp; {row.WinningNumbers[4]}&nbsp;{' '}
                     {row.WinningNumbers[5]}
                   </StyledTableCell>
-                  <StyledTableCell align="center">
+                  <StyledTableCell align="left">
                     {row.TotalPoolValue === null ? 0 : row.TotalPoolValue.toFixed(2)}
                   </StyledTableCell>
-                  <StyledTableCell align="center">
+                  <StyledTableCell align="left">
                     {' '}
                     {(row.WinnerWallet.length === 0 && new Date(row.EndDate)< Date.now()) ? 0  :(row.WinnerWallet.length === 0 && new Date(row.EndDate)> Date.now()) ?"TBD" :  row.WinnerWallet.length}
 
                   </StyledTableCell>
-                  <StyledTableCell align="center">
+                  <StyledTableCell align="left">
                     {row.WinningCharity.length === 0
                       ? 'TBD'
                       : row.WinningCharity.length === 1
@@ -102,24 +102,24 @@ export default function ResultTable({ loading, rows }) {
                   <StyledTableCell component="th" scope="row">
                     Pick 6
                   </StyledTableCell>
-                  <StyledTableCell align="center">
+                  <StyledTableCell align="left">
                     {moment(row.EndDate).format('MMM Do YY')}
                   </StyledTableCell>
 
-                  <StyledTableCell align="center">
+                  <StyledTableCell align="left">
                     {row.WinningNumbers.length === 0 ? 'TBD' : row.WinningNumbers[0]}&nbsp;{' '}
                     {row.WinningNumbers[1]}&nbsp; {row.WinningNumbers[2]}&nbsp;{' '}
                     {row.WinningNumbers[3]}&nbsp; {row.WinningNumbers[4]}&nbsp;{' '}
                     {row.WinningNumbers[5]}
                   </StyledTableCell>
-                  <StyledTableCell align="center">
+                  <StyledTableCell align="left">
                     {row.TotalPoolValue === null ? 0 : row.TotalPoolValue.toFixed(2)}
                   </StyledTableCell>
-                  <StyledTableCell align="center">
+                  <StyledTableCell align="left">
                     {' '}
                     {(row.WinnerWallet.length === 0 && new Date(row.EndDate)< Date.now()) ? 0  :(row.WinnerWallet.length === 0 && new Date(row.EndDate)> Date.now()) ?"TBD" :  row.WinnerWallet.length}
                   </StyledTableCell>
-                  <StyledTableCell align="center">
+                  <StyledTableCell align="left">
                     {row.WinningCharity.length === 0
                       ? 'TBD'
                       : row.WinningCharity.length === 1

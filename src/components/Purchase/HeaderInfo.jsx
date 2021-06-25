@@ -51,7 +51,7 @@ return <Loader/>
         <Counter time={lotteryData.EndDate} />
       </div>
 
-      <p style={{margin:0, width:200}} > {flag ? `Total Tickets Purchased : # ${myTickets.length}` : "Please connect your wallet"}</p>
+      <p style={{margin:0, width:210}} > {flag ? `Total Tickets Purchased : # ${myTickets.length}` : "Please connect your wallet"}</p>
       <p style={{textAlign:'right',margin:0}}>Prize Pool: {lotteryData.TotalPoolValue.toFixed(2)} SOL</p>
     </>
   );}
