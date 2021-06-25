@@ -4,6 +4,7 @@ import Logo from './Logo';
 import NavList from './NavList';
 import WalletConnect from './WalletConnect';
 import HamBtn from './HamBtn';
+/* import WalletDisconnect from './WalletDisconnect'; */
 export default function Nav() {
   const [navActive, setNavActive] = useState(false);
 
@@ -20,6 +21,7 @@ export default function Nav() {
       <Logo />
       <NavList navActive={navActive} onNavLinkClick={navLinkClickHandler} />
       <WalletConnect />
+      {/* <WalletDisconnect /> */}
       <HamBtn onMenuClick={menuClickHandler} />
     </nav>
   );

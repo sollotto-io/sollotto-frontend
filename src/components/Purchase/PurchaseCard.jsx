@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import PurchaseForm from './PurchaseForm';
 import useDidUpdateEffect from '../hooks/useDidUpdateEffect';
 import { LotteryContext } from '../../context/LotteryContext';
+import { GlobalContext } from '../../context/GlobalContext';
 
 import { RandomTicketGenerator } from '../utils/helpers';
 
@@ -21,7 +22,8 @@ const PurchaseCard = () => {
     valid: true,
   });
 
-  const { loading, data } = useContext(LotteryContext);
+  const { loading, lotteryData } = useContext(LotteryContext);
+  const { globalData } = useContext(GlobalContext);
 
   /*   const [userTickets, setUserTickets] = useState([]);
 
@@ -37,10 +39,31 @@ const PurchaseCard = () => {
     }
   }, []); */
 
+  const verifyRepeatedTicket = () => {
+    if (globalData.selectedWallet) {
+      const currentTicket = [...purchaseData.ticketNumberArr];
+      const currentWalletId = Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON()
+        .data;
+
+      const validate = lotteryData.Tickets.some(
+        (t) =>
+          t.ticketArray.filter((ti) => currentTicket.includes(ti)).length === 6 &&
+          t.walletID.filter((wi) => currentWalletId.includes(wi)).length === 32,
+      );
+
+      return validate;
+    } else {
+      return false;
+    }
+  };
+
   useDidUpdateEffect(() => {
-    console.log(purchaseData.ticketNumberArr);
-    if (!purchaseData.ticketNumberArr.some((n) => n === undefined) && !loading) {
-      toast.warn('OYOYOYOYOYOYOY', {
+    if (
+      !purchaseData.ticketNumberArr.some((n) => n === undefined) &&
+      !loading &&
+      verifyRepeatedTicket()
+    ) {
+      toast.warn('Warning: You alredy bought that ticket', {
         position: 'top-center',
         autoClose: 5000,
         hideProgressBar: true,
@@ -49,7 +72,6 @@ const PurchaseCard = () => {
         draggable: true,
         progress: undefined,
       });
-      console.log(data);
     }
   }, [purchaseData]);
 

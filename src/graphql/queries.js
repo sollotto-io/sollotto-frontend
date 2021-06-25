@@ -63,6 +63,7 @@ export const FETCH_UPCOMING_DRAWING = gql`
       TotalPoolValue
       Tickets {
         walletID
+        ticketArray
       }
     }
   }
