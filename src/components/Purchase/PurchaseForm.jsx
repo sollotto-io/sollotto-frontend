@@ -14,7 +14,7 @@ import { sortTicketNumber, ticketNumberValidator } from '../utils/helpers';
 
 export default function PurchaseForm() {
   const [addTicket] = useMutation(POST_TICKET);
-  const { purchaseData } = useContext(PurchaseContext);
+  const { purchaseData, setPurchaseData } = useContext(PurchaseContext);
   const { globalData } = useContext(GlobalContext);
   const { lotteryData, refetch } = useContext(LotteryContext);
 
@@ -63,6 +63,9 @@ export default function PurchaseForm() {
           });
 
           await refetch();
+          setPurchaseData({
+            ticketNumberArr: Array(6),
+          });
           toast.success(
             <div>
               Ticket Purchase is Successful, Your purchased tickets can be found on the results
