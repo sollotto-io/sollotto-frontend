@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Card from './purchase-components/Card';
 
 import GreenGradientSvg from '../common/GreenGradientSvg';
@@ -8,6 +8,7 @@ import { PurchaseContext } from '../../context/PurchaseContext';
 import { toast } from 'react-toastify';
 import PurchaseForm from './PurchaseForm';
 import useDidUpdateEffect from '../hooks/useDidUpdateEffect';
+import { LotteryContext } from '../../context/LotteryContext';
 
 import { RandomTicketGenerator } from '../utils/helpers';
 
@@ -19,6 +20,8 @@ const PurchaseCard = () => {
     selectedCharity: null,
     valid: true,
   });
+
+  const { loading, data } = useContext(LotteryContext);
 
   /*   const [userTickets, setUserTickets] = useState([]);
 
@@ -36,7 +39,7 @@ const PurchaseCard = () => {
 
   useDidUpdateEffect(() => {
     console.log(purchaseData.ticketNumberArr);
-    if (!purchaseData.ticketNumberArr.some((n) => n === undefined)) {
+    if (!purchaseData.ticketNumberArr.some((n) => n === undefined) && !loading) {
       toast.warn('OYOYOYOYOYOYOY', {
         position: 'top-center',
         autoClose: 5000,
@@ -46,7 +49,7 @@ const PurchaseCard = () => {
         draggable: true,
         progress: undefined,
       });
-      console.log('hola');
+      console.log(data);
     }
   }, [purchaseData]);
 

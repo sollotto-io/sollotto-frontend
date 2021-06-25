@@ -10,6 +10,7 @@ export default function SingleNumberSelector({ ticketPos }) {
 
   /*   const [timer, setTimer] = useState(false); */
   let timer = React.useRef(null);
+  let countDownTimer = React.useRef(null);
   const validateNum = (value) => {
     const ticketNumberArr = Array.from(purchaseData.ticketNumberArr);
     ticketNumberArr[ticketPos] = parseInt(value);
@@ -101,7 +102,9 @@ export default function SingleNumberSelector({ ticketPos }) {
     }
   } */
 
-  function stepUpClickHandler() {
+  function stepUpClickHandler(event) {
+    event.stopPropagation();
+    event.preventDefault();
     const ticketNumberArr = Array.from(purchaseData.ticketNumberArr);
 
     ticketNumberArr[ticketPos] = ticketNumberArr[ticketPos] ? ticketNumberArr[ticketPos] + 1 : 1;
@@ -123,31 +126,32 @@ export default function SingleNumberSelector({ ticketPos }) {
   }
 
   function beginConstantIncrement() {
-    const ticketNumberArr = Array.from(purchaseData.ticketNumberArr);
-    ticketNumberArr[ticketPos] = ticketNumberArr[ticketPos] ?? 1;
-    let value = ticketNumberArr[ticketPos];
-    timer.current = setInterval(() => {
-      value += 1;
-      if (ticketPos < 5 && value <= 69) validateNum(value);
-      if (ticketPos === 5 && value <= 26) validateNum(value);
-    }, 200);
-  }
-
-  function endConstantIncrement() {
-    clearInterval(timer.current);
+    countDownTimer.current = setTimeout(() => {
+      const ticketNumberArr = Array.from(purchaseData.ticketNumberArr);
+      ticketNumberArr[ticketPos] = ticketNumberArr[ticketPos] ?? 1;
+      let value = ticketNumberArr[ticketPos];
+      timer.current = setInterval(() => {
+        value += 1;
+        if (ticketPos < 5 && value <= 69) validateNum(value);
+        if (ticketPos === 5 && value <= 26) validateNum(value);
+      }, 200);
+    }, 500);
   }
 
   function beginConstantDecrement() {
-    const ticketNumberArr = Array.from(purchaseData.ticketNumberArr);
-    ticketNumberArr[ticketPos] = ticketNumberArr[ticketPos] ?? 1;
-    let value = ticketNumberArr[ticketPos];
-    timer.current = setInterval(() => {
-      value -= 1;
-      if (value >= 1) validateNum(value);
-    }, 200);
+    countDownTimer.current = setTimeout(() => {
+      const ticketNumberArr = Array.from(purchaseData.ticketNumberArr);
+      ticketNumberArr[ticketPos] = ticketNumberArr[ticketPos] ?? 1;
+      let value = ticketNumberArr[ticketPos];
+      timer.current = setInterval(() => {
+        value -= 1;
+        if (value >= 1) validateNum(value);
+      }, 200);
+    }, 500);
   }
 
-  function endConstantDecrement() {
+  function endConstantChanging() {
+    clearTimeout(countDownTimer.current);
     clearInterval(timer.current);
   }
   /* 
@@ -171,8 +175,8 @@ export default function SingleNumberSelector({ ticketPos }) {
         id={`numStepUp_${ticketPos}`}
         onClick={stepUpClickHandler}
         onMouseDown={() => beginConstantIncrement()}
-        onMouseUp={() => endConstantIncrement()}
-        onMouseLeave={() => endConstantIncrement()}
+        onMouseUp={() => endConstantChanging()}
+        onMouseLeave={() => endConstantChanging()}
         className="numberSelectorUp numberSelectorArrow greenGradientSVG"
       />
       <NumberInput ticketPos={ticketPos} validateNum={validateNum} setTicketNumber={validateNum} />
@@ -180,8 +184,8 @@ export default function SingleNumberSelector({ ticketPos }) {
         id={`numStepUp_${ticketPos}`}
         onClick={() => stepDownClickHandler()}
         onMouseDown={() => beginConstantDecrement()}
-        onMouseUp={() => endConstantDecrement()}
-        onMouseLeave={() => endConstantDecrement()}
+        onMouseUp={() => endConstantChanging()}
+        onMouseLeave={() => endConstantChanging()}
         className={
           ticketPos === 5
             ? 'numberSelectorDown numberSelectorArrow greenGradientSVG2'
