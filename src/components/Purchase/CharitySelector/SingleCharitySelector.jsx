@@ -21,8 +21,9 @@ const SingleCharitySelector = (props) => {
     <div
       className="psuedoGreyBg psuedoBorder singleCharitySelectorWrapper"
       ref={singleCharityBlockRef}
+     
     >
-      <div className="singleCharitySelector">
+      <div  className="singleCharitySelector">
         <Link style={{position:'absolute', right:"5px"}} to={`/charities/${lotteryData.Charities[props.index].charityName}`}>
           <IconButton
             id="info-circle"
