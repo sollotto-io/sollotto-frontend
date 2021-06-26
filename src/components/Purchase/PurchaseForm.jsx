@@ -15,7 +15,7 @@ import Loader from '../common/Loader';
 
 export default function PurchaseForm() {
   const [addTicket] = useMutation(POST_TICKET);
-  const { purchaseData } = useContext(PurchaseContext);
+  const { purchaseData, setPurchaseData } = useContext(PurchaseContext);
   const { globalData } = useContext(GlobalContext);
   const { lotteryData, refetch } = useContext(LotteryContext);
   const [loading, setLoading] = useState(false);
@@ -88,6 +88,12 @@ export default function PurchaseForm() {
               allowHtml: true,
             },
           );
+
+          console.log(purchaseData);
+
+          setPurchaseData({ ...purchaseData, ticketNumberArr: [] });
+
+          console.log(purchaseData.ticketNumberArr);
         } catch (e) {
           console.log(e);
         }
