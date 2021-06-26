@@ -194,15 +194,7 @@
     cursor: pointer;
   }
 
-  .detailSection {
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto 1fr;
-    grid-gap: 20px;
-    justify-content: center;
-    margin: 2rem 0rem;
-    padding: 0rem 1rem;
-  }
+ 
   .topSection {
     display: grid;
     grid-template-columns: auto auto;

@@ -90,6 +90,11 @@ const RDetail = ({ lotteryData }) => {
                   return <p key={i}>{c.charityName}</p>;
                 })}
           </section>
+          <section>
+            {console.log(lotteryData.WinningCharity)}
+            <p style={{width:200}}>Votes Recieved by winning charity</p>
+            <p>10</p>
+          </section>
         </div>
       </section>
     );

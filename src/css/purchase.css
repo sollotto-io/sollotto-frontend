@@ -139,16 +139,22 @@
   padding-bottom: 10px;
 }
 .psuedoGreyBg {
-  transition: all 1s;
   background: #f1f1f2;
+  transition: all 0.5s;
+
 }
 .psuedoBorder {
   padding: 2px;
 }
 .singleCharitySelectorWrapper {
   margin: 0.5rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
   justify-self: center;
+  padding: 2px;
+}
+.givepadding{
+  padding: 4px;
 }
 .charityImg {
   width: 100%;
@@ -182,10 +188,10 @@
   background: rgba(19, 26, 53, 0);
 }
 .charitySelectorIcon {
-  width: 50px;
+  width: 60px;
   position: absolute;
   left: 40%;
-  top: -25px;
+  top: -35px;
   display: none;
 }
 .purchaseCardFooter {
