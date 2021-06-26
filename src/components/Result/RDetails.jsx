@@ -80,25 +80,54 @@ const RDetail = ({ lotteryData }) => {
             <p>Your Result</p>
             {userResult()}
           </section>
-          <section id="charity-list">
-            <p>
-              {lotteryData.WinningCharity.length === 1 ? 'Winning Charity' : 'Winning Charities'}
-            </p>
+         
+          
+        </div>
+        <section id="charity-list">
+           
             {lotteryData.WinningCharity.length === 0
               ? 'TBD'
-              : lotteryData.WinningCharity.map((c, i) => {
-                  return <p key={i}>{c.charityName}</p>;
-                })}
+              :  winningCharityResult(lotteryData={lotteryData})}
           </section>
-          <section>
-            {console.log(lotteryData.WinningCharity)}
-            <p style={{width:200}}>Votes Recieved by winning charity</p>
-            <p>10</p>
-          </section>
-        </div>
       </section>
     );
   }
 };
 
 export default RDetail;
+
+
+
+const winningCharityResult = ({lotteryData})=>{
+  var arr = []  
+  var totalVotes = 0
+ lotteryData.CharityVoteCount.forEach((c)=> {
+  totalVotes = totalVotes +c.votes;
+  if(lotteryData.WinningCharity.find( (t)  =>  t.id ===c.charityId.id)){
+      arr.push(c)
+  }
+
+} )
+
+
+return (
+  <div id="winner-charity">
+   <div >
+  {lotteryData.WinningCharity.length === 1 ? 'Winning Charity' : 'Winning Charities'}
+  <div id="winner-charity-list">
+  {arr.map((c)=>{
+    return <p>{c.charityId.charityName}</p>
+  })}
+  </div>
+   </div>
+   <div id="winner-charity-vote">
+     <pre>Votes Recieved</pre>
+     <p>{arr[0].votes}</p>
+   </div>
+   <div id="winner-charity-per">
+     <p> % Votes Recieved</p>
+     <p>{(arr[0].votes/ totalVotes *100).toFixed(2)}</p>
+   </div>
+   </div>
+);
+}

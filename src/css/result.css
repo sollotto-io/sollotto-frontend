@@ -9,14 +9,10 @@
 
 #charity-list{
   height: 120px;
-  overflow: scroll;
+  overflow-y: scroll;
  
 }
-#charity-list::-webkit-scrollbar {
-  display: block;
-  height: 100%;
-  width: 1px;
-}
+
 #back-button {
   display: grid;
   grid-template-columns: auto auto;
@@ -88,7 +84,7 @@
   }
   #other-details {
     display: grid;
-    grid-template-columns: auto auto auto auto auto;
+    grid-template-columns: auto auto auto auto ;
     grid-template-rows: auto auto;
     row-gap: 5px;
     column-gap: 50px;
@@ -148,4 +144,22 @@
     margin: 0;
     margin-bottom: 10px;
   }
+  #winner-charity{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 230px 230px 230px;
+   
+  
+  }
+  #winner-charity *{
+    margin: 0;
+    margin-top: 10px;
+  }
+  #winner-charity-vote *{
+    margin: 0;
+  }
+  #winner-charity-per *{
+    margin: 0;
+  }
+ 
 }
