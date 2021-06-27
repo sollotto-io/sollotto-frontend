@@ -84,10 +84,7 @@ const RDetail = ({ lotteryData }) => {
           
         </div>
         <section id="charity-list">
-           
-            {lotteryData.WinningCharity.length === 0
-              ? 'TBD'
-              :  winningCharityResult(lotteryData={lotteryData})}
+                          { winningCharityResult(lotteryData={lotteryData})}
           </section>
       </section>
     );
@@ -115,18 +112,18 @@ return (
    <div >
   {lotteryData.WinningCharity.length === 1 ? 'Winning Charity' : 'Winning Charities'}
   <div id="winner-charity-list">
-  {arr.map((c)=>{
+  {arr.length === 0 ? "TBD" :  arr.map((c)=>{
     return <p>{c.charityId.charityName}</p>
   })}
   </div>
    </div>
    <div id="winner-charity-vote">
      <pre>Votes Recieved</pre>
-     <p>{arr[0].votes}</p>
+     <p>{arr.length === 0 ? "TBD" : arr[0].votes}</p>
    </div>
    <div id="winner-charity-per">
      <p> % Votes Recieved</p>
-     <p>{(arr[0].votes/ totalVotes *100).toFixed(2)}</p>
+     <p>{arr.length === 0 ? "TBD" :(arr[0].votes/ totalVotes *100).toFixed(2)}</p>
    </div>
    </div>
 );
