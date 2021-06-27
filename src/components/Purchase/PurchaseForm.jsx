@@ -21,6 +21,8 @@ export default function PurchaseForm() {
   async function handleSubmit() {
     const ticketNumbers = sortTicketNumber(purchaseData.ticketNumberArr);
 
+    
+
     if (ticketNumberValidator(ticketNumbers) && purchaseData.selectedCharity != null) {
       if (globalData.selectedWallet === null) {
         toast.error('Please Connect your Wallet! ', {
@@ -92,7 +94,7 @@ export default function PurchaseForm() {
       }
 
       if (result.success === false) {
-        toast.error('Ticket Purchase Unsuccessful', {
+        toast.error('Ticket Purchase Unsuccessful, you dont have enough SOL', {
           position: 'bottom-left',
           autoClose: 3000,
           hideProgressBar: true,

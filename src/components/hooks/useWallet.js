@@ -15,7 +15,6 @@ export default function useWallet() {
           if (window.solana && window.solana.isPhantom) {
             if (!window.solana.isConnected) {
               window.solana.connect();
-              console.log(window.solana);
             }
             urlWallet = window.solana;
           } else {
