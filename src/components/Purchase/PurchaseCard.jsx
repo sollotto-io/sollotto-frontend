@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import Card from './purchase-components/Card';
 
 import GreenGradientSvg from '../common/GreenGradientSvg';
@@ -13,10 +13,11 @@ import RandomButton from '../common/PrimaryButton';
 
 const PurchaseCard = () => {
   const [purchaseData, setPurchaseData] = useState({
-    ticketNumberArr: Array(6),
+    ticketNumberArr: [],
     selectedCharity: null,
     valid: true,
   });
+
 
   return (
     <div className="gradientBg gradientBorder">
