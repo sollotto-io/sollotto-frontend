@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { PurchaseContext } from '../../../context/PurchaseContext';
 export default function NumberInput({ ticketPos, validateNum, setTicketNumber }) {
   const { purchaseData } = useContext(PurchaseContext);

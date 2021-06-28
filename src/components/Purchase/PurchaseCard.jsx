@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Card from './purchase-components/Card';
 
 import GreenGradientSvg from '../common/GreenGradientSvg';
@@ -13,7 +13,7 @@ import RandomButton from '../common/PrimaryButton';
 
 const PurchaseCard = () => {
   const [purchaseData, setPurchaseData] = useState({
-    ticketNumberArr: [],
+    ticketNumberArr: Array(6),
     selectedCharity: null,
     valid: true,
   });
