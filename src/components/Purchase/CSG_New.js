@@ -1,11 +1,12 @@
 import React, { useState, useContext, createContext } from 'react';
 import SingleCharitySelector from './SingleCharitySelector';
 import { LotteryContext } from '../../context/LotteryContext';
-import { PurchaseContext } from '../../context/PurchaseContext';
+
+import reduxAction from '../../redux/reduxAction';
+
 export const CharityDataContext = createContext(null);
 
 export default function CharitySelectorGrid() {
-  const { purchaseData, setPurchaseData } = useContext(PurchaseContext);
   const { lotteryData } = useContext(LotteryContext);
   const [selectedCharityBtn, setSelectedCharityBtn] = useState(null);
   const [selectedCharityBlock, setSelectedCharityBlock] = useState(null);
@@ -18,7 +19,7 @@ export default function CharitySelectorGrid() {
       charityBlock.querySelector('.charitySelectorIcon').classList.remove('blockDisplay');
       charityBlock.classList.remove('gradientBg');
       setSelectedCharityBtn(null);
-      setPurchaseData({ ...purchaseData, selectedCharity: null });
+      reduxAction({ type: 'SET_PURCHASE_DATA', arg: { selectedCharity: null } });
       document.querySelectorAll('.charitySelectBtn').forEach(async (charity) => {
         if (!charity.classList.contains('active')) {
           charity.disabled = false;
@@ -39,7 +40,10 @@ export default function CharitySelectorGrid() {
         charityBlock.querySelector('.charitySelectorIcon').classList.add('blockDisplay');
         setSelectedCharityBtn(charityBtn);
         setSelectedCharityBlock(charityBlock);
-        setPurchaseData({ ...purchaseData, selectedCharity: charityIndex });
+        reduxAction({
+          type: 'SET_PURCHASE_DATA',
+          arg: { selectedCharity: charityIndex },
+        });
       }
       charityBtn.classList.add('active');
       charityBtn.innerHTML = 'SELECTED';
@@ -48,7 +52,7 @@ export default function CharitySelectorGrid() {
       charityBlock.querySelector('.charitySelectorIcon').classList.add('blockDisplay');
       setSelectedCharityBtn(charityBtn);
       setSelectedCharityBlock(charityBlock);
-      setPurchaseData({ ...purchaseData, selectedCharity: charityIndex });
+      reduxAction({ type: 'SET_PURCHASE_DATA', arg: { selectedCharity: charityIndex } });
     }
   };
 

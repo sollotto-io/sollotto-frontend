@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { IconButton } from '@material-ui/core';
 import { useHistory } from 'react-router';
 import checkIfWinner from './utils/checkIfWinner';
-import { GlobalContext } from '../../context/GlobalContext';
 import moment from 'moment';
 import { sortTicketNumber } from '../utils/helpers';
+import useReduxState from '../hooks/useReduxState';
 
 const RDetail = ({ lotteryData }) => {
-  const { globalData } = useContext(GlobalContext);
+  const [globalData] = useReduxState((state) => state.globalData);
 
   const history = useHistory();
   const sendToResults = () => {
@@ -92,7 +92,7 @@ const RDetail = ({ lotteryData }) => {
           </section>
           <section>
             {console.log(lotteryData.WinningCharity)}
-            <p style={{width:200}}>Votes Recieved by winning charity</p>
+            <p style={{ width: 200 }}>Votes Recieved by winning charity</p>
             <p>10</p>
           </section>
         </div>

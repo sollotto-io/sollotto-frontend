@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -10,8 +10,8 @@ import { withStyles } from '@material-ui/core';
 import { useHistory } from 'react-router';
 import moment from 'moment';
 import Loader from '../common/Loader';
-import { GlobalContext } from '../../context/GlobalContext';
 import { toast, ToastContainer } from 'react-toastify';
+import useReduxState from '../hooks/useReduxState';
 
 const StyledTableCell = withStyles({
   root: {
@@ -27,8 +27,8 @@ const StyledPaper = withStyles({
 })(Paper);
 
 export default function ResultTable({ loading, rows }) {
-  const { globalData } = useContext(GlobalContext);
-  
+  const [globalData] = useReduxState((state) => state.globalData);
+
   const connectWallet = () => {
     toast.error('Please connect your wallet first!', {
       position: 'bottom-left',

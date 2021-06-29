@@ -4,26 +4,27 @@ import CharitySelector from './CharitySelector/CharitySelector';
 import PurchaseButton from './PurchaseButton';
 import { ToastContainer, toast } from 'react-toastify';
 import TicketPrice from './purchase-components/TicketPrice';
-import { PurchaseContext } from '../../context/PurchaseContext';
-import { GlobalContext } from '../../context/GlobalContext';
 import { ticketPurchase } from './util/ticketPurchase';
 import { useMutation } from '@apollo/react-hooks';
 import { POST_TICKET } from '../../graphql/mutations';
 import { LotteryContext } from '../../context/LotteryContext';
 import { sortTicketNumber, ticketNumberValidator } from '../utils/helpers';
+import { useSelector } from 'react-redux';
+import reduxAction from '../../redux/reduxAction';
 import Loader from '../common/Loader';
+import useReduxState from '../hooks/useReduxState';
 
 export default function PurchaseForm() {
   const [addTicket] = useMutation(POST_TICKET);
-  const { purchaseData, setPurchaseData } = useContext(PurchaseContext);
-  const { globalData } = useContext(GlobalContext);
+  const [globalData] = useReduxState((state) => state.globalData);
   const { lotteryData, refetch } = useContext(LotteryContext);
+  const { ticketNumberArr, selectedCharity } = useSelector((state) => state.purchaseData);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit() {
-    const ticketNumbers = sortTicketNumber(purchaseData.ticketNumberArr);
+    const ticketNumbers = sortTicketNumber(ticketNumberArr);
 
-    if (ticketNumberValidator(ticketNumbers) && purchaseData.selectedCharity != null) {
+    if (ticketNumberValidator(ticketNumbers) && selectedCharity != null) {
       if (globalData.selectedWallet === null) {
         toast.error('Please Connect your Wallet! ', {
           position: 'bottom-left',
@@ -37,7 +38,7 @@ export default function PurchaseForm() {
         return false;
       }
       const ticketData = {
-        charityId: purchaseData.selectedCharity,
+        charityId: selectedCharity,
         userWalletPK: globalData.selectedWallet.publicKey.toBytes(),
         ticketNumArr: ticketNumbers,
       };
@@ -65,10 +66,8 @@ export default function PurchaseForm() {
               <br />
               <br />
               TicketNumber:
-              {[...purchaseData.ticketNumberArr]
-                .splice(0, purchaseData.ticketNumberArr.length - 1)
-                .join('-')}
-              -{purchaseData.ticketNumberArr[5]}
+              {[...ticketNumberArr].splice(0, ticketNumberArr.length - 1).join('-')}-
+              {ticketNumberArr[5]}
               <br />
               Charity:
               {
@@ -89,11 +88,9 @@ export default function PurchaseForm() {
             },
           );
 
-          console.log(purchaseData);
+          reduxAction({ type: 'RESET_PURCHASE_DATA', arg: null });
 
-          setPurchaseData({ ...purchaseData, ticketNumberArr: [] });
-
-          console.log(purchaseData.ticketNumberArr);
+          console.log(ticketNumberArr);
         } catch (e) {
           console.log(e);
         }

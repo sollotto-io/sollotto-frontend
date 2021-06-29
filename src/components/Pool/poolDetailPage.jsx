@@ -1,15 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useParams } from 'react-router';
 import '../../css/pool.css';
 import TimeRemaining from './timeRemaining';
 import PDetails from './pDetails';
-import { GlobalContext } from '../../context/GlobalContext';
 import WinningSection from './winningSection';
 import PoolExtraInfo from './poolExtraInfo';
 import Loader from '../common/Loader';
+import useReduxState from '../hooks/useReduxState';
 
 const PoolDetailPage = () => {
-  const { globalData } = useContext(GlobalContext);
+  const [globalData] = useReduxState((state) => state.globalData);
   const { id } = useParams();
   const poolDetail = globalData.pools.find((p) => p.Pool === id);
   return (

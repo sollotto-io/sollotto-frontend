@@ -1,23 +1,25 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../css/nav.css';
 import Logo from './Logo';
 import NavList from './NavList';
 import WalletConnect from './WalletConnect';
 import HamBtn from './HamBtn';
-import { useContext } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
+import WalletDisconnect from './WalletDisconnect';
+import useReduxState from '../hooks/useReduxState';
 
 export default function Nav() {
   const [navActive, setNavActive] = useState(false);
-  const { globalData, setGlobalData } = useContext(GlobalContext);
+  const [globalData, setGlobalData] = useReduxState((state) => state.globalData);
 
   useEffect(() => {
     if (globalData.selectedWallet !== null) {
       var bal = globalData.connection.getBalance(globalData.selectedWallet.publicKey);
       bal.then((t) => {
         setGlobalData({
-          ...globalData,
-          walletBalance: t,
+          type: 'SET_GLOBAL_DATA',
+          arg: {
+            walletBalance: t,
+          },
         });
       });
     }

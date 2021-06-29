@@ -1,9 +1,8 @@
-import { useContext } from 'react';
 import IconButton from '../common/iconButton';
 import Logout from '../../images/svg/logout.svg';
-import { GlobalContext } from '../../context/GlobalContext';
+import useReduxState from '../hooks/useReduxState';
 export default function WalletDisconnect() {
-  const { globalData } = useContext(GlobalContext);
+  const [globalData] = useReduxState((state) => state.globalData);
   return (
     <IconButton
       tooltip={'logout'}

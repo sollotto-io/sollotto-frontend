@@ -1,21 +1,22 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useParams } from 'react-router';
-import { GlobalContext } from '../../context/GlobalContext';
 import Loader from '../common/Loader';
 import CDetail from './CDetails';
 import CharityCommunitySelect from './CharityCommunitySelect';
 import { useHistory } from 'react-router';
 import CharityIntro from './CharityIntro';
 import CharityExtraInfo from './CharityExtraInfo';
+import { useSelector } from 'react-redux';
 
 const CharitDetailPage = () => {
   const history = useHistory();
   const sendToCharity = () => {
     history.push(`/charities`);
   };
-  const { globalData } = useContext(GlobalContext);
+
+  const { charities } = useSelector((state) => state.globalData);
   const { id } = useParams();
-  const charityDetail = globalData.charities.find((p) => p.charityName === id);
+  const charityDetail = charities.find((p) => p.charityName === id);
 
   if (charityDetail) {
     return (

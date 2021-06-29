@@ -83,8 +83,6 @@ export const FETCH_ALL_LOTTERIES = gql`
       }
       WinningNumbers
       TotalPoolValue
-      charityName
-      currentVotes
     }
   }
 `;
