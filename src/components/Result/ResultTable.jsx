@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -10,8 +10,8 @@ import { withStyles } from '@material-ui/core';
 import { useHistory } from 'react-router';
 import moment from 'moment';
 import Loader from '../common/Loader';
-import { GlobalContext } from '../../context/GlobalContext';
 import { toast, ToastContainer } from 'react-toastify';
+import useReduxState from '../hooks/useReduxState';
 
 const StyledTableCell = withStyles({
   root: {
@@ -27,8 +27,8 @@ const StyledPaper = withStyles({
 })(Paper);
 
 export default function ResultTable({ loading, rows }) {
-  const { globalData } = useContext(GlobalContext);
-  
+  const [globalData] = useReduxState((state) => state.globalData);
+
   const connectWallet = () => {
     toast.error('Please connect your wallet first!', {
       position: 'bottom-left',
@@ -40,6 +40,8 @@ export default function ResultTable({ loading, rows }) {
       progress: undefined,
     });
   };
+
+  console.log(globalData.selectedWallet === null && globalData.walletConnectedFlag);
   // eslint-disable-line react-hooks/exhaustive-deps
 
   const history = useHistory();
@@ -66,7 +68,7 @@ export default function ResultTable({ loading, rows }) {
           </TableHead>
           <TableBody>
             {rows.map((row, index) =>
-              globalData.selectedWallet === null ? (
+              !globalData.walletConnectedFlag ? (
                 <TableRow className="tableRow" onClick={connectWallet} key={index}>
                   <StyledTableCell component="th" scope="row">
                     Pick 6
@@ -86,8 +88,11 @@ export default function ResultTable({ loading, rows }) {
                   </StyledTableCell>
                   <StyledTableCell align="left">
                     {' '}
-                    {(row.WinnerWallet.length === 0 && new Date(row.EndDate)< Date.now()) ? 0  :(row.WinnerWallet.length === 0 && new Date(row.EndDate)> Date.now()) ?"TBD" :  row.WinnerWallet.length}
-
+                    {row.WinnerWallet.length === 0 && new Date(row.EndDate) < Date.now()
+                      ? 0
+                      : row.WinnerWallet.length === 0 && new Date(row.EndDate) > Date.now()
+                      ? 'TBD'
+                      : row.WinnerWallet.length}
                   </StyledTableCell>
                   <StyledTableCell align="left">
                     {row.WinningCharity.length === 0
@@ -117,7 +122,11 @@ export default function ResultTable({ loading, rows }) {
                   </StyledTableCell>
                   <StyledTableCell align="left">
                     {' '}
-                    {(row.WinnerWallet.length === 0 && new Date(row.EndDate)< Date.now()) ? 0  :(row.WinnerWallet.length === 0 && new Date(row.EndDate)> Date.now()) ?"TBD" :  row.WinnerWallet.length}
+                    {row.WinnerWallet.length === 0 && new Date(row.EndDate) < Date.now()
+                      ? 0
+                      : row.WinnerWallet.length === 0 && new Date(row.EndDate) > Date.now()
+                      ? 'TBD'
+                      : row.WinnerWallet.length}
                   </StyledTableCell>
                   <StyledTableCell align="left">
                     {row.WinningCharity.length === 0

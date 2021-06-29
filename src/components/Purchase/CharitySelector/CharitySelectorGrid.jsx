@@ -1,21 +1,22 @@
-import React, { useState, useContext, createContext } from 'react';
+import React, { useState, createContext } from 'react';
 import SingleCharitySelector from './SingleCharitySelector';
-import { PurchaseContext } from '../../../context/PurchaseContext';
-import { LotteryContext } from '../../../context/LotteryContext';
+import reduxAction from '../../../redux/reduxAction';
+import useReduxState from '../../hooks/useReduxState';
+
 import Loader from '../../common/Loader';
 
 export const CharityDataContext = createContext(null);
 
 export default function CharitySelectorGrid() {
- 
-  const { purchaseData, setPurchaseData } = useContext(PurchaseContext);
-  const { lotteryData,loading } = useContext(LotteryContext);
+  const [lotteryState] = useReduxState((state) => state.lotteryData);
+
+  const { lotteryData, loading } = lotteryState;
   const [selectedCharityBtn, setSelectedCharityBtn] = useState(null);
   const [selectedCharityBlock, setSelectedCharityBlock] = useState(null);
   // eslint-disable-line react-hooks/exhaustive-deps
 
   //------------border and button styling while selected--------------------
-  
+
   var charitySelectHandler = async (charityBtn, charityBlock, charityIndex) => {
     if (charityBtn === selectedCharityBtn) {
       charityBtn.classList.remove('active');
@@ -25,7 +26,7 @@ export default function CharitySelectorGrid() {
       charityBlock.classList.remove('gradientBg');
       charityBlock.classList.remove('givepadding');
       setSelectedCharityBtn(null);
-      setPurchaseData({ ...purchaseData, selectedCharity: null });
+      reduxAction({ type: 'SET_PURCHASE_DATA', arg: { selectedCharity: null } });
       document.querySelectorAll('.charitySelectBtn').forEach(async (charity) => {
         if (!charity.classList.contains('active')) {
           charity.disabled = false;
@@ -48,19 +49,21 @@ export default function CharitySelectorGrid() {
         charityBlock.querySelector('.charitySelectorIcon').classList.add('blockDisplay');
         setSelectedCharityBtn(charityBtn);
         setSelectedCharityBlock(charityBlock);
-        setPurchaseData({ ...purchaseData, selectedCharity: charityIndex });
+        reduxAction({
+          type: 'SET_PURCHASE_DATA',
+          arg: { selectedCharity: charityIndex },
+        });
       }
       charityBtn.classList.add('active');
       charityBtn.innerHTML = 'SELECTED';
       charityBlock.classList.remove('psuedoGreyBg');
       charityBlock.classList.add('gradientBg');
       charityBlock.classList.add('givepadding');
-      
 
       charityBlock.querySelector('.charitySelectorIcon').classList.add('blockDisplay');
       setSelectedCharityBtn(charityBtn);
       setSelectedCharityBlock(charityBlock);
-      setPurchaseData({ ...purchaseData, selectedCharity: charityIndex });
+      reduxAction({ type: 'SET_PURCHASE_DATA', arg: { selectedCharity: charityIndex } });
 
       // document.querySelectorAll('.charitySelectBtn').forEach(async (charity,index) => {
       // 	if (!charity.classList.contains('active')) {
@@ -69,29 +72,24 @@ export default function CharitySelectorGrid() {
       // });
     }
   };
-  if(loading===true){
-    return <Loader/>
-  }
-  else if (lotteryData ===null){
-    return null
-
-  }else{
-
+  if (loading === true) {
+    return <Loader />;
+  } else if (lotteryData === null) {
+    return null;
+  } else {
     return (
-        <div className="charitySelectorGrid">
-          {lotteryData.Charities.map((charity, index) => {
-            return (
-              <SingleCharitySelector
-                charityId={charity.id}
-                index={index}
-                key={index}
-                charitySelectHandler={charitySelectHandler}
-              />
-            );
-          })}
-        </div>
+      <div className="charitySelectorGrid">
+        {lotteryData.Charities.map((charity, index) => {
+          return (
+            <SingleCharitySelector
+              charityId={charity.id}
+              index={index}
+              key={index}
+              charitySelectHandler={charitySelectHandler}
+            />
+          );
+        })}
+      </div>
     );
-  
-        }
-  
+  }
 }

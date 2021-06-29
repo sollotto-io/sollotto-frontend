@@ -1,17 +1,17 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import RDetail from './RDetails';
 import { useQuery } from '@apollo/react-hooks';
 import { FETCH_LOTTERY_BY_ID } from '../../graphql/queries';
 import Loader from '../common/Loader';
 import LeftCountdown from '../Result/leftCountdown';
-import { GlobalContext } from '../../context/GlobalContext';
 import moment from 'moment';
 import _ from 'lodash';
+import useReduxState from '../hooks/useReduxState';
 
 const ResultDetail = () => {
   const { id } = useParams();
-  const { globalData } = useContext(GlobalContext);
+  const [globalData] = useReduxState((state) => state.globalData);
 
   if (globalData.selectedWallet === null) {
     console.log('empty');
@@ -42,7 +42,7 @@ const ResultDetail = () => {
     return <Loader />;
   } else {
     var userTickets = [];
-    lottery.getDrawingById.Tickets.map((t) => {
+    lottery.getDrawingById.Tickets.forEach((t) => {
       var flag = _.isEqual(
         t.walletID,
         Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data,
@@ -51,7 +51,6 @@ const ResultDetail = () => {
       if (flag) {
         userTickets.push({ array: t.ticketArray, charity: t.charityId.charityName });
       }
-      return null;
     });
     return (
       <div className="detailSection">

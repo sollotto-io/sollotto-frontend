@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { IconButton } from '@material-ui/core';
 import { useHistory } from 'react-router';
 import checkIfWinner from './utils/checkIfWinner';
-import { GlobalContext } from '../../context/GlobalContext';
 import moment from 'moment';
 import { sortTicketNumber } from '../utils/helpers';
+import useReduxState from '../hooks/useReduxState';
 
 const RDetail = ({ lotteryData }) => {
-  const { globalData } = useContext(GlobalContext);
+  const [globalData] = useReduxState((state) => state.globalData);
 
   const history = useHistory();
   const sendToResults = () => {
@@ -80,12 +80,25 @@ const RDetail = ({ lotteryData }) => {
             <p>Your Result</p>
             {userResult()}
           </section>
-         
-          
+          <section id="charity-list">
+            <p>
+              {lotteryData.WinningCharity.length === 1 ? 'Winning Charity' : 'Winning Charities'}
+            </p>
+            {lotteryData.WinningCharity.length === 0
+              ? 'TBD'
+              : lotteryData.WinningCharity.map((c, i) => {
+                  return <p key={i}>{c.charityName}</p>;
+                })}
+          </section>
+          <section>
+            {console.log(lotteryData.WinningCharity)}
+            <p style={{ width: 200 }}>Votes Recieved by winning charity</p>
+            <p>10</p>
+          </section>
         </div>
         <section id="charity-list">
-                          { winningCharityResult(lotteryData={lotteryData})}
-          </section>
+          <winningCharityResult lotteryData={lotteryData} />
+        </section>
       </section>
     );
   }
@@ -93,38 +106,36 @@ const RDetail = ({ lotteryData }) => {
 
 export default RDetail;
 
+const winningCharityResult = ({ lotteryData }) => {
+  var arr = [];
+  var totalVotes = 0;
+  lotteryData.CharityVoteCount.forEach((c) => {
+    totalVotes = totalVotes + c.votes;
+    if (lotteryData.WinningCharity.find((t) => t.id === c.charityId.id)) {
+      arr.push(c);
+    }
+  });
 
-
-const winningCharityResult = ({lotteryData})=>{
-  var arr = []  
-  var totalVotes = 0
- lotteryData.CharityVoteCount.forEach((c)=> {
-  totalVotes = totalVotes +c.votes;
-  if(lotteryData.WinningCharity.find( (t)  =>  t.id ===c.charityId.id)){
-      arr.push(c)
-  }
-
-} )
-
-
-return (
-  <div id="winner-charity">
-   <div >
-  {lotteryData.WinningCharity.length === 1 ? 'Winning Charity' : 'Winning Charities'}
-  <div id="winner-charity-list">
-  {arr.length === 0 ? "TBD" :  arr.map((c)=>{
-    return <p>{c.charityId.charityName}</p>
-  })}
-  </div>
-   </div>
-   <div id="winner-charity-vote">
-     <pre>Votes Recieved</pre>
-     <p>{arr.length === 0 ? "TBD" : arr[0].votes}</p>
-   </div>
-   <div id="winner-charity-per">
-     <p> % Votes Recieved</p>
-     <p>{arr.length === 0 ? "TBD" :(arr[0].votes/ totalVotes *100).toFixed(2)}</p>
-   </div>
-   </div>
-);
-}
+  return (
+    <div id="winner-charity">
+      <div>
+        {lotteryData.WinningCharity.length === 1 ? 'Winning Charity' : 'Winning Charities'}
+        <div id="winner-charity-list">
+          {arr.length === 0
+            ? 'TBD'
+            : arr.map((c) => {
+                return <p>{c.charityId.charityName}</p>;
+              })}
+        </div>
+      </div>
+      <div id="winner-charity-vote">
+        <pre>Votes Recieved</pre>
+        <p>{arr.length === 0 ? 'TBD' : arr[0].votes}</p>
+      </div>
+      <div id="winner-charity-per">
+        <p> % Votes Recieved</p>
+        <p>{arr.length === 0 ? 'TBD' : ((arr[0].votes / totalVotes) * 100).toFixed(2)}</p>
+      </div>
+    </div>
+  );
+};
