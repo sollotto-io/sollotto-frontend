@@ -96,9 +96,44 @@ const RDetail = ({ lotteryData }) => {
             <p>10</p>
           </section>
         </div>
+        <section id="charity-list">{winningCharityResult((lotteryData = { lotteryData }))}</section>
       </section>
     );
   }
 };
 
 export default RDetail;
+
+const winningCharityResult = ({ lotteryData }) => {
+  var arr = [];
+  var totalVotes = 0;
+  lotteryData.CharityVoteCount.forEach((c) => {
+    totalVotes = totalVotes + c.votes;
+    if (lotteryData.WinningCharity.find((t) => t.id === c.charityId.id)) {
+      arr.push(c);
+    }
+  });
+
+  return (
+    <div id="winner-charity">
+      <div>
+        {lotteryData.WinningCharity.length === 1 ? 'Winning Charity' : 'Winning Charities'}
+        <div id="winner-charity-list">
+          {arr.length === 0
+            ? 'TBD'
+            : arr.map((c) => {
+                return <p>{c.charityId.charityName}</p>;
+              })}
+        </div>
+      </div>
+      <div id="winner-charity-vote">
+        <pre>Votes Recieved</pre>
+        <p>{arr.length === 0 ? 'TBD' : arr[0].votes}</p>
+      </div>
+      <div id="winner-charity-per">
+        <p> % Votes Recieved</p>
+        <p>{arr.length === 0 ? 'TBD' : ((arr[0].votes / totalVotes) * 100).toFixed(2)}</p>
+      </div>
+    </div>
+  );
+};

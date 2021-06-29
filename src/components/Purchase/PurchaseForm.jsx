@@ -97,8 +97,7 @@ export default function PurchaseForm() {
       }
 
       if (result.success === false) {
-        setLoading(false);
-        toast.error('Ticket Purchase Unsuccessful', {
+        toast.error('Ticket Purchase Unsuccessful, you dont have enough SOL', {
           position: 'bottom-left',
           autoClose: 3000,
           hideProgressBar: true,
