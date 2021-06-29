@@ -14,7 +14,7 @@ import { sortTicketNumber, ticketNumberValidator } from '../utils/helpers';
 
 export default function PurchaseForm() {
   const [addTicket] = useMutation(POST_TICKET);
-  const { purchaseData , setPurchaseData } = useContext(PurchaseContext);
+  const { purchaseData } = useContext(PurchaseContext);
   const { globalData } = useContext(GlobalContext);
   const { lotteryData, refetch } = useContext(LotteryContext);
 
