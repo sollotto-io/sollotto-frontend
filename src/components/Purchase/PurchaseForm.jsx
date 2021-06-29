@@ -16,7 +16,7 @@ import useReduxState from '../hooks/useReduxState';
 
 export default function PurchaseForm() {
   const [addTicket] = useMutation(POST_TICKET);
-  const [globalData] = useReduxState((state) => state.globalData);
+  const [globalData, setGlobalData] = useReduxState((state) => state.globalData);
   const [{ lotteryData, refetch }] = useReduxState((state) => state.lotteryData);
   const { ticketNumberArr, selectedCharity } = useSelector((state) => state.purchaseData);
   const [loading, setLoading] = useState(false);
@@ -89,6 +89,17 @@ export default function PurchaseForm() {
           );
 
           reduxAction({ type: 'RESET_PURCHASE_DATA', arg: null });
+          const balance = globalData.connection.getBalance(globalData.selectedWallet.publicKey);
+          console.log(balance);
+          balance.then((t) => {
+            console.log(t);
+            setGlobalData({
+              type: 'SET_GLOBAL_DATA',
+              arg: {
+                walletBalance: t,
+              },
+            });
+          });
 
           console.log(ticketNumberArr);
         } catch (e) {
