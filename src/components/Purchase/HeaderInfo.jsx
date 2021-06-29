@@ -53,7 +53,7 @@ export default function HeaderInfo(props) {
 
         <p style={{ margin: 0, width: 210 }}>
           {' '}
-          {flag ? `Total Tickets Purchased : # ${myTickets.length}` : 'Please connect your wallet'}
+          {flag ? `Total Tickets Purchased: # ${myTickets.length}` : 'Please connect your wallet'}
         </p>
         <p style={{ textAlign: 'right', margin: 0 }}>
           Prize Pool: {lotteryData.TotalPoolValue.toFixed(2)} SOL
