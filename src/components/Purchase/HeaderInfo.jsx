@@ -1,14 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import TranspInfo from './purchase-components/TranspInfo';
 import LotteryEndInfo from './purchase-components/LotteryEndInfo';
-import { LotteryContext } from '../../context/LotteryContext';
+
 import Counter from '../common/countdown';
 import Loader from '../common/Loader';
 import useReduxState from '../hooks/useReduxState';
 import _ from 'lodash';
 
 export default function HeaderInfo(props) {
-  const { lotteryData, loading } = useContext(LotteryContext);
+  const [lotteryState] = useReduxState((state) => state.lotteryData);
+
+  const { lotteryData, loading } = lotteryState;
   const [globalData] = useReduxState((state) => state.globalData);
   var myTickets = [];
   var flag = false;

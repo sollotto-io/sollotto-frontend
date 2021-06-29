@@ -1,16 +1,17 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef } from 'react';
 import CharityImage from './CharityImage';
 import CharityName from './CharityName';
 import CharitySelectButton from './CharitySelectButton';
 import SolLottoLogo from '../purchase-components/SolLottoLogo';
 import { IconButton } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
-import {Link} from 'react-router-dom';
-import { LotteryContext } from '../../../context/LotteryContext';
-
+import { Link } from 'react-router-dom';
+import useReduxState from '../../hooks/useReduxState';
 
 const SingleCharitySelector = (props) => {
-  const { lotteryData } = useContext(LotteryContext);
+  const [lotteryState] = useReduxState((state) => state.lotteryData);
+
+  const { lotteryData } = lotteryState;
   const singleCharityBlockRef = useRef(null);
 
   var charityBtnHandler = (charityBtn) => {
@@ -21,14 +22,14 @@ const SingleCharitySelector = (props) => {
     <div
       className="psuedoGreyBg psuedoBorder  singleCharitySelectorWrapper"
       ref={singleCharityBlockRef}
-     
     >
-      <div  className="singleCharitySelector">
-        <Link style={{position:'absolute', right:"5px"}} to={`/charities/${lotteryData.Charities[props.index].charityName}`}>
-          <IconButton
-            id="info-circle"
-          >
-            <InfoIcon style={{fill:"#fff"}} />
+      <div className="singleCharitySelector">
+        <Link
+          style={{ position: 'absolute', right: '5px' }}
+          to={`/charities/${lotteryData.Charities[props.index].charityName}`}
+        >
+          <IconButton id="info-circle">
+            <InfoIcon style={{ fill: '#fff' }} />
           </IconButton>
         </Link>
         <SolLottoLogo charitySelectorIcon={true} />

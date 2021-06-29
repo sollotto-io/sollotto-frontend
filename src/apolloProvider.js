@@ -4,7 +4,6 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createHttpLink } from 'apollo-link-http';
 import { ApolloProvider } from '@apollo/react-hooks';
 import App from './App';
-import LotteryContextWrapper from './context/LotteryContext';
 import { Provider } from 'react-redux';
 import store from './redux/stores/store';
 
@@ -19,10 +18,8 @@ const client = new ApolloClient({
 
 export default (
   <ApolloProvider client={client}>
-    <LotteryContextWrapper>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </LotteryContextWrapper>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </ApolloProvider>
 );

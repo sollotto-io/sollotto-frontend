@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Card from './purchase-components/Card';
 
 import GreenGradientSvg from '../common/GreenGradientSvg';
@@ -7,7 +7,7 @@ import PurpleGradientSvg from '../common/PurpleGradientSvg';
 import { toast } from 'react-toastify';
 import PurchaseForm from './PurchaseForm';
 import useDidUpdateEffect from '../hooks/useDidUpdateEffect';
-import { LotteryContext } from '../../context/LotteryContext';
+
 import { useSelector } from 'react-redux';
 import reduxAction from '../../redux/reduxAction';
 
@@ -18,7 +18,8 @@ import useReduxState from '../hooks/useReduxState';
 
 const PurchaseCard = () => {
   const { ticketNumberArr, valid } = useSelector((state) => state.purchaseData);
-  const { loading, lotteryData } = useContext(LotteryContext);
+  const [{ loading, lotteryData }] = useReduxState((state) => state.lotteryData);
+
   const [globalData] = useReduxState((state) => state.globalData);
 
   /*   const [userTickets, setUserTickets] = useState([]);

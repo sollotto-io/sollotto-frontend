@@ -96,7 +96,9 @@ const RDetail = ({ lotteryData }) => {
             <p>10</p>
           </section>
         </div>
-        <section id="charity-list">{winningCharityResult((lotteryData = { lotteryData }))}</section>
+        <section id="charity-list">
+          <winningCharityResult lotteryData={lotteryData} />
+        </section>
       </section>
     );
   }

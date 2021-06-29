@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Nav from './components/Nav';
 import Purchase from './pages/Purchase';
@@ -7,16 +7,32 @@ import Suggest from './pages/Suggest';
 import Results from './pages/Results';
 import Pool from './pages/Pool';
 import CharityDetailPage from './components/Charity/CharityDetailPage';
-import { LotteryContext } from './context/LotteryContext';
 import Loader from './components/common/Loader';
 import Footer from './pages/Footer';
 import ResultDetail from './components/Result/ResultDetail';
 import './css/pool.css';
 import useReduxState from './components/hooks/useReduxState';
+import { useQuery } from '@apollo/client';
+import { FETCH_UPCOMING_DRAWING } from './graphql/queries';
 
 function App() {
   const [globalData, setGlobalData] = useReduxState((state) => state.globalData);
-  const { loading } = useContext(LotteryContext);
+  const { loading, data, refetch } = useQuery(FETCH_UPCOMING_DRAWING);
+  const [, setLotteryData] = useReduxState((state) => state.lotteryData);
+
+  useEffect(() => {
+    if (!loading) {
+      setLotteryData({
+        type: 'SET_LOTTERY_DATA',
+        arg: {
+          loading,
+          lotteryData: data.getActiveDrawing,
+          refetch: refetch,
+        },
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading]);
 
   useEffect(() => {
     if (globalData.selectedWallet) {

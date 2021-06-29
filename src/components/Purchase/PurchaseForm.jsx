@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import NumberSelector from './NumberSelector/NumberSelector';
 import CharitySelector from './CharitySelector/CharitySelector';
 import PurchaseButton from './PurchaseButton';
@@ -7,7 +7,7 @@ import TicketPrice from './purchase-components/TicketPrice';
 import { ticketPurchase } from './util/ticketPurchase';
 import { useMutation } from '@apollo/react-hooks';
 import { POST_TICKET } from '../../graphql/mutations';
-import { LotteryContext } from '../../context/LotteryContext';
+
 import { sortTicketNumber, ticketNumberValidator } from '../utils/helpers';
 import { useSelector } from 'react-redux';
 import reduxAction from '../../redux/reduxAction';
@@ -17,7 +17,7 @@ import useReduxState from '../hooks/useReduxState';
 export default function PurchaseForm() {
   const [addTicket] = useMutation(POST_TICKET);
   const [globalData] = useReduxState((state) => state.globalData);
-  const { lotteryData, refetch } = useContext(LotteryContext);
+  const [{ lotteryData, refetch }] = useReduxState((state) => state.lotteryData);
   const { ticketNumberArr, selectedCharity } = useSelector((state) => state.purchaseData);
   const [loading, setLoading] = useState(false);
 

@@ -1,13 +1,14 @@
-import React, { useState, useContext, createContext } from 'react';
+import React, { useState, createContext } from 'react';
 import SingleCharitySelector from './SingleCharitySelector';
-import { LotteryContext } from '../../context/LotteryContext';
 
 import reduxAction from '../../redux/reduxAction';
 
 export const CharityDataContext = createContext(null);
-
+useReduxState((state) => state.lotteryData);
 export default function CharitySelectorGrid() {
-  const { lotteryData } = useContext(LotteryContext);
+  const [lotteryState] = useReduxState((state) => state.lotteryData);
+
+  const { lotteryData } = lotteryState;
   const [selectedCharityBtn, setSelectedCharityBtn] = useState(null);
   const [selectedCharityBlock, setSelectedCharityBlock] = useState(null);
 

@@ -108,17 +108,5 @@ export const FETCH_LOTTERY_BY_ID = gql`
       TotalPoolValue
       isActive
     }
-    WinningNumbers
-    EndDate
-    WinnerWallet
-    TotalPoolValue
-    isActive
-    CharityVoteCount {
-      charityId {
-        id
-        charityName
-      }
-      votes
-    }
   }
 `;

@@ -1,14 +1,16 @@
-import React, { useState, useContext, createContext } from 'react';
+import React, { useState, createContext } from 'react';
 import SingleCharitySelector from './SingleCharitySelector';
-import { LotteryContext } from '../../../context/LotteryContext';
 import reduxAction from '../../../redux/reduxAction';
+import useReduxState from '../../hooks/useReduxState';
 
 import Loader from '../../common/Loader';
 
 export const CharityDataContext = createContext(null);
 
 export default function CharitySelectorGrid() {
-  const { lotteryData, loading } = useContext(LotteryContext);
+  const [lotteryState] = useReduxState((state) => state.lotteryData);
+
+  const { lotteryData, loading } = lotteryState;
   const [selectedCharityBtn, setSelectedCharityBtn] = useState(null);
   const [selectedCharityBlock, setSelectedCharityBlock] = useState(null);
   // eslint-disable-line react-hooks/exhaustive-deps
