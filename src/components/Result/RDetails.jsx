@@ -80,24 +80,11 @@ const RDetail = ({ lotteryData }) => {
             <p>Your Result</p>
             {userResult()}
           </section>
-          <section id="charity-list">
-            <p>
-              {lotteryData.WinningCharity.length === 1 ? 'Winning Charity' : 'Winning Charities'}
-            </p>
-            {lotteryData.WinningCharity.length === 0
-              ? 'TBD'
-              : lotteryData.WinningCharity.map((c, i) => {
-                  return <p key={i}>{c.charityName}</p>;
-                })}
-          </section>
-          <section>
-            {console.log(lotteryData.WinningCharity)}
-            <p style={{ width: 200 }}>Votes Recieved by winning charity</p>
-            <p>10</p>
-          </section>
+        
+          
         </div>
         <section id="charity-list">
-          <winningCharityResult lotteryData={lotteryData} />
+          <WinningCharityResult lotteryData={lotteryData} />
         </section>
       </section>
     );
@@ -106,7 +93,8 @@ const RDetail = ({ lotteryData }) => {
 
 export default RDetail;
 
-const winningCharityResult = ({ lotteryData }) => {
+const WinningCharityResult = ({ lotteryData }) => {
+  console.log(lotteryData);
   var arr = [];
   var totalVotes = 0;
   lotteryData.CharityVoteCount.forEach((c) => {
@@ -123,8 +111,8 @@ const winningCharityResult = ({ lotteryData }) => {
         <div id="winner-charity-list">
           {arr.length === 0
             ? 'TBD'
-            : arr.map((c) => {
-                return <p>{c.charityId.charityName}</p>;
+            : arr.map((c,i) => {
+                return <p key={i}>{c.charityId.charityName}</p>;
               })}
         </div>
       </div>

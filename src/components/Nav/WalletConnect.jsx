@@ -33,7 +33,7 @@ export default function WalletConnect() {
         onClick={handleClickOpen}
       >
         <AccountBalanceWalletOutlinedIcon fontSize="small" />
-        <span>
+        <span  >
           {globalData.walletConnectedFlag === true
             ? `${globalData.selectedWallet.publicKey
                 .toBase58()

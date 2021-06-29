@@ -16,7 +16,6 @@ export default function useWallet() {
     return new Wallet('https://phantom.app/', process.env.REACT_APP_SOLANA_NETWORK);
   };
   useDidUpdateEffect(() => {
-    console.log(walletName);
     if (walletName !== '') {
       let urlWallet;
       switch (walletName) {
