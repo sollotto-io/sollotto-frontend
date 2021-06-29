@@ -7,11 +7,11 @@ import TicketPrice from './purchase-components/TicketPrice';
 import { ticketPurchase } from './util/ticketPurchase';
 import { useMutation } from '@apollo/react-hooks';
 import { POST_TICKET } from '../../graphql/mutations';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { sortTicketNumber, ticketNumberValidator } from '../utils/helpers';
 import { useSelector } from 'react-redux';
 import reduxAction from '../../redux/reduxAction';
-import Loader from '../common/Loader';
 import useReduxState from '../hooks/useReduxState';
 
 export default function PurchaseForm() {
@@ -118,9 +118,14 @@ export default function PurchaseForm() {
       <div className="purchaseCardFooter">
         <TicketPrice />
         {loading ? (
-          <Loader style={{ height: '100%' }} />
+          <span style={{display:"flex", justifyContent:"center"}}>
+          <CircularProgress size={30} />
+          </span>
         ) : (
+          <span style={{display:"flex", justifyContent:"center"}}>
+          
           <PurchaseButton handleSubmit={handleSubmit} />
+          </span>
         )}
       </div>
     </form>
