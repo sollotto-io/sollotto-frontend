@@ -72,7 +72,6 @@ export const ticketPurchase = async (globalData, purchaseDataArr, lotteryData) =
     const signedTx = await globalData.selectedWallet.signTransaction(transaction);
 
     const signature = await globalData.connection.sendRawTransaction(signedTx.serialize());
-    console.log(signature)
     await globalData.connection.confirmTransaction(signature, 'singleGossip');
 
   

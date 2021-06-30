@@ -111,7 +111,7 @@ export default function PurchaseForm() {
 
             reduxAction({ type: 'RESET_PURCHASE_DATA', arg: null });
 
-            console.log(ticketNumberArr);
+
           } catch (e) {
             console.log(e);
           }
