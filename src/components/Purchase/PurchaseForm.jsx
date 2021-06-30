@@ -21,7 +21,7 @@ export default function PurchaseForm() {
   const [{ lotteryData, refetch }] = useReduxState((state) => state.lotteryData);
   const { ticketNumberArr, selectedCharity } = useSelector((state) => state.purchaseData);
   const [loading, setLoading] = useState(false);
-
+  
   async function handleSubmit() {
     const ticketNumbers = sortTicketNumber(ticketNumberArr);
 
@@ -78,15 +78,15 @@ export default function PurchaseForm() {
             setLoading(false);
             toast.success(
               <div>
-                Ticket Purchase is Successful, Your purchased tickets can be found on the results
+                Ticket purchase is successful, your purchased tickets can be found on the results
                 page, under the day of your drawing
                 <br />
                 <br />
-                TicketNumber:
-                {[...ticketNumberArr].splice(0, ticketNumberArr.length - 1).join('-')}-
+                Ticket Number:&nbsp;
+                {[...ticketNumberArr].splice(0, ticketNumberArr.length - 1).join(',')}-
                 {ticketNumberArr[5]}
                 <br />
-                Charity:
+                Charity:&nbsp;
                 {
                   lotteryData.Charities[
                     lotteryData.Charities.findIndex(
@@ -94,8 +94,9 @@ export default function PurchaseForm() {
                     )
                   ].charityName
                 }
-                View your ticket: <Link to={`/results/${lotteryData.id}`}>Ticket Link</Link><br/>
-                View Transaction: <a href={`https://explorer.solana.com/tx/${result.signature}?cluster=devnet`} target="_blank" rel="noreferrer">Transacton Link</a>
+                <br/>
+                 <Link style={{textDecoration:"underline"}} to={`/results/${lotteryData.id}`}>View Your Ticket</Link><br/>
+                 <a style={{textDecoration:"underline"}} href={`https://solscan.io/tx/${result.signature}?cluster=devnet`} target="_blank" rel="noreferrer">View Your Transacton</a>
               </div>,
               {
                 position: 'bottom-left',
