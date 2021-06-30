@@ -11,9 +11,10 @@ import * as borsh from 'borsh';
 import { TicketDataAccount, TicketDataSchema } from './TicketDataBorsh';
 
 export const ticketPurchase = async (globalData, purchaseDataArr, lotteryData) => {
- 
+
   const lotteryInitProgramId = new PublicKey(process.env.REACT_APP_SOLANA_INIT_LOTTERY_PROGRAM);
   const holdingWalletPK = new PublicKey(globalData.holdingWalletId);
+
   try {
     const solTransferTx = SystemProgram.transfer({
       fromPubkey: globalData.selectedWallet.publicKey,
@@ -59,6 +60,7 @@ export const ticketPurchase = async (globalData, purchaseDataArr, lotteryData) =
       createTicketDataAccountTx,
       purchaseTicketTx,
     );
+    
     const signers = [ticketDataAccount];
 
     transaction.recentBlockhash = (await globalData.connection.getRecentBlockhash()).blockhash;
@@ -70,11 +72,11 @@ export const ticketPurchase = async (globalData, purchaseDataArr, lotteryData) =
     const signedTx = await globalData.selectedWallet.signTransaction(transaction);
 
     const signature = await globalData.connection.sendRawTransaction(signedTx.serialize());
-
+    console.log(signature)
     await globalData.connection.confirmTransaction(signature, 'singleGossip');
 
   
-    return { DataWallet: ticketDataAccount.publicKey.toBytes(), success: true };
+    return { DataWallet: ticketDataAccount.publicKey.toBytes(), success: true , signature: signature };
   } catch (e) {
     console.log(e)
     return { success: false };

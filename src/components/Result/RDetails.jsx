@@ -94,7 +94,6 @@ const RDetail = ({ lotteryData }) => {
 export default RDetail;
 
 const WinningCharityResult = ({ lotteryData }) => {
-  console.log(lotteryData);
   var arr = [];
   var totalVotes = 0;
   lotteryData.CharityVoteCount.forEach((c) => {

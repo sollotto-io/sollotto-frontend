@@ -13,6 +13,7 @@ import { sortTicketNumber, ticketNumberValidator } from '../utils/helpers';
 import { useSelector } from 'react-redux';
 import reduxAction from '../../redux/reduxAction';
 import useReduxState from '../hooks/useReduxState';
+import { Link } from 'react-router-dom';
 
 export default function PurchaseForm() {
   const [addTicket] = useMutation(POST_TICKET);
@@ -43,69 +44,90 @@ export default function PurchaseForm() {
         ticketNumArr: ticketNumbers,
       };
       setLoading(true);
-      const result = await ticketPurchase(globalData, ticketData, lotteryData);
 
-      if (result.success === true) {
-        try {
-          await addTicket({
-            variables: {
-              DataWallet: Buffer.from(result.DataWallet).toJSON().data,
-              walletID: Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data,
-              ticketArray: ticketNumbers,
-              charityId: ticketData.charityId,
-              drawingId: lotteryData.id,
-            },
-          });
+      if (globalData.walletBalance === 0) {
+        toast.error(
+          'Ticket purchase unsuccessful. You dont have enough SOL in your wallet to purchase a ticket',
+          {
+            position: 'bottom-left',
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          },
+        );
+        setLoading(false);
+      } else {
+        const result = await ticketPurchase(globalData, ticketData, lotteryData);
 
-          await refetch();
-          setLoading(false);
-          toast.success(
-            <div>
-              Ticket Purchase is Successful, Your purchased tickets can be found on the results
-              page, under the day of your drawing
-              <br />
-              <br />
-              TicketNumber:
-              {[...ticketNumberArr].splice(0, ticketNumberArr.length - 1).join('-')}-
-              {ticketNumberArr[5]}
-              <br />
-              Charity:
+        if (result.success === true) {
+          try {
+            await addTicket({
+              variables: {
+                DataWallet: Buffer.from(result.DataWallet).toJSON().data,
+                walletID: Buffer.from(globalData.selectedWallet.publicKey.toBytes()).toJSON().data,
+                ticketArray: ticketNumbers,
+                charityId: ticketData.charityId,
+                drawingId: lotteryData.id,
+              },
+            });
+
+            await refetch();
+            setLoading(false);
+            toast.success(
+              <div>
+                Ticket Purchase is Successful, Your purchased tickets can be found on the results
+                page, under the day of your drawing
+                <br />
+                <br />
+                TicketNumber:
+                {[...ticketNumberArr].splice(0, ticketNumberArr.length - 1).join('-')}-
+                {ticketNumberArr[5]}
+                <br />
+                Charity:
+                {
+                  lotteryData.Charities[
+                    lotteryData.Charities.findIndex(
+                      (charity) => charity.id === ticketData.charityId,
+                    )
+                  ].charityName
+                }
+                View your ticket: <Link to={`/results/${lotteryData.id}`}>Ticket Link</Link><br/>
+                View Transaction: <a href={`https://explorer.solana.com/tx/${result.signature}?cluster=devnet`} target="_blank" rel="noreferrer">Transacton Link</a>
+              </div>,
               {
-                lotteryData.Charities[
-                  lotteryData.Charities.findIndex((charity) => charity.id === ticketData.charityId)
-                ].charityName
-              }
-            </div>,
-            {
-              position: 'bottom-left',
-              autoClose: 6000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              allowHtml: true,
-            },
-          );
+                position: 'bottom-left',
+                autoClose: 6000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                allowHtml: true,
+              },
+            );
 
-          reduxAction({ type: 'RESET_PURCHASE_DATA', arg: null });
+            reduxAction({ type: 'RESET_PURCHASE_DATA', arg: null });
 
-          console.log(ticketNumberArr);
-        } catch (e) {
-          console.log(e);
+            console.log(ticketNumberArr);
+          } catch (e) {
+            console.log(e);
+          }
         }
-      }
 
-      if (result.success === false) {
-        toast.error('Ticket Purchase Unsuccessful, you dont have enough SOL', {
-          position: 'bottom-left',
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        if (result.success === false) {
+          toast.error('Ticket Purchase Unsuccessful', {
+            position: 'bottom-left',
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
       }
     }
   }
@@ -114,17 +136,16 @@ export default function PurchaseForm() {
     <form onSubmit={handleSubmit}>
       <NumberSelector />
       <CharitySelector />
-      <ToastContainer />
+      <ToastContainer className="toast-container"  />
       <div className="purchaseCardFooter">
         <TicketPrice />
         {loading ? (
-          <span style={{display:"flex", justifyContent:"center"}}>
-          <CircularProgress size={30} />
+          <span style={{ display: 'flex', justifyContent: 'center' }}>
+            <CircularProgress size={30} />
           </span>
         ) : (
-          <span style={{display:"flex", justifyContent:"center"}}>
-          
-          <PurchaseButton handleSubmit={handleSubmit} />
+          <span style={{ display: 'flex', justifyContent: 'center' }}>
+            <PurchaseButton handleSubmit={handleSubmit} />
           </span>
         )}
       </div>
