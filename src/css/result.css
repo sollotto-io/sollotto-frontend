@@ -8,8 +8,7 @@
 }
 
 #charity-list{
-  height: 120px;
-  overflow-y: scroll;
+  height: fit-content;
  
 }
 

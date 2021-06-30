@@ -116,7 +116,7 @@ const WinningCharityResult = ({ lotteryData }) => {
         </div>
       </div>
       <div id="winner-charity-vote">
-        <pre>Votes Recieved</pre>
+        <p>Votes Recieved</p>
         <p>{arr.length === 0 ? 'TBD' : arr[0].votes}</p>
       </div>
       <div id="winner-charity-per">
