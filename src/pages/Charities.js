@@ -1,29 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import '../css/charity.css';
 import PageTitle from '../components/common/PageTitle';
 import CharityTable from '../components/Charity/CharityTable.jsx';
 import '../css/pool.css';
-import { useQuery } from '@apollo/react-hooks';
-import { FETCH_ALL_CHARITIES } from '../graphql/queries';
 import Loader from '../components/common/Loader';
 import useReduxState from '../components/hooks/useReduxState';
 
-export default function Charities() {
-  const { loading: charityloading, data: charities } = useQuery(FETCH_ALL_CHARITIES);
-  const [globalData, setGlobalData] = useReduxState((state) => state.globalData);
-
-  useEffect(() => {
-    if (charityloading === false) {
-      setGlobalData({
-        type: 'SET_GLOBAL_DATA',
-        arg: {
-          ...globalData,
-          charities: charities.getAllCharities,
-        },
-      });
-    }
-  }, [charityloading]); // eslint-disable-line react-hooks/exhaustive-deps
-
+export default function Charities({charityloading}) {
+  const [globalData] = useReduxState((state) => state.globalData);
+ 
   if (charityloading) {
     return <Loader />;
   } else {
@@ -33,7 +18,7 @@ export default function Charities() {
           <div id="poolHeader">
             <PageTitle title="Charities" />
           </div>
-          {charities ? <CharityTable rows={charities.getAllCharities} /> : ''}
+          {globalData.charities ? <CharityTable rows={globalData.charities} /> : ''}
           <div id="suggest-charity">
             <h4>Suggest</h4>
             <p>
