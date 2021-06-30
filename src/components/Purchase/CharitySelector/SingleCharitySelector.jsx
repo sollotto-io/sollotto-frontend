@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import CharityImage from './CharityImage';
 import CharityName from './CharityName';
-import CharitySelectButton from './CharitySelectButton';
 import SolLottoLogo from '../purchase-components/SolLottoLogo';
 import { IconButton } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
