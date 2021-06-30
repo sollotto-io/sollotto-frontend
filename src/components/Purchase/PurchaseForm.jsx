@@ -18,10 +18,11 @@ import { Link } from 'react-router-dom';
 export default function PurchaseForm() {
   const [addTicket] = useMutation(POST_TICKET);
   const [globalData] = useReduxState((state) => state.globalData);
-  const [{ lotteryData, refetch }] = useReduxState((state) => state.lotteryData);
+  const [{ lotteryData, refetch }, setLotteryData] = useReduxState((state) => state.lotteryData);
+
   const { ticketNumberArr, selectedCharity } = useSelector((state) => state.purchaseData);
   const [loading, setLoading] = useState(false);
-  
+
   async function handleSubmit() {
     const ticketNumbers = sortTicketNumber(ticketNumberArr);
 
@@ -74,7 +75,15 @@ export default function PurchaseForm() {
               },
             });
 
-            await refetch();
+            const dataUpdated = await refetch();
+            await setLotteryData({
+              type: 'SET_LOTTERY_DATA',
+              arg: {
+                ...lotteryData,
+                lotteryData: dataUpdated.data.getActiveDrawing,
+              },
+            });
+
             setLoading(false);
             toast.success(
               <div>
@@ -94,9 +103,19 @@ export default function PurchaseForm() {
                     )
                   ].charityName
                 }
-                <br/>
-                 <Link style={{textDecoration:"underline"}} to={`/results/${lotteryData.id}`}>View Your Ticket</Link><br/>
-                 <a style={{textDecoration:"underline"}} href={`https://solscan.io/tx/${result.signature}?cluster=devnet`} target="_blank" rel="noreferrer">View Your Transacton</a>
+                <br />
+                <Link style={{ textDecoration: 'underline' }} to={`/results/${lotteryData.id}`}>
+                  View Your Ticket
+                </Link>
+                <br />
+                <a
+                  style={{ textDecoration: 'underline' }}
+                  href={`https://solscan.io/tx/${result.signature}?cluster=devnet`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View Your Transacton
+                </a>
               </div>,
               {
                 position: 'bottom-left',
@@ -111,8 +130,6 @@ export default function PurchaseForm() {
             );
 
             reduxAction({ type: 'RESET_PURCHASE_DATA', arg: null });
-
-
           } catch (e) {
             console.log(e);
           }
@@ -137,7 +154,7 @@ export default function PurchaseForm() {
     <form onSubmit={handleSubmit}>
       <NumberSelector />
       <CharitySelector />
-      <ToastContainer className="toast-container"  />
+      <ToastContainer className="toast-container" />
       <div className="purchaseCardFooter">
         <TicketPrice />
         {loading ? (
