@@ -21,7 +21,8 @@ export default function Results() {
       .filter((row) => new Date(row.EndDate) < Date.now())
       .map((row) => {
         return { ...row, WinningNumbers: sortTicketNumber(row.WinningNumbers) };
-      });
+      })
+      .reverse();
 
     const nextLotteries = data.getAllDrawing
       .filter((row) => new Date(row.EndDate) > Date.now())
