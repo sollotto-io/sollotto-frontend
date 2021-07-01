@@ -39,7 +39,7 @@ export default function Nav() {
       <span
         style={{
           display: 'grid',
-          gridTemplateColumns: 'auto auto',
+          gridTemplateColumns: 'auto auto auto',
           columnGap: 10,
           alignItems: 'center',
         }}
@@ -50,9 +50,9 @@ export default function Nav() {
             : ''}
         </p>
         <WalletConnect />
-      </span>
       {globalData.walletConnectedFlag && <WalletDisconnect />}
       <HamBtn onMenuClick={menuClickHandler} />
+      </span>
     </nav>
   );
 }

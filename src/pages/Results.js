@@ -16,7 +16,6 @@ export default function Results() {
   if (loading) {
     return <Loader />;
   } else {
-    console.log(data);
     const pastLotteries = data.getAllDrawing
       .filter((row) => new Date(row.EndDate) < Date.now())
       .map((row) => {

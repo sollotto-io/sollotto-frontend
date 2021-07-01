@@ -1,11 +1,9 @@
 nav {
   display: grid;
-  grid-template-columns: 150px 1fr auto auto;
+  grid-template-columns: 150px 1fr auto;
   grid-template-rows: auto auto;
   padding-top: 0.5rem;
   border-bottom: 2px solid #1c274f;
-  justify-items: center;
-  align-items: center;
 }
 .logo {
   width: 100%;
@@ -69,7 +67,7 @@ nav {
   justify-self: end;
   align-self: center;
   cursor: pointer;
-  margin-right: 1rem;
+ 
   display: grid;
   grid-template-columns: auto auto;
 }
@@ -93,7 +91,7 @@ nav {
 }
 @media only screen and (min-width: 980px) {
   nav {
-    grid-template-columns: 200px 1fr auto auto;
+    grid-template-columns: 200px 1fr auto;
     grid-template-rows: 100%;
     padding: 0.5rem 1.5rem 0rem 1.5rem;
   }

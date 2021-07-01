@@ -42,7 +42,10 @@ const SingleCharitySelector = ({ index, charitySelectHandler, charityId }) => {
       <div className="singleCharitySelector">
         <Link
           style={{ position: 'absolute', right: '5px' }}
-          to={`/charities/${lotteryData.Charities[index].charityName}`}
+          to={{
+            pathname: `/charities/${lotteryData.Charities[props.index].charityName}`,
+            state: { fromPurchase: true },
+          }}
         >
           <IconButton id="info-circle">
             <InfoIcon style={{ fill: '#fff' }} />

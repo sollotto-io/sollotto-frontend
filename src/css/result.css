@@ -8,8 +8,7 @@
 }
 
 #charity-list{
-  height: 120px;
-  overflow-y: scroll;
+  height: fit-content;
  
 }
 
@@ -71,6 +70,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+#winner-charity{
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+ 
+
+}
+#winner-charity *{
+  margin: 0;
+  margin-top: 10px;
+}
+#winner-charity-vote *{
+  margin: 0;
+}
+#winner-charity-per *{
+  margin: 0;
 }
 @media only screen and (min-width: 980px) {
   #winTicket {

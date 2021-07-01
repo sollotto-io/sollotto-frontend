@@ -13,14 +13,26 @@ import ResultDetail from './components/Result/ResultDetail';
 import './css/pool.css';
 import useReduxState from './components/hooks/useReduxState';
 import { useQuery } from '@apollo/client';
-import { FETCH_UPCOMING_DRAWING } from './graphql/queries';
+import { FETCH_ALL_CHARITIES, FETCH_UPCOMING_DRAWING } from './graphql/queries';
 
 function App() {
   const [globalData, setGlobalData] = useReduxState((state) => state.globalData);
   const { loading, data, refetch } = useQuery(FETCH_UPCOMING_DRAWING);
   const [, setLotteryData] = useReduxState((state) => state.lotteryData);
+  const { loading: charityloading, data: charities } = useQuery(FETCH_ALL_CHARITIES);
+  
+
 
   useEffect(() => {
+    if (charityloading === false) {
+      setGlobalData({
+        type: 'SET_GLOBAL_DATA',
+        arg: {
+          ...globalData,
+          charities: charities.getAllCharities,
+        },
+      });
+    }
     if (!loading) {
       setLotteryData({
         type: 'SET_LOTTERY_DATA',
@@ -32,7 +44,7 @@ function App() {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading]);
+  }, [loading,charityloading]);
 
   useEffect(() => {
     if (globalData.selectedWallet) {
@@ -77,7 +89,7 @@ function App() {
           </Route>
 
           <Route exact path="/charities">
-            <Charities />
+            <Charities charityloading={charityloading} />
           </Route>
           <Route exact path="/suggest">
             <Suggest />

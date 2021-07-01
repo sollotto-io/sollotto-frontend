@@ -41,7 +41,6 @@ export default function ResultTable({ loading, rows }) {
     });
   };
 
-  console.log(globalData.selectedWallet === null && globalData.walletConnectedFlag);
   // eslint-disable-line react-hooks/exhaustive-deps
 
   const history = useHistory();
