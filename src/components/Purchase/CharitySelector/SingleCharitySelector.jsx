@@ -43,7 +43,7 @@ const SingleCharitySelector = ({ index, charitySelectHandler, charityId }) => {
         <Link
           style={{ position: 'absolute', right: '5px' }}
           to={{
-            pathname: `/charities/${lotteryData.Charities[props.index].charityName}`,
+            pathname: `/charities/${lotteryData.Charities[index].charityName}`,
             state: { fromPurchase: true },
           }}
         >

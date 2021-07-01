@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 
 export default function PurchaseForm() {
   const [addTicket] = useMutation(POST_TICKET);
-  const [globalData] = useReduxState((state) => state.globalData);
+  const [globalData, setGlobalData] = useReduxState((state) => state.globalData);
   const [{ lotteryData, refetch }, setLotteryData] = useReduxState((state) => state.lotteryData);
 
   const { ticketNumberArr, selectedCharity } = useSelector((state) => state.purchaseData);
