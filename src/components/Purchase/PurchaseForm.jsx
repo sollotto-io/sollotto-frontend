@@ -114,7 +114,7 @@ export default function PurchaseForm() {
                 <br />
                 <br />
                 Ticket Number:&nbsp;
-                {[...ticketNumberArr].splice(0, ticketNumberArr.length - 1).join(',')}-
+                {[...ticketNumberArr].splice(0, ticketNumberArr.length - 1).join(',')},
                 {ticketNumberArr[5]}
                 <br />
                 Charity:&nbsp;
