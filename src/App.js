@@ -12,7 +12,7 @@ import Footer from './pages/Footer';
 import ResultDetail from './components/Result/ResultDetail';
 import './css/pool.css';
 import useReduxState from './components/hooks/useReduxState';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/react-hooks';
 import { FETCH_ALL_CHARITIES, FETCH_UPCOMING_DRAWING } from './graphql/queries';
 
 function App() {
