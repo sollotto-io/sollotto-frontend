@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { Connection } from '@solana/web3.js';
 const initialState = {
   holdingWalletId: process.env.REACT_APP_HOLDING_WALLET_PK_STRING,
-  charities: [],
+  charities: {refetch:null,charities:[]},
   selectedWallet: null,
   walletBalance: null,
   walletConnectedFlag: false,

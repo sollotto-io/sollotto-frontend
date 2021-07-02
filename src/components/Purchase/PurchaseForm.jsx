@@ -74,7 +74,17 @@ export default function PurchaseForm() {
                 drawingId: lotteryData.id,
               },
             });
+            const charityUpdatedData = await globalData.charities.refetch();
 
+            await setGlobalData({
+              type: 'SET_GLOBAL_DATA',
+              arg: {
+                ...globalData,
+                charities: {
+                  charities: charityUpdatedData.data.getAllCharities,
+                },
+              },
+            });
             const dataUpdated = await refetch();
             await setLotteryData({
               type: 'SET_LOTTERY_DATA',
@@ -87,9 +97,7 @@ export default function PurchaseForm() {
             setLoading(false);
             reduxAction({ type: 'RESET_PURCHASE_DATA', arg: null });
             const balance = globalData.connection.getBalance(globalData.selectedWallet.publicKey);
-            console.log(balance);
             balance.then((t) => {
-              console.log(t);
               setGlobalData({
                 type: 'SET_GLOBAL_DATA',
                 arg: {

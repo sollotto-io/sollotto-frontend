@@ -19,7 +19,7 @@ function App() {
   const [globalData, setGlobalData] = useReduxState((state) => state.globalData);
   const { loading, data, refetch } = useQuery(FETCH_UPCOMING_DRAWING);
   const [, setLotteryData] = useReduxState((state) => state.lotteryData);
-  const { loading: charityloading, data: charities } = useQuery(FETCH_ALL_CHARITIES);
+  const { loading: charityloading, data: charities, refetch: charityRefetch } = useQuery(FETCH_ALL_CHARITIES);
   
 
 
@@ -29,7 +29,10 @@ function App() {
         type: 'SET_GLOBAL_DATA',
         arg: {
           ...globalData,
-          charities: charities.getAllCharities,
+          charities: {
+            refetch: charityRefetch,
+            charities: charities.getAllCharities
+          },
         },
       });
     }
@@ -90,7 +93,7 @@ function App() {
           </Route>
 
           <Route exact path="/charities">
-            <Charities charityloading={charityloading} />
+            <Charities charityloading={charityloading}  />
           </Route>
           <Route exact path="/suggest">
             <Suggest />

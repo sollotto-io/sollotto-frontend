@@ -18,7 +18,7 @@ export default function Charities({charityloading}) {
           <div id="poolHeader">
             <PageTitle title="Charities" />
           </div>
-          {globalData.charities ? <CharityTable rows={globalData.charities} /> : ''}
+          {globalData.charities ? <CharityTable rows={globalData.charities.charities} /> : ''}
           <div id="suggest-charity">
             <h4>Suggest</h4>
             <p>
