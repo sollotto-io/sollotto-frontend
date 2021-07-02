@@ -1,6 +1,6 @@
 import React from 'react';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { IconButton } from '@material-ui/core';
+import {  IconButton } from '@material-ui/core';
 import { useHistory } from 'react-router';
 import checkIfWinner from './utils/checkIfWinner';
 import moment from 'moment';
@@ -104,25 +104,18 @@ const WinningCharityResult = ({ lotteryData }) => {
   });
 
   return (
-    <div id="winner-charity">
+    
       <div>
-        {lotteryData.WinningCharity.length === 1 ? 'Winning Charity' : 'Winning Charities'}
+        {lotteryData.WinningCharity.length === 1 ? <span style={{width:"100%", display:"grid",gridTemplateColumns:"200px 200px 200px",alignItems:"center"}}><p>Winning Charity</p><p style={{textAlign:"center"}}>Votes</p><p style={{textAlign:"center"}}>%votes</p></span> : <span style={{display:"grid",gridTemplateColumns:"200px 200px 200px"}}><p>Winning Charities</p><p style={{textAlign:"center"}}>Votes</p><p style={{textAlign:"center"}}>%votes</p></span>}
         <div id="winner-charity-list">
           {arr.length === 0
-            ? 'TBD'
+            ? <span style={{width:"100%", display:"grid",gridTemplateColumns:"200px 200px 200px",alignItems:"center"}}><p>TBD</p><p style={{textAlign:"center"}}>TBD</p><p style={{textAlign:"center"}}>TBD</p></span>
             : arr.map((c,i) => {
-                return <p key={i}>{c.charityId.charityName}</p>;
+                return <span style={{width:"100%", display:"grid",gridTemplateColumns:"200px 200px 200px",alignItems:"center"}}> <p key={i}>{c.charityId.charityName}</p><p style={{textAlign:"center"}} key={i}>{c.votes}</p><p style={{textAlign:"center"}} key={i}>{((c.votes/totalVotes)*100).toFixed(2)}</p></span>;
               })}
         </div>
       </div>
-      <div id="winner-charity-vote">
-        <p>Votes Recieved</p>
-        <p>{arr.length === 0 ? 'TBD' : arr[0].votes}</p>
-      </div>
-      <div id="winner-charity-per">
-        <p> % Votes Recieved</p>
-        <p>{arr.length === 0 ? 'TBD' : ((arr[0].votes / totalVotes) * 100).toFixed(2)}</p>
-      </div>
-    </div>
+      
+  
   );
 };
