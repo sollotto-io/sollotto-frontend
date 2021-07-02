@@ -14,7 +14,7 @@ const CharitDetailPage = () => {
     history.push(`/charities`);
   };
 
-  const { charities } = useSelector((state) => state.globalData);
+  const { charities } = useSelector((state) => state.globalData.charities);
   const { id } = useParams();
   const charityDetail = charities.find((p) => p.charityName === id);
 
