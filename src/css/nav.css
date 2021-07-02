@@ -67,7 +67,7 @@ nav {
   justify-self: end;
   align-self: center;
   cursor: pointer;
-  margin-right: 1rem;
+ 
   display: grid;
   grid-template-columns: auto auto;
 }

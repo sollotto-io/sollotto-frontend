@@ -129,8 +129,16 @@ a {
   border: 1px solid var(--surge-green);
   transition: color 0.5s;
 }
+.greenBtn:disabled {
+  opacity: 0.5;
+}
+.greenBtn:hover:disabled {
+  cursor: not-allowed;
+  color: #fff;
+}
 .gradientBg {
-  transition: all 1s;
+  transition: all 0.5s;
+ 
   background: linear-gradient(245.22deg, #c200fb 7.97%, #3772ff 49.17%, #3773fe 0, #5ac4be 92.1%);
 }
 .gradientBg2 {
@@ -229,5 +237,23 @@ a {
   .connectModalItem {
     width: 550px;
     max-width: 550px;
+  }
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
   }
 }

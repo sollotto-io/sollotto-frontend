@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import Zoom from '@material-ui/core/Zoom';
 import IconButton from '@material-ui/core/IconButton';
 import AlarmIcon from '@material-ui/icons/Alarm';
-import { LotteryContext } from '../../../context/LotteryContext';
+import useReduxState from '../../hooks/useReduxState';
 
 const TanspInfoToolTip = withStyles({
   tooltip: {
@@ -17,7 +17,9 @@ const TanspInfoToolTip = withStyles({
 })(Tooltip);
 
 export default function LotteryEndInfo() {
-  const { lotteryData } = useContext(LotteryContext);
+  const [lotteryState] = useReduxState((state) => state.lotteryData);
+
+  const { lotteryData } = lotteryState;
 
   return (
     <TanspInfoToolTip

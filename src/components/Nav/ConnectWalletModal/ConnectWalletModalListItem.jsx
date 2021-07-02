@@ -1,29 +1,21 @@
-import React, { useContext } from 'react';
-import Wallet from '@project-serum/sol-wallet-adapter';
-import { GlobalContext } from '../../../context/GlobalContext';
+import React from 'react';
+import useWallet from '../../hooks/useWallet';
+import useDidUpdateEffect from '../../hooks/useDidUpdateEffect';
+import useReduxState from '../../hooks/useReduxState';
+export default function ConnectWalletModalListItem({ name, handleClose }) {
+  const [, setGlobalData] = useReduxState((state) => state.globalData);
 
-export default function ConnectWalletModalListItem(props) {
-  const { globalData, setGlobalData } = useContext(GlobalContext);
+  const [wallet, setWallet] = useWallet();
 
-  let urlWallet = null;
-
-  switch (props.name) {
-    case 'Sollet':
-      urlWallet = new Wallet('https://www.sollet.io', process.env.REACT_APP_SOLANA_NETWORK);
-      break;
-    case 'Phantom':
-      urlWallet = new Wallet('https://phantom.app/', process.env.REACT_APP_SOLANA_NETWORK);
-      break;
-    default:
-      break;
-  }
+  useDidUpdateEffect(() => {
+    if (wallet !== null) {
+      setGlobalData({ type: 'SET_GLOBAL_DATA', arg: { selectedWallet: wallet } });
+    }
+  }, [wallet]);
 
   return (
-    <li
-      onClick={() => setGlobalData({ ...globalData, selectedWallet: urlWallet })}
-      className="modalListItem greenBtn"
-    >
-      <span className="modalListItemTitle">{props.name}</span>
+    <li onClick={() => setWallet(name)} className="modalListItem greenBtn">
+      <span className="modalListItemTitle">{name}</span>
     </li>
   );
 }

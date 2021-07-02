@@ -1,20 +1,18 @@
 import React, { useRef } from 'react';
 
-const CharitySelect = (props) => {
+const CharitySelect = ({ charityName, onSelect, selected }) => {
   const btnRef = useRef(null);
 
   return (
     <div className="gradientBg charitySelectBtnWrapper gradientBorder">
       <button
-        value={props.charityName}
+        value={charityName}
         type="button"
-        className="charitySelectBtn globalBtn"
-        onClick={() => {
-          props.charityBtnHandler(btnRef.current);
-        }}
+        className={`charitySelectBtn globalBtn ${selected ? 'active' : ''}`}
+        onClick={onSelect}
         ref={btnRef}
       >
-        SELECT
+        {selected ? 'SELECTED' : 'SELECT'}
       </button>
     </div>
   );

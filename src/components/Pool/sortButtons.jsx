@@ -1,16 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
+import React, { useEffect, useState } from 'react';
+import useReduxState from '../hooks/useReduxState';
 var _ = require('lodash');
 
 const SortButtons = () => {
   const [filter, setFilter] = useState(null);
-  const { globalData, setGlobalData } = useContext(GlobalContext);
+  const [globalData, setGlobalData] = useReduxState((state) => state.globalData);
 
   useEffect(() => {
     let sortbyprize = _.sortBy(globalData.pools, filter);
     setGlobalData({
-      ...globalData,
-      pools: sortbyprize,
+      type: 'SET_GLOBAL_DATA',
+      arg: {
+        pools: sortbyprize,
+      },
     });
   }, [filter]); // eslint-disable-line react-hooks/exhaustive-deps
 

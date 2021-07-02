@@ -4,10 +4,11 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createHttpLink } from 'apollo-link-http';
 import { ApolloProvider } from '@apollo/react-hooks';
 import App from './App';
+import { Provider } from 'react-redux';
+import store from './redux/stores/store';
 
 const httpLink = createHttpLink({
-  // uri:'http://localhost:5000/'
-  uri: 'http://ec2-18-117-227-190.us-east-2.compute.amazonaws.com:5000',
+  uri: process.env.REACT_APP_BACKEND_SERVER,
 });
 
 const client = new ApolloClient({
@@ -17,6 +18,8 @@ const client = new ApolloClient({
 
 export default (
   <ApolloProvider client={client}>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </ApolloProvider>
 );
