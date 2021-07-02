@@ -7,6 +7,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { FETCH_ALL_LOTTERIES } from '../graphql/queries';
 import Loader from '../components/common/Loader';
 import { sortTicketNumber } from '../components/utils/helpers';
+import moment from 'moment';
 
 export default function Results() {
   const { loading, data, refetch } = useQuery(FETCH_ALL_LOTTERIES);
@@ -61,7 +62,12 @@ export default function Results() {
               <PageSubTitle subtitle="Past Lotteries" />
               <div className="coming-soon gradientBg gradientBorder">
                 <div>
-                  <PageSubTitle subtitle="Not Yet" />
+                  <PageSubTitle subtitle={`Live now`} />
+                  <PageSubTitle
+                    subtitle={`Current drawing Date : ${moment(nextLotteries[0].EndDate).format(
+                      'MMM Do YY',
+                    )}`}
+                  />
                 </div>
               </div>
             </>
