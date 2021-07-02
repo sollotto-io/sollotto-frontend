@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import store from './redux/stores/store';
 
 const httpLink = createHttpLink({
-  uri: process.env.REACT_APP_BACKEND_SERVER,
+  uri: "https://sollotto-dev-backend.herokuapp.com/",
 });
 
 const client = new ApolloClient({

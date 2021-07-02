@@ -6,7 +6,7 @@ import Charities from './pages/Charities';
 import Suggest from './pages/Suggest';
 import Results from './pages/Results';
 import Pool from './pages/Pool';
-import CharityDetailPage from './components/Charity/CharityDetailPage';
+import CharityDetailPage from './components/charity/CharityDetailPage';
 import Loader from './components/common/Loader';
 import Footer from './pages/Footer';
 import ResultDetail from './components/Result/ResultDetail';
