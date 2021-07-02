@@ -45,6 +45,7 @@ export default function PurchaseForm() {
         ticketNumArr: ticketNumbers,
       };
       setLoading(true);
+        console.log(ticketData)
 
       if (globalData.walletBalance === 0) {
         toast.error(
@@ -62,7 +63,7 @@ export default function PurchaseForm() {
         setLoading(false);
       } else {
         const result = await ticketPurchase(globalData, ticketData, lotteryData);
-
+        console.log(result)
         if (result.success === true) {
           try {
             await addTicket({
@@ -81,6 +82,7 @@ export default function PurchaseForm() {
               arg: {
                 ...globalData,
                 charities: {
+                  ...globalData.charities,
                   charities: charityUpdatedData.data.getAllCharities,
                 },
               },

@@ -1,6 +1,6 @@
 import React from 'react';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import {  IconButton } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import { useHistory } from 'react-router';
 import checkIfWinner from './utils/checkIfWinner';
 import moment from 'moment';
@@ -80,11 +80,10 @@ const RDetail = ({ lotteryData }) => {
             <p>Your Result</p>
             {userResult()}
           </section>
-        
-          
         </div>
         <section id="charity-list">
-          <WinningCharityResult lotteryData={lotteryData} />
+          {lotteryData.WinningCharity.length === 0 && new Date(lotteryData.EndDate) > Date.now() ? null : <WinningCharityResult lotteryData={lotteryData} />}
+          
         </section>
       </section>
     );
@@ -104,18 +103,69 @@ const WinningCharityResult = ({ lotteryData }) => {
   });
 
   return (
-    
-      <div>
-        {lotteryData.WinningCharity.length === 1 ? <span style={{width:"100%", display:"grid",gridTemplateColumns:"200px 200px 200px",alignItems:"center"}}><p>Winning Charity</p><p style={{textAlign:"center"}}>Votes</p><p style={{textAlign:"center"}}>%votes</p></span> : <span style={{display:"grid",gridTemplateColumns:"200px 200px 200px"}}><p>Winning Charities</p><p style={{textAlign:"center"}}>Votes</p><p style={{textAlign:"center"}}>%votes</p></span>}
-        <div id="winner-charity-list">
-          {arr.length === 0
-            ? <span style={{width:"100%", display:"grid",gridTemplateColumns:"200px 200px 200px",alignItems:"center"}}><p>TBD</p><p style={{textAlign:"center"}}>TBD</p><p style={{textAlign:"center"}}>TBD</p></span>
-            : arr.map((c,i) => {
-                return <span style={{width:"100%", display:"grid",gridTemplateColumns:"200px 200px 200px",alignItems:"center"}}> <p key={i}>{c.charityId.charityName}</p><p style={{textAlign:"center"}} key={i}>{c.votes}</p><p style={{textAlign:"center"}} key={i}>{((c.votes/totalVotes)*100).toFixed(2)}</p></span>;
-              })}
-        </div>
+    <div>
+      {lotteryData.WinningCharity.length === 1 ? (
+        <span
+          style={{
+            width: '100%',
+            display: 'grid',
+            gridTemplateColumns: '200px 200px 200px 200px',
+            alignItems: 'center',
+          }}
+        >
+          <p>Winning Charity</p>
+          <p style={{ textAlign: 'center' }}>Votes</p>
+          <p style={{ textAlign: 'center' }}>%votes</p>
+        </span>
+      ) : (
+        <span style={{ display: 'grid', gridTemplateColumns: '200px 200px 200px 200px' }}>
+          <p>Winning Charities</p>
+          <p style={{ textAlign: 'center' }}>Votes</p>
+          <p style={{ textAlign: 'center' }}>%votes</p>
+          <p style={{ textAlign: 'center' }}>SOL recieved</p>
+        </span>
+      )}
+      <div id="winner-charity-list">
+        {arr.length === 0 ? (
+          <span
+            style={{
+              width: '100%',
+              display: 'grid',
+              gridTemplateColumns: '200px 200px 200px 200px',
+              alignItems: 'center',
+            }}
+          >
+            <p>TBD</p>
+            <p style={{ textAlign: 'center' }}>TBD</p>
+            <p style={{ textAlign: 'center' }}>TBD</p>
+          </span>
+        ) : (
+          arr.map((c, i) => {
+            return (
+              <span
+                style={{
+                  width: '100%',
+                  display: 'grid',
+                  gridTemplateColumns: '200px 200px 200px 200px',
+                  alignItems: 'center',
+                }}
+              >
+                {' '}
+                <p key={i}>{c.charityId.charityName}</p>
+                <p style={{ textAlign: 'center' }} key={i}>
+                  {c.votes}
+                </p>
+                <p style={{ textAlign: 'center' }} key={i}>
+                  {((c.votes / totalVotes) * 100).toFixed(2)}
+                </p>
+                <p style={{ textAlign: 'center' }} key={i}>
+                  {((lotteryData.TotalPoolValue * 0.3)/arr.length).toFixed(2)}
+                </p>
+              </span>
+            );
+          })
+        )}
       </div>
-      
-  
+    </div>
   );
 };
