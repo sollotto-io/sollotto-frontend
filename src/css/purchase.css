@@ -156,7 +156,8 @@
   margin-top: 1rem;
   margin-bottom: 1rem;
   justify-self: center;
-  padding: 2px;
+ 
+  box-sizing: border-box;
 }
 .givepadding{
   padding: 4px;

@@ -13,30 +13,31 @@ export const FETCH_ALL_CHARITIES = gql`
       lifeTimeWins
       Status
       Years
-      watchURL
-      watchGrade
+      URL
+      Grade
+      isWatch
       Impact
       webURL
       socialMedia
     }
   }
 `;
-export const FETCH_POOLS = gql`
-  {
-    getAllPools {
-      id
-      PoolName
-      Pool
-      PrizePool
-      TimeRemaining
-      PoolARP
-      TotalDeposit
-      TotalLiquidity
-      Odds
-      currentTicketPrice
-    }
-  }
-`;
+// export const FETCH_POOLS = gql`
+//   {
+//     getAllPools {
+//       id
+//       PoolName
+//       Pool
+//       PrizePool
+//       TimeRemaining
+//       PoolARP
+//       TotalDeposit
+//       TotalLiquidity
+//       Odds
+//       currentTicketPrice
+//     }
+//   }
+// `;
 
 export const FETCH_UPCOMING_DRAWING = gql`
   {
@@ -53,8 +54,9 @@ export const FETCH_UPCOMING_DRAWING = gql`
         lifeTimeWins
         Status
         Years
-        watchURL
-        watchGrade
+        URL
+        Grade
+        isWatch
         Impact
         webURL
       }

@@ -98,7 +98,7 @@ export default function ResultTable({ loading, rows }) {
                       ? 'TBD'
                       : row.WinningCharity.length === 1
                       ? row.WinningCharity[0].charityName
-                      : row.WinningCharity.length}
+                      : `${row.WinningCharity.length} Way Tie`}
                   </StyledTableCell>
                 </TableRow>
               ) : (
@@ -132,7 +132,7 @@ export default function ResultTable({ loading, rows }) {
                       ? 'TBD'
                       : row.WinningCharity.length === 1
                       ? row.WinningCharity[0].charityName
-                      : row.WinningCharity.length}
+                      : `${row.WinningCharity.length} Way Tie`}
                   </StyledTableCell>
                 </TableRow>
               ),
