@@ -1,12 +1,12 @@
-import React, { useRef, useState, useEffect, useContext } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import AccountBalanceWalletOutlinedIcon from '@material-ui/icons/AccountBalanceWalletOutlined';
 import ConnectWalletModal from './ConnectWalletModal/ConnectWalletModal';
-import { GlobalContext } from '../../context/GlobalContext';
+import useReduxState from '../hooks/useReduxState';
 
 export default function WalletConnect() {
   const [open, setOpen] = useState(false);
   const walletId = useRef();
-  const { globalData } = useContext(GlobalContext);
+  const [globalData] = useReduxState((state) => state.globalData);
 
   const handleClose = () => {
     setOpen(false);
@@ -33,7 +33,7 @@ export default function WalletConnect() {
         onClick={handleClickOpen}
       >
         <AccountBalanceWalletOutlinedIcon fontSize="small" />
-        <span>
+        <span  >
           {globalData.walletConnectedFlag === true
             ? `${globalData.selectedWallet.publicKey
                 .toBase58()
@@ -43,7 +43,6 @@ export default function WalletConnect() {
             : 'Connect'}
         </span>
       </button>
-
       <ConnectWalletModal walletId={walletId} open={open} handleClose={handleClose} />{' '}
     </>
   );

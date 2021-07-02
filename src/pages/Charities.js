@@ -1,27 +1,14 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import '../css/charity.css';
 import PageTitle from '../components/common/PageTitle';
-import CharityTable from '../components/Charity/CharityTable.jsx';
+import CharityTable from '../components/charity/CharityTable.jsx';
 import '../css/pool.css';
-import { useQuery } from '@apollo/react-hooks';
-import { FETCH_ALL_CHARITIES } from '../graphql/queries';
 import Loader from '../components/common/Loader';
-import { GlobalContext } from '../context/GlobalContext';
+import useReduxState from '../components/hooks/useReduxState';
 
-export default function Charities() {
-  
-  const { loading: charityloading, data: charities } = useQuery(FETCH_ALL_CHARITIES);
-  const { globalData, setGlobalData } = useContext(GlobalContext);
-
-  useEffect(() => {
-    if (charityloading === false) {
-      setGlobalData({
-        ...globalData,
-        charities: charities.getAllCharities,
-      });
-    }
-  }, [charityloading]); // eslint-disable-line react-hooks/exhaustive-deps
-
+export default function Charities({charityloading}) {
+  const [globalData] = useReduxState((state) => state.globalData);
+ 
   if (charityloading) {
     return <Loader />;
   } else {
@@ -31,7 +18,7 @@ export default function Charities() {
           <div id="poolHeader">
             <PageTitle title="Charities" />
           </div>
-          {charities ? <CharityTable rows={charities.getAllCharities} /> : ''}
+          {globalData.charities ? <CharityTable rows={globalData.charities.charities} /> : ''}
           <div id="suggest-charity">
             <h4>Suggest</h4>
             <p>
@@ -39,7 +26,12 @@ export default function Charities() {
               form here.
             </p>
 
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdMRU7GzeNDukSv-Gq9VJk_rtjVxR5CL-M33GZn8fjrCNxmwA/viewform" target="_blank" rel="noreferrer"  className="greenBtn globalBtn" >
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSdMRU7GzeNDukSv-Gq9VJk_rtjVxR5CL-M33GZn8fjrCNxmwA/viewform"
+              target="_blank"
+              rel="noreferrer"
+              className="greenBtn globalBtn"
+            >
               Suggest a Charity
             </a>
           </div>

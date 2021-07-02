@@ -1,14 +1,16 @@
-import React, { useContext } from 'react';
-import { GlobalContext } from '../../../context/GlobalContext';
+import React from 'react';
 import useWallet from '../../hooks/useWallet';
 import useDidUpdateEffect from '../../hooks/useDidUpdateEffect';
-export default function ConnectWalletModalListItem({ name }) {
-  const { globalData, setGlobalData } = useContext(GlobalContext);
+import useReduxState from '../../hooks/useReduxState';
+export default function ConnectWalletModalListItem({ name, handleClose }) {
+  const [, setGlobalData] = useReduxState((state) => state.globalData);
 
   const [wallet, setWallet] = useWallet();
 
   useDidUpdateEffect(() => {
-    setGlobalData({ ...globalData, selectedWallet: wallet });
+    if (wallet !== null) {
+      setGlobalData({ type: 'SET_GLOBAL_DATA', arg: { selectedWallet: wallet } });
+    }
   }, [wallet]);
 
   return (

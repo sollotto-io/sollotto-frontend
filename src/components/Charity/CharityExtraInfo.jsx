@@ -12,12 +12,12 @@ const CharityExtraInfo = ({ charityDetail }) => {
             style={{ color: 'var(--purple-dino)' }}
             rel="noopener noreferrer"
             target="_blank"
-            href={charityDetail.watchURL}
+            href={charityDetail.URL}
           >
-            Charity Watch Link{' '}
+            {charityDetail.isWatch ? "Charity Watch Link" : "Charity Givewell Link"}
           </a>
         </div>
-        <div id="info">Charity Watch Grade : {charityDetail.watchGrade}</div>
+        <div id="info">{charityDetail.isWatch ? "Charity Watch Grade" : "Charity Givewell Grade"} : {charityDetail.Grade}</div>
 
         <div id="info">Impact Area : {charityDetail.Impact}</div>
         <div id="info">Added By : {charityDetail.addedBy}</div>

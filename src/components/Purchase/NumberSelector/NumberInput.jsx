@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
-import { PurchaseContext } from '../../../context/PurchaseContext';
+import React from 'react';
+import { useSelector } from 'react-redux';
 export default function NumberInput({ ticketPos, validateNum, setTicketNumber }) {
-  const { purchaseData } = useContext(PurchaseContext);
+  const { ticketNumberArr } = useSelector((state) => state.purchaseData);
+
   return (
     <div
       className={
@@ -13,7 +14,7 @@ export default function NumberInput({ ticketPos, validateNum, setTicketNumber })
       <input
         type="number"
         id={`ticketNumber${ticketPos}`}
-        value={purchaseData.ticketNumberArr[ticketPos]}
+        value={ticketNumberArr[ticketPos] ?? ''}
         className="numberSelectorInput"
         name={`ticketNumber${ticketPos}`}
         max={ticketPos >= 0 && ticketPos <= 4 ? 69 : 26}

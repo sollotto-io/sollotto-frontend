@@ -1,6 +1,6 @@
 import moment from 'moment';
-import React, { useContext } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
+import React from 'react';
+import useReduxState from '../hooks/useReduxState';
 import checkIfWinner from './utils/checkIfWinner';
 const LeftCountdown = ({ lotteryData }) => {
   var EndDate = moment(lotteryData.EndDate);
@@ -8,7 +8,7 @@ const LeftCountdown = ({ lotteryData }) => {
 
   var dif = EndDate.diff(Today);
 
-  const { globalData } = useContext(GlobalContext);
+  const [globalData] = useReduxState((state) => state.globalData);
   if (lotteryData.WinnerWallet.length === 0) {
     if (lotteryData.isActive === true) {
       return (

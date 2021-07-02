@@ -7,7 +7,11 @@ import { useHistory } from 'react-router';
 const CDetails = ({ charityDetail }) => {
   const history = useHistory();
   const sendToCharity = () => {
-    history.push(`/purchase`);
+    if (history.location.state.fromPurchase === true) {
+      history.push('/purchase');
+    } else {
+      history.push('/charities');
+    }
   };
 
   return (

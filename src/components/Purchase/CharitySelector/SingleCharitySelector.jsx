@@ -1,44 +1,60 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import CharityImage from './CharityImage';
 import CharityName from './CharityName';
-import CharitySelectButton from './CharitySelectButton';
 import SolLottoLogo from '../purchase-components/SolLottoLogo';
 import { IconButton } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
-import {Link} from 'react-router-dom';
-import { LotteryContext } from '../../../context/LotteryContext';
+import { Link } from 'react-router-dom';
+import useReduxState from '../../hooks/useReduxState';
 
-
-const SingleCharitySelector = (props) => {
-  const { lotteryData } = useContext(LotteryContext);
+const SingleCharitySelector = ({ index, charitySelectHandler, charityId }) => {
+  const [lotteryState] = useReduxState((state) => state.lotteryData);
+  const [{ selectedCharity }] = useReduxState((state) => state.purchaseData);
+  const { lotteryData } = lotteryState;
   const singleCharityBlockRef = useRef(null);
 
-  var charityBtnHandler = (charityBtn) => {
-    props.charitySelectHandler(charityBtn, singleCharityBlockRef.current, props.charityId);
-  };
+  const [selected, setSelected] = useState(false);
+
+  useEffect(() => {
+    if (selected) charitySelectHandler(charityId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selected]);
+
+  useEffect(() => {
+    setSelected(selectedCharity === charityId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCharity]);
+
+  const handleSelection = useCallback(() => {
+    setSelected(!selected);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selected]);
 
   return (
     <div
-      className="psuedoGreyBg psuedoBorder  singleCharitySelectorWrapper"
+      className={`${
+        selected ? 'gradientBg' : 'psuedoGreyBg'
+      } psuedoBorder  singleCharitySelectorWrapper`}
       ref={singleCharityBlockRef}
-     
+      onClick={handleSelection}
+      style={{ cursor: 'pointer' }}
     >
-      <div  className="singleCharitySelector">
-        <Link style={{position:'absolute', right:"5px"}} to={`/charities/${lotteryData.Charities[props.index].charityName}`}>
-          <IconButton
-            id="info-circle"
-          >
-            <InfoIcon style={{fill:"#fff"}} />
+      <div className="singleCharitySelector">
+        <Link
+          style={{ position: 'absolute', right: '5px' }}
+          to={{
+            pathname: `/charities/${lotteryData.Charities[index].charityName}`,
+            state: { fromPurchase: true },
+          }}
+        >
+          <IconButton id="info-circle">
+            <InfoIcon style={{ fill: '#fff' }} />
           </IconButton>
         </Link>
-        <SolLottoLogo charitySelectorIcon={true} />
-        <CharityImage charityId={lotteryData.Charities[props.index].charityName} />
-        <CharityName charityIndex={props.index} />
-        <CharitySelectButton
-          charityName={lotteryData.Charities[props.index].charityName}
-          charityId={lotteryData.Charities[props.index].id}
-          charityBtnHandler={charityBtnHandler}
-        />
+
+        <CharityImage charityId={lotteryData.Charities[index].charityName} />
+        <CharityName charityIndex={index} />
+        <SolLottoLogo selected={selected} charitySelectorIcon={true} />
       </div>
     </div>
   );

@@ -7,16 +7,15 @@
   padding: 0rem 1rem;
 }
 
-#charity-list{
-  height: 120px;
-  overflow: scroll;
- 
+#charity-list {
+  height: fit-content;
 }
-#charity-list::-webkit-scrollbar {
-  display: block;
-  height: 100%;
-  width: 1px;
+#charity-list p{
+  margin: 0;
+  margin-top:10px ;
+  width: 100%;
 }
+
 #back-button {
   display: grid;
   grid-template-columns: auto auto;
@@ -75,6 +74,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+#winner-charity {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+}
+#winner-charity * {
+  margin: 0;
+  margin-top: 10px;
+}
+#winner-charity-vote * {
+  margin: 0;
+}
+#winner-charity-per * {
+  margin: 0;
 }
 @media only screen and (min-width: 980px) {
   #winTicket {
@@ -88,9 +103,8 @@
   }
   #other-details {
     display: grid;
-    grid-template-columns: auto auto auto auto auto;
+    grid-template-columns: auto auto auto auto;
     grid-template-rows: auto auto;
-    row-gap: 5px;
     column-gap: 50px;
 
     height: fit-content;
@@ -147,5 +161,20 @@
   #ticket-details * {
     margin: 0;
     margin-bottom: 10px;
+  }
+  #winner-charity {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 230px 230px 230px;
+  }
+  #winner-charity * {
+    margin: 0;
+    margin-top: 10px;
+  }
+  #winner-charity-vote * {
+    margin: 0;
+  }
+  #winner-charity-per * {
+    margin: 0;
   }
 }

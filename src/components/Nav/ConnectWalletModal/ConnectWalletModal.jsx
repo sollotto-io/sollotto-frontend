@@ -24,8 +24,8 @@ export default function ConnectWalletModal(props) {
             <CloseIcon style={{ cursor: 'pointer' }} onClick={props.handleClose} />
           </div>
           <ul className="modalList">
-            <ConnectWalletModalListItem name="Sollet" />
-            <ConnectWalletModalListItem name="Phantom" />
+            <ConnectWalletModalListItem handleClose={props.handleClose} name="Sollet" />
+            <ConnectWalletModalListItem handleClose={props.handleClose} name="Phantom" />
           </ul>
         </div>
       </Fade>

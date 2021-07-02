@@ -1,169 +1,84 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import KeyboardArrowUpOutlinedIcon from '@material-ui/icons/KeyboardArrowUpOutlined';
 import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
 import NumberInput from './NumberInput';
-import { PurchaseContext } from '../../../context/PurchaseContext';
+import useReduxState from '../../hooks/useReduxState';
 
 export default function SingleNumberSelector({ ticketPos }) {
-  const { purchaseData, setPurchaseData } = useContext(PurchaseContext);
-
-  /*   const [timer, setTimer] = useState(false); */
+  const [purchaseData, setPurchaseData] = useReduxState((state) => state.purchaseData);
+  const { ticketNumberArr } = purchaseData;
   let timer = React.useRef(null);
+  let countDownTimer = React.useRef(null);
   const validateNum = (value) => {
-    const ticketNumberArr = Array.from(purchaseData.ticketNumberArr);
-    ticketNumberArr[ticketPos] = parseInt(value);
+    const ticketNumber = Array.from(ticketNumberArr);
+    ticketNumber[ticketPos] = parseInt(value);
     if (ticketPos === 5) {
-      setPurchaseData({ ...purchaseData, ticketNumberArr, valid: !(value < 1 || value > 26) });
+      console.log(ticketNumber);
+      setPurchaseData({
+        type: 'SET_PURCHASE_DATA',
+        arg: { ticketNumberArr: ticketNumber, valid: !(value < 1 || value > 26) },
+      });
     } else {
-      setPurchaseData({ ...purchaseData, ticketNumberArr, valid: !(value < 1 || value > 69) });
+      setPurchaseData({
+        type: 'SET_PURCHASE_DATA',
+        arg: { ticketNumberArr: ticketNumber, valid: !(value < 1 || value > 69) },
+      });
     }
   };
 
-  /*   function stepUpClickHandler() {
-    let ele = document.querySelector(`#ticketNumber${ticketPos}`);
-    let event = new Event('input', { bubbles: true });
-    try {
-      if (ticketPos === 5) {
-        if (Number(ele.value) === 26 || ele.value.length === 0) {
-          ele.value = 1;
-          ele.dispatchEvent(event);
-        } else {
-          ele.stepUp();
-          ele.dispatchEvent(event);
-        }
-      } else {
-        if (Number(ele.value) === 69 || ele.value.length === 0) {
-          ele.value = 1;
-          ele.dispatchEvent(event);
-        } else {
-          ele.stepUp();
-          ele.dispatchEvent(event);
-        }
-      }
+  function stepUpClickHandler(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    const ticketNumber = Array.from(ticketNumberArr);
 
-      validateNum(ele.value);
-    } catch (ex) {
-      var step = Number(ele.step);
+    ticketNumber[ticketPos] = ticketNumber[ticketPos] ? ticketNumber[ticketPos] + 1 : 1;
 
-      if (ticketPos === 5) {
-        if (Number(ele.value) === 26 || ele.value.length === 0) {
-          ele.value = 1;
-          ele.dispatchEvent(event);
-        } else {
-          ele.value = Number(ele.value) + step;
-          ele.dispatchEvent(event);
-        }
-      } else {
-        if (Number(ele.value) === 69 || ele.value.length === 0) {
-          ele.value = 1;
-          ele.dispatchEvent(event);
-        } else {
-          ele.value = Number(ele.value) + step;
-          ele.dispatchEvent(event);
-        }
-      }
-      validateNum(ele.value);
+    if (ticketPos === 5 && ticketNumber[ticketPos] <= 26) {
+      validateNum(ticketNumber[ticketPos]);
     }
-  } */
-
-  /*  function stepDownClickHandler() {
-    let ele = document.querySelector(`#ticketNumber${ticketPos}`);
-    let event = new Event('input', { bubbles: true });
-    try {
-      if (Number(ele.value) === 1 || ele.value.length === 0) {
-        if (ticketPos === 5) {
-          ele.value = 26;
-          ele.dispatchEvent(event);
-        } else {
-          ele.value = 69;
-          ele.dispatchEvent(event);
-        }
-      } else {
-        ele.stepDown();
-      }
-      validateNum(ele.value);
-    } catch (ex) {
-      let step = Number(ele.step);
-      if (Number(ele.value) === 1 || ele.value.length === 0) {
-        if (ticketPos === 5) {
-          ele.value = 26;
-          ele.dispatchEvent(event);
-        } else {
-          ele.value = 69;
-          ele.dispatchEvent(event);
-        }
-      } else {
-        ele.value = Number(ele.value) - step;
-        ele.dispatchEvent(event);
-      }
-      validateNum(ele.value);
-    }
-  } */
-
-  function stepUpClickHandler() {
-    const ticketNumberArr = Array.from(purchaseData.ticketNumberArr);
-
-    ticketNumberArr[ticketPos] = ticketNumberArr[ticketPos] ? ticketNumberArr[ticketPos] + 1 : 1;
-
-    if (ticketPos === 5 && ticketNumberArr[ticketPos] <= 26) {
-      validateNum(ticketNumberArr[ticketPos]);
-    }
-    if (ticketPos < 5 && ticketNumberArr[ticketPos] <= 69) {
-      validateNum(ticketNumberArr[ticketPos]);
+    if (ticketPos < 5 && ticketNumber[ticketPos] <= 69) {
+      validateNum(ticketNumber[ticketPos]);
     }
   }
 
   function stepDownClickHandler() {
-    const ticketNumberArr = Array.from(purchaseData.ticketNumberArr);
-    ticketNumberArr[ticketPos] = ticketNumberArr[ticketPos] ? ticketNumberArr[ticketPos] - 1 : 1;
-    if (ticketNumberArr[ticketPos] >= 1) {
-      validateNum(ticketNumberArr[ticketPos]);
+    const ticketNumber = Array.from(ticketNumberArr);
+    ticketNumber[ticketPos] = ticketNumber[ticketPos] ? ticketNumber[ticketPos] - 1 : 1;
+    if (ticketNumber[ticketPos] >= 1) {
+      validateNum(ticketNumber[ticketPos]);
     }
   }
 
   function beginConstantIncrement() {
-    const ticketNumberArr = Array.from(purchaseData.ticketNumberArr);
-    ticketNumberArr[ticketPos] = ticketNumberArr[ticketPos] ?? 1;
-    let value = ticketNumberArr[ticketPos];
-    timer.current = setInterval(() => {
-      value += 1;
-      if (ticketPos < 5 && value <= 69) validateNum(value);
-      if (ticketPos === 5 && value <= 26) validateNum(value);
-    }, 200);
-  }
-
-  function endConstantIncrement() {
-    clearInterval(timer.current);
+    countDownTimer.current = setTimeout(() => {
+      const ticketNumber = Array.from(ticketNumberArr);
+      ticketNumber[ticketPos] = ticketNumber[ticketPos] ?? 1;
+      let value = ticketNumber[ticketPos];
+      timer.current = setInterval(() => {
+        value += 1;
+        if (ticketPos < 5 && value <= 69) validateNum(value);
+        if (ticketPos === 5 && value <= 26) validateNum(value);
+      }, 200);
+    }, 500);
   }
 
   function beginConstantDecrement() {
-    const ticketNumberArr = Array.from(purchaseData.ticketNumberArr);
-    ticketNumberArr[ticketPos] = ticketNumberArr[ticketPos] ?? 1;
-    let value = ticketNumberArr[ticketPos];
-    timer.current = setInterval(() => {
-      value -= 1;
-      if (value >= 1) validateNum(value);
-    }, 200);
+    countDownTimer.current = setTimeout(() => {
+      const ticketNumber = Array.from(ticketNumberArr);
+      ticketNumber[ticketPos] = ticketNumber[ticketPos] ?? 1;
+      let value = ticketNumber[ticketPos];
+      timer.current = setInterval(() => {
+        value -= 1;
+        if (value >= 1) validateNum(value);
+      }, 200);
+    }, 500);
   }
 
-  function endConstantDecrement() {
+  function endConstantChanging() {
+    clearTimeout(countDownTimer.current);
     clearInterval(timer.current);
   }
-  /* 
-  useEffect(() => {
-    let interval;
-
-    if (timer) {
-      console.log('AAAAAH');
-      const value = purchaseData.ticketNumberArr[ticketPos];
-      interval = setInterval(() => validateNum(value ? value + 1 : 1), 200);
-    }
-
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [timer]); */
 
   return (
     <div className="singleNumberSelector" id={`singleNumberSelector_${ticketPos}`}>
@@ -171,8 +86,8 @@ export default function SingleNumberSelector({ ticketPos }) {
         id={`numStepUp_${ticketPos}`}
         onClick={stepUpClickHandler}
         onMouseDown={() => beginConstantIncrement()}
-        onMouseUp={() => endConstantIncrement()}
-        onMouseLeave={() => endConstantIncrement()}
+        onMouseUp={() => endConstantChanging()}
+        onMouseLeave={() => endConstantChanging()}
         className="numberSelectorUp numberSelectorArrow greenGradientSVG"
       />
       <NumberInput ticketPos={ticketPos} validateNum={validateNum} setTicketNumber={validateNum} />
@@ -180,8 +95,8 @@ export default function SingleNumberSelector({ ticketPos }) {
         id={`numStepUp_${ticketPos}`}
         onClick={() => stepDownClickHandler()}
         onMouseDown={() => beginConstantDecrement()}
-        onMouseUp={() => endConstantDecrement()}
-        onMouseLeave={() => endConstantDecrement()}
+        onMouseUp={() => endConstantChanging()}
+        onMouseLeave={() => endConstantChanging()}
         className={
           ticketPos === 5
             ? 'numberSelectorDown numberSelectorArrow greenGradientSVG2'

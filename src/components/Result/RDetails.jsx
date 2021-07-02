@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { IconButton } from '@material-ui/core';
 import { useHistory } from 'react-router';
 import checkIfWinner from './utils/checkIfWinner';
-import { GlobalContext } from '../../context/GlobalContext';
 import moment from 'moment';
 import { sortTicketNumber } from '../utils/helpers';
+import useReduxState from '../hooks/useReduxState';
 
 const RDetail = ({ lotteryData }) => {
-  const { globalData } = useContext(GlobalContext);
+  const [globalData] = useReduxState((state) => state.globalData);
 
   const history = useHistory();
   const sendToResults = () => {
@@ -80,25 +80,92 @@ const RDetail = ({ lotteryData }) => {
             <p>Your Result</p>
             {userResult()}
           </section>
-          <section id="charity-list">
-            <p>
-              {lotteryData.WinningCharity.length === 1 ? 'Winning Charity' : 'Winning Charities'}
-            </p>
-            {lotteryData.WinningCharity.length === 0
-              ? 'TBD'
-              : lotteryData.WinningCharity.map((c, i) => {
-                  return <p key={i}>{c.charityName}</p>;
-                })}
-          </section>
-          <section>
-            {console.log(lotteryData.WinningCharity)}
-            <p style={{width:200}}>Votes Recieved by winning charity</p>
-            <p>10</p>
-          </section>
         </div>
+        <section id="charity-list">
+          {lotteryData.WinningCharity.length === 0 && new Date(lotteryData.EndDate) > Date.now() ? null : <WinningCharityResult lotteryData={lotteryData} />}
+          
+        </section>
       </section>
     );
   }
 };
 
 export default RDetail;
+
+const WinningCharityResult = ({ lotteryData }) => {
+  var arr = [];
+  var totalVotes = 0;
+  lotteryData.CharityVoteCount.forEach((c) => {
+    totalVotes = totalVotes + c.votes;
+    if (lotteryData.WinningCharity.find((t) => t.id === c.charityId.id)) {
+      arr.push(c);
+    }
+  });
+
+  return (
+    <div>
+      {lotteryData.WinningCharity.length === 1 ? (
+        <span
+          style={{
+            width: '100%',
+            display: 'grid',
+            gridTemplateColumns: '200px 200px 200px 200px',
+            alignItems: 'center',
+          }}
+        >
+          <p>Winning Charity</p>
+          <p style={{ textAlign: 'center' }}>Votes</p>
+          <p style={{ textAlign: 'center' }}>%votes</p>
+        </span>
+      ) : (
+        <span style={{ display: 'grid', gridTemplateColumns: '200px 200px 200px 200px' }}>
+          <p>Winning Charities</p>
+          <p style={{ textAlign: 'center' }}>Votes</p>
+          <p style={{ textAlign: 'center' }}>%votes</p>
+          <p style={{ textAlign: 'center' }}>SOL recieved</p>
+        </span>
+      )}
+      <div id="winner-charity-list">
+        {arr.length === 0 ? (
+          <span
+            style={{
+              width: '100%',
+              display: 'grid',
+              gridTemplateColumns: '200px 200px 200px 200px',
+              alignItems: 'center',
+            }}
+          >
+            <p>TBD</p>
+            <p style={{ textAlign: 'center' }}>TBD</p>
+            <p style={{ textAlign: 'center' }}>TBD</p>
+          </span>
+        ) : (
+          arr.map((c, i) => {
+            return (
+              <span
+                style={{
+                  width: '100%',
+                  display: 'grid',
+                  gridTemplateColumns: '200px 200px 200px 200px',
+                  alignItems: 'center',
+                }}
+              >
+                {' '}
+                <p key={i}>{c.charityId.charityName}</p>
+                <p style={{ textAlign: 'center' }} key={i}>
+                  {c.votes}
+                </p>
+                <p style={{ textAlign: 'center' }} key={i}>
+                  {((c.votes / totalVotes) * 100).toFixed(2)}
+                </p>
+                <p style={{ textAlign: 'center' }} key={i}>
+                  {((lotteryData.TotalPoolValue * 0.3)/arr.length).toFixed(2)}
+                </p>
+              </span>
+            );
+          })
+        )}
+      </div>
+    </div>
+  );
+};

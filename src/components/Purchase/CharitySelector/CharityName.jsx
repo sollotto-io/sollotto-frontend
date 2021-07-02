@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import {  LotteryContext} from '../../../context/LotteryContext';
+import React from 'react';
+import useReduxState from '../../hooks/useReduxState';
 export default function CharityName(props) {
-  const {lotteryData} = useContext(LotteryContext);
+  const [lotteryState] = useReduxState((state) => state.lotteryData);
 
-  return (
-    <div className="charityName">{lotteryData.Charities[props.charityIndex].charityName}</div>
-  );
+  const { lotteryData } = lotteryState;
+
+  return <div className="charityName">{lotteryData.Charities[props.charityIndex].charityName}</div>;
 }
