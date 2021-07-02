@@ -14,10 +14,10 @@ const CharityExtraInfo = ({ charityDetail }) => {
             target="_blank"
             href={charityDetail.URL}
           >
-            {charityDetail.isWatch ? "Charity Watch Link" : "Charity Getwell Link"}
+            {charityDetail.isWatch ? "Charity Watch Link" : "Charity Givewell Link"}
           </a>
         </div>
-        <div id="info">{charityDetail.isWatch ? "Charity Watch Grade" : "Charity Getwell Grade"} : {charityDetail.Grade}</div>
+        <div id="info">{charityDetail.isWatch ? "Charity Watch Grade" : "Charity Givewell Grade"} : {charityDetail.Grade}</div>
 
         <div id="info">Impact Area : {charityDetail.Impact}</div>
         <div id="info">Added By : {charityDetail.addedBy}</div>
