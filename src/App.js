@@ -6,13 +6,17 @@ import Charities from './pages/Charities';
 import Suggest from './pages/Suggest';
 import Results from './pages/Results';
 import Pool from './pages/Pool';
+<<<<<<< HEAD
 import CharityDetailPage from './components/charity/CharityDetailPage.jsx';
+=======
+import CharityDetailPage from './components/Charity/CharityDetailPage.js';
+>>>>>>> d2ec1a93f32ec4e5b84143e3f04cd155ef0d9b74
 import Loader from './components/common/Loader';
 import Footer from './pages/Footer';
 import ResultDetail from './components/Result/ResultDetail';
 import './css/pool.css';
 import useReduxState from './components/hooks/useReduxState';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/react-hooks';
 import { FETCH_ALL_CHARITIES, FETCH_UPCOMING_DRAWING } from './graphql/queries';
 
 function App() {
