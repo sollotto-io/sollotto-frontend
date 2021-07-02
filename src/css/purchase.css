@@ -144,20 +144,25 @@
 .psuedoGreyBg {
   background: #f1f1f2;
   transition: all 0.5s;
+  box-sizing: border-box;
 }
 .psuedoBorder {
   padding: 2px;
+  box-sizing: border-box;
+
 }
 .singleCharitySelectorWrapper {
   margin: 0.5rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
   justify-self: center;
- 
+  width: fit-content;
   box-sizing: border-box;
 }
 .givepadding {
   padding: 4px;
+  box-sizing: border-box;
+
 }
 .charityImg {
   width: 100%;
@@ -219,6 +224,8 @@
 }
 .singleCharitySelector {
   position: relative;
+  width: fit-content;
+  box-sizing: border-box;
 }
 #timer {
   font-size: 15px;

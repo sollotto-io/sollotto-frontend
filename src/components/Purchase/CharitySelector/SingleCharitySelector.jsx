@@ -33,7 +33,7 @@ const SingleCharitySelector = ({ index, charitySelectHandler, charityId }) => {
   return (
     <div
       className={`${
-        selected ? 'gradientBg givepadding' : 'psuedoGreyBg'
+        selected ? 'gradientBg' : 'psuedoGreyBg'
       } psuedoBorder  singleCharitySelectorWrapper`}
       ref={singleCharityBlockRef}
       onClick={handleSelection}
