@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 
 export default function PurchaseForm() {
   const [addTicket] = useMutation(POST_TICKET);
-  const [globalData] = useReduxState((state) => state.globalData);
+  const [globalData, setGlobalData] = useReduxState((state) => state.globalData);
   const [{ lotteryData, refetch }, setLotteryData] = useReduxState((state) => state.lotteryData);
 
   const { ticketNumberArr, selectedCharity } = useSelector((state) => state.purchaseData);
@@ -85,6 +85,18 @@ export default function PurchaseForm() {
             });
 
             setLoading(false);
+            reduxAction({ type: 'RESET_PURCHASE_DATA', arg: null });
+            const balance = globalData.connection.getBalance(globalData.selectedWallet.publicKey);
+            console.log(balance);
+            balance.then((t) => {
+              console.log(t);
+              setGlobalData({
+                type: 'SET_GLOBAL_DATA',
+                arg: {
+                  walletBalance: t,
+                },
+              });
+            });
             toast.success(
               <div>
                 Ticket purchase is successful, your purchased tickets can be found on the results

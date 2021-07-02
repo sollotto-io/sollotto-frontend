@@ -1,9 +1,13 @@
 import React from 'react';
 import logo from '../../../images/logos/Sollotto-Icon-Transparent.png';
-export default function SolLottoLogo(props) {
+export default function SolLottoLogo({ selected, charitySelectorIcon }) {
   return (
     <img
-      className={props.charitySelectorIcon ? 'charitySelectorIcon iconLogo' : 'iconLogo'}
+      className={`${
+        charitySelectorIcon
+          ? `charitySelectorIcon iconLogo ${selected ? 'blockDisplay' : ''}`
+          : 'iconLogo'
+      }`}
       src={logo}
       alt="logo"
     />

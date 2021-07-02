@@ -76,8 +76,8 @@ export default function ResultTable({ loading, rows }) {
                     {moment(row.EndDate).format('MMM Do YY')}
                   </StyledTableCell>
 
-                  <StyledTableCell align="left">
-                    {row.WinningNumbers.length === 0 ? 'TBD' : row.WinningNumbers[0]}&nbsp;{' '}
+                  <StyledTableCell align={`${row.WinningNumbers.length !== 6 ? 'center' : 'left'}`}>
+                    {row.WinningNumbers.length !== 6 ? 'TBD' : row.WinningNumbers[0]}&nbsp;{' '}
                     {row.WinningNumbers[1]}&nbsp; {row.WinningNumbers[2]}&nbsp;{' '}
                     {row.WinningNumbers[3]}&nbsp; {row.WinningNumbers[4]}&nbsp;{' '}
                     {row.WinningNumbers[5]}
@@ -110,8 +110,8 @@ export default function ResultTable({ loading, rows }) {
                     {moment(row.EndDate).format('MMM Do YY')}
                   </StyledTableCell>
 
-                  <StyledTableCell align="left">
-                    {row.WinningNumbers.length === 0 ? 'TBD' : row.WinningNumbers[0]}&nbsp;{' '}
+                  <StyledTableCell align={`${row.WinningNumbers.length !== 6 ? 'center' : 'left'}`}>
+                    {row.WinningNumbers.length !== 6 ? 'TBD' : row.WinningNumbers[0]}&nbsp;{' '}
                     {row.WinningNumbers[1]}&nbsp; {row.WinningNumbers[2]}&nbsp;{' '}
                     {row.WinningNumbers[3]}&nbsp; {row.WinningNumbers[4]}&nbsp;{' '}
                     {row.WinningNumbers[5]}

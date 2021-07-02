@@ -49,10 +49,8 @@
   grid-column: 2/3;
   grid-row: 2/3;
   justify-self: end;
-  
-  
 }
-.lotteryCountdown p{
+.lotteryCountdown p {
   margin: 0;
 }
 
@@ -146,7 +144,6 @@
 .psuedoGreyBg {
   background: #f1f1f2;
   transition: all 0.5s;
-
 }
 .psuedoBorder {
   padding: 2px;
@@ -159,7 +156,7 @@
  
   box-sizing: border-box;
 }
-.givepadding{
+.givepadding {
   padding: 4px;
 }
 .charityImg {
@@ -196,9 +193,19 @@
 .charitySelectorIcon {
   width: 60px;
   position: absolute;
-  left: 40%;
-  top: -35px;
+  left: calc(50% - 30px);
+  bottom: -30px;
   display: none;
+  animation: spin 0.5s;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 .purchaseCardFooter {
   display: grid;
@@ -209,12 +216,11 @@
 .purchaseCardFooter .ticketPrice {
   justify-self: center;
   margin-bottom: 0.5rem;
-
 }
 .singleCharitySelector {
   position: relative;
 }
-#timer{
+#timer {
   font-size: 15px;
 }
 
@@ -228,7 +234,7 @@
   .singleCharitySelector {
     max-width: 200px;
   }
-  #timer{
-    font-size:20px;
+  #timer {
+    font-size: 20px;
   }
 }
