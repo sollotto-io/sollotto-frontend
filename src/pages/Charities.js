@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/charity.css';
 import PageTitle from '../components/common/PageTitle';
-import CharityTable from '../components/Charity/CharityTable.jsx';
+import CharityTable from '../components/charity/CharityTable.jsx';
 import '../css/pool.css';
 import Loader from '../components/common/Loader';
 import useReduxState from '../components/hooks/useReduxState';
