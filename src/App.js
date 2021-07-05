@@ -14,6 +14,9 @@ import './css/pool.css';
 import useReduxState from './components/hooks/useReduxState';
 import { useQuery } from '@apollo/react-hooks';
 import { FETCH_ALL_CHARITIES, FETCH_UPCOMING_DRAWING } from './graphql/queries';
+import PoolDetailPage from './components/Pool/poolDetailPage';
+import ComingSoon from './components/common/ComingSoon';
+
 
 function App() {
   const [globalData, setGlobalData] = useReduxState((state) => state.globalData);
@@ -99,7 +102,13 @@ function App() {
             <Suggest />
           </Route>
           <Route exact path="/pools">
+            <ComingSoon />
+          </Route>
+          <Route exact path="/pool">
             <Pool />
+          </Route>
+          <Route exact path="/pool/:id">
+            <PoolDetailPage />
           </Route>
           <Route exact path="/charities/:id">
             <CharityDetailPage />

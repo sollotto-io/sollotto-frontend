@@ -98,15 +98,22 @@ export default function PurchaseForm() {
 
             setLoading(false);
             reduxAction({ type: 'RESET_PURCHASE_DATA', arg: null });
-            const balance = globalData.connection.getBalance(globalData.selectedWallet.publicKey);
-            balance.then((t) => {
-              setGlobalData({
-                type: 'SET_GLOBAL_DATA',
-                arg: {
-                  walletBalance: t,
-                },
-              });
+            const balance =await globalData.connection.getBalance(globalData.selectedWallet.publicKey);
+            await setGlobalData({
+              type: 'SET_GLOBAL_DATA',
+              arg: {
+                ...globalData,
+                walletBalance: balance,
+              },
             });
+            // balance.then((t) => {
+            //   setGlobalData({
+            //     type: 'SET_GLOBAL_DATA',
+            //     arg: {
+            //       walletBalance: t,
+            //     },
+            //   });
+            // });
             toast.success(
               <div>
                 Ticket purchase is successful, your purchased tickets can be found on the results

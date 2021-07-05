@@ -1,6 +1,7 @@
 import React from 'react';
 
 const PDetails = ({ poolDetail }) => {
+  console.log(poolDetail)
   return (
     <section id="poolD">
       <h4> {poolDetail.PoolName}</h4>

@@ -1,5 +1,5 @@
 import React from 'react';
-import Counter from './countdown';
+import Counter from '../common/countdown';
 const TimeRemaining = ({ time }) => {
   return (
     <div className="wrap gradientBg">

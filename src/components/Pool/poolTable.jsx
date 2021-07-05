@@ -25,7 +25,7 @@ const StyledPaper = withStyles({
 export default function PoolTable({ rows }) {
   const history = useHistory();
   const poolDetails = (param) => {
-    history.push(`/pools/${param}`);
+    history.push(`/pool/${param}`);
   };
 
   return (
