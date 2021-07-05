@@ -16,11 +16,11 @@ export const lotteryDraw = async (data, globalData) => {
   console.log(data.getDataWallets);
   const lotteryDataAccountPKArr = [];
   const winningNumberArr = [
-    random.int(1, 69),
-    random.int(1, 69),
-    random.int(1, 69),
-    random.int(1, 69),
-    random.int(1, 69),
+    random.int(1, 49),
+    random.int(1, 49),
+    random.int(1, 49),
+    random.int(1, 49),
+    random.int(1, 49),
     random.int(1, 26),
   ];
   let winFlag = false;

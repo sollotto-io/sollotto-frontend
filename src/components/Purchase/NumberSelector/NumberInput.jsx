@@ -17,13 +17,13 @@ export default function NumberInput({ ticketPos, validateNum, setTicketNumber })
         value={ticketNumberArr[ticketPos] ?? ''}
         className="numberSelectorInput"
         name={`ticketNumber${ticketPos}`}
-        max={ticketPos >= 0 && ticketPos <= 4 ? 69 : 26}
+        max={ticketPos >= 0 && ticketPos <= 4 ? 49 : 26}
         min="1"
         onBlur={(event) => {
           if (ticketPos >= 0 && ticketPos <= 4) {
-            setTicketNumber(Math.min(Math.max(event.target.value, 1), 69));
+            setTicketNumber(Math.min(Math.max(event.target.value, 1), 49));
           } else {
-            setTicketNumber(Math.min(Math.max(event.target.value, 1), 26));
+            setTicketNumber(Math.min(Math.max(event.target.value, 1), 49));
           }
         }}
         onChange={(event) => validateNum(event.target.value)}

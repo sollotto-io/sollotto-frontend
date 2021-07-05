@@ -27,7 +27,7 @@ export default function TranspInfo() {
           <div className="transpInfoToolTipTitle">Instructions</div>
           <div className="transpInfoToolTipBody">
             <span className="copyText" id="holdingWalletId">
-              Enter a number from 1 to 69 for your first 5 numbers and a number from 1 to 26 for
+              Enter a number from 1 to 49 for your first 5 numbers and a number from 1 to 26 for
               your last number, then select the charity you would like to vote for
             </span>
           </div>
