@@ -49,7 +49,7 @@ const ResultDetail = () => {
       );
 
       if (flag) {
-        userTickets.push({ array: t.ticketArray, charity: t.charityId.charityName });
+        userTickets.push({ array: t.ticketArray, charity: t.charityId.charityName, TransactionId:t.TransactionId });
       }
     });
     return (
@@ -74,6 +74,7 @@ const ResultDetail = () => {
                 <p>No Tickets Bought</p>
               ) : (
                 userTickets.map((t, i) => {
+                  console.log(t)
                   return (
                     <div className="entryRow" key={i}>
                       <p className="numColumn" key={i}>
@@ -82,6 +83,12 @@ const ResultDetail = () => {
                         {t.array[4]}&nbsp;&nbsp;{t.array[5]}&nbsp;&nbsp;
                       </p>{' '}
                       <p className="chaColumn">{t.charity}</p>
+                      <a className="chaColumn"
+                  style={{ textDecoration: 'underline' }}
+                  href={`https://solscan.io/tx/${t.TransactionId}?cluster=devnet`}
+                  target="_blank"
+                  rel="noreferrer"
+                >View Your Transacton</a>
                     </div>
                   );
                 })

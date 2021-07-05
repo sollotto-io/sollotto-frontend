@@ -73,6 +73,7 @@ export default function PurchaseForm() {
                 ticketArray: ticketNumbers,
                 charityId: ticketData.charityId,
                 drawingId: lotteryData.id,
+                TransactionId:result.signature
               },
             });
             const charityUpdatedData = await globalData.charities.refetch();

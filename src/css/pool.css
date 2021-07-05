@@ -198,7 +198,7 @@
   .topSection {
     display: grid;
     grid-template-columns: auto auto;
-    height: 40vh;
+    height: fit-content;
     margin-bottom: 0px;
   }
   #poolD {

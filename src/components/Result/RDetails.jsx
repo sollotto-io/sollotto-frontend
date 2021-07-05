@@ -58,17 +58,17 @@ const RDetail = ({ lotteryData }) => {
         </div>
         <div id="other-details">
           <section>
-            <p>Prize Pool</p>
+            <p id="other-details-header-result">Prize Pool</p>
             <p>
               {lotteryData.TotalPoolValue === null ? 'TBD' : lotteryData.TotalPoolValue.toFixed(2)}
             </p>
           </section>
           <section>
-            <p>Total Winners</p>
+            <p id="other-details-header-result">Total Winners</p>
             <p>{lotteryData.WinnerWallet.length}</p>
           </section>
           <section>
-            <p>Winning Numbers</p>
+            <p id="other-details-header-result">Winning Numbers</p>
             <p>
               {WinningNumbers.length === 0 ? 'TBD' : WinningNumbers[0]}
               &nbsp; {WinningNumbers[1]}&nbsp; {WinningNumbers[2]}
@@ -77,7 +77,7 @@ const RDetail = ({ lotteryData }) => {
             </p>
           </section>
           <section>
-            <p>Your Result</p>
+            <p id="other-details-header-result">Your Result</p>
             {userResult()}
           </section>
         </div>
@@ -104,7 +104,8 @@ const WinningCharityResult = ({ lotteryData }) => {
 
   return (
     <div>
-      {lotteryData.WinningCharity.length === 1 ? (
+
+{lotteryData.WinningCharity.length === 1 ? (
         <span
           style={{
             width: '100%',
@@ -113,33 +114,23 @@ const WinningCharityResult = ({ lotteryData }) => {
             alignItems: 'center',
           }}
         >
-          <p>Winning Charity</p>
-          <p style={{ textAlign: 'center' }}>Votes</p>
-          <p style={{ textAlign: 'center' }}>%votes</p>
+          <p id="other-details-header-result">Winning Charity</p>
+          <p id="other-details-header-result" style={{ textAlign: 'center' }}>Votes</p>
+          <p id="other-details-header-result" style={{ textAlign: 'center' }}>%votes</p>
+          <p id="other-details-header-result" style={{ textAlign: 'center' }}>SOL recieved</p>
+
         </span>
       ) : (
         <span style={{ display: 'grid', gridTemplateColumns: '200px 200px 200px 200px' }}>
-          <p>Winning Charities</p>
-          <p style={{ textAlign: 'center' }}>Votes</p>
-          <p style={{ textAlign: 'center' }}>%votes</p>
-          <p style={{ textAlign: 'center' }}>SOL recieved</p>
+          <p id="other-details-header-result">Winning Charities</p>
+          <p id="other-details-header-result" style={{ textAlign: 'center' }}>Votes</p>
+          <p id="other-details-header-result" style={{ textAlign: 'center' }}>%votes</p>
+          <p id="other-details-header-result" style={{ textAlign: 'center' }}>SOL recieved</p>
         </span>
       )}
+
       <div id="winner-charity-list">
-        {arr.length === 0 ? (
-          <span
-            style={{
-              width: '100%',
-              display: 'grid',
-              gridTemplateColumns: '200px 200px 200px 200px',
-              alignItems: 'center',
-            }}
-          >
-            <p>TBD</p>
-            <p style={{ textAlign: 'center' }}>TBD</p>
-            <p style={{ textAlign: 'center' }}>TBD</p>
-          </span>
-        ) : (
+        {
           arr.map((c, i) => {
             return (
               <span
@@ -161,10 +152,11 @@ const WinningCharityResult = ({ lotteryData }) => {
                 <p style={{ textAlign: 'center' }} key={i}>
                   {((lotteryData.TotalPoolValue * 0.3)/arr.length).toFixed(2)}
                 </p>
+                
               </span>
             );
-          })
-        )}
+              })}
+        
       </div>
     </div>
   );

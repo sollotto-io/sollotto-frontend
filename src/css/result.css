@@ -30,7 +30,8 @@
 }
 #ticket-details {
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: auto auto;
+  column-gap: 30px;
   background: rgba(19, 26, 53, 0.9);
   padding: 2rem;
 }
@@ -54,13 +55,16 @@
 }
 .entryRow {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 .numColumn {
   justify-self: start;
 }
 .chaColumn {
   justify-self: start;
+}
+#other-details-header-result{
+  font-size: 16px;
 }
 
 .coming-soon {
@@ -113,10 +117,11 @@
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto 1fr;
-    row-gap: 70px;
+    row-gap: 40px;
     justify-content: center;
     margin: 2rem 0rem;
     padding: 0rem 1rem;
+    height: fit-content;
   }
   .win {
     background: rgba(19, 26, 53, 0.9);

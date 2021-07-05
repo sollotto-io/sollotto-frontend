@@ -100,6 +100,7 @@ export const FETCH_LOTTERY_BY_ID = gql`
       Tickets {
         walletID
         ticketArray
+        TransactionId
         charityId {
           charityName
         }
