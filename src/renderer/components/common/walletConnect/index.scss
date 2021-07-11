@@ -1,0 +1,12 @@
+.walletConnect {
+  justify-self: end;
+  align-self: center;
+  cursor: pointer;
+
+  display: grid;
+  grid-template-columns: auto auto;
+}
+.walletConnect span {
+  align-self: center;
+  margin-left: 8px;
+}

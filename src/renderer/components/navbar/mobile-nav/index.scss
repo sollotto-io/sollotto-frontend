@@ -1,0 +1,111 @@
+nav {
+  .app-bar {
+    background-color: #241749;
+    .m-nav-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.selected-item {
+  border-bottom: 1.5px solid var(--purple-dino);
+}
+
+.MuiToolbar-root {
+  justify-content: space-between;
+}
+.mobile-nav-item {
+  color: white;
+  font-size: 25px;
+  margin-bottom: 20%;
+  justify-self: center;
+  padding-bottom: 8px;
+  transition: 0.5s all;
+  &:hover {
+    border-bottom: 1px solid var(--ocean);
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 0.5s;
+}
+
+.fadeOut {
+  animation: fadeOut 0.5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.mobile-nav-item-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  justify-self: center;
+  margin-top: 40%;
+}
+
+.m-appbar-icon {
+  width: 100px;
+  height: auto;
+  align-self: flex-start !important;
+}
+
+.mobile-nav-logo {
+  width: 200px;
+  height: auto;
+  align-self: center;
+  justify-self: flex-end;
+}
+
+.MuiPaper-root {
+  background-color: #241749 !important;
+}
+
+.MuiDrawer-paperAnchorLeft {
+  display: flex !important;
+  width: 60%;
+  padding: 15px;
+}
+
+.spin {
+  animation: spin 0.3s;
+}
+.reverse-spin {
+  animation: reverse-spin 0.3s;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes reverse-spin {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
