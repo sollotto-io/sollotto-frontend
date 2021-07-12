@@ -58,6 +58,11 @@
 }
 .numColumn {
   justify-self: start;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-column-gap: 8px;
+  justify-content: center;
+  width: 150px;
 }
 .chaColumn {
   justify-self: start;

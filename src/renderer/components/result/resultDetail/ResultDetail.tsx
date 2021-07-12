@@ -86,9 +86,15 @@ const ResultDetail = (): JSX.Element => {
                   return (
                     <div className="entryRow" key={i}>
                       <p className="numColumn" key={i}>
-                        {t.array[0]}&nbsp;&nbsp;{t.array[1]}&nbsp;&nbsp;
+                        <div>{t.array[0]}</div>
+                        <div>{t.array[1]}</div>
+                        <div>{t.array[2]}</div>
+                        <div>{t.array[3]}</div>
+                        <div>{t.array[4]}</div>
+                        <div>{t.array[5]}</div>
+                        {/*                         {t.array[0]}&nbsp;&nbsp;{t.array[1]}&nbsp;&nbsp;
                         {t.array[2]}&nbsp;&nbsp;{t.array[3]}&nbsp;&nbsp;
-                        {t.array[4]}&nbsp;&nbsp;{t.array[5]}&nbsp;&nbsp;
+                        {t.array[4]}&nbsp;&nbsp;{t.array[5]}&nbsp;&nbsp; */}
                       </p>{" "}
                       <p className="chaColumn">{t.charity}</p>
                     </div>
