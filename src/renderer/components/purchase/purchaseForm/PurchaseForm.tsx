@@ -111,17 +111,18 @@ export default function PurchaseForm(): JSX.Element {
 
             setLoading(false);
             reduxAction({ type: "RESET_PURCHASE_DATA", arg: null });
-            const balance = globalData.connection.getBalance(
-              globalData.selectedWallet.publicKey
-            );
-            balance.then((t: number) => {
+            (async () => {
+              const balance: Promise<number> =
+                await globalData.connection.getBalance(
+                  globalData.selectedWallet.publicKey
+                );
               setGlobalData({
                 type: "SET_GLOBAL_DATA",
                 arg: {
-                  walletBalance: t,
+                  walletBalance: balance,
                 },
               });
-            });
+            })();
             toast.success(
               <div>
                 Ticket purchase is successful, your purchased tickets can be
