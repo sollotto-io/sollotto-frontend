@@ -1,0 +1,222 @@
+:root {
+  --surge-green: #00ffa3;
+  --ocean: #03e1ff;
+  --purple-dino: #dc1fff;
+  --sunshine: #ffdb20;
+  --tang: #ff852d;
+  --tungsten: #193650;
+  --navy-blue: #131a35;
+  --dark-blue: #1b274f;
+  --grey: #f1f1f2;
+  font-family: "Circular", Arial, Helvetica, sans-serif;
+}
+
+@font-face {
+  font-family: "Circular";
+  font-weight: 400;
+  src: url("./assets/fonts/CircularStd-Book.ttf");
+}
+@font-face {
+  font-family: "Circular";
+  font-weight: 400;
+  font-style: italic;
+  src: url("./assets/fonts/CircularStd-BookItalic.ttf");
+}
+@font-face {
+  font-family: "Circular";
+  font-weight: 600;
+  src: url("./assets/fonts/CircularStd-Medium.ttf");
+}
+@font-face {
+  font-family: "Circular";
+  font-weight: 600;
+  font-style: italic;
+  src: url("./assets/fonts/CircularStd-MediumItalic.ttf");
+}
+@font-face {
+  font-family: "Circular";
+  font-weight: 800;
+  src: url("./assets/fonts/CircularStd-Bold.ttf");
+}
+@font-face {
+  font-family: "Circular";
+  font-weight: 800;
+  font-style: italic;
+  src: url("./assets/fonts/CircularStd-BoldItalic.ttf");
+}
+@font-face {
+  font-family: "Circular";
+  font-weight: 1000;
+  src: url("./assets/fonts/CircularStd-Black.ttf");
+}
+@font-face {
+  font-family: "Circular";
+  font-weight: 1000;
+  font-style: italic;
+  src: url("./assets/fonts/CircularStd-BlackItalic.ttf");
+}
+* {
+  box-sizing: border-box;
+}
+h1 {
+  font-weight: 600;
+  font-size: 60px;
+  letter-spacing: -2px;
+  line-height: 115%;
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 45px;
+  letter-spacing: -1px;
+  line-height: 140%;
+}
+h3 {
+  font-weight: 600;
+  font-size: 36px;
+  letter-spacing: 0px;
+  line-height: 130%;
+}
+h4 {
+  font-weight: 600;
+  font-size: 26px;
+  letter-spacing: 0px;
+  line-height: 140%;
+}
+
+body {
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 0px;
+  line-height: 160%;
+  background-color: var(--navy-blue);
+  color: #f1f1f2;
+  margin: 0px;
+  min-width: 350px;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.App {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+.pageWrapper {
+  align-self: start;
+  justify-self: center;
+}
+.globalBtn {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-family: "Circular", Arial, Helvetica, sans-serif;
+  cursor: pointer;
+}
+.greenBtn {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid var(--surge-green);
+  transition: color 0.5s;
+}
+.greenBtn:hover {
+  transition: color 0.5s;
+  color: var(--surge-green);
+}
+.greenBtnWOHover {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid var(--surge-green);
+  transition: color 0.5s;
+}
+.greenBtn:disabled {
+  opacity: 0.5;
+}
+.greenBtn:hover:disabled {
+  cursor: not-allowed;
+  color: #fff;
+}
+
+.gradientBg {
+  transition: all 0.5s;
+
+  background: linear-gradient(
+    245.22deg,
+    #c200fb 7.97%,
+    #3772ff 49.17%,
+    #3773fe 0,
+    #5ac4be 92.1%
+  );
+}
+.gradientBg2 {
+  background: linear-gradient(150deg, #5ac4be 7.97%, #c200fb 92.1%);
+}
+.gradientBg3 {
+  background: linear-gradient(150deg, #349e98 7.97%, #3c918c 92.1%);
+}
+.gradientBorder {
+  padding: 1px;
+  border-radius: 4px;
+}
+
+.iconLogo {
+  max-width: 100%;
+}
+.noDisplay {
+  display: none;
+}
+.blockDisplay {
+  display: block !important;
+}
+
+.transpInfoToolTip {
+  font-size: 14px;
+}
+.transpInfoToolTip,
+.transpInfoToolTipTitle,
+.transpInfoToolTipBody {
+  padding: 0.3rem;
+}
+.copyText {
+  margin: 0rem 10px;
+  background-color: var(--navy-blue);
+  padding: 10px;
+  border-radius: 4px;
+}
+.transpInfoToolTipBody {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+}
+.transpInfoToolTipBody > * {
+  place-self: center;
+}
+
+.comingSoon {
+  align-self: center;
+  width: 100%;
+}
+@media only screen and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media only screen and (min-width: 980px) {
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}

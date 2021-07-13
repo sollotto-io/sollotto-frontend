@@ -1,0 +1,45 @@
+.numberSelector {
+  background-color: var(--navy-blue);
+  display: grid;
+  grid-template-columns: repeat(6, auto);
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.singleNumberSelector {
+  display: grid;
+  grid-template-columns: 100%;
+  margin: 0px 0.5rem;
+}
+#singleNumberSelector_6 {
+  margin-left: 1.5rem;
+}
+.numberSelectorArrow,
+.numberInputWrapper {
+  justify-self: center;
+}
+
+.numberInputWrapper {
+  max-width: 30px;
+  max-height: 30px;
+  justify-self: center;
+  display: grid;
+}
+.numberSelectorInput {
+  background: rgba(19, 26, 53, 0.9);
+  padding: 5px;
+  border: 0px;
+  text-align: center;
+  border-radius: 4px;
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  font-family: "Circular", Arial, Helvetica, sans-serif;
+  align-self: stretch;
+}
+.numberCount {
+  padding: 5px;
+}
+.numberSelectorArrow {
+  cursor: pointer;
+}

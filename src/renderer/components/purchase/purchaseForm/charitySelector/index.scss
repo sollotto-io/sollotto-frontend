@@ -1,0 +1,99 @@
+.charitySelector {
+  margin-top: 2.5rem;
+}
+.charitySelector span {
+  margin-left: 0.5rem;
+}
+.singleCharitySelector {
+  display: grid;
+  grid-template-columns: 100%;
+  background: rgba(19, 26, 53, 1);
+  text-align: center;
+  height: 100%;
+  position: relative;
+  max-width: 350px;
+  padding-bottom: 10px;
+}
+.psuedoGreyBg {
+  background: #f1f1f2;
+  transition: all 0.5s;
+  box-sizing: border-box;
+}
+.psuedoBorder {
+  padding: 2px;
+  box-sizing: border-box;
+}
+.singleCharitySelectorWrapper {
+  margin: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  justify-self: center;
+  width: fit-content;
+  box-sizing: border-box;
+}
+.givepadding {
+  padding: 4px;
+  box-sizing: border-box;
+}
+.charityImg {
+  width: 100%;
+}
+.charitySelectBtn {
+  background: rgba(19, 26, 53, 1);
+  color: #fff;
+  transition: background 0.5s;
+  border: 0px;
+  padding: 1px;
+}
+.charitySelectBtn:hover:not([disabled]) {
+  transition: background 0.5s;
+  background: rgba(19, 26, 53, 0);
+}
+.charitySelectBtnWrapper {
+  justify-self: center;
+  align-self: end;
+  margin: 0.5rem 0rem;
+}
+.charityName {
+  margin: 1rem 0rem;
+  padding: 0px 0.5rem;
+}
+.charitySelectBtn:disabled {
+  transition: all 0.5s;
+  cursor: initial;
+  opacity: 0.5;
+}
+.charitySelectBtnWrapper .active {
+  background: rgba(19, 26, 53, 0);
+}
+.charitySelectorIcon {
+  width: 60px;
+  position: absolute;
+  left: calc(50% - 30px);
+  bottom: -30px;
+  display: none;
+  animation: spin 0.5s;
+}
+
+.singleCharitySelector {
+  position: relative;
+  width: fit-content;
+  box-sizing: border-box;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@media only screen and (min-width: 980px) {
+  .charitySelectorGrid {
+    grid-template-columns: auto auto;
+  }
+  .singleCharitySelector {
+    max-width: 200px;
+  }
+}
