@@ -1,0 +1,12 @@
+.resultdetailSection{
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto 1fr;
+    row-gap: 30px;
+    justify-content: center;
+    margin-top: 3rem !important;
+    box-sizing: border-box;
+    padding: 0rem 1rem;
+    width: fit-content
+    
+}

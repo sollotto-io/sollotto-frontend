@@ -19,6 +19,7 @@ export const FETCH_ALL_CHARITIES = gql`
       Impact
       webURL
       socialMedia
+      publicKey
     }
   }
 `;
@@ -59,6 +60,7 @@ export const FETCH_UPCOMING_DRAWING = gql`
         isWatch
         Impact
         webURL
+        publicKey
       }
       StartDate
       EndDate
@@ -106,6 +108,7 @@ export const FETCH_LOTTERY_BY_ID = gql`
         charityId {
           charityName
         }
+        TransactionId
       }
       WinningNumbers
       EndDate

@@ -76,7 +76,7 @@ export default function PurchaseCard(): JSX.Element {
               color: valid ? "#FFF" : "#ff604f",
             }}
           >
-            Please pick your numbers. Choose a number between 1-69 for the first
+            Please pick your numbers. Choose a number between 1-49 for the first
             5 selections, and a number between 1-26 for the 6th selection
           </p>
           <RandomButton

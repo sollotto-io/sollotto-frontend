@@ -47,6 +47,7 @@ export interface IDrawingId {
     charityId: {
       charityName: string;
     };
+    TransactionId:string
   }[];
   WinningNumbers: number[];
   EndDate: string;

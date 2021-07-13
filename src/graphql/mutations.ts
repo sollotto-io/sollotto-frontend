@@ -7,6 +7,7 @@ export const POST_TICKET = gql`
     $DataWallet: [Int]
     $charityId: String!
     $drawingId: String!
+    $TransactionId: String!
   ) {
     addTicket(
       walletID: $walletID
@@ -14,6 +15,7 @@ export const POST_TICKET = gql`
       DataWallet: $DataWallet
       charityId: $charityId
       drawingId: $drawingId
+      TransactionId:$TransactionId
     )
   }
 `;
