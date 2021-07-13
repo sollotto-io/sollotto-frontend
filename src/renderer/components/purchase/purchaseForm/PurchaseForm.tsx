@@ -56,7 +56,7 @@ export default function PurchaseForm(): JSX.Element {
         ticketNumArr: ticketNumbers,
       };
       setLoading(true);
-
+      console.log(globalData.walletBalance)
       if (globalData.walletBalance === 0) {
         toast.error(
           "Ticket purchase unsuccessful. You dont have enough SOL in your wallet to purchase a ticket",
@@ -73,7 +73,6 @@ export default function PurchaseForm(): JSX.Element {
         setLoading(false);
       } else {
         const result = await ticketPurchase(ticketData);
-
         if (result.success === true) {
           try {
             await addTicket({
@@ -86,6 +85,7 @@ export default function PurchaseForm(): JSX.Element {
                 ticketArray: ticketNumbers,
                 charityId: ticketData.charityId,
                 drawingId: lotteryData.id,
+                TransactionId:result.signature
               },
             });
             const charityUpdatedData = await globalData.charities.refetch();
@@ -116,10 +116,12 @@ export default function PurchaseForm(): JSX.Element {
                 await globalData.connection.getBalance(
                   globalData.selectedWallet.publicKey
                 );
-              setGlobalData({
+                console.log(balance)
+              await setGlobalData({
                 type: "SET_GLOBAL_DATA",
                 arg: {
-                  walletBalance: balance,
+                  ...globalData,
+                  walletBalance: globalData.walletBalance - (0.1*1000000000) ,
                 },
               });
             })();
@@ -186,7 +188,9 @@ export default function PurchaseForm(): JSX.Element {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-          });
+          })
+          
+        setLoading(false);
         }
       }
     }

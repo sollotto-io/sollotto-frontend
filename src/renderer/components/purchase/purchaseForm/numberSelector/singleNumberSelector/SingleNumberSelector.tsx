@@ -35,7 +35,7 @@ export default function SingleNumberSelector({
         type: "SET_PURCHASE_DATA",
         arg: {
           ticketNumberArr: ticketNumber,
-          valid: !(value < 1 || value > 69),
+          valid: !(value < 1 || value > 49),
         },
       });
     }
@@ -51,7 +51,7 @@ export default function SingleNumberSelector({
     if (ticketPos === 5 && ticketNumber[ticketPos] <= 26) {
       validateNum(ticketNumber[ticketPos]);
     }
-    if (ticketPos < 5 && ticketNumber[ticketPos] <= 69) {
+    if (ticketPos < 5 && ticketNumber[ticketPos] <= 49) {
       validateNum(ticketNumber[ticketPos]);
     }
   }
@@ -73,7 +73,7 @@ export default function SingleNumberSelector({
       let value = ticketNumber[ticketPos];
       timer.current = setInterval(() => {
         value += 1;
-        if (ticketPos < 5 && value <= 69) validateNum(value);
+        if (ticketPos < 5 && value <= 49) validateNum(value);
         if (ticketPos === 5 && value <= 26) validateNum(value);
       }, 200);
     }, 500);

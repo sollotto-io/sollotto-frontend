@@ -22,12 +22,12 @@ const CharityDetail = (): JSX.Element => {
   if (charityDetail) {
     return (
       <>
-        <div className="detailSection">
+        <div className="charitydetailSection">
           <div className="topSection">
             <CharityDetailContent charityDetail={charityDetail} />
             <CharityCommunitySelect charityDetail={charityDetail} />
           </div>
-          <div className="bottomSection">
+          <div className="charitybottomSection">
             <CharityIntro charityDetail={charityDetail} />
             <CharityExtraInfo charityDetail={charityDetail} />
           </div>

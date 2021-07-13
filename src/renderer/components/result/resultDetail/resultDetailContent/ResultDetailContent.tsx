@@ -172,14 +172,14 @@ const WinningCharityResult = ({ lotteryData }: { lotteryData: IDrawingId }) => {
                 key={i}
               >
                 {" "}
-                <p key={i}>{c.charityId.charityName}</p>
-                <p style={{ textAlign: "center" }} key={i}>
+                <p>{c.charityId.charityName}</p>
+                <p style={{ textAlign: "center" }}>
                   {c.votes}
                 </p>
-                <p style={{ textAlign: "center" }} key={i}>
+                <p style={{ textAlign: "center" }}>
                   {((c.votes / totalVotes) * 100).toFixed(2)}
                 </p>
-                <p style={{ textAlign: "center" }} key={i}>
+                <p style={{ textAlign: "center" }}>
                   {((lotteryData.TotalPoolValue * 0.3) / arr.length).toFixed(2)}
                 </p>
               </span>

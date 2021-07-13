@@ -10,6 +10,7 @@ import _ from "lodash";
 import useReduxState from "../../../hooks/useReduxState";
 import { IDrawingId } from "../../../api/types/lotteryData";
 import { FETCH_LOTTERY_BY_ID } from "../../../../graphql/queries";
+import PageTitle from "../../common/pageTitle/PageTitle";
 
 const ResultDetail = (): JSX.Element => {
   const { id }: { id: string } = useParams();
@@ -45,7 +46,7 @@ const ResultDetail = (): JSX.Element => {
   if (loading) {
     return <Loader />;
   } else {
-    const userTickets: { array: number[]; charity: string }[] = [];
+    const userTickets: { array: number[]; charity: string , transactionId: string }[] = [];
     lottery.getDrawingById.Tickets.forEach((t: IDrawingId["Tickets"][0]) => {
       const flag = _.isEqual(
         t.walletID,
@@ -56,11 +57,13 @@ const ResultDetail = (): JSX.Element => {
         userTickets.push({
           array: t.ticketArray,
           charity: t.charityId.charityName,
+          transactionId: t.TransactionId
         });
       }
     });
     return (
-      <div className="detailSection">
+      <div className="resultdetailSection">
+        <PageTitle title="Draw Detail"/>
         <div className="topSection">
           <ResultDetailContent lotteryData={lottery.getDrawingById} />
           <LeftCountdown lotteryData={lottery.getDrawingById} />
@@ -69,10 +72,10 @@ const ResultDetail = (): JSX.Element => {
           <div id="ticket-details">
             <div className="leftColumn">
               <h4>SolLotto Pick 6</h4>
-              <h4>{moment(lottery.getDrawingById.EndDate).format("LL")}</h4>
+              <p>{moment(lottery.getDrawingById.EndDate).format("LL")}</p>
             </div>
             <div className="rightColumn">
-              <h4 style={{ marginBottom: "0px" }}>
+              <h4 style={{ marginBottom: "10px" }}>
                 Your Numbers and Charities
               </h4>
               <p style={{ marginBottom: "20px" }}>
@@ -85,18 +88,26 @@ const ResultDetail = (): JSX.Element => {
                 userTickets.map((t, i) => {
                   return (
                     <div className="entryRow" key={i}>
-                      <p className="numColumn" key={i}>
-                        <div>{t.array[0]}</div>
-                        <div>{t.array[1]}</div>
-                        <div>{t.array[2]}</div>
-                        <div>{t.array[3]}</div>
-                        <div>{t.array[4]}</div>
-                        <div>{t.array[5]}</div>
+                      <p className="numColumn" >
+                        <span>{t.array[0]}</span>
+                        <span>{t.array[1]}</span>
+                        <span>{t.array[2]}</span>
+                        <span>{t.array[3]}</span>
+                        <span>{t.array[4]}</span>
+                        <span>{t.array[5]}</span>
                         {/*                         {t.array[0]}&nbsp;&nbsp;{t.array[1]}&nbsp;&nbsp;
                         {t.array[2]}&nbsp;&nbsp;{t.array[3]}&nbsp;&nbsp;
                         {t.array[4]}&nbsp;&nbsp;{t.array[5]}&nbsp;&nbsp; */}
                       </p>{" "}
                       <p className="chaColumn">{t.charity}</p>
+                      <a
+                  style={{ textDecoration: "underline" }}
+                  href={`https://solscan.io/tx/${t.transactionId}?cluster=devnet`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View Your Transacton
+                </a>
                     </div>
                   );
                 })
