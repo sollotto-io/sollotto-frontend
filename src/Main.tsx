@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
   Redirect,
-  useLocation,
+  // useLocation,
 } from "react-router-dom";
 import Purchase from "./renderer/views/Purchase/Purchase";
 import Charities from "./renderer/views/Charity/Charities";
@@ -32,7 +32,7 @@ import { FETCH_ALL_CHARITIES, FETCH_UPCOMING_DRAWING } from "./graphql/queries";
 import GrapeIDO from "./renderer/views/GrapeIDO";
 
 function Main(): JSX.Element {
-  const location = useLocation();
+  // const location = useLocation();
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
   );
