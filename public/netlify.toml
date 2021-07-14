@@ -1,0 +1,7 @@
+[[redirects]]
+  from = "/grapeIDO"
+  to = "grapeIDO"
+  status = 200
+  force = true # COMMENT: ensure that we always redirect
+  
+ 
