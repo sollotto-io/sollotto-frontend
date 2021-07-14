@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
   Redirect,
+  Link,
 
 } from "react-router-dom";
 import Purchase from "./renderer/views/Purchase/Purchase";
@@ -117,6 +118,7 @@ function Main(): JSX.Element {
         
           <Route path="/">
             <Navbar />
+            <Link to = "/grapeIDO"><p>hello</p></Link>
             <Switch>
               {/* Redirecting to purchase page if at '/' */}
               {/* Routes  */}
