@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
   Redirect,
-  useLocation,
+
 } from "react-router-dom";
 import Purchase from "./renderer/views/Purchase/Purchase";
 import Charities from "./renderer/views/Charity/Charities";
@@ -31,8 +31,9 @@ import { useQuery } from "@apollo/react-hooks";
 import { FETCH_ALL_CHARITIES, FETCH_UPCOMING_DRAWING } from "./graphql/queries";
 import GrapeIDO from "./renderer/views/GrapeIDO";
 
+
 function Main(): JSX.Element { 
-  const location = useLocation()
+
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
   );
@@ -110,17 +111,6 @@ function Main(): JSX.Element {
     return <Loader />;
   }
 
-  if(location.pathname === "/grapeido"){
-    return (
-      <div className="App">
-      <Router>
-        <Route exact path="/grapeido">
-          <GrapeIDO/>
-        </Route>
-        </Router>
-        </div>
-    )
-  }
   return (
     <div className="App">
         <Router>
@@ -155,6 +145,9 @@ function Main(): JSX.Element {
               </Route>
               <Route exact path="/charities/:id">
                 <CharityDetail />
+              </Route>
+              <Route exact path="/grapeIDO">
+                <GrapeIDO />
               </Route>
             </Switch>
             <Footer />
