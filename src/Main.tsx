@@ -28,6 +28,7 @@ import ResultDetail from "./components/Result/ResultDetail"; */
 import useReduxState from "./renderer/hooks/useReduxState";
 import { useQuery } from "@apollo/react-hooks";
 import { FETCH_ALL_CHARITIES, FETCH_UPCOMING_DRAWING } from "./graphql/queries";
+import GrapeIDO from "./renderer/views/GrapeIDO";
 
 function Main(): JSX.Element {
   const [globalData, setGlobalData] = useReduxState(
@@ -108,43 +109,54 @@ function Main(): JSX.Element {
     return <Loader />;
   }
   return (
-    <div className="App">
-      <Router>
-        <Navbar />
+    <Router>
+      <div className="App">
         <Switch>
-          {/* Redirecting to purchase page if at '/' */}
-          <Route exact path="/">
-            <Redirect to="/purchase" />
+          <Route path="/grapeido">
+            <GrapeIDO />
           </Route>
-          {/* Routes  */}
+          <Route
+            path="/"
+            >
+                  <Navbar />
+                  <Switch>
+                    {/* Redirecting to purchase page if at '/' */}
+                    {/* Routes  */}
+                    
+                    <Route exact path="/">
+                      <Redirect to="/purchase"/>
+                    </Route>
+                    <Route exact path="/purchase">
+                      <Purchase />
+                    </Route>
+                    <Route exact path="/results">
+                      <Results />
+                    </Route>
+                    <Route exact path="/results/:id">
+                      <ResultDetail />
+                    </Route>
 
-          <Route exact path="/purchase">
-            <Purchase />
-          </Route>
-          <Route exact path="/results">
-            <Results />
-          </Route>
-          <Route exact path="/results/:id">
-            <ResultDetail />
-          </Route>
-
-          <Route exact path="/charities">
-            <Charities charityloading={charityloading} />
-          </Route>
-          {/*           <Route exact path="/suggest">
-            <Suggest />
-          </Route> */}
-          <Route exact path="/pools">
-            <Pool />
-          </Route>
-          <Route exact path="/charities/:id">
-            <CharityDetail />
-          </Route>
+                    <Route exact path="/charities">
+                      <Charities charityloading={charityloading} />
+                    </Route>
+                    {/*           <Route exact path="/suggest">
+                <Suggest />
+              </Route> */}
+                    <Route exact path="/pools">
+                      <Pool />
+                    </Route>
+                    <Route exact path="/charities/:id">
+                      <CharityDetail />
+                    </Route>
+                  </Switch>
+                  <Footer />
+            </Route>
         </Switch>
-        <Footer />
-      </Router>
-    </div>
+      </div>
+    </Router>
   );
 }
 
 export default Main;
+
+

@@ -164,7 +164,7 @@ export default function PurchaseForm(): JSX.Element {
               </div>,
               {
                 position: "bottom-left",
-                autoClose: 6000,
+                autoClose: 2000,
                 hideProgressBar: true,
                 closeOnClick: true,
                 pauseOnHover: true,

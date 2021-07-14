@@ -42,6 +42,7 @@ export const ticketPurchase = async (purchaseDataArr: {
         purchaseDataArr.userWalletPK,
         purchaseDataArr.ticketNumArr
       );
+      console.log( value)
       const buffer = borsh.serialize(TicketDataSchema, value);
       const dataArr2 = new Uint8Array([1, ...buffer]) as Buffer;
 
