@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
   Redirect,
-  // useLocation,
+  useLocation,
 } from "react-router-dom";
 import Purchase from "./renderer/views/Purchase/Purchase";
 import Charities from "./renderer/views/Charity/Charities";
@@ -31,8 +31,8 @@ import { useQuery } from "@apollo/react-hooks";
 import { FETCH_ALL_CHARITIES, FETCH_UPCOMING_DRAWING } from "./graphql/queries";
 import GrapeIDO from "./renderer/views/GrapeIDO";
 
-function Main(): JSX.Element {
-  // const location = useLocation();
+function Main(): JSX.Element { 
+  const location = useLocation()
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
   );
@@ -67,7 +67,7 @@ function Main(): JSX.Element {
         },
       });
     }
-  }, [loading, charityloading]);
+  }, [loading, charityloading, ]);
 
   useEffect(() => {
     if (globalData.selectedWallet) {
@@ -110,49 +110,59 @@ function Main(): JSX.Element {
     return <Loader />;
   }
 
-  
+  if(location.pathname === "/grapeido"){
+    return (
+      <div className="App">
+      <Router>
+        <Route exact path ="/grapeido">
+          <GrapeIDO/>
+        </Route>
+        </Router>
+        </div>
+    )
+  }
   return (
     <div className="App">
-      <Router>
-        <Route path="/">
-          <Navbar />
-          <Switch>
-            {/* Redirecting to purchase page if at '/' */}
-            {/* Routes  */}
+        <Router>
+        
+          <Route path="/">
+            <Navbar />
+            <Switch>
+              {/* Redirecting to purchase page if at '/' */}
+              {/* Routes  */}
 
-            <Route exact path="/">
-              <Redirect to="/purchase" />
-            </Route>
-            <Route exact path="/purchase">
-              <Purchase />
-            </Route>
-            <Route exact path="/results">
-              <Results />
-            </Route>
-            <Route exact path="/results/:id">
-              <ResultDetail />
-            </Route>
+              <Route exact path="/">
+                <Redirect to="/purchase" />
+              </Route>
+              <Route exact path="/purchase">
+                <Purchase />
+              </Route>
+              <Route exact path="/results">
+                <Results />
+              </Route>
+              <Route exact path="/results/:id">
+                <ResultDetail />
+              </Route>
 
-            <Route exact path="/charities">
-              <Charities charityloading={charityloading} />
-            </Route>
-            {/*           <Route exact path="/suggest">
+              <Route exact path="/charities">
+                <Charities charityloading={charityloading} />
+              </Route>
+              {/*           <Route exact path="/suggest">
                 <Suggest />
               </Route> */}
-            <Route exact path="/pools">
-              <Pool />
-            </Route>
-            <Route exact path="/charities/:id">
-              <CharityDetail />
-            </Route>
-            <Route exact path="/grapeido">
-              <GrapeIDO />
-            </Route>
-          </Switch>
-          <Footer />
-        </Route>
-      </Router>
-    </div>
+              <Route exact path="/pools">
+                <Pool />
+              </Route>
+              <Route exact path="/charities/:id">
+                <CharityDetail />
+              </Route>
+            </Switch>
+            <Footer />
+          </Route>
+         
+        
+    </Router>
+      </div>
   );
 }
 
