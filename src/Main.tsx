@@ -112,9 +112,6 @@ function Main(): JSX.Element {
     <Router>
       <div className="App">
         <Switch>
-          <Route path="/grapeido">
-            <GrapeIDO />
-          </Route>
           <Route
             path="/"
             >
@@ -151,6 +148,9 @@ function Main(): JSX.Element {
                   </Switch>
                   <Footer />
             </Route>
+            <Route path="/grape">
+            <GrapeIDO />
+          </Route>
         </Switch>
       </div>
     </Router>
