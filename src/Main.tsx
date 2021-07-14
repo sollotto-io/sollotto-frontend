@@ -113,9 +113,12 @@ function Main(): JSX.Element {
   }
 
   return (
-    <div className="App">
         <Router>
-        
+    <div className="App">
+        <Switch>
+        <Route exact path="/grapeIDO">
+                <GrapeIDO />
+              </Route>
           <Route path="/">
             <Navbar />
             <Link to = "/grapeIDO"><p>hello</p></Link>
@@ -148,16 +151,14 @@ function Main(): JSX.Element {
               <Route exact path="/charities/:id">
                 <CharityDetail />
               </Route>
-              <Route exact path="/grapeIDO">
-                <GrapeIDO />
-              </Route>
+            
             </Switch>
             <Footer />
           </Route>
-         
+          </Switch>
         
-    </Router>
       </div>
+    </Router>
   );
 }
 
