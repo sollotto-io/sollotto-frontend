@@ -113,16 +113,25 @@ const history = useHistory()
     return <Loader />;
   }
   if(history.location.pathname ==='/grapeIDO') {
-    history.push("/grapeIDO")
-  }
-
-  return (
+    return (
+      <div className="App">
         <Router>
-    <div className="App">
-        <Switch>
         <Route exact path="/grapeIDO">
                 <GrapeIDO />
               </Route>
+          </Router>
+          </div>
+        
+    )
+  }
+
+  return (
+    <div className="App">
+      <Router>
+      <Route exact path="/grapeido">
+                <Redirect to="/grapeIDO" />
+              </Route>
+      
           <Route path="/">
             <Navbar />
             <Switch>
@@ -158,10 +167,9 @@ const history = useHistory()
             </Switch>
             <Footer />
           </Route>
-          </Switch>
         
-      </div>
     </Router>
+      </div>
   );
 }
 
