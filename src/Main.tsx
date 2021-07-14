@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
   Redirect,
-  Link,
+  useHistory,
 
 } from "react-router-dom";
 import Purchase from "./renderer/views/Purchase/Purchase";
@@ -34,7 +34,7 @@ import GrapeIDO from "./renderer/views/GrapeIDO";
 
 
 function Main(): JSX.Element { 
-
+const history = useHistory()
 
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
@@ -112,7 +112,9 @@ function Main(): JSX.Element {
   if (loading) {
     return <Loader />;
   }
-  
+  if(history.location.pathname ==='/grapeIDO') {
+    history.push("/grapeIDO")
+  }
 
   return (
         <Router>
@@ -121,12 +123,8 @@ function Main(): JSX.Element {
         <Route exact path="/grapeIDO">
                 <GrapeIDO />
               </Route>
-        <Route exact path="/grapeIDO">
-               <Redirect to="/grapeIDO"/>
-              </Route>
           <Route path="/">
             <Navbar />
-            <Link to = "/grapeIDO"><p>hello</p></Link>
             <Switch>
               {/* Redirecting to purchase page if at '/' */}
               {/* Routes  */}
