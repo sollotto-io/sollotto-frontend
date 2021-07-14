@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
   Redirect,
+  useLocation,
 } from "react-router-dom";
 import Purchase from "./renderer/views/Purchase/Purchase";
 import Charities from "./renderer/views/Charity/Charities";
@@ -30,7 +31,8 @@ import { useQuery } from "@apollo/react-hooks";
 import { FETCH_ALL_CHARITIES, FETCH_UPCOMING_DRAWING } from "./graphql/queries";
 import GrapeIDO from "./renderer/views/GrapeIDO";
 
-function Main(): JSX.Element {
+function Main(): JSX.Element { 
+  const location = useLocation()
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
   );
@@ -44,7 +46,6 @@ function Main(): JSX.Element {
 
   useEffect(() => {
     if (charityloading === false) {
-      console.log(charities);
       setGlobalData({
         type: "SET_GLOBAL_DATA",
         arg: {
@@ -66,7 +67,7 @@ function Main(): JSX.Element {
         },
       });
     }
-  }, [loading, charityloading]);
+  }, [loading, charityloading, ]);
 
   useEffect(() => {
     if (globalData.selectedWallet) {
@@ -108,55 +109,61 @@ function Main(): JSX.Element {
   if (loading) {
     return <Loader />;
   }
-  return (
-    <Router>
-      <div className="App">
-        <Switch>
-          <Route
-            path="/"
-            >
-                  <Navbar />
-                  <Switch>
-                    {/* Redirecting to purchase page if at '/' */}
-                    {/* Routes  */}
-                    
-                    <Route exact path="/">
-                      <Redirect to="/purchase"/>
-                    </Route>
-                    <Route exact path="/purchase">
-                      <Purchase />
-                    </Route>
-                    <Route exact path="/results">
-                      <Results />
-                    </Route>
-                    <Route exact path="/results/:id">
-                      <ResultDetail />
-                    </Route>
 
-                    <Route exact path="/charities">
-                      <Charities charityloading={charityloading} />
-                    </Route>
-                    {/*           <Route exact path="/suggest">
+  if(location.pathname === "/grapeido"){
+    return (
+      <div className="App">
+      <Router>
+        <Route path = "/grapeido">
+          <GrapeIDO/>
+        </Route>
+        </Router>
+        </div>
+    )
+  }
+  return (
+    <div className="App">
+        <Router>
+        
+          <Route path="/">
+            <Navbar />
+            <Switch>
+              {/* Redirecting to purchase page if at '/' */}
+              {/* Routes  */}
+
+              <Route exact path="/">
+                <Redirect to="/purchase" />
+              </Route>
+              <Route exact path="/purchase">
+                <Purchase />
+              </Route>
+              <Route exact path="/results">
+                <Results />
+              </Route>
+              <Route exact path="/results/:id">
+                <ResultDetail />
+              </Route>
+
+              <Route exact path="/charities">
+                <Charities charityloading={charityloading} />
+              </Route>
+              {/*           <Route exact path="/suggest">
                 <Suggest />
               </Route> */}
-                    <Route exact path="/pools">
-                      <Pool />
-                    </Route>
-                    <Route exact path="/charities/:id">
-                      <CharityDetail />
-                    </Route>
-                  </Switch>
-                  <Footer />
-            </Route>
-            <Route path="/grape">
-            <GrapeIDO />
+              <Route exact path="/pools">
+                <Pool />
+              </Route>
+              <Route exact path="/charities/:id">
+                <CharityDetail />
+              </Route>
+            </Switch>
+            <Footer />
           </Route>
-        </Switch>
-      </div>
+         
+        
     </Router>
+      </div>
   );
 }
 
 export default Main;
-
-
