@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
   Redirect,
+
 } from "react-router-dom";
 import Purchase from "./renderer/views/Purchase/Purchase";
 import Charities from "./renderer/views/Charity/Charities";
@@ -30,7 +31,9 @@ import { useQuery } from "@apollo/react-hooks";
 import { FETCH_ALL_CHARITIES, FETCH_UPCOMING_DRAWING } from "./graphql/queries";
 import GrapeIDO from "./renderer/views/GrapeIDO";
 
-function Main(): JSX.Element {
+
+function Main(): JSX.Element { 
+
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
   );
@@ -65,7 +68,7 @@ function Main(): JSX.Element {
         },
       });
     }
-  }, [loading, charityloading]);
+  }, [loading, charityloading, ]);
 
   useEffect(() => {
     if (globalData.selectedWallet) {
@@ -109,12 +112,9 @@ function Main(): JSX.Element {
   }
 
   return (
-    <Router>
-      <div className="App">
-        <Switch>
-          <Route exact path="/grapeIDO">
-            <GrapeIDO />
-          </Route>
+    <div className="App">
+        <Router>
+        
           <Route path="/">
             <Navbar />
             <Switch>
@@ -146,12 +146,16 @@ function Main(): JSX.Element {
               <Route exact path="/charities/:id">
                 <CharityDetail />
               </Route>
+              <Route exact path="/grapeIDO">
+                <GrapeIDO />
+              </Route>
             </Switch>
             <Footer />
           </Route>
-        </Switch>
-      </div>
+         
+        
     </Router>
+      </div>
   );
 }
 
