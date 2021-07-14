@@ -35,6 +35,7 @@ import GrapeIDO from "./renderer/views/GrapeIDO";
 
 function Main(): JSX.Element { 
 
+
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
   );
@@ -111,6 +112,7 @@ function Main(): JSX.Element {
   if (loading) {
     return <Loader />;
   }
+  
 
   return (
         <Router>
@@ -118,6 +120,9 @@ function Main(): JSX.Element {
         <Switch>
         <Route exact path="/grapeIDO">
                 <GrapeIDO />
+              </Route>
+        <Route exact path="/grapeIDO">
+               <Redirect to="/grapeIDO"/>
               </Route>
           <Route path="/">
             <Navbar />
