@@ -114,7 +114,7 @@ function Main(): JSX.Element {
     return (
       <div className="App">
       <Router>
-        <Route path = "/grapeido">
+        <Route exact path ="/grapeido">
           <GrapeIDO/>
         </Route>
         </Router>
