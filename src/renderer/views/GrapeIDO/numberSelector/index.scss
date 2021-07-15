@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: repeat(6, auto);
   border-radius: 4px;
-  padding: 5px;
+  padding: 10px;
 }
 
 .singleNumberSelector {
@@ -19,8 +19,8 @@
   justify-self: center;
 }
 
-.numberInputWrapper {
-  max-width: 30px;
+.numberInputWrapperIDO {
+  max-width: 50px;
   max-height: 30px;
   justify-self: center;
   display: grid;

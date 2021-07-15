@@ -24,13 +24,21 @@ export default function IDOForm({users}: IusersProps): JSX.Element {
   const [loading, setLoading] = useState(false);
 
   async function handleSubmitIDO() {
-    const tempticketArr = RandomTicketGenerator(users) ;
-    reduxAction({
-      type: "SET_PURCHASE_DATA",
-      arg: {
-        ticketNumberArr: tempticketArr,
-      },
-    });
+    if(users === 0 || NaN || null){
+      toast.warn(
+        "Please enter the number of users",
+        {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
+    }else{const tempticketArr = RandomTicketGenerator(users) ;
+   
     const ticketNumbers = sortTicketNumber(tempticketArr);
     console.log(ticketNumbers);
       if (globalData.selectedWallet === null) {
@@ -88,7 +96,12 @@ export default function IDOForm({users}: IusersProps): JSX.Element {
                 },
               });
             })();
-          
+            reduxAction({
+              type: "SET_PURCHASE_DATA",
+              arg: {
+                ticketNumberArr: tempticketArr,
+              },
+            });
             toast.success(
               <div>
                 Winning Number successfully selected
@@ -136,7 +149,7 @@ export default function IDOForm({users}: IusersProps): JSX.Element {
           setLoading(false);
         }
       }
-    
+    }
   }
 
   return (

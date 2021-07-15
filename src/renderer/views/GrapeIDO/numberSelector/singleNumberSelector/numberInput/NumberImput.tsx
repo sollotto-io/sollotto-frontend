@@ -17,8 +17,8 @@ export default function NumberInput({
     <div
       className={
         ticketPos === 5
-          ? "gradientBg3 gradientBorder numberInputWrapper"
-          : "gradientBg2 gradientBorder numberInputWrapper"
+          ? "gradientBg3 gradientBorder numberInputWrapperIDO"
+          : "gradientBg2 gradientBorder numberInputWrapperIDO"
       }
     >
       <input
