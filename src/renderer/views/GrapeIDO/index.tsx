@@ -15,8 +15,9 @@ function GrapeIDO(): JSX.Element {
         </div>
       <p>Powered By <img src={Sollotto} height="30px" alt=""/> SolLotto</p>
         <IDOCard />
-        <Link style={{opacity:0.7, marginTop:10, color:"gray"}} to={'/grape-parrot-verify'}target="_blank">app.sollotto.io/verify-grape-parrot</Link>
-       
+        <span style={{opacity:0.7, marginTop:10, color:"gray"}}>
+        Verify only one set of numbers has been chosen by visiting: <br /><Link style={{ marginTop:10, color:"gray"}} to={'/grape-parrot-verify'}target="_blank">app.sollotto.io/grape-parrot-verify</Link>
+        </span>
       </div>
     </div>
   );
