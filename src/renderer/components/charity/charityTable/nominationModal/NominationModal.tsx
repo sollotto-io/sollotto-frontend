@@ -19,7 +19,7 @@ export default function NominationModal({ id }: { id: string }): JSX.Element {
   const [{ walletConnectedFlag }, setGlobalData] = useReduxState(
     (state) => state.globalData
   );
-  const [postVotes, { data }] = useMutation(POST_USER_VOTES);
+  const [postVotes] = useMutation(POST_USER_VOTES);
   const handleHasChanged = useCallback(() => {
     if (votes !== initialVoteCount) {
       setHasChanged(true);

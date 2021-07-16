@@ -18,7 +18,7 @@ export interface IusersProps {
   users: number;
 }
 export default function IDOForm({users}: IusersProps): JSX.Element {
-  const [globalData, setGlobalData] = useReduxState(
+  const [globalData] = useReduxState(
     (state: AppState) => state.globalData
   );
   const [loading, setLoading] = useState(false);
