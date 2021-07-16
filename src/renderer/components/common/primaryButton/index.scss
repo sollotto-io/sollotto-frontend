@@ -1,0 +1,23 @@
+.greenBtn {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid var(--surge-green);
+  transition: color 0.5s;
+}
+.greenBtn:hover {
+  transition: color 0.5s;
+  color: var(--surge-green);
+}
+.greenBtnWOHover {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid var(--surge-green);
+  transition: color 0.5s;
+}
+.greenBtn:disabled {
+  opacity: 0.5;
+}
+.greenBtn:hover:disabled {
+  cursor: not-allowed;
+  color: #fff;
+}
