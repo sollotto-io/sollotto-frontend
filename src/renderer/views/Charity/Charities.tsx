@@ -8,6 +8,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { FETCH_SINGLE_USER } from "../../../graphql/queries";
 import { useEffect } from "react";
 import useDidUpdateEffect from "../../hooks/useDidUpdateEffect";
+import { AppState } from "../../redux/stores/store";
 
 export default function Charities({
   charityloading,
@@ -17,6 +18,10 @@ export default function Charities({
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
   );
+  const [{ lotteryData }] = useReduxState(
+    (state) => state.lotteryData
+  );
+  console.log(lotteryData)
   const {
     loading,
     data: user,
@@ -62,7 +67,7 @@ export default function Charities({
         });
       }
     })();
-  }, [globalData.user]);
+  }, [globalData.user,lotteryData.TotalPoolValue]);
 
   if (charityloading) {
     return <Loader />;

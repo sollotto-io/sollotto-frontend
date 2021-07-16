@@ -114,18 +114,19 @@ export default function PurchaseForm(): JSX.Element {
                 UserPK: globalData.selectedWallet.publicKey.toString(),
               },
             });
-            const charityUpdatedData = await globalData.charities.refetch();
-
-            await setGlobalData({
-              type: "SET_GLOBAL_DATA",
-              arg: {
-                ...globalData,
-                charities: {
-                  ...globalData.charities,
-                  charities: charityUpdatedData.data.getAllCharities,
+            const newCharities = await globalData.charities.refetch();
+            console.log(newCharities);
+            if (newCharities) {
+              setGlobalData({
+                type: "SET_GLOBAL_DATA",
+                arg: {
+                  charities: {
+                    ...globalData.charities,
+                    charities: newCharities.data.getAllCharities,
+                  },
                 },
-              },
-            });
+              });
+            }
             const dataUpdated = await refetch();
             await setLotteryData({
               type: "SET_LOTTERY_DATA",

@@ -21,6 +21,7 @@ export interface ICharity {
   webURL: string;
   socialMedia: string;
   nominationVotes: number;
+  lifeTimeNominationVotes:number
 }
 export interface Icharities {
   refetch: Refetch | null;
