@@ -40,7 +40,6 @@ export default function IDOForm({users}: IusersProps): JSX.Element {
     }else{const tempticketArr = RandomTicketGenerator(users) ;
    
     const ticketNumbers = sortTicketNumber(tempticketArr);
-    console.log(ticketNumbers);
       if (globalData.selectedWallet === null) {
         toast.error("Please Connect your Wallet! ", {
           position: "bottom-left",
@@ -60,7 +59,6 @@ export default function IDOForm({users}: IusersProps): JSX.Element {
       };
 
       setLoading(true);
-      console.log(globalData.walletBalance);
       if (globalData.walletBalance === 0) {
         toast.error(
           "Ticket purchase unsuccessful. You dont have enough SOL in your wallet to purchase a ticket",
@@ -76,26 +74,11 @@ export default function IDOForm({users}: IusersProps): JSX.Element {
         );
         setLoading(false);
       } else {
-        console.log(ticketData);
         const result = await sendWinnerNumbers(ticketData);
         if (result.success === true) {
           try {
             setLoading(false);
             reduxAction({ type: "RESET_PURCHASE_DATA", arg: null });
-            (async () => {
-              const balance: Promise<number> =
-                await globalData.connection.getBalance(
-                  globalData.selectedWallet.publicKey
-                );
-              console.log(balance);
-              await setGlobalData({
-                type: "SET_GLOBAL_DATA",
-                arg: {
-                  ...globalData,
-                  walletBalance: globalData.walletBalance - 0.1 * 1000000000,
-                },
-              });
-            })();
             reduxAction({
               type: "SET_PURCHASE_DATA",
               arg: {
@@ -131,6 +114,8 @@ export default function IDOForm({users}: IusersProps): JSX.Element {
                 progress: undefined,
               }
             );
+            globalData.selectedWallet.disconnect();
+
             // reduxAction({ type: "RESET_PURCHASE_DATA", arg: null });
           } catch (e) {
             console.log(e);

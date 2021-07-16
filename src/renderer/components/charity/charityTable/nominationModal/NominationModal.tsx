@@ -85,16 +85,8 @@ export default function NominationModal({ id }: { id: string }): JSX.Element {
   };
 
   const handleVotesSubmit = (e: React.MouseEvent<HTMLElement>) => {
-    console.log("Hola" + votes);
     try {
       (async () => {
-        console.log(
-          JSON.stringify({
-            charityId: id,
-            UserPk: user && user.UserPK,
-            Votes: initialVoteCount + votes,
-          })
-        );
         await postVotes({
           variables: {
             charityId: id,
@@ -102,7 +94,6 @@ export default function NominationModal({ id }: { id: string }): JSX.Element {
             Votes: votes,
           },
         });
-        console.log(data);
       })();
       setGlobalData({
         type: "SET_GLOBAL_DATA",

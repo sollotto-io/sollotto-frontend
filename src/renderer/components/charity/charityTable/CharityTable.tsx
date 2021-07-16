@@ -74,7 +74,7 @@ export default function CharityTable({
                 </p>
               </StyledTableCell>
               <StyledTableCell align="center">
-              {nominate ? row.lifeTimeNominationVotes : row.lifeTimeVotes }
+              {row.lifeTimeVotes ? row.lifeTimeVotes : 0 }
               </StyledTableCell>
               <StyledTableCell align="center">
                 {" "}

@@ -17,7 +17,7 @@ export default function IDOButton({
   const getTicketBtn = () => (
     <>
       <PrimaryButton onClick={handleSubmit}>
-        Get Winner Numbers
+      Get Winning Numbers
       </PrimaryButton>
     </>
   );

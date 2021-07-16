@@ -35,7 +35,6 @@ export default function Charities({
   useEffect(() => {
     (async () => {
       const newCharities = await globalData.charities.refetch();
-      console.log(newCharities);
       if (newCharities) {
         setGlobalData({
           type: "SET_GLOBAL_DATA",
@@ -68,10 +67,8 @@ export default function Charities({
     }
   }, [globalData.walletConnectedFlag, loading]);
   useDidUpdateEffect(() => {
-    console.log("HOLAAAA");
     (async () => {
       const newCharities = await globalData.charities.refetch();
-      console.log(newCharities);
       if (newCharities) {
         setGlobalData({
           type: "SET_GLOBAL_DATA",

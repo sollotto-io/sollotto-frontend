@@ -43,7 +43,6 @@ function Main(): JSX.Element {
 
   useEffect(() => {
     if (charityloading === false) {
-      console.log(charities);
       setGlobalData({
         type: "SET_GLOBAL_DATA",
         arg: {
@@ -111,7 +110,7 @@ function Main(): JSX.Element {
     <Router>
     <div className="App">
         <Switch>
-        <Route exact path="/grapeIDO" component={GrapeIDO}/>
+        <Route exact path="/grape-parrot-ido-lottery" component={GrapeIDO}/>
           <Route path="/">
             <Navbar />
             <Switch>
