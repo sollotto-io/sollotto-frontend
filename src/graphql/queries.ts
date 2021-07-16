@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const FETCH_ALL_CHARITIES = gql`
   {
@@ -122,6 +122,16 @@ export const FETCH_LOTTERY_BY_ID = gql`
         }
         votes
       }
+    }
+  }
+`;
+
+export const FETCH_SINGLE_USER = gql`
+  query getSingleUser($UserPK: String) {
+    getSingleUser(UserPK: $UserPK) {
+      id
+      TokenValue
+      UserPK
     }
   }
 `;

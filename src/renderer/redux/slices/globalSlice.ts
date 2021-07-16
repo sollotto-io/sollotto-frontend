@@ -10,6 +10,7 @@ const initialState: IglobalData = {
   walletBalance: 0,
   walletConnectedFlag: false,
   connection: new Connection("https://api.devnet.solana.com"),
+  user: null,
 };
 
 const globalSlice = createSlice({

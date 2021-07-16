@@ -4,8 +4,9 @@ import CharitySelector from "./charitySelector/CharitySelector";
 import PurchaseButton from "./purchaseButton/PurchaseButton";
 import { ToastContainer, toast } from "react-toastify";
 import { ticketPurchase } from "../utils/ticketPurchase";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { POST_TICKET } from "../../../../graphql/mutations";
+import { FETCH_SINGLE_USER } from "../../../../graphql/queries";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { AppState } from "../../../redux/stores/store";
 import { ICharity } from "../../../api/types/globalData";
@@ -33,6 +34,15 @@ export default function PurchaseForm(): JSX.Element {
     (state: AppState) => state.purchaseData
   );
   const [loading, setLoading] = useState(false);
+  const { data: user, refetch: userRefetch } = useQuery(FETCH_SINGLE_USER, {
+    variables: {
+      UserPK:
+        globalData.selectedWallet &&
+        globalData.selectedWallet.publicKey &&
+        globalData.selectedWallet.publicKey.toString(),
+    },
+    skip: !globalData.selectedWallet,
+  });
 
   async function handleSubmit() {
     const ticketNumbers = sortTicketNumber(ticketNumberArr);
@@ -56,7 +66,7 @@ export default function PurchaseForm(): JSX.Element {
         ticketNumArr: ticketNumbers,
       };
       setLoading(true);
-      console.log(globalData.walletBalance)
+      console.log(globalData.walletBalance);
       if (globalData.walletBalance === 0) {
         toast.error(
           "Ticket purchase unsuccessful. You dont have enough SOL in your wallet to purchase a ticket",
@@ -75,6 +85,21 @@ export default function PurchaseForm(): JSX.Element {
         const result = await ticketPurchase(ticketData);
         if (result.success === true) {
           try {
+            console.log(
+              JSON.stringify({
+                DataWallet: Buffer.from(result.DataWallet as Buffer).toJSON()
+                  .data,
+                walletID: Buffer.from(
+                  globalData.selectedWallet.publicKey.toBytes()
+                ).toJSON().data,
+                ticketArray: ticketNumbers,
+                charityId: ticketData.charityId,
+                drawingId: lotteryData.id,
+                TransactionId: result.signature,
+                UserPK: globalData.selectedWallet.publicKey.toString(),
+              })
+            );
+            console.log(globalData.selectedWallet.publicKey);
             await addTicket({
               variables: {
                 DataWallet: Buffer.from(result.DataWallet as Buffer).toJSON()
@@ -85,7 +110,8 @@ export default function PurchaseForm(): JSX.Element {
                 ticketArray: ticketNumbers,
                 charityId: ticketData.charityId,
                 drawingId: lotteryData.id,
-                TransactionId:result.signature
+                TransactionId: result.signature,
+                UserPK: globalData.selectedWallet.publicKey.toString(),
               },
             });
             const charityUpdatedData = await globalData.charities.refetch();
@@ -116,12 +142,12 @@ export default function PurchaseForm(): JSX.Element {
                 await globalData.connection.getBalance(
                   globalData.selectedWallet.publicKey
                 );
-                console.log(balance)
+              console.log(balance);
               await setGlobalData({
                 type: "SET_GLOBAL_DATA",
                 arg: {
                   ...globalData,
-                  walletBalance: globalData.walletBalance - (0.1*1000000000) ,
+                  walletBalance: globalData.walletBalance - 0.1 * 1000000000,
                 },
               });
             })();
@@ -174,6 +200,16 @@ export default function PurchaseForm(): JSX.Element {
             );
 
             reduxAction({ type: "RESET_PURCHASE_DATA", arg: null });
+            (async () => {
+              await userRefetch();
+              console.log(user);
+              await setGlobalData({
+                type: "SET_GLOBAL_DATA",
+                arg: {
+                  user: user.getSingleUser,
+                },
+              });
+            })();
           } catch (e) {
             console.log(e);
           }
@@ -188,9 +224,9 @@ export default function PurchaseForm(): JSX.Element {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-          })
-          
-        setLoading(false);
+          });
+
+          setLoading(false);
         }
       }
     }

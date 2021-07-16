@@ -33,6 +33,7 @@ export interface IglobalData {
   walletBalance: number;
   walletConnectedFlag: boolean;
   connection: Connection;
+  user: { id: string; TokenValue: number; UserPK: String } | null;
 }
 
 type PhantomEvent = "disconnect" | "connect";
