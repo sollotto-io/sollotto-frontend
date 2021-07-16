@@ -100,7 +100,7 @@ export default function ResultTable({
                   <StyledTableCell align="left">
                     {row.TotalPoolValue === null
                       ? 0
-                      : row.TotalPoolValue.toFixed(2)} SOL
+                      : row.TotalPoolValue.toFixed(2)}
                   </StyledTableCell>
                   <StyledTableCell align="left">
                     {" "}
@@ -148,7 +148,7 @@ export default function ResultTable({
                   <StyledTableCell align="left">
                     {row.TotalPoolValue === null
                       ? 0
-                      : row.TotalPoolValue.toFixed(2)} SOL
+                      : row.TotalPoolValue.toFixed(2)}
                   </StyledTableCell>
                   <StyledTableCell align="left">
                     {" "}

@@ -1,5 +1,4 @@
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router} from "react-router-dom"
 import React from "react";
 import "./index.scss";
 import App from "./App";
@@ -10,11 +9,9 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 ReactDOM.render(
-  <Router>
   <React.StrictMode>
     <App />
-  </React.StrictMode>
-  </Router>,
+  </React.StrictMode>,
   document.getElementById("root")
 );
 

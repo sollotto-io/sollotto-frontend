@@ -15,7 +15,7 @@ export interface ICharity {
   Status: string;
   Years: string;
   URL: string;
-  isWatch: Boolean;
+  isWatch: boolean;
   Grade: string;
   Impact: string;
   webURL: string;
@@ -33,6 +33,7 @@ export interface IglobalData {
   walletBalance: number;
   walletConnectedFlag: boolean;
   connection: Connection;
+  user: { id: string; TokenValue: number; UserPK: string } | null;
 }
 
 type PhantomEvent = "disconnect" | "connect";
