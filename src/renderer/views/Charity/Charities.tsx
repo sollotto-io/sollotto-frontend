@@ -8,7 +8,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { FETCH_SINGLE_USER } from "../../../graphql/queries";
 import { useEffect } from "react";
 import useDidUpdateEffect from "../../hooks/useDidUpdateEffect";
-import { AppState } from "../../redux/stores/store";
+
 
 export default function Charities({
   charityloading,
@@ -18,10 +18,6 @@ export default function Charities({
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
   );
-  const [{ lotteryData }] = useReduxState(
-    (state) => state.lotteryData
-  );
-  console.log(lotteryData)
   const {
     loading,
     data: user,
@@ -35,6 +31,27 @@ export default function Charities({
     },
     skip: !globalData.selectedWallet,
   });
+
+  useEffect(() => {
+    (async () => {
+      const newCharities = await globalData.charities.refetch();
+      console.log(newCharities);
+      if (newCharities) {
+        setGlobalData({
+          type: "SET_GLOBAL_DATA",
+          arg: {
+            charities: {
+              ...globalData.charities,
+              charities: newCharities.data.getAllCharities,
+            },
+          },
+        });
+      }
+    })();
+    // return () => {
+    //   console.log("unmounted");
+    // };
+  }, []);
   useEffect(() => {
     if (!globalData.user) {
       (async () => {
@@ -67,7 +84,7 @@ export default function Charities({
         });
       }
     })();
-  }, [globalData.user,lotteryData.TotalPoolValue]);
+  }, [globalData.user]);
 
   if (charityloading) {
     return <Loader />;

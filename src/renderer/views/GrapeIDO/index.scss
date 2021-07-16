@@ -1,0 +1,42 @@
+.pageHeaderIDO{
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: flex-start;
+    justify-content: center;
+    column-gap: 10px;
+    grid-template-rows: auto auto;
+    row-gap: 7px;
+   
+}
+.pageWrapperIDO{
+    height: 100%;
+    p{
+        margin: 0;
+        display: grid;
+        align-items: center;
+        grid-template-columns: auto auto auto;
+        column-gap: 5px;
+        width: fit-content;
+        font-size: 15px;
+
+    }
+}
+#users{
+   border: 0;
+   padding: 7px;
+   color: white;
+  
+   input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  outline: none;
+  background-color: transparent;
+  border-bottom: 1px white solid;
+  caret-color: white;
+}
