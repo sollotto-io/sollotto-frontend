@@ -108,9 +108,16 @@ function Main(): JSX.Element {
   }
   return (
     <Router>
-    <div className="App">
+      <div className="App">
         <Switch>
-        <Route exact path="/grape-parrot-ido-lottery" component={GrapeIDO}/>
+          <Route
+            path="/grape-parrot-verify"
+            component={() => {
+              window.location.href = "https://solscan.io/account/gps2PCTi7bngCQM54emjnF2yzjZNk97KkVuwGybSJ2N";
+              return null;
+            }}
+          />
+          <Route exact path="/grape-parrot-ido-lottery" component={GrapeIDO} />
           <Route path="/">
             <Navbar />
             <Switch>
@@ -142,12 +149,10 @@ function Main(): JSX.Element {
               <Route exact path="/charities/:id">
                 <CharityDetail />
               </Route>
-            
             </Switch>
             <Footer />
           </Route>
-          </Switch>
-        
+        </Switch>
       </div>
     </Router>
   );
