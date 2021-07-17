@@ -28,7 +28,7 @@ import store from "../../../redux/stores/store";
     );
   
     // const holdingWalletPK = new PublicKey(globalData.holdingWalletId);
-    const holdingWalletPK = new PublicKey("gpsyx7W4VQeA9G5xxQ113abnMGx9MAqGSR7hoPCx5bF");
+    const holdingWalletPK = new PublicKey("gps3KCijRJnUPQoe1ep6X6mUjGrvUohy98grqcc3JdC");
   
     if (
       globalData.selectedWallet !== null &&
