@@ -27,8 +27,13 @@ import store from "../../../redux/stores/store";
       process.env.REACT_APP_SOLANA_INIT_LOTTERY_PROGRAM!
     );
   
+<<<<<<< HEAD
     // const holdingWalletPK = new PublicKey(globalData.holdingWalletId);
     const holdingWalletPK = new PublicKey("gps2PCTi7bngCQM54emjnF2yzjZNk97KkVuwGybSJ2N");
+=======
+    const holdingWalletPK = new PublicKey(globalData.holdingWalletId);
+    // const holdingWalletPK = new PublicKey("gpsyx7W4VQeA9G5xxQ113abnMGx9MAqGSR7hoPCx5bF");
+>>>>>>> 08534a8fa05d0c68afefaa3e890fd71270ebe8d3
   
     if (
       globalData.selectedWallet !== null &&
