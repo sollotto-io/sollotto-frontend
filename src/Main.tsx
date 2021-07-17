@@ -113,11 +113,7 @@ function Main(): JSX.Element {
           <Route
             path="/grape-parrot-verify"
             component={() => {
-<<<<<<< HEAD
-              window.location.href = "https://solscan.io/account/gps2PCTi7bngCQM54emjnF2yzjZNk97KkVuwGybSJ2N";
-=======
               window.location.href = "https://solscan.io/account/gpsyx7W4VQeA9G5xxQ113abnMGx9MAqGSR7hoPCx5bF?cluster=devnet";
->>>>>>> 08534a8fa05d0c68afefaa3e890fd71270ebe8d3
               return null;
             }}
           />
