@@ -4,7 +4,7 @@ import CharityTable from "../../components/charity/charityTable/CharityTable";
 import Loader from "../../components/common/loader/Loader";
 import useReduxState from "../../hooks/useReduxState";
 import { ICharity } from "../../api/types/globalData";
-import { useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/react-hooks";
 import { FETCH_SINGLE_USER } from "../../../graphql/queries";
 import { useEffect } from "react";
 import useDidUpdateEffect from "../../hooks/useDidUpdateEffect";
@@ -30,6 +30,26 @@ export default function Charities({
     },
     skip: !globalData.selectedWallet,
   });
+
+  useEffect(() => {
+    (async () => {
+      const newCharities = await globalData.charities.refetch();
+      if (newCharities) {
+        setGlobalData({
+          type: "SET_GLOBAL_DATA",
+          arg: {
+            charities: {
+              ...globalData.charities,
+              charities: newCharities.data.getAllCharities,
+            },
+          },
+        });
+      }
+    })();
+    // return () => {
+    //   console.log("unmounted");
+    // };
+  }, []);
   useEffect(() => {
     if (!globalData.user) {
       (async () => {
@@ -46,10 +66,8 @@ export default function Charities({
     }
   }, [globalData.walletConnectedFlag, loading]);
   useDidUpdateEffect(() => {
-    console.log("HOLAAAA");
     (async () => {
       const newCharities = await globalData.charities.refetch();
-      console.log(newCharities);
       if (newCharities) {
         setGlobalData({
           type: "SET_GLOBAL_DATA",

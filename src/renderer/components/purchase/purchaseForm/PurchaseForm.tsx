@@ -66,7 +66,6 @@ export default function PurchaseForm(): JSX.Element {
         ticketNumArr: ticketNumbers,
       };
       setLoading(true);
-      console.log(globalData.walletBalance);
       if (globalData.walletBalance === 0) {
         toast.error(
           "Ticket purchase unsuccessful. You dont have enough SOL in your wallet to purchase a ticket",
@@ -85,21 +84,6 @@ export default function PurchaseForm(): JSX.Element {
         const result = await ticketPurchase(ticketData);
         if (result.success === true) {
           try {
-            console.log(
-              JSON.stringify({
-                DataWallet: Buffer.from(result.DataWallet as Buffer).toJSON()
-                  .data,
-                walletID: Buffer.from(
-                  globalData.selectedWallet.publicKey.toBytes()
-                ).toJSON().data,
-                ticketArray: ticketNumbers,
-                charityId: ticketData.charityId,
-                drawingId: lotteryData.id,
-                TransactionId: result.signature,
-                UserPK: globalData.selectedWallet.publicKey.toString(),
-              })
-            );
-            console.log(globalData.selectedWallet.publicKey);
             await addTicket({
               variables: {
                 DataWallet: Buffer.from(result.DataWallet as Buffer).toJSON()
@@ -114,18 +98,6 @@ export default function PurchaseForm(): JSX.Element {
                 UserPK: globalData.selectedWallet.publicKey.toString(),
               },
             });
-            const charityUpdatedData = await globalData.charities.refetch();
-
-            await setGlobalData({
-              type: "SET_GLOBAL_DATA",
-              arg: {
-                ...globalData,
-                charities: {
-                  ...globalData.charities,
-                  charities: charityUpdatedData.data.getAllCharities,
-                },
-              },
-            });
             const dataUpdated = await refetch();
             await setLotteryData({
               type: "SET_LOTTERY_DATA",
@@ -138,11 +110,6 @@ export default function PurchaseForm(): JSX.Element {
             setLoading(false);
             reduxAction({ type: "RESET_PURCHASE_DATA", arg: null });
             (async () => {
-              const balance: Promise<number> =
-                await globalData.connection.getBalance(
-                  globalData.selectedWallet.publicKey
-                );
-              console.log(balance);
               await setGlobalData({
                 type: "SET_GLOBAL_DATA",
                 arg: {
@@ -202,7 +169,6 @@ export default function PurchaseForm(): JSX.Element {
             reduxAction({ type: "RESET_PURCHASE_DATA", arg: null });
             (async () => {
               await userRefetch();
-              console.log(user);
               await setGlobalData({
                 type: "SET_GLOBAL_DATA",
                 arg: {

@@ -66,7 +66,6 @@ export const ticketNumberValidator = (ticketNumber: number[]): boolean => {
     }
 
     if (!avoidRepeatedNumbers(ticketNumber)) {
-      console.log("hola");
       toast.error("The first 5 numbers cannot be repeated", {
         position: "bottom-left",
         autoClose: 3000,

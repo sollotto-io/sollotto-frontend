@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from "@apollo/react-hooks";
 
 export const POST_TICKET = gql`
   mutation addTicket(

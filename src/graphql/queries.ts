@@ -20,6 +20,8 @@ export const FETCH_ALL_CHARITIES = gql`
       webURL
       socialMedia
       publicKey
+      lifeTimeNominationVotes
+      nominationVotes
     }
   }
 `;

@@ -7,7 +7,7 @@ import useReduxState from "../../../../hooks/useReduxState";
 import CloseIcon from "@material-ui/icons/Close";
 import useDidUpdateEffect from "../../../../hooks/useDidUpdateEffect";
 import { POST_USER_VOTES } from "../../../../../graphql/mutations";
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/react-hooks";
 
 export default function NominationModal({ id }: { id: string }): JSX.Element {
   const [{ user }] = useReduxState((state) => state.globalData);
@@ -19,7 +19,7 @@ export default function NominationModal({ id }: { id: string }): JSX.Element {
   const [{ walletConnectedFlag }, setGlobalData] = useReduxState(
     (state) => state.globalData
   );
-  const [postVotes, { data }] = useMutation(POST_USER_VOTES);
+  const [postVotes] = useMutation(POST_USER_VOTES);
   const handleHasChanged = useCallback(() => {
     if (votes !== initialVoteCount) {
       setHasChanged(true);
@@ -85,16 +85,8 @@ export default function NominationModal({ id }: { id: string }): JSX.Element {
   };
 
   const handleVotesSubmit = (e: React.MouseEvent<HTMLElement>) => {
-    console.log("Hola" + votes);
     try {
       (async () => {
-        console.log(
-          JSON.stringify({
-            charityId: id,
-            UserPk: user && user.UserPK,
-            Votes: initialVoteCount + votes,
-          })
-        );
         await postVotes({
           variables: {
             charityId: id,
@@ -102,7 +94,6 @@ export default function NominationModal({ id }: { id: string }): JSX.Element {
             Votes: votes,
           },
         });
-        console.log(data);
       })();
       setGlobalData({
         type: "SET_GLOBAL_DATA",

@@ -15,12 +15,13 @@ export interface ICharity {
   Status: string;
   Years: string;
   URL: string;
-  isWatch: Boolean;
+  isWatch: boolean;
   Grade: string;
   Impact: string;
   webURL: string;
   socialMedia: string;
   nominationVotes: number;
+  lifeTimeNominationVotes: number;
 }
 export interface Icharities {
   refetch: Refetch | null;
@@ -33,7 +34,7 @@ export interface IglobalData {
   walletBalance: number;
   walletConnectedFlag: boolean;
   connection: Connection;
-  user: { id: string; TokenValue: number; UserPK: String } | null;
+  user: { id: string; TokenValue: number; UserPK: string } | null;
 }
 
 type PhantomEvent = "disconnect" | "connect";
