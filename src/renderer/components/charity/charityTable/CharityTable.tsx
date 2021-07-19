@@ -46,7 +46,9 @@ export default function CharityTable({
         <TableHead>
           <TableRow>
             <StyledTableCell>Charity Name</StyledTableCell>
-            <StyledTableCell align="center">Current Votes</StyledTableCell>
+            <StyledTableCell align="center">
+              {nominate ? "Nomination Votes" : "Current Votes"}
+            </StyledTableCell>
             <StyledTableCell align="center">Added By</StyledTableCell>
             <StyledTableCell align="center">Lifetime Votes</StyledTableCell>
             <StyledTableCell align="center">

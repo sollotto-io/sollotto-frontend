@@ -1,0 +1,16 @@
+{
+  "pool": [
+    { "name": "Prize Pool Name", "key": "PUBLIC KEY PLACEHOLDER" },
+    { "name": "Prize Pool Name", "key": "PUBLIC KEY PLACEHOLDER" },
+    { "name": "Prize Pool Name", "key": "PUBLIC KEY PLACEHOLDER" },
+    { "name": "Prize Pool Name", "key": "PUBLIC KEY PLACEHOLDER" },
+    { "name": "Prize Pool Name", "key": "PUBLIC KEY PLACEHOLDER" }
+  ],
+  "charities": [
+    { "name": "Charity Name", "key": "PUBLIC KEY PLACEHOLDER" },
+    { "name": "Charity Name", "key": "PUBLIC KEY PLACEHOLDER" },
+    { "name": "Charity Name", "key": "PUBLIC KEY PLACEHOLDER" },
+    { "name": "Charity Name", "key": "PUBLIC KEY PLACEHOLDER" },
+    { "name": "Charity Name", "key": "PUBLIC KEY PLACEHOLDER" }
+  ]
+}

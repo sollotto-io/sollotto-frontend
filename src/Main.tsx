@@ -13,6 +13,7 @@ import CharityDetail from "./renderer/components/charity/charityDetail/CharityDe
 import Results from "./renderer/views/Results/Results";
 import ResultDetail from "./renderer/components/result/resultDetail/ResultDetail";
 import Pool from "./renderer/views/Pool/Pool";
+import Verify from "./renderer/views/Verify/Verify";
 import Footer from "./renderer/views/Footer/Footer";
 /* import Nav from "./components/Nav";
 import Purchase from "./pages/Purchase";
@@ -147,6 +148,9 @@ function Main(): JSX.Element {
               </Route> */}
               <Route exact path="/pools">
                 <Pool />
+              </Route>
+              <Route exact path="/verify">
+                <Verify />
               </Route>
               <Route exact path="/charities/:id">
                 <CharityDetail />
