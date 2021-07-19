@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import {gql} from "@apollo/react-hooks";
 
 export const FETCH_ALL_CHARITIES = gql`
   {

@@ -11,6 +11,7 @@ import useReduxState from "../../../hooks/useReduxState";
 import { IDrawingId } from "../../../api/types/lotteryData";
 import { FETCH_LOTTERY_BY_ID } from "../../../../graphql/queries";
 import PageTitle from "../../common/pageTitle/PageTitle";
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 const ResultDetail = (): JSX.Element => {
   const { id }: { id: string } = useParams();
@@ -46,7 +47,12 @@ const ResultDetail = (): JSX.Element => {
   if (loading) {
     return <Loader />;
   } else {
-    const userTickets: { array: number[]; charity: string , transactionId: string }[] = [];
+    console.log(lottery);
+    const userTickets: {
+      array: number[];
+      charity: string;
+      transactionId: string;
+    }[] = [];
     lottery.getDrawingById.Tickets.forEach((t: IDrawingId["Tickets"][0]) => {
       const flag = _.isEqual(
         t.walletID,
@@ -57,13 +63,13 @@ const ResultDetail = (): JSX.Element => {
         userTickets.push({
           array: t.ticketArray,
           charity: t.charityId.charityName,
-          transactionId: t.TransactionId
+          transactionId: t.TransactionId,
         });
       }
     });
     return (
       <div className="resultdetailSection">
-        <PageTitle title="Draw Detail"/>
+        <PageTitle title="Draw Detail" />
         <div className="topSection">
           <ResultDetailContent lotteryData={lottery.getDrawingById} />
           <LeftCountdown lotteryData={lottery.getDrawingById} />
@@ -88,7 +94,7 @@ const ResultDetail = (): JSX.Element => {
                 userTickets.map((t, i) => {
                   return (
                     <div className="entryRow" key={i}>
-                      <p className="numColumn" >
+                      <p className="numColumn">
                         <span>{t.array[0]}</span>
                         <span>{t.array[1]}</span>
                         <span>{t.array[2]}</span>
@@ -100,14 +106,18 @@ const ResultDetail = (): JSX.Element => {
                         {t.array[4]}&nbsp;&nbsp;{t.array[5]}&nbsp;&nbsp; */}
                       </p>{" "}
                       <p className="chaColumn">{t.charity}</p>
-                      <a
-                  style={{ textDecoration: "underline" }}
-                  href={`https://solscan.io/tx/${t.transactionId}?cluster=devnet`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View Your Transacton
-                </a>
+                      {t.transactionId === "" ? (
+                        <span style={{display:"flex",justifyContent:"space-around"}}><ErrorOutlineIcon style={{color:"yellow"}}/> <p style={{color:"yellow" ,marginLeft:10}}>This ticket does not have a transaction ID</p></span>
+                      ) : (
+                        <a
+                          style={{ textDecoration: "underline" }}
+                          href={`https://solscan.io/tx/${t.transactionId}?cluster=devnet`}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          View Your Transacton
+                        </a>
+                      )}
                     </div>
                   );
                 })
