@@ -1,6 +1,9 @@
 import "./index.scss";
 import keys from "../keys.json";
 import keyIcon from "../../../../assets/images/svg/key.svg";
+import wallet from "../../../../assets/images/svg/wallet.svg";
+import { getSolScanLink } from "../utils/helpers";
+
 export default function CharitiesKeys(): JSX.Element {
   return (
     <div className="charity-keys verify-card gradientBg ">
@@ -13,7 +16,17 @@ export default function CharitiesKeys(): JSX.Element {
           {keys.charities.map(({ name, key }) => (
             <div className="verify-key" key={key}>
               <h4>{name}</h4>
-              {key}
+              <div>
+                <img className="wallet-img" src={wallet} />
+
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={getSolScanLink(key)}
+                >
+                  {key}
+                </a>
+              </div>
             </div>
           ))}
         </div>

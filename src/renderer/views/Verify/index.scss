@@ -1,8 +1,8 @@
 .verify {
   display: grid;
   grid-template:
-    "a a e b b"
     "a a d b b"
+    "a a e b b"
     "a a c b b";
   justify-items: center;
   align-items: center;
@@ -24,6 +24,8 @@
   > .pageTitle {
     grid-area: e;
     font-size: 40px;
+
+    margin-top: 45px;
   }
   .sollotto-logo {
     grid-area: d;
@@ -81,9 +83,38 @@
     }
   }
   .verify-card-body {
+    height: 100%;
+
     .verify-key {
-      margin-bottom: 10px;
+      padding-bottom: 30px;
       font-size: 15px;
+      display: inline-block;
+      word-break: break-word;
+      h4 {
+        font-size: 20px;
+      }
+      > div {
+        display: flex;
+        align-items: center;
+        &:hover {
+          img {
+            animation: jump 0.3s ease-in-out;
+          }
+        }
+      }
+
+      img {
+        width: 20px;
+        margin-right: 15px;
+      }
+      a {
+        transition: 0.5s;
+        &:hover {
+          color: rgb(206, 206, 206);
+        }
+      }
+
+      border-bottom: 1px solid rgba($color: white, $alpha: 0.4);
     }
   }
   .verify-card-footer {
@@ -91,6 +122,18 @@
       width: 150px;
       margin: 20px;
     }
+  }
+}
+
+@keyframes jump {
+  0% {
+    transform: translate(0, 0%);
+  }
+  50% {
+    transform: translate(0, -15%);
+  }
+  100% {
+    transform: translate(0, 0%);
   }
 }
 
@@ -106,6 +149,21 @@
     row-gap: 50px;
     .verify-card {
       width: 300px;
+    }
+    > .pageTitle {
+      margin-top: 0;
+    }
+
+    .verify-card {
+      .verify-content {
+        .verify-card-body {
+          .verify-key {
+            > div {
+              display: flex;
+            }
+          }
+        }
+      }
     }
   }
 }
