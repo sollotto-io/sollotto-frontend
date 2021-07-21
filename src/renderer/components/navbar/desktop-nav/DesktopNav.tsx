@@ -30,6 +30,14 @@ export default function DesktopNav(): JSX.Element {
             onClick={backToHome}
           >
             <img className="d-appbar-icon" src={SollotoLogoH} />
+            <a
+              href="https://solscan.io/"
+              target="_blank"
+              className="d-devnet"
+              rel="noreferrer"
+            >
+              Devnet
+            </a>
           </IconButton>
           <div className="d-navigation-list">
             {navList.map(
