@@ -1,0 +1,35 @@
+.walletConnect {
+  justify-self: end;
+  align-self: center;
+  cursor: pointer;
+  column-gap: 5px;
+  display: grid;
+  grid-template-columns: auto auto;
+  width: 120px;
+}
+.walletConnect span {
+  align-self: center;
+}
+
+#accountAddress{
+  font-size: 10px;
+  margin: 0;
+}
+
+
+@media only screen and (min-width: 980px) {
+  .walletConnect {
+    justify-self: end;
+    align-self: center;
+    cursor: pointer;
+    column-gap: 5px;
+    display: grid;
+    grid-template-columns: auto auto;
+    width: fit-content;
+  }
+
+  #accountAddress{
+    font-size: 13px;
+    margin: 0;
+  }
+}

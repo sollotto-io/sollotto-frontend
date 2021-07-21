@@ -1,0 +1,42 @@
+nav {
+  margin-bottom: 60px;
+}
+
+.desktop-app-bar {
+  position: relative;
+}
+
+.desktop-nav-item {
+  color: white;
+  font-size: 20px;
+  margin-bottom: 20%;
+  justify-self: center;
+  padding-bottom: 8px;
+  margin: 0 10px;
+  transition: 0.5s all;
+  &:hover {
+    border-bottom: 1px solid var(--ocean);
+  }
+}
+.d-navigation-list {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  
+}
+.d-appbar-icon {
+  width: 150px;
+  height: auto;
+  display: block;
+  margin-right: auto;
+}
+
+.m-nav-actions {
+  display: flex;
+  justify-content: center;
+  width: auto;
+  align-items: center;
+}
+.MuiToolbar-root {
+  justify-content: space-between;
+}

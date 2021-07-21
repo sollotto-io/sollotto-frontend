@@ -1,0 +1,9 @@
+.admin-wrapper{
+    display: grid;
+    grid-template-columns: auto;
+    row-gap: 30px;
+    grid-template-rows: auto 1fr;
+    justify-content: center;
+    margin: 2rem 0rem;
+    padding: 0rem 1rem;
+}

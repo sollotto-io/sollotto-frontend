@@ -1,0 +1,10 @@
+.purchaseCardFooter {
+  display: grid;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  justify-content: center;
+}
+.purchaseCardFooter .ticketPrice {
+  justify-self: center;
+  margin-bottom: 0.5rem;
+}
