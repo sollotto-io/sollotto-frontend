@@ -122,7 +122,7 @@ function Main(): JSX.Element {
               </Route>
 
               <Route exact path="/charities">
-                <Charities charityloading={charityloading} />
+                <Charities charityloading={charityloading && loading} />
               </Route>
               {/*           <Route exact path="/suggest">
                 <Suggest />

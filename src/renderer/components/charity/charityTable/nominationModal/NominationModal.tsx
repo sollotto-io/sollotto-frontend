@@ -9,16 +9,35 @@ import useDidUpdateEffect from "../../../../hooks/useDidUpdateEffect";
 import { POST_USER_VOTES } from "../../../../../graphql/mutations";
 import { useMutation } from "@apollo/react-hooks";
 
-export default function NominationModal({ id }: { id: string }): JSX.Element {
+export default function NominationModal({
+  id,
+  rowIndex,
+}: {
+  id: string;
+  rowIndex: number;
+}): JSX.Element {
   const [{ user }] = useReduxState((state) => state.globalData);
 
   const initialVoteCount = user ? user.TokenValue : 0;
   const [modal, setModal] = useState(false);
   const [votes, setVotes] = useState<number>(initialVoteCount);
   const [hasChanged, setHasChanged] = useState(false);
-  const [{ walletConnectedFlag }, setGlobalData] = useReduxState(
+  const [{ walletConnectedFlag, charities }, setGlobalData] = useReduxState(
     (state) => state.globalData
   );
+  const handleVotingState = () => {
+    const newCharities = [...charities.charities];
+    newCharities[rowIndex].nominationVotes += votes;
+    setGlobalData({
+      type: "SET_GLOBAL_DATA",
+      arg: {
+        charities: {
+          ...charities,
+          charities: newCharities,
+        },
+      },
+    });
+  };
   const [postVotes] = useMutation(POST_USER_VOTES);
   const handleHasChanged = useCallback(() => {
     if (votes !== initialVoteCount) {
@@ -105,6 +124,7 @@ export default function NominationModal({ id }: { id: string }): JSX.Element {
           },
         },
       });
+      handleVotingState();
     } catch (e) {
       console.log(e);
     }

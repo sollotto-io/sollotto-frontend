@@ -17,10 +17,7 @@ export default function Charities({
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
   );
-  const [{lotteryData}] = useReduxState(
-    (state) => state.lotteryData
-  );
-  console.log(lotteryData)
+  const [{ lotteryData }] = useReduxState((state) => state.lotteryData);
   const {
     loading,
     data: user,
@@ -86,7 +83,7 @@ export default function Charities({
     })();
   }, [globalData.user]);
 
-  if (charityloading) {
+  if (charityloading || lotteryData.length === 0) {
     return <Loader />;
   } else {
     const sortedCharities: ICharity[] = [
@@ -101,13 +98,14 @@ export default function Charities({
 
       return 0;
     });
+
     return (
       <div className="pageWrapper">
         <div className="charitySection">
           <div id="poolHeader">
             <PageTitle title="Charities" />
           </div>
-          {globalData.charities ? (
+          {globalData.charities.charities ? (
             <CharityTable rows={lotteryData.Charities} />
           ) : (
             ""
@@ -116,8 +114,11 @@ export default function Charities({
           <div id="poolHeader" style={{ marginTop: "50px" }}>
             <PageTitle title="Nominate" />
           </div>
-          {globalData.charities ? (
-            <CharityTable rows={sortedCharities.filter((c)=>(c.Status === true))} nominate={true} />
+          {globalData.charities.charities ? (
+            <CharityTable
+              rows={sortedCharities.filter((c) => c.Status === true)}
+              nominate={true}
+            />
           ) : (
             ""
           )}

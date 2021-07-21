@@ -36,10 +36,9 @@ export default function CharityTable({
   const poolDetails = (param: string) => {
     history.push({
       pathname: `/charities/${param}`,
-      state: { fromPurchase: false,fromAdmin:false },
+      state: { fromPurchase: false, fromAdmin: false },
     });
   };
-
   return (
     <TableContainer component={StyledPaper}>
       <Table className="table" aria-label="simple table">
@@ -87,7 +86,7 @@ export default function CharityTable({
                     "0"
                   )
                 ) : (
-                  <NominationModal id={row.id} />
+                  <NominationModal id={row.id} rowIndex={index} />
                 )}
               </StyledTableCell>
             </TableRow>
