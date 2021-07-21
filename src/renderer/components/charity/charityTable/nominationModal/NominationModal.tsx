@@ -20,7 +20,7 @@ export default function NominationModal({
 
   const initialVoteCount = user ? user.TokenValue : 0;
   const [modal, setModal] = useState(false);
-  const [votes, setVotes] = useState<number>(initialVoteCount);
+  const [votes, setVotes] = useState<number>(0);
   const [hasChanged, setHasChanged] = useState(false);
   const [{ walletConnectedFlag, charities }, setGlobalData] = useReduxState(
     (state) => state.globalData
@@ -40,8 +40,10 @@ export default function NominationModal({
   };
   const [postVotes] = useMutation(POST_USER_VOTES);
   const handleHasChanged = useCallback(() => {
-    if (votes !== initialVoteCount) {
+    if (votes != 0 && votes > 0 && !isNaN(votes)) {
       setHasChanged(true);
+    } else {
+      setHasChanged(false);
     }
   }, [votes]);
 
@@ -99,6 +101,7 @@ export default function NominationModal({
         });
       } else {
         setModal(true);
+        setVotes(0);
       }
     }
   };
@@ -156,13 +159,17 @@ export default function NominationModal({
               <div className="n-modal-header">
                 <h3>Nominate</h3>
                 <p>
-                  votes Remaining:{" "}
+                  Votes Remaining:{" "}
                   {((): number => {
-                    if (initialVoteCount > votes) {
-                      if (votes < 0) {
-                        return initialVoteCount;
-                      } else {
-                        return initialVoteCount - votes;
+                    if (!hasChanged) {
+                      return initialVoteCount;
+                    } else {
+                      if (initialVoteCount > votes) {
+                        if (votes < 0) {
+                          return initialVoteCount;
+                        } else {
+                          return initialVoteCount - votes;
+                        }
                       }
                     }
                     return 0;
