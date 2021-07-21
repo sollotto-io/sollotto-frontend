@@ -27,3 +27,10 @@ export const POST_USER_VOTES = gql`
     addNominationVotes(charityId: $charityId, UserPk: $UserPk, Votes: $Votes)
   }
 `;
+export const CHARITY_STATUS_CHAGED = gql`
+
+  mutation deleteCharity($charityId: ID!, $Status:Boolean!){
+    deleteCharity(charityId:$charityId,Status:$Status)
+  }
+
+`

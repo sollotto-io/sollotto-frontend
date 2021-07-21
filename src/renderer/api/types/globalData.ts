@@ -12,7 +12,7 @@ export interface ICharity {
   addedBy: string;
   lifeTimeVotes: number;
   lifeTimeWins: number;
-  Status: string;
+  Status: boolean;
   Years: string;
   URL: string;
   isWatch: boolean;
@@ -22,6 +22,7 @@ export interface ICharity {
   socialMedia: string;
   nominationVotes: number;
   lifeTimeNominationVotes: number;
+  publicKey: string;
 }
 export interface Icharities {
   refetch: Refetch | null;

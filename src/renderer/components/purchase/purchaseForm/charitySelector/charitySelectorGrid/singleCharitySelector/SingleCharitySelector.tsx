@@ -54,7 +54,7 @@ export default function SingleCharitySelector({
           style={{ position: "absolute", right: "5px" }}
           to={{
             pathname: `/charities/${lotteryData.Charities[index].charityName}`,
-            state: { fromPurchase: true },
+            state: { fromPurchase: true ,fromAdmin:false },
           }}
         >
           <IconButton id="info-circle">
