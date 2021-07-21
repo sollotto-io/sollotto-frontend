@@ -1,0 +1,26 @@
+.addCharityButton{
+    opacity: 0.5;
+    padding: 10px;
+    width: fit-content;
+    border: 0;
+    color: white;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 10px;
+    align-items: center;
+    border-radius: 10px;
+    p{
+        margin: 0;
+        font-weight: 600;
+    }
+
+    
+}
+.addCharityButton:hover{
+    opacity: 1;
+}
+.edit-delete-button{
+    color: white;
+    margin: 0px 10px;
+}

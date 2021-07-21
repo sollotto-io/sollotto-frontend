@@ -36,7 +36,7 @@ export default function CharityTable({
   const poolDetails = (param: string) => {
     history.push({
       pathname: `/charities/${param}`,
-      state: { fromPurchase: false },
+      state: { fromPurchase: false,fromAdmin:false },
     });
   };
 

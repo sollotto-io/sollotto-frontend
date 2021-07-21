@@ -18,6 +18,10 @@ export default function Charities({
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
   );
+  const [{lotteryData}] = useReduxState(
+    (state) => state.lotteryData
+  );
+  console.log(lotteryData)
   const {
     loading,
     data: user,
@@ -105,7 +109,7 @@ export default function Charities({
             <PageTitle title="Charities" />
           </div>
           {globalData.charities ? (
-            <CharityTable rows={sortedCharities.slice(0, 4)} />
+            <CharityTable rows={lotteryData.Charities} />
           ) : (
             ""
           )}
@@ -114,7 +118,7 @@ export default function Charities({
             <PageTitle title="Nominate" />
           </div>
           {globalData.charities ? (
-            <CharityTable rows={sortedCharities} nominate={true} />
+            <CharityTable rows={sortedCharities.filter((c)=>(c.Status === true))} nominate={true} />
           ) : (
             ""
           )}
