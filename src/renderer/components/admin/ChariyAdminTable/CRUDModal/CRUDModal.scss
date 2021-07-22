@@ -1,0 +1,93 @@
+.charityCrudWrapper {
+  padding: 5px;
+  display: grid;
+  grid-template-columns: auto;
+  row-gap: 2px;
+  .ad-modal-header{
+    background-color: var(--dark-blue);
+    padding:20px ;
+    h4{
+      margin: 0;
+    }
+  }
+  .ad-modal-body {
+    background-color: var(--dark-blue);
+    padding: 20px;
+    h1 {
+      margin: 0;
+    }
+    .form-div{
+      display: grid;
+      grid-template-columns: auto;
+      row-gap: 10px;
+      .form-button-group{
+        display: flex;
+        flex-direction: row;
+        span{
+          margin-right: 20px;
+          border-radius: 5px;
+        }
+        button{
+          background: rgba(19, 26, 53, 0.9);
+          border: 0;
+          color: white;
+          padding: 5px 10px;
+          cursor: pointer;
+          border-radius: 5px;
+        }
+      }
+
+    }
+    .form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 20px;
+      row-gap: 10px;
+    }
+    #form-group {
+      display: grid;
+      grid-template-columns: auto;
+
+      #form-group-label {
+        font-size: 15px;
+      }
+      #form-group-input {
+        border: 0;
+        padding: 10px;
+        background: rgba(19, 26, 53, 0.9);
+        border: 1px rgba(255, 255, 255, 0.233) solid;
+        color: white;
+        outline: none;
+        font-size: 12px;
+      }
+     
+    }
+    #form-group-image{
+      display: grid;
+      grid-template-columns: auto auto;
+      column-gap: 20px;
+      align-items: center;
+      
+        p{
+          font-size: 12px;
+        }
+      
+      img{
+        border-radius: 10px;
+        height: 70px;
+        width: 70px;
+      }
+      #image-upload-field {
+        background: rgba(19, 26, 53, 0.9);
+        border: 1px rgba(255, 255, 255, 0.233) solid;
+        padding: 5px 10px;
+        display: grid;
+        grid-template-columns: auto auto;
+        p{
+            font-size: 12px;
+            margin: 0;
+        }
+      }
+    }
+  }
+}

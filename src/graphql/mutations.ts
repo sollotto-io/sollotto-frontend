@@ -34,3 +34,11 @@ export const CHARITY_STATUS_CHAGED = gql`
   }
 
 `
+
+export const SEND_IMAGE = gql`
+   mutation UploadFile($file: Upload!) {
+    uploadFile(file: $file){
+      url
+    }
+  }
+`

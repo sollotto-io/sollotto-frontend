@@ -22,6 +22,7 @@ export const FETCH_ALL_CHARITIES = gql`
       publicKey
       lifeTimeNominationVotes
       nominationVotes
+      ImageURL
     }
   }
 `;
