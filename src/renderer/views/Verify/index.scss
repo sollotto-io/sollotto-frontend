@@ -1,0 +1,169 @@
+.verify {
+  display: grid;
+  grid-template:
+    "a a d b b"
+    "a a e b b"
+    "a a c b b";
+  justify-items: center;
+  align-items: center;
+  padding: 50px;
+
+  .charity-keys {
+    grid-area: a;
+  }
+  .prize-pool-keys {
+    grid-area: b;
+  }
+
+  .sol-scan-link {
+    grid-area: c;
+    align-self: flex-start;
+    width: 150px;
+    font-size: 20px;
+  }
+  > .pageTitle {
+    grid-area: e;
+    font-size: 40px;
+
+    margin-top: 45px;
+  }
+  .sollotto-logo {
+    grid-area: d;
+    text-align: center;
+    h3 {
+      font-size: 25px;
+    }
+    img {
+      width: 200px;
+      animation: spin 3s linear infinite;
+    }
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.verify-card {
+  background-color: var(--dark-blue);
+
+  height: 100%;
+  width: 500px;
+  border-radius: 30px;
+  padding: 2px;
+  position: relative;
+  .verify-content {
+    background: rgba(19, 26, 53, 0.8);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    justify-items: center;
+    align-items: center;
+    height: 100%;
+    border-radius: 30px;
+    padding: 25px;
+    h4 {
+      font-size: 15px;
+    }
+  }
+  .verify-card-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 100px;
+    }
+    h2 {
+      font-size: 25px;
+    }
+  }
+  .verify-card-body {
+    height: 100%;
+
+    .verify-key {
+      padding-bottom: 30px;
+      font-size: 15px;
+      display: inline-block;
+      word-break: break-word;
+      h4 {
+        font-size: 20px;
+      }
+      > div {
+        display: flex;
+        align-items: center;
+        &:hover {
+          img {
+            animation: jump 0.3s ease-in-out;
+          }
+        }
+      }
+
+      img {
+        width: 20px;
+        margin-right: 15px;
+      }
+      a {
+        transition: 0.5s;
+        &:hover {
+          color: rgb(206, 206, 206);
+        }
+      }
+
+      border-bottom: 1px solid rgba($color: white, $alpha: 0.4);
+    }
+  }
+  .verify-card-footer {
+    img {
+      width: 150px;
+      margin: 20px;
+    }
+  }
+}
+
+@keyframes jump {
+  0% {
+    transform: translate(0, 0%);
+  }
+  50% {
+    transform: translate(0, -15%);
+  }
+  100% {
+    transform: translate(0, 0%);
+  }
+}
+
+@media (max-width: 576px) {
+  .verify {
+    display: grid;
+    grid-template:
+      "d"
+      "e"
+      "a"
+      "b"
+      "c";
+    row-gap: 50px;
+    .verify-card {
+      width: 300px;
+    }
+    > .pageTitle {
+      margin-top: 0;
+    }
+
+    .verify-card {
+      .verify-content {
+        .verify-card-body {
+          .verify-key {
+            > div {
+              display: flex;
+            }
+          }
+        }
+      }
+    }
+  }
+}

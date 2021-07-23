@@ -13,6 +13,7 @@ import CharityDetail from "./renderer/components/charity/charityDetail/CharityDe
 import Results from "./renderer/views/Results/Results";
 import ResultDetail from "./renderer/components/result/resultDetail/ResultDetail";
 import Pool from "./renderer/views/Pool/Pool";
+import Verify from "./renderer/views/Verify/Verify";
 import Footer from "./renderer/views/Footer/Footer";
 import useReduxState from "./renderer/hooks/useReduxState";
 import { useQuery } from "@apollo/react-hooks";
@@ -121,13 +122,16 @@ function Main(): JSX.Element {
               </Route>
 
               <Route exact path="/charities">
-                <Charities charityloading={charityloading} />
+                <Charities charityloading={charityloading && loading} />
               </Route>
               {/*           <Route exact path="/suggest">
                 <Suggest />
               </Route> */}
               <Route exact path="/pools">
                 <Pool />
+              </Route>
+              <Route exact path="/verify">
+                <Verify />
               </Route>
               <Route exact path="/charities/:id">
                 <CharityDetail />
