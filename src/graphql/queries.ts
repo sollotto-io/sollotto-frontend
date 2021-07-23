@@ -22,6 +22,7 @@ export const FETCH_ALL_CHARITIES = gql`
       publicKey
       lifeTimeNominationVotes
       nominationVotes
+      ImageURL
     }
   }
 `;
@@ -50,6 +51,7 @@ export const FETCH_UPCOMING_DRAWING = gql`
         id
         charityName
         projectDetails
+        ImageURL
         fundUse
         currentVotes
         addedBy

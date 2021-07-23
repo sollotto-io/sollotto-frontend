@@ -7,6 +7,7 @@ export interface ICharity {
   id: string;
   charityName: string;
   projectDetails: string;
+  ImageURL:string;
   fundUse: string;
   currentVotes: number;
   addedBy: string;
