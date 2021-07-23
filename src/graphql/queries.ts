@@ -51,6 +51,7 @@ export const FETCH_UPCOMING_DRAWING = gql`
         id
         charityName
         projectDetails
+        ImageURL
         fundUse
         currentVotes
         addedBy

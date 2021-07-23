@@ -28,17 +28,85 @@ export const POST_USER_VOTES = gql`
   }
 `;
 export const CHARITY_STATUS_CHAGED = gql`
-
-  mutation deleteCharity($charityId: ID!, $Status:Boolean!){
-    deleteCharity(charityId:$charityId,Status:$Status)
+  mutation deleteCharity($charityId: ID!, $Status: Boolean!) {
+    deleteCharity(charityId: $charityId, Status: $Status)
   }
+`;
 
-`
-
-export const SEND_IMAGE = gql`
-   mutation UploadFile($file: Upload!) {
-    uploadFile(file: $file){
-      url
-    }
+export const UPDATE_CHARITY = gql`
+  mutation updateCharity(
+    $charityId: ID!
+    $charityName: String
+    $projectDetails: String
+    $ImageURL: String
+    $fundUse: String
+    $addedBy: String
+    $Status: Boolean
+    $Years: String
+    $isWatch: Boolean
+    $URL: String
+    $Grade: String
+    $Impact: String
+    $webURL: String
+    $socialMedia: String
+    $publicKey: String
+  ) {
+    updateCharity(
+      charityId: $charityId
+      charityInput: {
+        charityName: $charityName
+        projectDetails: $projectDetails
+        ImageURL: $ImageURL
+        fundUse: $fundUse
+        addedBy: $addedBy
+        Status: $Status
+        Years: $Years
+        isWatch: $isWatch
+        URL: $URL
+        Grade: $Grade
+        Impact: $Impact
+        webURL: $webURL
+        socialMedia: $socialMedia
+        publicKey: $publicKey
+      }
+    )
   }
-`
+`;
+export const ADD_CHARITY = gql`
+  mutation addCharity(
+    $charityName: String
+    $projectDetails: String
+    $ImageURL: String
+    $fundUse: String
+    $addedBy: String
+    $Status: Boolean
+    $Years: String
+    $isWatch: Boolean
+    $URL: String
+    $Grade: String
+    $Impact: String
+    $webURL: String
+    $socialMedia: String
+    $publicKey: String
+  ) {
+    addCharity(
+      charityInput: {
+        charityName: $charityName
+        projectDetails: $projectDetails
+        ImageURL: $ImageURL
+        fundUse: $fundUse
+        addedBy: $addedBy
+        Status: $Status
+        Years: $Years
+        isWatch: $isWatch
+        URL: $URL
+        Grade: $Grade
+        Impact: $Impact
+        webURL: $webURL
+        socialMedia: $socialMedia
+        publicKey: $publicKey
+      }
+    )
+  }
+`;
+

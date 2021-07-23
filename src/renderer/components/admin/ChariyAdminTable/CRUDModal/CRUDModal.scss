@@ -23,6 +23,10 @@
       .form-button-group{
         display: flex;
         flex-direction: row;
+      #loader-modal{
+        display: flex;
+        align-items: center;
+      }
         span{
           margin-right: 20px;
           border-radius: 5px;
@@ -31,7 +35,7 @@
           background: rgba(19, 26, 53, 0.9);
           border: 0;
           color: white;
-          padding: 5px 10px;
+          padding: 7px 15px;
           cursor: pointer;
           border-radius: 5px;
         }
@@ -59,6 +63,8 @@
         color: white;
         outline: none;
         font-size: 12px;
+        letter-spacing: 1px;
+        font-family: Circular;
       }
      
     }

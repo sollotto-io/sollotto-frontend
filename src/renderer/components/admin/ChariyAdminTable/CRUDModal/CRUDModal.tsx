@@ -31,7 +31,7 @@ export default function CRUDModal({
               <h4>{modalType ? "Add Charity": "Edit Charity"}</h4>
             </div>
             <div className="ad-modal-body">
-            <AddEditForm id={id} modalType ={modalType}/>
+            <AddEditForm id={id} modalType ={modalType} handleModalClose = {handleModalClose}/>
            </div>
           </div>
         </Modal>

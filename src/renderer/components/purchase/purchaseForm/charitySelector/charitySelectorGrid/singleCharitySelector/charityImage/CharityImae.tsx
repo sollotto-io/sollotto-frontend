@@ -6,7 +6,7 @@ export default function CharityImage({
 }): JSX.Element {
   return (
     <img
-      src={`https://app.sollotto.io/images/pictures/${charityId}.png`}
+      src={`${process.env.REACT_APP_IMAGE_LINK}${charityId}`}
       height={150}
       alt="charity"
       className="charityImg"
