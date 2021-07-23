@@ -1,4 +1,5 @@
 import { Modal } from "@material-ui/core";
+import AddEditForm from "./AddEditForm/AddEditForm";
 import "./CRUDModal.scss";
 
 interface IModalState {
@@ -15,8 +16,8 @@ export default function CRUDModal({
   id,
 }: IModalState): JSX.Element {
   return (
-    <div>
-      <div>
+    
+    
         <Modal
           open={modalState}
           onClose={handleModalClose}
@@ -25,11 +26,15 @@ export default function CRUDModal({
           className="n-modal"
           onClick={(e) => e.stopPropagation()}
         >
-          <>
-           {modalType ? "ADD" : id }
-          </>
+          <div className= "charityCrudWrapper gradientBg gradientBorder">
+            <div className="ad-modal-header">
+              <h4>{modalType ? "Add Charity": "Edit Charity"}</h4>
+            </div>
+            <div className="ad-modal-body">
+            <AddEditForm id={id} modalType ={modalType} handleModalClose = {handleModalClose}/>
+           </div>
+          </div>
         </Modal>
-      </div>
-    </div>
+     
   );
 }

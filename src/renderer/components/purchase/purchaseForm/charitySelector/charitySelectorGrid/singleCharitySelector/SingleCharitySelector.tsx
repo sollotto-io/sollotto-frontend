@@ -62,7 +62,7 @@ export default function SingleCharitySelector({
           </IconButton>
         </Link>
 
-        <CharityImage charityId={lotteryData.Charities[index].charityName} />
+        <CharityImage charityId={lotteryData.Charities[index].ImageURL} />
         <CharityName charityIndex={index} />
         <SolLottoLogo selected={selected} charitySelectorIcon={true} />
       </div>
