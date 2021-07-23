@@ -14,6 +14,7 @@ import WalletBalance from "../walletBalance/WalletBalance";
 import { useLocation } from "react-router";
 import useReduxState from "../../../hooks/useReduxState";
 import WalletDisconnect from "../../common/walletDisconnect/WalletDisconnect";
+import DevnetButton from "../devnet-Button/DevnetButton";
 
 export default function MobileNav(): JSX.Element {
   const { pathname } = useLocation();
@@ -26,24 +27,15 @@ export default function MobileNav(): JSX.Element {
     <nav style={{ marginBottom: "35px" }}>
       <AppBar position="fixed" className="app-bar">
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerOpen}
-          >
+          <IconButton color="inherit" aria-label="open drawer" edge="start">
             <img className="m-appbar-icon" src={SollotoLogoH} />
+            <DevnetButton />
           </IconButton>
           <div className="m-nav-actions">
             <WalletBalance />
             <WalletConnect />
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="end"
-              onClick={handleDrawerOpen}
-            >
-              <MenuIcon />
+            <IconButton color="inherit" aria-label="open drawer" edge="end">
+              <MenuIcon onClick={handleDrawerOpen} />
             </IconButton>
           </div>
         </Toolbar>

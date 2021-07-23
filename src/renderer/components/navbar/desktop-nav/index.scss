@@ -24,39 +24,6 @@ nav {
   transform: translate(-50%, 0);
 }
 
-.d-devnet {
-  border-radius: 25px;
-  font-size: 15px;
-  padding: 3px 5px;
-  font-weight: bold;
-  background: linear-gradient(
-    245.22deg,
-    #c200fb 7.97%,
-    #3772ff 49.17%,
-    #3773fe 0,
-    #5ac4be 92.1%
-  );
-  transition: 1s;
-  animation: none;
-  transform: translate(0, 1.5px);
-
-  &:hover {
-    background-size: 400% 400%;
-    animation: gradient 3s ease infinite;
-  }
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
 .d-appbar-icon {
   width: 150px;
   height: auto;

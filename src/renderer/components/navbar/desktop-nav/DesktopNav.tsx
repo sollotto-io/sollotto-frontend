@@ -10,6 +10,7 @@ import WalletBalance from "../walletBalance/WalletBalance";
 import { useLocation } from "react-router";
 import useReduxState from "../../../hooks/useReduxState";
 import WalletDisconnect from "../../common/walletDisconnect/WalletDisconnect";
+import DevnetButton from "../devnet-Button/DevnetButton";
 import { useHistory } from "react-router";
 
 export default function DesktopNav(): JSX.Element {
@@ -30,14 +31,7 @@ export default function DesktopNav(): JSX.Element {
             onClick={backToHome}
           >
             <img className="d-appbar-icon" src={SollotoLogoH} />
-            <a
-              href="https://solscan.io/"
-              target="_blank"
-              className="d-devnet"
-              rel="noreferrer"
-            >
-              Devnet
-            </a>
+            <DevnetButton />
           </IconButton>
           <div className="d-navigation-list">
             {navList.map(
