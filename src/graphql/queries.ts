@@ -139,3 +139,16 @@ export const FETCH_SINGLE_USER = gql`
     }
   }
 `;
+
+
+export const FETCH_RAFFLES = gql`
+  {
+    getAllRaffle {
+    id
+    ImageURL
+    publicKey
+    raffleName
+    Status
+  }
+  }
+`
