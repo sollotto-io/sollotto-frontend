@@ -47,7 +47,18 @@ export default function PurchaseForm(): JSX.Element {
   async function handleSubmit() {
     const ticketNumbers = sortTicketNumber(ticketNumberArr);
 
-    if (ticketNumberValidator(ticketNumbers) && selectedCharity != null) {
+    if (selectedCharity === null) {
+      toast.warn("Please Select A Charity", {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return false;
+    } else if (ticketNumberValidator(ticketNumbers)) {
       if (globalData.selectedWallet === null) {
         toast.error("Please Connect your Wallet! ", {
           position: "bottom-left",
@@ -60,6 +71,7 @@ export default function PurchaseForm(): JSX.Element {
         });
         return false;
       }
+
       const ticketData = {
         charityId: selectedCharity,
         userWalletPK: globalData.selectedWallet.publicKey.toBytes(),
