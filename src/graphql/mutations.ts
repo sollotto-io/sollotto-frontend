@@ -110,3 +110,8 @@ export const ADD_CHARITY = gql`
   }
 `;
 
+export const CHANGE_RAFFLE_STATUS = gql`
+  mutation changeRaffleStatus($raffleId: ID!, $Status: Boolean) {
+  changeRaffleStatus(raffleId: $raffleId, Status: $Status)
+}
+`

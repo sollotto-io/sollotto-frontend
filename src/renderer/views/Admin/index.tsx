@@ -1,22 +1,39 @@
 import "./index.scss";
 import TabView from "../../components/admin/Tab/Tab";
-import { useState } from "react";
-import CharityAdminTable from "../../components/admin/ChariyAdminTable/CharityAdminTable";
+import { useEffect, useState } from "react";
+import CharityAdminTable from "../../components/admin/Charities/AdminCharity";
 import Raffles from "../../components/admin/Raffles/Raffle";
 import Statistics from "../../components/admin/Statistics/Statistics";
 import useReduxState from "../../hooks/useReduxState";
+import { FETCH_RAFFLES } from "../../../graphql/queries";
+import { useQuery } from "@apollo/react-hooks";
 export default function Admin(): JSX.Element {
-  const [tabState, setTabState] = useState(0);
-  const [globalData] = useReduxState(
+  const { loading, data, refetch } = useQuery(FETCH_RAFFLES);
+  const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
   );
+  const [tabState, setTabState] = useState(0);
+  useEffect(() => {
+    if (!loading) {
+      setGlobalData({
+        type: "SET_GLOBAL_DATA",
+        arg: {
+          ...globalData,
+          raffles: {
+            refetch: refetch,
+            raffles: data.getAllRaffle,
+          },
+        },
+      });
+    }
+  }, [loading]);
   return (
     <div className="admin-wrapper">
       <TabView tabState={tabState} setTabState={setTabState} />
       {tabState === 0
         ? <CharityAdminTable rows = {globalData.charities.charities}/>
         : tabState === 1
-        ? <Raffles/>
+        ? <Raffles data = {globalData.raffles.raffles} />
         : <Statistics/>}
     </div>
   );
