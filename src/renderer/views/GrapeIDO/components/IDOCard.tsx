@@ -13,7 +13,7 @@ import IDOForm from "./IDOForm";
 import { useState } from "react";
 
 
-export default function PurchaseCard(): JSX.Element {
+export default function PurchaseCard({setSelection,csvInput}:{setSelection:(isSelectionOver:boolean)=>void,csvInput:any}): JSX.Element {
 
 
   const [users, setUsers]  = useState(0)
@@ -80,13 +80,13 @@ export default function PurchaseCard(): JSX.Element {
             style={{
               marginTop: 5,
               maxWidth: 400,
-              marginBottom:20,
+              marginBottom:10,
               color: valid ? "#FFF" : "#ff604f",
             }}
           >
           Total Participants:<span ><input type="number"  id="users" onChange={handleUserChange} /></span >
           </p>
-          <IDOForm users = {users} />
+          <IDOForm csvInput={csvInput} setSelection={setSelection} users = {users} />
           
          
         </div>

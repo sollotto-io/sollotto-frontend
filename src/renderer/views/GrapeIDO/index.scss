@@ -9,6 +9,17 @@
     row-gap: 7px;
    
 }
+.csv-list{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  h4{
+    margin: 0;
+    margin: 10px 0px;
+  }
+}
 .pageWrapperIDO{
     height: 100%;
     p{
