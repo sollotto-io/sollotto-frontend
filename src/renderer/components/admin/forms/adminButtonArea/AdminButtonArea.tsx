@@ -2,7 +2,7 @@ import "./index.scss";
 import AdminButton from "../adminButton/AdminButton";
 import { ReactElement } from "react";
 
-export default function ButtonArea({
+export default function AdminButtonArea({
   children,
   className,
 }: {

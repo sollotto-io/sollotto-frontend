@@ -1,9 +1,15 @@
 import "./index.scss";
-import AdminInput from "../../../forms/adminInput/AdminInput";
-import AdminButton from "../../../forms/adminButton/AdminButton";
-import ButtonArea from "../../../forms/buttonArea/ButtonArea";
-import AdminDropZone from "../../../forms/adminDropzone/AdminDropzone";
-import AdminRadioButton from "../../../forms/adminRadioButton/AdminRadioButton";
+import { useMutation } from "@apollo//react-hooks";
+
+import { ADD_RAFFLE, EDIT_RAFFLE } from "../../../../../../graphql/mutations";
+import {
+  AdminButton,
+  AdminButtonArea,
+  AdminDropZone,
+  AdminRadioButton,
+  AdminInput,
+  AdminSelect,
+} from "../../../forms/AdminFormCore";
 import { useState } from "react";
 import { useCallback } from "react";
 import useDidUpdateEffect from "../../../../../hooks/useDidUpdateEffect";
@@ -22,10 +28,12 @@ interface IRaffleForm {
 
 export default function RaffleForm({
   closeModal,
+  edit,
 }: {
   closeModal: () => void;
+  edit?: boolean;
 }): JSX.Element {
-  const [raffleForm, setRaffleForm] = useState<IRaffleForm>({
+  const initialState: IRaffleForm = {
     raffleName: "",
     urlSlug: "",
     raffleImage: "",
@@ -35,7 +43,9 @@ export default function RaffleForm({
     operatorWa: "",
     vanityUrl: "",
     raffleStatus: "",
-  });
+  };
+
+  const [raffleForm, setRaffleForm] = useState<IRaffleForm>(initialState);
 
   const [submiting, setSubmiting] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
@@ -50,6 +60,11 @@ export default function RaffleForm({
     vanityUrl,
     raffleImage,
   } = raffleForm;
+
+  const [addRaffle, { data: addRes, loading: addloading }] =
+    useMutation(ADD_RAFFLE);
+  const [editRaffle, { data: editRes, loading: editloading }] =
+    useMutation(ADD_RAFFLE);
 
   const validateFields = (): boolean => {
     if (
@@ -72,9 +87,10 @@ export default function RaffleForm({
   useDidUpdateEffect(() => {
     if (submiting) {
       if (validateFields()) {
-        setTimeout(() => {
-          console.log(raffleForm);
-        }, 5000);
+        console.log(JSON.stringify(raffleForm));
+        (async () => {
+          await addRaffle({ variables: raffleForm });
+        })();
       }
       setSubmiting(false);
     }
@@ -109,7 +125,7 @@ export default function RaffleForm({
       />
 
       <AdminDropZone
-        endpoint="raffleImages"
+        endpoint="uploadRaffle"
         onDrop={(img) => handleFormChange({ raffleImage: img })}
         dirName="raffleImages"
         error={error && raffleImage == ""}
@@ -141,12 +157,33 @@ export default function RaffleForm({
         label="Live Raffle Wallet Address"
         inputStyle={{ width: "400px" }}
       />
-      <AdminInput
+      {/* <AdminInput
         value={raffleStatus}
         onChange={(e) => handleFormChange({ raffleStatus: e })}
         error={error && raffleStatus === ""}
         label="Raffle Status"
         inputStyle={{ width: "400px" }}
+      /> */}
+      <AdminSelect
+        value={raffleStatus}
+        onChange={(e) => handleFormChange({ raffleStatus: e as string })}
+        itemList={[
+          {
+            name: "Testing",
+            value: "Testing",
+          },
+          {
+            name: "Live",
+            value: "Live",
+          },
+          {
+            name: "Completed",
+            value: "Completed",
+          },
+        ]}
+        placeholder="Select Raffle Status"
+        label="Raffle Status"
+        error={error && raffleStatus === ""}
       />
       <AdminInput
         value={operatorWa}
@@ -155,7 +192,7 @@ export default function RaffleForm({
         label="Operator Wallet Addresses"
         inputStyle={{ width: "400px" }}
       />
-      <ButtonArea className="btn-area">
+      <AdminButtonArea className="btn-area">
         <AdminButton
           disable={submiting}
           type="submit"
@@ -166,7 +203,7 @@ export default function RaffleForm({
         <AdminButton disable={submiting} onClick={closeModal}>
           Cancel
         </AdminButton>
-      </ButtonArea>
+      </AdminButtonArea>
     </form>
   );
 }

@@ -4,8 +4,10 @@ import RaffleForm from "./raffleForm/RaffleForm";
 export default function RaffleModal({
   open,
   onClose,
+  edit,
 }: {
   open: boolean;
+  edit?: boolean;
   onClose: () => void;
 }): JSX.Element {
   return (
@@ -18,11 +20,15 @@ export default function RaffleModal({
     >
       <div className="r-modal gradientBg gradientBorder">
         <div className="r-modal-header">
-          <h1>Add Raffle</h1>
+          <h1>{edit ? "Edit Raffle" : "Add Raffle"}</h1>
         </div>
         <div className="r-modal-body">
           <form>
-            <RaffleForm closeModal={onClose} />
+            {edit ? (
+              <RaffleForm closeModal={onClose} edit={edit} />
+            ) : (
+              <RaffleForm closeModal={onClose} />
+            )}
           </form>
         </div>
       </div>

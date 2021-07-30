@@ -29,7 +29,7 @@ export default function AdminDropZone({
       <Dropzone
         onDrop={(acceptedFiles) => {
           const data = new FormData();
-
+          console.log(`${process.env.REACT_APP_IMAGE_LINK}/${endpoint}`);
           data.append("file", acceptedFiles[0]);
           axios
             .post(`${process.env.REACT_APP_IMAGE_LINK}/${endpoint}`, data)

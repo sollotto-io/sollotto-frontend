@@ -8,6 +8,9 @@
   width: 100%;
   margin-top: 19.8px;
   position: relative;
+  img {
+    max-width: 50px;
+  }
   p {
     font-size: 12px;
     margin: 0;
@@ -19,6 +22,7 @@
     animation: show-err 0.5s;
   }
   .ad-dropzone-field {
+    width: 100%;
     background: rgba(19, 26, 53, 0.9);
     border: 1px rgba(255, 255, 255, 0.233) solid;
     padding: 8px 10px;

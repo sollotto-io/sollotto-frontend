@@ -146,7 +146,11 @@ export default function RaffleTable({
             </TableBody>
           </Table>
         </TableContainer>
-        <RaffleModal open={modalState.state} onClose={handleModalClose} />
+        <RaffleModal
+          open={modalState.state}
+          onClose={handleModalClose}
+          edit={!modalState.type}
+        />
       </>
     );
   }
