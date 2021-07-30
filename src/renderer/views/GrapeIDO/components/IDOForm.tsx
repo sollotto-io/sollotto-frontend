@@ -3,43 +3,63 @@ import { ToastContainer, toast } from "react-toastify";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import useReduxState from "../../../hooks/useReduxState";
 import { AppState } from "../../../redux/stores/store";
-import {
-  sortTicketNumber,
-} from "../../../../utils/helpers";
+import { sortTicketNumber } from "../../../../utils/helpers";
 import NumberSelectorIDO from "../numberSelector/NumberSelector";
 import reduxAction from "../../../redux/reduxAction";
 import IDOButton from "./IDOButton";
 import { sendWinnerNumbers } from "../utils/sendWinnerNumbers";
 import { RandomTicketGenerator } from "../utils/randomWinnerNumbers";
-
-
+import { CSVReader } from "react-papaparse";
 
 export interface IusersProps {
   users: number;
+  setSelection: (isSelectionOver: boolean) => void;
+  csvInput: any;
+  setCsvInput: (csvInput: any) => void;
 }
-export default function IDOForm({users}: IusersProps): JSX.Element {
-  const [globalData] = useReduxState(
-    (state: AppState) => state.globalData
-  );
+export default function IDOForm({
+  users,
+  setSelection,
+  csvInput,
+  setCsvInput,
+}: IusersProps): JSX.Element {
+  const [globalData] = useReduxState((state: AppState) => state.globalData);
   const [loading, setLoading] = useState(false);
 
+  const [winners, SetWinners] = useState(0);
+  const handleOnDrop = (data: any | number[]) => {
+    const TempArray: any = [];
+
+    data.map((d: any) => {
+      TempArray.push(d.data);
+    });
+    setCsvInput(TempArray);
+  };
   async function handleSubmitIDO() {
-    if(users === 0 || NaN || null){
-      toast.warn(
-        "Please enter the number of users",
-        {
-          position: "bottom-left",
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }
-      );
-    }else{const tempticketArr = RandomTicketGenerator(users) ;
-   
-    const ticketNumbers = sortTicketNumber(tempticketArr);
+    if (users === 0 || NaN || null || winners === 0) {
+      toast.warn("Please enter the number of users", {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else if (csvInput.length === 0) {
+      toast.warn("Please select CSV file", {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      const tempticketArr = RandomTicketGenerator(users, winners);
+
+      const ticketNumbers = sortTicketNumber(tempticketArr);
       if (globalData.selectedWallet === null) {
         toast.error("Please Connect your Wallet! ", {
           position: "bottom-left",
@@ -55,7 +75,14 @@ export default function IDOForm({users}: IusersProps): JSX.Element {
       const ticketData = {
         charityId: "12345",
         userWalletPK: globalData.selectedWallet.publicKey.toBytes(),
-        ticketNumArr: ticketNumbers,
+        ticketNumArr: [
+          ticketNumbers[0],
+          ticketNumbers[1],
+          ticketNumbers[2],
+          ticketNumbers[3],
+          ticketNumbers[4],
+          ticketNumbers[5],
+        ],
       };
 
       setLoading(true);
@@ -79,12 +106,7 @@ export default function IDOForm({users}: IusersProps): JSX.Element {
           try {
             setLoading(false);
             reduxAction({ type: "RESET_PURCHASE_DATA", arg: null });
-            reduxAction({
-              type: "SET_PURCHASE_DATA",
-              arg: {
-                ticketNumberArr: tempticketArr,
-              },
-            });
+
             toast.success(
               <div>
                 Winning Number successfully selected
@@ -114,6 +136,13 @@ export default function IDOForm({users}: IusersProps): JSX.Element {
                 progress: undefined,
               }
             );
+            reduxAction({
+              type: "SET_PURCHASE_DATA",
+              arg: {
+                ticketNumberArr: ticketNumbers,
+              },
+            });
+            setSelection(true);
             globalData.selectedWallet.disconnect();
 
             // reduxAction({ type: "RESET_PURCHASE_DATA", arg: null });
@@ -139,7 +168,27 @@ export default function IDOForm({users}: IusersProps): JSX.Element {
 
   return (
     <form onSubmit={handleSubmitIDO}>
-      <NumberSelectorIDO  />
+      <div style={{ display: "grid", gridTemplateColumns: "auto" }}>
+        <p
+          className="ticketNumInst"
+          style={{
+            marginTop: 5,
+            maxWidth: 400,
+            marginBottom: 15,
+            marginRight: 5,
+          }}
+        >
+          Total Number of Winners:
+          <span>
+            <input
+              type="number"
+              onChange={(e) => SetWinners(parseInt(e.target.value) || 0)}
+              id="users"
+            />
+          </span>
+        </p>
+      </div>
+      <NumberSelectorIDO winners={winners} />
 
       <ToastContainer className="toast-container" />
       <div className="purchaseCardFooter">
@@ -155,20 +204,20 @@ export default function IDOForm({users}: IusersProps): JSX.Element {
               flexDirection: "column",
             }}
           >
-            {/* <RandomButton
-              style={{ marginBottom: "20px" }}
-              onClick={() => {
-                reduxAction({
-                  type: "SET_PURCHASE_DATA",
-                  arg: {
-                    ticketNumberArr: RandomTicketGenerator(),
-                  },
-                });
-                handleSubmit()
-              }}
-            >
-              Generate Random Ticket
-            </RandomButton> */}
+            <span style={{ marginBottom: 20 }}>
+              <CSVReader
+                onDrop={handleOnDrop}
+                onRemoveFile={() => {
+                  setCsvInput([]);
+                }}
+                noDrag
+                addRemoveButton
+                style={{ padding: 0 }}
+              >
+                <span>Upload the CSV file here.</span>
+              </CSVReader>
+            </span>
+
             <IDOButton handleSubmit={handleSubmitIDO} />
           </span>
         )}
