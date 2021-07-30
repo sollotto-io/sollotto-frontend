@@ -61,10 +61,10 @@ export default function RaffleForm({
     raffleImage,
   } = raffleForm;
 
-  const [addRaffle, { data: addRes, loading: addloading }] =
+  const [addRaffle /* { data: addRes, loading: addloading } */] =
     useMutation(ADD_RAFFLE);
-  const [editRaffle, { data: editRes, loading: editloading }] =
-    useMutation(ADD_RAFFLE);
+  const [editRaffle /* { data: editRes, loading: editloading } */] =
+    useMutation(EDIT_RAFFLE);
 
   const validateFields = (): boolean => {
     if (
@@ -89,7 +89,11 @@ export default function RaffleForm({
       if (validateFields()) {
         console.log(JSON.stringify(raffleForm));
         (async () => {
-          await addRaffle({ variables: raffleForm });
+          if (edit) {
+            await editRaffle({ variables: raffleForm });
+          } else {
+            await addRaffle({ variables: raffleForm });
+          }
         })();
       }
       setSubmiting(false);
