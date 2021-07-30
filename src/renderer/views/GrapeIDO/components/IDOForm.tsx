@@ -9,25 +9,34 @@ import reduxAction from "../../../redux/reduxAction";
 import IDOButton from "./IDOButton";
 import { sendWinnerNumbers } from "../utils/sendWinnerNumbers";
 import { RandomTicketGenerator } from "../utils/randomWinnerNumbers";
+import { CSVReader } from "react-papaparse";
 
 export interface IusersProps {
   users: number;
   setSelection: (isSelectionOver: boolean) => void;
-  csvInput:any
+  csvInput: any;
+  setCsvInput: (csvInput: any) => void;
 }
 export default function IDOForm({
   users,
   setSelection,
-  csvInput
+  csvInput,
+  setCsvInput,
 }: IusersProps): JSX.Element {
   const [globalData] = useReduxState((state: AppState) => state.globalData);
   const [loading, setLoading] = useState(false);
 
   const [winners, SetWinners] = useState(0);
+  const handleOnDrop = (data: any | number[]) => {
+    const TempArray: any = [];
 
+    data.map((d: any) => {
+      TempArray.push(d.data);
+    });
+    setCsvInput(TempArray);
+  };
   async function handleSubmitIDO() {
-    if (users === 0 || NaN || null || winners ===0) {
-      
+    if (users === 0 || NaN || null || winners === 0) {
       toast.warn("Please enter the number of users", {
         position: "bottom-left",
         autoClose: 3000,
@@ -37,7 +46,7 @@ export default function IDOForm({
         draggable: true,
         progress: undefined,
       });
-    }else if(csvInput.length ===0){
+    } else if (csvInput.length === 0) {
       toast.warn("Please select CSV file", {
         position: "bottom-left",
         autoClose: 3000,
@@ -66,7 +75,14 @@ export default function IDOForm({
       const ticketData = {
         charityId: "12345",
         userWalletPK: globalData.selectedWallet.publicKey.toBytes(),
-        ticketNumArr: [ticketNumbers[0],ticketNumbers[1],ticketNumbers[2],ticketNumbers[3],ticketNumbers[4],ticketNumbers[5]],
+        ticketNumArr: [
+          ticketNumbers[0],
+          ticketNumbers[1],
+          ticketNumbers[2],
+          ticketNumbers[3],
+          ticketNumbers[4],
+          ticketNumbers[5],
+        ],
       };
 
       setLoading(true);
@@ -188,6 +204,20 @@ export default function IDOForm({
               flexDirection: "column",
             }}
           >
+            <span style={{ marginBottom: 20 }}>
+              <CSVReader
+                onDrop={handleOnDrop}
+                onRemoveFile={() => {
+                  setCsvInput([]);
+                }}
+                noDrag
+                addRemoveButton
+                style={{ padding: 0 }}
+              >
+                <span>Upload the CSV file here.</span>
+              </CSVReader>
+            </span>
+
             <IDOButton handleSubmit={handleSubmitIDO} />
           </span>
         )}

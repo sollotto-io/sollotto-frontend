@@ -18,14 +18,6 @@ function GrapeIDO(): JSX.Element {
   useEffect(() => {
     console.log(ticketNumberArr);
   }, [isSelectionOver]);
-  const handleOnDrop = (data: any | number[]) => {
-    const TempArray: any = [];
-
-    data.map((d: any) => {
-      TempArray.push(d.data);
-    });
-    setCsvInput(TempArray);
-  };
   return (
     <div className="pageWrapperIDO">
       <div id="purchaseSection">
@@ -36,7 +28,11 @@ function GrapeIDO(): JSX.Element {
         <p>
           Powered By <img src={Sollotto} height="30px" alt="" /> SolLotto
         </p>
-        <IDOCard csvInput={csvInput} setSelection={setSelection} />
+        <IDOCard
+          setCsvInput={setCsvInput}
+          csvInput={csvInput}
+          setSelection={setSelection}
+        />
         <span style={{ opacity: 0.7, marginTop: 10, color: "gray" }}>
           Verify only one set of numbers has been chosen by visiting: <br />
           <Link
@@ -46,18 +42,6 @@ function GrapeIDO(): JSX.Element {
           >
             app.sollotto.io/grape-parrot-verify
           </Link>
-        </span>
-        <span style={{ marginTop: 20 }}>
-          <CSVReader
-            onDrop={handleOnDrop}
-            onRemoveFile={() => {
-              setCsvInput([]);
-            }}
-            noDrag
-            addRemoveButton
-          >
-            <span>Click to upload.</span>
-          </CSVReader>
         </span>
 
         {csvInput.length > 0 && isSelectionOver === true ? (
@@ -74,8 +58,20 @@ function GrapeIDO(): JSX.Element {
                     style={{ display: "flex", flexDirection: "row" }}
                     key={i}
                   >
-                    {ticketNumberArr.includes(i) ? <p style={{backgroundColor:"yellow", color:"black", width:"fit-content", marginBottom:5}}>{e}</p>: <p style={{marginBottom:5}}>{e}</p>}
-                    
+                    {ticketNumberArr.includes(i + 1) ? (
+                      <p
+                        style={{
+                          backgroundColor: "yellow",
+                          color: "black",
+                          width: "fit-content",
+                          marginBottom: 5,
+                        }}
+                      >
+                        {e}
+                      </p>
+                    ) : (
+                      <p style={{ marginBottom: 5 }}>{e}</p>
+                    )}
                   </span>
                 );
               }
