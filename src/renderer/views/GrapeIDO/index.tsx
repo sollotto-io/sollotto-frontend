@@ -1,10 +1,8 @@
 import IDOCard from "./components/IDOCard";
-import Grape from "../../../assets/images/svg/grape_logo.svg";
-import Parrot from "../../../assets/images/pictures/parrot (1).png";
+import Grape from "../../../assets/images/pictures/grape-poker-tournament.jpg";
 import Sollotto from "../../../assets/images/pictures/sollotto.gif";
 import "./index.scss";
 import { Link } from "react-router-dom";
-import { CSVReader } from "react-papaparse";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { AppState } from "../../redux/stores/store";
@@ -22,8 +20,7 @@ function GrapeIDO(): JSX.Element {
     <div className="pageWrapperIDO">
       <div id="purchaseSection">
         <div className="pageHeaderIDO">
-          <img src={Grape} height="50px" alt="" />
-          <img src={Parrot} height="50px" alt="" />
+          <img src={Grape} height="100px" alt="" />
         </div>
         <p>
           Powered By <img src={Sollotto} height="30px" alt="" /> SolLotto
