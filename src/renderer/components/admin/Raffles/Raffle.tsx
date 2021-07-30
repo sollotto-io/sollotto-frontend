@@ -14,6 +14,7 @@ import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
 import { useEffect, useState } from "react";
 import { IRaffle } from "../../../api/types/globalData";
 import { CHANGE_RAFFLE_STATUS } from "../../../../graphql/mutations";
+import RaffleModal from "./raffleModal/RaffleModal";
 import useReduxState from "../../../hooks/useReduxState";
 
 const StyledTableCell = withStyles({
@@ -39,7 +40,7 @@ export default function RaffleTable({
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
   );
-  const [, /* modalState,  */ setModalState] = useState({
+  const [modalState, setModalState] = useState({
     state: false,
     type: false,
     id: "",
@@ -75,13 +76,13 @@ export default function RaffleTable({
       id: id,
     });
   };
-  /*   const handleModalClose = () => {
+  const handleModalClose = () => {
     setModalState({
       state: false,
       type: false,
       id: "",
     });
-  }; */
+  };
   const handleCharityStatus = async (
     event: React.ChangeEvent<HTMLInputElement>,
     id: string
@@ -145,6 +146,7 @@ export default function RaffleTable({
             </TableBody>
           </Table>
         </TableContainer>
+        <RaffleModal open={modalState.state} onClose={handleModalClose} />
       </>
     );
   }
