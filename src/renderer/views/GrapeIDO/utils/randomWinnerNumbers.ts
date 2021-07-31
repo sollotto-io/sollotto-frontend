@@ -1,16 +1,19 @@
 import random from "random";
 
-export const sortTicketNumber = (ticketNumber:number[]):number[] => [
-    ...[...ticketNumber].splice(0, ticketNumber.length - 1).sort((a, b) => a - b),
-    ticketNumber[ticketNumber.length - 1],
-  ];
- 
+export const sortTicketNumber = (ticketNumber: number[]): number[] => [
+  ...[...ticketNumber].splice(0, ticketNumber.length - 1).sort((a, b) => a - b),
+  ticketNumber[ticketNumber.length - 1],
+];
 
-export const RandomTicketGenerator = (users:number):number[] => {
-    const winningNumber = [];
-    for (let i = 0; i < 6; i++) {
+export const RandomTicketGenerator = (
+  users:number,
+  winners:number,
+): number[] => {
+  const winningNumber = [];
+  if (winners > 0) {
+    for (let i = 0; i < winners; i++) {
       let randomNumber;
-      if (i < 5) {
+      if (i < winners) {
         let invalidNumber = true;
         while (invalidNumber) {
           randomNumber = random.int(1, users);
@@ -19,10 +22,8 @@ export const RandomTicketGenerator = (users:number):number[] => {
             invalidNumber = false;
           }
         }
-      } else {
-        randomNumber = random.int(1, 26);
-        winningNumber.push(randomNumber);
       }
     }
-    return sortTicketNumber(winningNumber);
-  };
+  }
+  return sortTicketNumber(winningNumber);
+};

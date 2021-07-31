@@ -1,0 +1,54 @@
+{
+  "pool": [
+    {
+      "name": "SolLotto Foundation Rewards",
+      "key": "srwkMYJYRCRrXmXEfWopnVR4NAtsffnyGhLfNzpFKcg"
+    },
+    {
+      "name": "Effective Altruism Labs",
+      "key": "eawkkGZ41wzCZnbQi3qh9H15Az3Jb7acmpwif6HVSrm"
+    },
+    {
+      "name": "Slot Holder Rewards",
+      "key": "sswhsWuunukzAWBGwjLmzxBCutsvH9cVGnrgRRp4MYg"
+    },
+    {
+      "name": "Model 1 Prize Pool",
+      "key": "shwmeELRLcrTZ2AsgdJsaQ37gzXkPwg2MMfJpA9u225"
+    }
+  ],
+  "charities": [
+    {
+      "name": "Friends Of Animals",
+      "key": "foaxk43pFhJxxRzLeQm7Webv2WyTHJVdMgNed3Dg2yh"
+    },
+    {
+      "name": "Doctors Without Borders",
+      "key": "dwbAtgB1vXzeRrb6x3foZF75wMa74sKSeNQUi7njvmA"
+    },
+    {
+      "name": "Give Directly",
+      "key": "givjLbNX4KmzxDFLe1QmcaEP8PUGp4akeXAYkFF2qKb"
+    },
+    {
+      "name": "Schistosomiasis Control Initiative",
+      "key": "sci1NYZbsZsdZ3mswgoiFmyZ4ngQX"
+    },
+    {
+      "name": "Waterkeeper Alliance",
+      "key": "wkakDmkD6hiN5R1CjD87tnbSZktTWunQUkeVq9CYt3m"
+    },
+    {
+      "name": "Global Fund For Women",
+      "key": "gfbgs1HxwTyMeHf7iZ5fPXp5ZLuxUDpeDd7TyeSRg35"
+    },
+    {
+      "name": "Environmental Defense Action Fund ",
+      "key": "edaBJvugpyMk5sKXsTrGR4PJ64pixAVifH3RCsRUKAT"
+    },
+    {
+      "name": "Helen Keller International",
+      "key": "hkinSqXWFdd73UVXbnTuAWWM5zRJPNAwDp9TnQAkJNj"
+    }
+  ]
+}

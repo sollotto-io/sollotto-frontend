@@ -1,0 +1,37 @@
+.ad-input-w {
+  .ad-input-label {
+    margin: 0;
+  }
+  position: relative;
+  transition: 0.5s;
+  .ad-input {
+    border: 0;
+    padding: 10px;
+    background: rgba(19, 26, 53, 0.9);
+    border: 1px rgba(255, 255, 255, 0.233) solid;
+    color: white;
+    outline: none;
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-family: Circular;
+    width: 250px;
+  }
+  .ad-input-error {
+    position: absolute;
+    color: red;
+    font-size: 14px;
+    margin: 3px 0 0 0;
+    animation: open-error 0.5s;
+    bottom: -27px;
+  }
+}
+@keyframes open-error {
+  from {
+    bottom: -32px;
+    opacity: 0;
+  }
+  to {
+    bottom: -27px;
+    opacity: 1;
+  }
+}

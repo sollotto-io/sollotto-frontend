@@ -1,0 +1,66 @@
+.ad-select {
+  width: 100%;
+  position: relative;
+  .ad-select-error {
+    color: red;
+    margin: 3px 0 0 0;
+    position: absolute;
+    font-size: 14px;
+    bottom: -29px;
+    animation: show-error 0.5s;
+  }
+  p {
+    margin: 0;
+  }
+  > div {
+    width: 100%;
+    margin-top: 1px;
+    > div {
+      > em {
+        color: rgb(187, 187, 187);
+      }
+    }
+    > input {
+      color: white;
+    }
+    > svg {
+      fill: white;
+    }
+    &::after {
+      border-bottom: 1px solid var(--surge-green);
+    }
+    &::before {
+      border-bottom: 2px solid var(--purple-dino);
+    }
+    &:hover:not(.Mui-disabled) {
+      &::before {
+        border-bottom: 1px solid var(--ocean);
+      }
+    }
+  }
+}
+
+.MuiPaper-root {
+  background-color: var(--navy-blue) !important;
+  > ul {
+    > li {
+      color: white;
+    }
+  }
+}
+
+.MuiSelect-root {
+  color: white !important;
+  font-size: 15px;
+}
+
+@keyframes show-error {
+  from {
+    opacity: 0;
+    bottom: -33px;
+  }
+  to {
+    opacity: 1;
+    bottom: -29px;
+  }
+}

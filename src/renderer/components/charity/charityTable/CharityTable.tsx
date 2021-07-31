@@ -36,17 +36,18 @@ export default function CharityTable({
   const poolDetails = (param: string) => {
     history.push({
       pathname: `/charities/${param}`,
-      state: { fromPurchase: false },
+      state: { fromPurchase: false, fromAdmin: false },
     });
   };
-
   return (
     <TableContainer component={StyledPaper}>
       <Table className="table" aria-label="simple table">
         <TableHead>
           <TableRow>
             <StyledTableCell>Charity Name</StyledTableCell>
-            <StyledTableCell align="center">Current Votes</StyledTableCell>
+            <StyledTableCell align="center">
+              {nominate ? "Nomination Votes" : "Current Votes"}
+            </StyledTableCell>
             <StyledTableCell align="center">Added By</StyledTableCell>
             <StyledTableCell align="center">Lifetime Votes</StyledTableCell>
             <StyledTableCell align="center">
@@ -74,7 +75,7 @@ export default function CharityTable({
                 </p>
               </StyledTableCell>
               <StyledTableCell align="center">
-              {row.lifeTimeVotes ? row.lifeTimeVotes : 0 }
+                {row.lifeTimeVotes ? row.lifeTimeVotes : 0}
               </StyledTableCell>
               <StyledTableCell align="center">
                 {" "}
@@ -85,7 +86,7 @@ export default function CharityTable({
                     "0"
                   )
                 ) : (
-                  <NominationModal id={row.id} />
+                  <NominationModal id={row.id} rowIndex={index} />
                 )}
               </StyledTableCell>
             </TableRow>

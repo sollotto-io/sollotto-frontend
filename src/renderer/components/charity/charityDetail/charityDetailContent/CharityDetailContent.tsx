@@ -11,11 +11,13 @@ const CharityDetailContent = ({
 }: {
   charityDetail: ICharity;
 }): JSX.Element => {
-  const history = useHistory<{ fromPurchase: boolean }>();
+  const history = useHistory<{fromAdmin:boolean, fromPurchase: boolean }>();
   const sendToCharity = () => {
     if (history.location.state.fromPurchase === true) {
       history.push("/purchase");
-    } else {
+    } else if(history.location.state.fromAdmin === true){
+      history.push("/admin");
+    }else {
       history.push("/charities");
     }
   };

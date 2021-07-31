@@ -1,13 +1,22 @@
 .pageHeaderIDO{
     margin-top: 50px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: flex-start;
-    justify-content: center;
     column-gap: 10px;
-    grid-template-rows: auto auto;
     row-gap: 7px;
-   
+  img{
+    width: 485px;
+    height: 150px;
+  }
+}
+.csv-list{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  h4{
+    margin: 0;
+    margin: 10px 0px;
+  }
 }
 .pageWrapperIDO{
     height: 100%;

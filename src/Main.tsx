@@ -13,22 +13,14 @@ import CharityDetail from "./renderer/components/charity/charityDetail/CharityDe
 import Results from "./renderer/views/Results/Results";
 import ResultDetail from "./renderer/components/result/resultDetail/ResultDetail";
 import Pool from "./renderer/views/Pool/Pool";
+import Verify from "./renderer/views/Verify/Verify";
 import Footer from "./renderer/views/Footer/Footer";
-/* import Nav from "./components/Nav";
-import Purchase from "./pages/Purchase";
-import Charities from "./pages/Charities";
-import Suggest from "./pages/Suggest";
-import Results from "./pages/Results";
-import Pool from "./pages/Pool";
-import CharityDetailPage from "./components/Charity/CharityDetailPage.js";
-import Loader from "./components/common/Loader";
-import Footer from "./pages/Footer";
-import ResultDetail from "./components/Result/ResultDetail"; */
-/* import "./css/pool.css"; */
 import useReduxState from "./renderer/hooks/useReduxState";
 import { useQuery } from "@apollo/react-hooks";
 import { FETCH_ALL_CHARITIES, FETCH_UPCOMING_DRAWING } from "./graphql/queries";
+import Admin from "./renderer/views/Admin";
 import GrapeIDO from "./renderer/views/GrapeIDO";
+
 function Main(): JSX.Element {
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
@@ -110,14 +102,15 @@ function Main(): JSX.Element {
     <Router>
       <div className="App">
         <Switch>
-          <Route
-            path="/grape-parrot-verify"
+        <Route
+            path="/grape-poker-verify"
             component={() => {
-              window.location.href = "https://solscan.io/account/gps3KCijRJnUPQoe1ep6X6mUjGrvUohy98grqcc3JdC?cluster=devnet";
+              window.location.href = "https://solscan.io/account/gptESaaPJ9WZpjt7WhULDgne88T1u5rCLBxBJyb7fB7?cluster=devnet";
               return null;
             }}
           />
-          <Route exact path="/grape-parrot-ido-lottery" component={GrapeIDO} />
+          <Route exact path="/admin" component={Admin} />
+          <Route exact path="/grape-poker-lottery" component={GrapeIDO} />
           <Route path="/">
             <Navbar />
             <Switch>
@@ -138,13 +131,16 @@ function Main(): JSX.Element {
               </Route>
 
               <Route exact path="/charities">
-                <Charities charityloading={charityloading} />
+                <Charities charityloading={charityloading && loading} />
               </Route>
               {/*           <Route exact path="/suggest">
                 <Suggest />
               </Route> */}
               <Route exact path="/pools">
                 <Pool />
+              </Route>
+              <Route exact path="/verify">
+                <Verify />
               </Route>
               <Route exact path="/charities/:id">
                 <CharityDetail />

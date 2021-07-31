@@ -12,21 +12,25 @@ import { IlotteryTicket } from "../../../api/types/lotteryData";
 import IDOForm from "./IDOForm";
 import { useState } from "react";
 
-
-export default function PurchaseCard(): JSX.Element {
-
-
-  const [users, setUsers]  = useState(0)
+export default function PurchaseCard({
+  setSelection,
+  csvInput,
+  setCsvInput,
+}: {
+  setSelection: (isSelectionOver: boolean) => void;
+  csvInput: any;
+  setCsvInput: (csvInput: any) => void;
+}): JSX.Element {
+  const [users, setUsers] = useState(0);
   const { ticketNumberArr, valid } = useSelector(
     (state: AppState) => state.purchaseData
   );
   const [{ loading, lotteryData }] = useReduxState(
     (state: AppState) => state.lotteryData
   );
-  const handleUserChange  =(e: React.ChangeEvent<HTMLInputElement>) =>{
-   
-    setUsers(parseInt(e.target.value)) 
-  }
+  const handleUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUsers(parseInt(e.target.value));
+  };
   const [globalData] = useReduxState((state: AppState) => state.globalData);
 
   const verifyRepeatedTicket = () => {
@@ -74,21 +78,27 @@ export default function PurchaseCard(): JSX.Element {
         <GreenGradientSvg2 />
         <PurpleGradientSvg />
         <div className="purchaseCard">
-          <p>Welcome to the Grape-Parrot IDO lottery powered by SolLotto!</p>
+          <p>Welcome to the Grape Poker Tournament Lottery powered by SolLotto!</p>
           <p
             className="ticketNumInst"
             style={{
               marginTop: 5,
               maxWidth: 400,
-              marginBottom:20,
+              marginBottom: 10,
               color: valid ? "#FFF" : "#ff604f",
             }}
           >
-          Total Participants:<span ><input type="number"  id="users" onChange={handleUserChange} /></span >
+            Total Participants:
+            <span>
+              <input type="number" id="users" onChange={handleUserChange} />
+            </span>
           </p>
-          <IDOForm users = {users} />
-          
-         
+          <IDOForm
+            setCsvInput={setCsvInput}
+            csvInput={csvInput}
+            setSelection={setSelection}
+            users={users}
+          />
         </div>
       </div>
     </div>
