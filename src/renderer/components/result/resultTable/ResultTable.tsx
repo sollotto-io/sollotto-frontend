@@ -90,7 +90,7 @@ export default function ResultTable({
                       "TBD"
                     ) : (
                       <>
-                        row.WinningNumbers[0] &nbsp; {row.WinningNumbers[1]}
+                        {row.WinningNumbers[0]} &nbsp; {row.WinningNumbers[1]}
                         &nbsp; {row.WinningNumbers[2]}
                         &nbsp; {row.WinningNumbers[3]}&nbsp;
                         {row.WinningNumbers[4]}
@@ -150,7 +150,7 @@ export default function ResultTable({
                   <StyledTableCell align="center">
                     {row.TotalPoolValue === null
                       ? 0
-                      : row.TotalPoolValue.toFixed(2)}
+                      : row.TotalPoolValue.toFixed(2)} SOL
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {" "}

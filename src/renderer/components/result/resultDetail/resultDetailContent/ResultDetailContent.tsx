@@ -72,7 +72,7 @@ const ResultDetailContent = ({
             <p>
               {lotteryData.TotalPoolValue === null
                 ? "TBD"
-                : lotteryData.TotalPoolValue.toFixed(2)}
+                : lotteryData.TotalPoolValue.toFixed(2)} SOL
             </p>
           </section>
           <section>
