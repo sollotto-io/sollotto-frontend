@@ -34,10 +34,10 @@ function GrapeIDO(): JSX.Element {
           Verify only one set of numbers has been chosen by visiting: <br />
           <Link
             style={{ marginTop: 10, color: "gray" }}
-            to={"/grape-parrot-verify"}
+            to={"/grape-poker-verify"}
             target="_blank"
           >
-            app.sollotto.io/grape-parrot-verify
+            app.sollotto.io/grape-poker-verify
           </Link>
         </span>
 

@@ -102,8 +102,15 @@ function Main(): JSX.Element {
     <Router>
       <div className="App">
         <Switch>
+        <Route
+            path="/grape-poker-verify"
+            component={() => {
+              window.location.href = "https://solscan.io/account/gptESaaPJ9WZpjt7WhULDgne88T1u5rCLBxBJyb7fB7?cluster=devnet";
+              return null;
+            }}
+          />
           <Route exact path="/admin" component={Admin} />
-          <Route exact path="/grape-parrot-ido" component={GrapeIDO} />
+          <Route exact path="/grape-poker-lottery" component={GrapeIDO} />
           <Route path="/">
             <Navbar />
             <Switch>
