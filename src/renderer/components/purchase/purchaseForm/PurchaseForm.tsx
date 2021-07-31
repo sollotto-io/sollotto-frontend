@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { ticketPurchase } from "../utils/ticketPurchase";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { POST_TICKET } from "../../../../graphql/mutations";
-import { FETCH_SINGLE_USER } from "../../../../graphql/queries";
+import { FETCH_LOTTERY_DATA_ACCOUNT, FETCH_SINGLE_USER } from "../../../../graphql/queries";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { AppState } from "../../../redux/stores/store";
 import { ICharity } from "../../../api/types/globalData";
@@ -24,7 +24,7 @@ import { Link } from "react-router-dom";
 
 export default function PurchaseForm(): JSX.Element {
   const [addTicket] = useMutation(POST_TICKET);
-  
+  const {data} = useQuery(FETCH_LOTTERY_DATA_ACCOUNT)
   const [globalData, setGlobalData] = useReduxState(
     (state: AppState) => state.globalData
   );
@@ -78,6 +78,7 @@ export default function PurchaseForm(): JSX.Element {
         charityId: selectedCharity,
         userWalletPK: globalData.selectedWallet.publicKey.toBytes(),
         ticketNumArr: ticketNumbers,
+        lotteryDataAccount: data.getLotteryInfo.LotteryDataAccount
           };
       setLoading(true);
       if (globalData.walletBalance === 0) {

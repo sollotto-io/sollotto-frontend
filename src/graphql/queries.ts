@@ -156,3 +156,12 @@ export const FETCH_RAFFLES = gql`
     }
   }
 `;
+
+export const FETCH_LOTTERY_DATA_ACCOUNT = gql`
+  {
+  getLotteryInfo {
+    LotteryDataAccount
+    LotteryId
+  }
+  }
+`;
