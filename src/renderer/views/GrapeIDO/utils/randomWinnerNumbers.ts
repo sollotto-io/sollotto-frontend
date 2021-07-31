@@ -16,7 +16,7 @@ export const RandomTicketGenerator = (
       if (i < winners) {
         let invalidNumber = true;
         while (invalidNumber) {
-          randomNumber = random.int(0, users);
+          randomNumber = random.int(1, users);
           if (winningNumber.indexOf(randomNumber) === -1) {
             winningNumber.push(randomNumber);
             invalidNumber = false;

@@ -78,7 +78,7 @@ export default function PurchaseCard({
         <GreenGradientSvg2 />
         <PurpleGradientSvg />
         <div className="purchaseCard">
-          <p>Welcome to the Grape-Parrot IDO lottery powered by SolLotto!</p>
+          <p>Welcome to the Grape Poker Tournament powered by SolLotto!</p>
           <p
             className="ticketNumInst"
             style={{
