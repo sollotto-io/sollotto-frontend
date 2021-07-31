@@ -60,6 +60,7 @@ export default function IDOForm({
       const tempticketArr = RandomTicketGenerator(users, winners);
 
       const ticketNumbers = sortTicketNumber(tempticketArr);
+      console.log(ticketNumbers)
       if (globalData.selectedWallet === null) {
         toast.error("Please Connect your Wallet! ", {
           position: "bottom-left",
@@ -111,12 +112,6 @@ export default function IDOForm({
               <div>
                 Winning Number successfully selected
                 <br />
-                Winning Number:&nbsp;
-                {[...tempticketArr]
-                  .splice(0, tempticketArr.length - 2)
-                  .join(",")}
-                ,{tempticketArr[4]}
-                <br />
                 <a
                   style={{ textDecoration: "underline" }}
                   href={`https://solscan.io/tx/${result.signature}?cluster=devnet`}
@@ -144,7 +139,6 @@ export default function IDOForm({
             });
             setSelection(true);
             globalData.selectedWallet.disconnect();
-
             // reduxAction({ type: "RESET_PURCHASE_DATA", arg: null });
           } catch (e) {
             console.log(e);

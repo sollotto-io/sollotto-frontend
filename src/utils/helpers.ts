@@ -1,10 +1,9 @@
 import { toast } from "react-toastify";
 import random from "random";
-
-export const sortTicketNumber = (ticketNumber: number[]): number[] => [
-  ...[...ticketNumber].splice(0, ticketNumber.length - 1).sort((a, b) => a - b),
-  ticketNumber[ticketNumber.length - 1],
-];
+import _ from "lodash"
+export const sortTicketNumber = (ticketNumber: number[]): number[] => {
+  return _.sortBy(ticketNumber)
+}
 
 export const RandomTicketGenerator = (): number[] => {
   const winningNumber = [];
