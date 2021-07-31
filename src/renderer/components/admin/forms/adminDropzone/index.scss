@@ -1,0 +1,42 @@
+.ad-dropzone {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-column-gap: 20px;
+  column-gap: 20px;
+  align-items: center;
+  justify-items: start;
+  width: 100%;
+  margin-top: 19.8px;
+  position: relative;
+  img {
+    max-width: 50px;
+  }
+  p {
+    font-size: 12px;
+    margin: 0;
+  }
+  .ad-dropzone-err {
+    color: red;
+    position: absolute;
+    top: 40px;
+    animation: show-err 0.5s;
+  }
+  .ad-dropzone-field {
+    width: 100%;
+    background: rgba(19, 26, 53, 0.9);
+    border: 1px rgba(255, 255, 255, 0.233) solid;
+    padding: 8px 10px;
+    display: grid;
+    grid-template-columns: auto auto;
+    position: relative;
+  }
+}
+
+@keyframes show-err {
+  from {
+    top: 50px;
+  }
+  to {
+    top: 40px;
+  }
+}

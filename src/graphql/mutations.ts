@@ -110,3 +110,66 @@ export const ADD_CHARITY = gql`
   }
 `;
 
+export const ADD_RAFFLE = gql`
+  mutation addRaffle(
+    $raffleName: String!
+    $urlSlug: String!
+    $raffleImage: String!
+    $sollotoBranding: Boolean!
+    $testingWA: String!
+    $liveWA: String!
+    $operatorWa: String!
+    $vanityUrl: String!
+    $raffleStatus: String!
+  ) {
+    addRaffle(
+      raffleInput: {
+        raffleName: $raffleName
+        urlSlug: $urlSlug
+        raffleImage: $raffleImage
+        sollotoBranding: $sollotoBranding
+        testingWA: $testingWA
+        liveWA: $liveWA
+        operatorWa: $operatorWa
+        vanityUrl: $vanityUrl
+        raffleStatus: $raffleStatus
+      }
+    )
+  }
+`;
+
+export const EDIT_RAFFLE = gql`
+  mutation addRaffle(
+    $raffleId: ID!
+    $raffleName: String!
+    $urlSlug: String!
+    $raffleImage: String!
+    $sollotoBranding: Boolean!
+    $testingWA: String!
+    $liveWA: String!
+    $operatorWa: String!
+    $vanityUrl: String!
+    $raffleStatus: String!
+  ) {
+    addRaffle(
+      raffleId: $raffleId
+      affleInput: {
+        raffleName: $raffleName
+        urlSlug: $urlSlug
+        raffleImage: $raffleImage
+        sollotoBranding: $sollotoBranding
+        testingWA: $testingWA
+        liveWA: $liveWA
+        operatorWa: $operatorWa
+        vanityUrl: $vanityUrl
+        vanityUrl: $raffleStatus
+      }
+    )
+  }
+`;
+
+export const CHANGE_RAFFLE_STATUS = gql`
+  mutation changeRaffleStatus($raffleId: ID!, $Status: Boolean) {
+    changeRaffleStatus(raffleId: $raffleId, Status: $Status)
+  }
+`;

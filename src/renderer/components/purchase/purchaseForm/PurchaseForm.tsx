@@ -12,6 +12,7 @@ import { AppState } from "../../../redux/stores/store";
 import { ICharity } from "../../../api/types/globalData";
 import TicketPrice from "../ticketPrice/TicketPrice";
 
+
 import {
   sortTicketNumber,
   ticketNumberValidator,
@@ -23,6 +24,7 @@ import { Link } from "react-router-dom";
 
 export default function PurchaseForm(): JSX.Element {
   const [addTicket] = useMutation(POST_TICKET);
+  
   const [globalData, setGlobalData] = useReduxState(
     (state: AppState) => state.globalData
   );
@@ -47,7 +49,18 @@ export default function PurchaseForm(): JSX.Element {
   async function handleSubmit() {
     const ticketNumbers = sortTicketNumber(ticketNumberArr);
 
-    if (ticketNumberValidator(ticketNumbers) && selectedCharity != null) {
+    if (selectedCharity === null) {
+      toast.warn("Please Select A Charity", {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return false;
+    } else if (ticketNumberValidator(ticketNumbers)) {
       if (globalData.selectedWallet === null) {
         toast.error("Please Connect your Wallet! ", {
           position: "bottom-left",
@@ -60,11 +73,12 @@ export default function PurchaseForm(): JSX.Element {
         });
         return false;
       }
+
       const ticketData = {
         charityId: selectedCharity,
         userWalletPK: globalData.selectedWallet.publicKey.toBytes(),
         ticketNumArr: ticketNumbers,
-      };
+          };
       setLoading(true);
       if (globalData.walletBalance === 0) {
         toast.error(

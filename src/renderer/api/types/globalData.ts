@@ -2,7 +2,6 @@ import { Connection, PublicKey, Transaction } from "@solana/web3.js";
 import Wallet from "@project-serum/sol-wallet-adapter";
 
 type Refetch = () => Promise<void>;
-
 export interface ICharity {
   id: string;
   charityName: string;
@@ -29,9 +28,23 @@ export interface Icharities {
   refetch: Refetch | null;
   charities: ICharity[];
 }
+
+export interface IRaffle{
+  id:string,
+  raffleName: string,
+  publicKey: string,
+  Status: boolean,
+  ImageURL:string,
+}
+export interface IRaffles{
+  refetch: Refetch | null,
+  raffles: IRaffle []
+}
+
 export interface IglobalData {
   holdingWalletId: string;
   charities: Icharities;
+  raffles: IRaffles;
   selectedWallet: PhantomProvider | null;
   walletBalance: number;
   walletConnectedFlag: boolean;

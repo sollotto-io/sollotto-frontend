@@ -1,0 +1,11 @@
+.ad-btn-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .ad-button:first-child {
+    margin: 0;
+  }
+  .ad-button {
+    margin-left: 15px;
+  }
+}

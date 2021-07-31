@@ -45,20 +45,18 @@ export default function PurchaseCard(): JSX.Element {
   };
 
   useDidUpdateEffect(() => {
-    if (
-      !ticketNumberArr.some((n) => n === undefined) &&
-      !loading &&
-      verifyRepeatedTicket()
-    ) {
-      toast.warn("Warning: You alredy bought that ticket", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+    if (!ticketNumberArr.some((n) => n === undefined) && !loading) {
+      if (verifyRepeatedTicket()) {
+        toast.warn("Warning: You alredy bought that ticket", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
     }
   }, [ticketNumberArr]);
   return (

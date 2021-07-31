@@ -1,4 +1,4 @@
-import {gql} from "@apollo/react-hooks";
+import { gql } from "@apollo/react-hooks";
 
 export const FETCH_ALL_CHARITIES = gql`
   {
@@ -136,6 +136,23 @@ export const FETCH_SINGLE_USER = gql`
       id
       TokenValue
       UserPK
+    }
+  }
+`;
+
+export const FETCH_RAFFLES = gql`
+  {
+    getAllRaffle {
+      id
+      raffleName
+      urlSlug
+      raffleImage
+      sollotoBranding
+      testingWA
+      liveWA
+      operatorWa
+      vanityUrl
+      raffleStatus
     }
   }
 `;
