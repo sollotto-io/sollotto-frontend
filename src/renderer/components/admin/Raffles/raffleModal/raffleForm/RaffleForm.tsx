@@ -13,6 +13,7 @@ import {
 import { useState } from "react";
 import { useCallback } from "react";
 import useDidUpdateEffect from "../../../../../hooks/useDidUpdateEffect";
+import { IRaffle } from "../../../../../api/types/globalData";
 
 interface IRaffleForm {
   raffleName: string;
@@ -29,20 +30,22 @@ interface IRaffleForm {
 export default function RaffleForm({
   closeModal,
   edit,
+  data,
 }: {
   closeModal: () => void;
   edit?: boolean;
+  data?: IRaffle;
 }): JSX.Element {
   const initialState: IRaffleForm = {
-    raffleName: "",
-    urlSlug: "",
-    raffleImage: "",
-    sollotoBranding: true,
-    testingWA: "",
-    liveWA: "",
-    operatorWa: "",
-    vanityUrl: "",
-    raffleStatus: "",
+    raffleName: data?.raffleName ?? "",
+    urlSlug: data?.urlSlug ?? "",
+    raffleImage: data?.raffleImage ?? "",
+    sollotoBranding: data?.sollotoBranding ?? true,
+    testingWA: data?.testingWA ?? "",
+    liveWA: data?.liveWA ?? "",
+    operatorWa: data?.operatorWa ?? "",
+    vanityUrl: data?.vanityUrl ?? "",
+    raffleStatus: data?.raffleStatus ?? "",
   };
 
   const [raffleForm, setRaffleForm] = useState<IRaffleForm>(initialState);
@@ -73,8 +76,10 @@ export default function RaffleForm({
       testingWA === "" ||
       liveWA === "" ||
       operatorWa === "" ||
+      raffleStatus === null ||
       raffleStatus === "" ||
-      vanityUrl === ""
+      vanityUrl === "" ||
+      raffleImage === ""
     ) {
       setError(true);
       return false;
@@ -88,12 +93,18 @@ export default function RaffleForm({
     if (submiting) {
       if (validateFields()) {
         console.log(JSON.stringify(raffleForm));
+        console.log(JSON.stringify({ ...raffleForm, raffleId: data?.id }));
         (async () => {
           if (edit) {
-            await editRaffle({ variables: raffleForm });
+            await editRaffle({
+              variables: { ...raffleForm, raffleId: data?.id },
+            });
           } else {
-            await addRaffle({ variables: raffleForm });
+            await addRaffle({
+              variables: raffleForm,
+            });
           }
+          closeModal();
         })();
       }
       setSubmiting(false);
@@ -133,6 +144,7 @@ export default function RaffleForm({
         onDrop={(img) => handleFormChange({ raffleImage: img })}
         dirName="raffleImages"
         error={error && raffleImage == ""}
+        initialImage={data?.raffleImage ?? ""}
       />
       <AdminInput
         label="Verification Vanity URL"

@@ -44,6 +44,7 @@ export default function RaffleTable({
     state: false,
     type: false,
     id: "",
+    index: -1,
   });
   const [state, setState] = useState(false);
   useEffect(() => {
@@ -67,13 +68,15 @@ export default function RaffleTable({
   const handleModalState = (
     e: React.MouseEvent<HTMLElement>,
     val: boolean,
-    id: string
+    id: string,
+    index: number
   ) => {
     e.stopPropagation();
     setModalState({
       state: true,
       type: val,
       id: id,
+      index,
     });
   };
   const handleModalClose = () => {
@@ -81,6 +84,7 @@ export default function RaffleTable({
       state: false,
       type: false,
       id: "",
+      index: -1,
     });
   };
   const handleCharityStatus = async (
@@ -100,7 +104,7 @@ export default function RaffleTable({
     return (
       <>
         <button
-          onClick={(e) => handleModalState(e, true, "")}
+          onClick={(e) => handleModalState(e, true, "", -1)}
           className="gradientBg addCharityButton"
         >
           <p>Add Raffle</p> <AddCircleRoundedIcon />
@@ -126,7 +130,7 @@ export default function RaffleTable({
                   </StyledTableCell>
                   <StyledTableCell>
                     <IconButton
-                      onClick={(e) => handleModalState(e, false, row.id)}
+                      onClick={(e) => handleModalState(e, false, row.id, index)}
                     >
                       <EditRoundedIcon className="edit-delete-button" />
                     </IconButton>
@@ -150,6 +154,7 @@ export default function RaffleTable({
           open={modalState.state}
           onClose={handleModalClose}
           edit={!modalState.type}
+          data={data[modalState.index]}
         />
       </>
     );

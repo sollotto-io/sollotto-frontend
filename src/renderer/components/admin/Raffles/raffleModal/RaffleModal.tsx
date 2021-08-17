@@ -1,13 +1,16 @@
 import "./index.scss";
 import { Modal } from "@material-ui/core";
+import { IRaffle } from "../../../../api/types/globalData";
 import RaffleForm from "./raffleForm/RaffleForm";
 export default function RaffleModal({
   open,
   onClose,
   edit,
+  data,
 }: {
   open: boolean;
   edit?: boolean;
+  data?: IRaffle;
   onClose: () => void;
 }): JSX.Element {
   return (
@@ -25,7 +28,7 @@ export default function RaffleModal({
         <div className="r-modal-body">
           <form>
             {edit ? (
-              <RaffleForm closeModal={onClose} edit={edit} />
+              <RaffleForm closeModal={onClose} edit={edit} data={data} />
             ) : (
               <RaffleForm closeModal={onClose} />
             )}

@@ -139,7 +139,7 @@ export const ADD_RAFFLE = gql`
 `;
 
 export const EDIT_RAFFLE = gql`
-  mutation addRaffle(
+  mutation editRaffle(
     $raffleId: ID!
     $raffleName: String!
     $urlSlug: String!
@@ -151,9 +151,9 @@ export const EDIT_RAFFLE = gql`
     $vanityUrl: String!
     $raffleStatus: String!
   ) {
-    addRaffle(
+    editRaffle(
       raffleId: $raffleId
-      affleInput: {
+      raffleInput: {
         raffleName: $raffleName
         urlSlug: $urlSlug
         raffleImage: $raffleImage
@@ -162,7 +162,7 @@ export const EDIT_RAFFLE = gql`
         liveWA: $liveWA
         operatorWa: $operatorWa
         vanityUrl: $vanityUrl
-        vanityUrl: $raffleStatus
+        raffleStatus: $raffleStatus
       }
     )
   }
