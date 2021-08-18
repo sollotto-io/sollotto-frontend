@@ -24,7 +24,6 @@
     "axios": "^0.21.1",
     "bn.js": "^5.2.0",
     "borsh": "^0.4.0",
-    "buffer-layout": "^1.2.2",
     "crypto-js": "^4.1.1",
     "dotenv": "^8.2.0",
     "formik": "^2.2.9",
