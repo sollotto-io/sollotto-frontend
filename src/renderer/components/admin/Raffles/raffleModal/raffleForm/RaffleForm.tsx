@@ -14,6 +14,7 @@ import { useState } from "react";
 import { useCallback } from "react";
 import useDidUpdateEffect from "../../../../../hooks/useDidUpdateEffect";
 import { IRaffle } from "../../../../../api/types/globalData";
+import useReduxState from "../../../../../hooks/useReduxState";
 
 interface IRaffleForm {
   raffleName: string;
@@ -47,6 +48,10 @@ export default function RaffleForm({
     vanityUrl: data?.vanityUrl ?? "",
     raffleStatus: data?.raffleStatus ?? "",
   };
+
+  const [{ raffles }, setGlobalState] = useReduxState(
+    (state) => state.globalData
+  );
 
   const [raffleForm, setRaffleForm] = useState<IRaffleForm>(initialState);
 
@@ -99,10 +104,38 @@ export default function RaffleForm({
             await editRaffle({
               variables: { ...raffleForm, raffleId: data?.id },
             });
+            if (raffles.refetch) {
+              const { data } = await raffles.refetch();
+              if (data.getAllRaffle) {
+                setGlobalState({
+                  type: "SET_GLOBAL_DATA",
+                  arg: {
+                    raffles: {
+                      ...raffles,
+                      raffles: data.getAllRaffle,
+                    },
+                  },
+                });
+              }
+            }
           } else {
             await addRaffle({
               variables: raffleForm,
             });
+            if (raffles.refetch) {
+              const { data } = await raffles.refetch();
+              if (data.getAllRaffle) {
+                setGlobalState({
+                  type: "SET_GLOBAL_DATA",
+                  arg: {
+                    raffles: {
+                      ...raffles,
+                      raffles: data.getAllRaffle,
+                    },
+                  },
+                });
+              }
+            }
           }
           closeModal();
         })();

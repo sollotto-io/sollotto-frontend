@@ -36,7 +36,7 @@ export default function CharityAdminTable({
 }: {
   rows: ICharity[];
 }): JSX.Element {
-  const [changeStatus] = useMutation(CHARITY_STATUS_CHAGED)
+  const [changeStatus] = useMutation(CHARITY_STATUS_CHAGED);
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
   );
@@ -61,7 +61,7 @@ export default function CharityAdminTable({
         });
       }
     })();
-  }, [state,modalState]);
+  }, [state, modalState]);
 
   const history = useHistory();
   const poolDetails = (param: string) => {
@@ -89,11 +89,16 @@ export default function CharityAdminTable({
       id: "",
     });
   };
-  const handleCharityStatus = async (event: React.ChangeEvent<HTMLInputElement>,id: string) => {
-    await changeStatus({variables:{
-      charityId:id,
-      Status:event.target.checked
-    }})
+  const handleCharityStatus = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+    id: string
+  ) => {
+    await changeStatus({
+      variables: {
+        charityId: id,
+        Status: event.target.checked,
+      },
+    });
     setState(!state);
   };
 
@@ -136,7 +141,7 @@ export default function CharityAdminTable({
                     onClick={(e) => e.stopPropagation()}
                     checked={row.Status}
                     onChange={(e) => {
-                      handleCharityStatus(e,row.id);
+                      handleCharityStatus(e, row.id);
                     }}
                     color="primary"
                     name={row.charityName}

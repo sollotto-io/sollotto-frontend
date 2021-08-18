@@ -153,6 +153,7 @@ export const FETCH_RAFFLES = gql`
       operatorWa
       vanityUrl
       raffleStatus
+      status
     }
   }
 `;

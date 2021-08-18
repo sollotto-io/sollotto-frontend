@@ -74,13 +74,18 @@ function Main(): JSX.Element {
       });
       globalData.selectedWallet.connect();
       return () => {
-        globalData.selectedWallet.disconnect();
+        if (globalData.selectedWallet) {
+          globalData.selectedWallet.disconnect();
+        }
       };
     }
   }, [globalData.selectedWallet]);
 
   useEffect(() => {
-    if (globalData.selectedWallet !== null) {
+    if (
+      globalData.selectedWallet !== null &&
+      globalData.selectedWallet.publicKey
+    ) {
       const bal = globalData.connection.getBalance(
         globalData.selectedWallet.publicKey
       );

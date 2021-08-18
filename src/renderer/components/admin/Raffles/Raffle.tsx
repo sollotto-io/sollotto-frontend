@@ -46,20 +46,23 @@ export default function RaffleTable({
     id: "",
     index: -1,
   });
+
   const [state, setState] = useState(false);
   useEffect(() => {
     (async () => {
-      const newRaffle = await globalData.raffles.refetch();
-      if (newRaffle) {
-        setGlobalData({
-          type: "SET_GLOBAL_DATA",
-          arg: {
-            raffles: {
-              ...globalData.raffles,
-              raffles: newRaffle.data.getAllRaffle,
+      if (globalData.raffles.refetch) {
+        const newRaffle = await globalData.raffles.refetch();
+        if (newRaffle.data) {
+          setGlobalData({
+            type: "SET_GLOBAL_DATA",
+            arg: {
+              raffles: {
+                ...globalData.raffles,
+                raffles: newRaffle.data.getAllRaffle,
+              },
             },
-          },
-        });
+          });
+        }
       }
     })();
   }, [state]);
@@ -94,7 +97,7 @@ export default function RaffleTable({
     await changeStatus({
       variables: {
         raffleId: id,
-        Status: event.target.checked,
+        status: event.target.checked,
       },
     });
     setState(!state);
@@ -114,8 +117,8 @@ export default function RaffleTable({
             <TableHead>
               <TableRow>
                 <StyledTableCell>Raffle Name</StyledTableCell>
-                <StyledTableCell align="left">PublicKey</StyledTableCell>
-                <StyledTableCell align="left"></StyledTableCell>
+                <StyledTableCell align="left">Address</StyledTableCell>
+                <StyledTableCell align="center">Edit</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -125,8 +128,10 @@ export default function RaffleTable({
                     {row.raffleName}
                   </StyledTableCell>
 
-                  <StyledTableCell align="left">
-                    {row.publicKey}
+                  <StyledTableCell component="th" align="left">
+                    {row.raffleStatus === "Testing"
+                      ? row.testingWA
+                      : row.liveWA}
                   </StyledTableCell>
                   <StyledTableCell>
                     <IconButton
@@ -136,7 +141,7 @@ export default function RaffleTable({
                     </IconButton>
                     <Switch
                       onClick={(e) => e.stopPropagation()}
-                      checked={row.Status}
+                      checked={row.status}
                       onChange={(e) => {
                         handleCharityStatus(e, row.id);
                       }}
