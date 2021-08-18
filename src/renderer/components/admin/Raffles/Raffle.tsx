@@ -44,21 +44,25 @@ export default function RaffleTable({
     state: false,
     type: false,
     id: "",
+    index: -1,
   });
+
   const [state, setState] = useState(false);
   useEffect(() => {
     (async () => {
-      const newRaffle = await globalData.raffles.refetch();
-      if (newRaffle) {
-        setGlobalData({
-          type: "SET_GLOBAL_DATA",
-          arg: {
-            raffles: {
-              ...globalData.raffles,
-              raffles: newRaffle.data.getAllRaffle,
+      if (globalData.raffles.refetch) {
+        const newRaffle = await globalData.raffles.refetch();
+        if (newRaffle.data) {
+          setGlobalData({
+            type: "SET_GLOBAL_DATA",
+            arg: {
+              raffles: {
+                ...globalData.raffles,
+                raffles: newRaffle.data.getAllRaffle,
+              },
             },
-          },
-        });
+          });
+        }
       }
     })();
   }, [state]);
@@ -67,13 +71,15 @@ export default function RaffleTable({
   const handleModalState = (
     e: React.MouseEvent<HTMLElement>,
     val: boolean,
-    id: string
+    id: string,
+    index: number
   ) => {
     e.stopPropagation();
     setModalState({
       state: true,
       type: val,
       id: id,
+      index,
     });
   };
   const handleModalClose = () => {
@@ -81,6 +87,7 @@ export default function RaffleTable({
       state: false,
       type: false,
       id: "",
+      index: -1,
     });
   };
   const handleCharityStatus = async (
@@ -90,7 +97,7 @@ export default function RaffleTable({
     await changeStatus({
       variables: {
         raffleId: id,
-        Status: event.target.checked,
+        status: event.target.checked,
       },
     });
     setState(!state);
@@ -100,7 +107,7 @@ export default function RaffleTable({
     return (
       <>
         <button
-          onClick={(e) => handleModalState(e, true, "")}
+          onClick={(e) => handleModalState(e, true, "", -1)}
           className="gradientBg addCharityButton"
         >
           <p>Add Raffle</p> <AddCircleRoundedIcon />
@@ -110,8 +117,8 @@ export default function RaffleTable({
             <TableHead>
               <TableRow>
                 <StyledTableCell>Raffle Name</StyledTableCell>
-                <StyledTableCell align="left">PublicKey</StyledTableCell>
-                <StyledTableCell align="left"></StyledTableCell>
+                <StyledTableCell align="left">Address</StyledTableCell>
+                <StyledTableCell align="center">Edit</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -121,18 +128,20 @@ export default function RaffleTable({
                     {row.raffleName}
                   </StyledTableCell>
 
-                  <StyledTableCell align="left">
-                    {row.publicKey}
+                  <StyledTableCell component="th" align="left">
+                    {row.raffleStatus === "Testing"
+                      ? row.testingWA
+                      : row.liveWA}
                   </StyledTableCell>
                   <StyledTableCell>
                     <IconButton
-                      onClick={(e) => handleModalState(e, false, row.id)}
+                      onClick={(e) => handleModalState(e, false, row.id, index)}
                     >
                       <EditRoundedIcon className="edit-delete-button" />
                     </IconButton>
                     <Switch
                       onClick={(e) => e.stopPropagation()}
-                      checked={row.Status}
+                      checked={row.status}
                       onChange={(e) => {
                         handleCharityStatus(e, row.id);
                       }}
@@ -150,6 +159,7 @@ export default function RaffleTable({
           open={modalState.state}
           onClose={handleModalClose}
           edit={!modalState.type}
+          data={data[modalState.index]}
         />
       </>
     );

@@ -1,12 +1,12 @@
 import { Connection, PublicKey, Transaction } from "@solana/web3.js";
 import Wallet from "@project-serum/sol-wallet-adapter";
 
-type Refetch = () => Promise<void>;
+type Refetch = () => Promise<any>;
 export interface ICharity {
   id: string;
   charityName: string;
   projectDetails: string;
-  ImageURL:string;
+  ImageURL: string;
   fundUse: string;
   currentVotes: number;
   addedBy: string;
@@ -29,16 +29,22 @@ export interface Icharities {
   charities: ICharity[];
 }
 
-export interface IRaffle{
-  id:string,
-  raffleName: string,
-  publicKey: string,
-  Status: boolean,
-  ImageURL:string,
+export interface IRaffle {
+  id: string;
+  raffleName: string;
+  urlSlug: string;
+  raffleImage: string;
+  sollotoBranding: boolean;
+  testingWA: string;
+  liveWA: string;
+  operatorWa: string;
+  vanityUrl: string;
+  raffleStatus: "Testing" | "Completed" | "Live";
+  status: boolean;
 }
-export interface IRaffles{
-  refetch: Refetch | null,
-  raffles: IRaffle []
+export interface IRaffles {
+  refetch: Refetch | null;
+  raffles: IRaffle[];
 }
 
 export interface IglobalData {

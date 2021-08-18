@@ -9,6 +9,7 @@ interface IAdminDropzone {
   onDrop: (url: string) => void;
   dirName: string;
   error?: boolean;
+  initialImage?: string;
 }
 
 export default function AdminDropZone({
@@ -16,9 +17,11 @@ export default function AdminDropZone({
   onDrop,
   dirName,
   error,
+  initialImage,
 }: IAdminDropzone): JSX.Element {
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(initialImage ?? "");
 
+  console.log(initialImage);
   useDidUpdateEffect(() => {
     if (image !== "") {
       onDrop(image);
