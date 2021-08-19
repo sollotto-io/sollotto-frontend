@@ -36,15 +36,27 @@ export interface IRaffle{
   Status: boolean,
   ImageURL:string,
 }
+export interface ILaunch{
+  id:string,
+  PoolName: string,
+  PoolImage: string,
+  TimeRemaining: string,
+  MaxDeposit:number,
+  Status: boolean
+}
 export interface IRaffles{
   refetch: Refetch | null,
   raffles: IRaffle []
+}
+export interface ILaunchPad{
+  launchPad: ILaunch []
 }
 
 export interface IglobalData {
   holdingWalletId: string;
   charities: Icharities;
   raffles: IRaffles;
+  launchPad:ILaunchPad;
   selectedWallet: PhantomProvider | null;
   walletBalance: number;
   walletConnectedFlag: boolean;

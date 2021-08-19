@@ -1,0 +1,15 @@
+.launchpad-wrapper {
+  height: 100%;
+  width: 100%;
+  // background-color: aqua;
+  display: grid;
+  grid-template-columns: max-content;
+  grid-template-rows: max-content;
+  row-gap: 0;
+  justify-content: center;
+  margin-top: 3rem;
+  row-gap: 10px;
+  padding: 0px 10px;
+  // justify-content: center;
+  // align-items: center;
+}

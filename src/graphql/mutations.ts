@@ -32,6 +32,11 @@ export const CHARITY_STATUS_CHAGED = gql`
     deleteCharity(charityId: $charityId, Status: $Status)
   }
 `;
+export const LAUNCHPAD_STATUS_CHAGED = gql`
+  mutation changeLaunchState($Id: ID!, $Status: Boolean!) {
+    changeLaunchState(Id: $Id, Status: $Status)
+  }
+`;
 
 export const UPDATE_CHARITY = gql`
   mutation updateCharity(

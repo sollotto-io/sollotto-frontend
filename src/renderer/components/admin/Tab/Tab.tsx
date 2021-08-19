@@ -31,11 +31,17 @@ export default function TabView({tabState,setTabState}:ITabView): JSX.Element {
             {" "}
             Raffles
           </p>
-          <p
+          {/* <p
             onClick={() => handleTabChange(2)}
             className={tabState === 2 ? "active" : ""}
           >
             Statistics
+          </p> */}
+          <p
+            onClick={() => handleTabChange(2)}
+            className={tabState === 2 ? "active" : ""}
+          >
+            Launch Pad
           </p>
         </span>
       </div>

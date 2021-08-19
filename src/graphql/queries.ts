@@ -153,7 +153,17 @@ export const FETCH_RAFFLES = gql`
       operatorWa
       vanityUrl
       raffleStatus
+      Status
     }
+    getAllLaunched{
+    id
+    PoolName
+    PoolImage
+    TimeRemaining
+    MaxDeposit
+    TotalWinners
+    Status
+  }
   }
 `;
 
