@@ -16,7 +16,6 @@ export default function Admin(): JSX.Element {
   const [tabState, setTabState] = useState(0);
   useEffect(() => {
     if (!loading) {
-      console.log(data)
       setGlobalData({
         type: "SET_GLOBAL_DATA",
         arg: {

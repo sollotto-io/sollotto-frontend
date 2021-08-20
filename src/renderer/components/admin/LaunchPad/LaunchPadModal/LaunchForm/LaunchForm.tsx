@@ -1,80 +1,88 @@
 import "./index.scss";
 import { useMutation } from "@apollo//react-hooks";
-
-import { ADD_RAFFLE, EDIT_RAFFLE } from "../../../../../../graphql/mutations";
 import {
   AdminButton,
   AdminButtonArea,
   AdminDropZone,
-  AdminRadioButton,
   AdminInput,
-  AdminSelect,
+  AdminInputNumber,
 } from "../../../forms/AdminFormCore";
+import { ADD_LAUNCHPAD } from "../../../../../../graphql/mutations";
 import { useState } from "react";
 import { useCallback } from "react";
 import useDidUpdateEffect from "../../../../../hooks/useDidUpdateEffect";
+import useReduxState from "../../../../../hooks/useReduxState";
+import { ILaunch } from "../../../../../api/types/globalData";
 
-interface IRaffleForm {
-  raffleName: string;
-  urlSlug: string;
-  raffleImage: string;
-  sollotoBranding: boolean;
-  testingWA: string;
-  liveWA: string;
-  operatorWa: string;
-  vanityUrl: string;
-  raffleStatus: string;
+interface ILaunchForm {
+  PoolName: string;
+  PoolImage: string;
+  TimeRemaining: string;
+  MaxDeposit: number;
+  TotalWinners: number;
 }
 
 export default function LaunchForm({
   closeModal,
   edit,
+  id,
 }: {
   closeModal: () => void;
   edit?: boolean;
+  id: string;
 }): JSX.Element {
-  const initialState: IRaffleForm = {
-    raffleName: "",
-    urlSlug: "",
-    raffleImage: "",
-    sollotoBranding: true,
-    testingWA: "",
-    liveWA: "",
-    operatorWa: "",
-    vanityUrl: "",
-    raffleStatus: "",
+  const [addLaunchPadLottery /* { data: addRes, loading: addloading } */] =
+    useMutation(ADD_LAUNCHPAD, {
+      onCompleted: () => {
+        closeModal();
+      },
+    });
+  const [globalData] = useReduxState((state) => state.globalData);
+  let editInitialState: ILaunchForm = {
+    PoolName: "",
+    PoolImage: "",
+    TimeRemaining: "",
+    MaxDeposit: 0,
+    TotalWinners: 0,
+  };
+  if (edit) {
+    const FindLaunch: ILaunchForm = globalData.launchPad.launchPad.find(
+      (t: ILaunch) => t.id === id
+    );
+    editInitialState = {
+      PoolName: FindLaunch.PoolName,
+      PoolImage: FindLaunch.PoolImage,
+      TimeRemaining: FindLaunch.TimeRemaining,
+      MaxDeposit: FindLaunch.MaxDeposit,
+      TotalWinners: FindLaunch.TotalWinners,
+    };
+  }
+
+  const initialState: ILaunchForm = {
+    PoolName: "",
+    PoolImage: "",
+    TimeRemaining: "",
+    MaxDeposit: 0,
+    TotalWinners: 0,
   };
 
-  const [raffleForm, setRaffleForm] = useState<IRaffleForm>(initialState);
+  const [raffleForm, setRaffleForm] = useState<ILaunchForm>(initialState);
 
   const [submiting, setSubmiting] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const {
-    raffleName,
-    urlSlug,
-    sollotoBranding,
-    testingWA,
-    liveWA,
-    operatorWa,
-    raffleStatus,
-    vanityUrl,
-    raffleImage,
-  } = raffleForm;
+  const { PoolName, PoolImage, TimeRemaining } = raffleForm;
+  // const [editRaffle /* { data: editRes, loading: editloading } */] =
+  //   useMutation(EDIT_RAFFLE, {
+  //     onCompleted: () => {
 
-  const [addRaffle /* { data: addRes, loading: addloading } */] =
-    useMutation(ADD_RAFFLE);
-  const [editRaffle /* { data: editRes, loading: editloading } */] =
-    useMutation(EDIT_RAFFLE);
+  //       closeModal();
+  //     },
+  //   });
 
   const validateFields = (): boolean => {
     if (
-      raffleName === "" ||
-      urlSlug === "" ||
-      testingWA === "" ||
-      liveWA === "" ||
-      operatorWa === "" ||
-      raffleStatus === "" ||
-      vanityUrl === ""
+      (PoolName === "" || PoolImage === "" || TimeRemaining === "") &&
+      !edit
     ) {
       setError(true);
       return false;
@@ -87,22 +95,21 @@ export default function LaunchForm({
   useDidUpdateEffect(() => {
     if (submiting) {
       if (validateFields()) {
-        console.log(JSON.stringify(raffleForm));
         (async () => {
           if (edit) {
-            await editRaffle({ variables: raffleForm });
+            console.log("edit");
           } else {
-            await addRaffle({ variables: raffleForm });
+            addLaunchPadLottery({ variables: raffleForm });
           }
         })();
+        setSubmiting(false);
       }
-      setSubmiting(false);
     }
   }, [submiting]);
 
   useDidUpdateEffect(() => validateFields(), [raffleForm]);
   const handleFormChange = useCallback(
-    (item: Partial<IRaffleForm>) => {
+    (item: Partial<ILaunchForm>) => {
       setRaffleForm({
         ...raffleForm,
         ...item,
@@ -114,93 +121,58 @@ export default function LaunchForm({
   return (
     <form className="r-form">
       <AdminInput
-        value={raffleName}
-        onChange={(e) => handleFormChange({ raffleName: e })}
-        error={error && raffleName === ""}
-        label="Raffle Name"
-        inputStyle={{ width: "400px" }}
-      />
-      <AdminInput
-        value={urlSlug}
-        onChange={(e) => handleFormChange({ urlSlug: e })}
-        error={error && urlSlug === ""}
-        label="URL slug"
+        value={edit ? editInitialState.PoolName : PoolName}
+        onChange={(e) => handleFormChange({ PoolName: e })}
+        error={error && PoolName === ""}
+        label="Pool Name"
         inputStyle={{ width: "400px" }}
       />
 
       <AdminDropZone
-        endpoint="uploadRaffle"
-        onDrop={(img) => handleFormChange({ raffleImage: img })}
-        dirName="raffleImages"
-        error={error && raffleImage == ""}
+        endpoint="uploadLaunchPad"
+        onDrop={(img) => handleFormChange({PoolImage: img })}
+        dirName="launchImages"
+        error={error && PoolImage == ""}
       />
-      <AdminInput
-        label="Verification Vanity URL"
-        value={vanityUrl}
-        onChange={(e) => handleFormChange({ vanityUrl: e })}
-        error={error && vanityUrl === ""}
+      <span className="datepicker-toggle gradientBg">
+        <input
+          type="date"
+          defaultValue={edit ? new Date(editInitialState.TimeRemaining).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]}
+          className="datepicker-input"
+          onChange={(e) =>
+            setRaffleForm({
+              ...raffleForm,
+              TimeRemaining: new Date(e.target.value).toISOString(),
+            })
+          }
+        />
+      </span>
+      <AdminInputNumber
+        value={edit ? editInitialState.TotalWinners : initialState.TotalWinners}
+        onChange={(e: number) => handleFormChange({ TotalWinners: e })}
+        error={error && PoolName === ""}
+        label="Total Winners"
+        type="number"
         inputStyle={{ width: "400px" }}
       />
 
-      <AdminRadioButton
-        label="Include Solloto Branding"
-        checked={sollotoBranding}
-        onChange={() => handleFormChange({ sollotoBranding: !sollotoBranding })}
-      />
-      <AdminInput
-        value={testingWA}
-        onChange={(e) => handleFormChange({ testingWA: e })}
-        error={error && testingWA === ""}
-        label="Testing Wallet Address"
+      <AdminInputNumber
+        value={edit ? editInitialState.MaxDeposit : initialState.MaxDeposit}
+        onChange={(e: number) => handleFormChange({ MaxDeposit: e })}
+        error={error && PoolName === ""}
+        label="Max Deposit"
+        type="number"
         inputStyle={{ width: "400px" }}
       />
-      <AdminInput
-        value={liveWA}
-        onChange={(e) => handleFormChange({ liveWA: e })}
-        error={error && liveWA === ""}
-        label="Live Raffle Wallet Address"
-        inputStyle={{ width: "400px" }}
-      />
-      {/* <AdminInput
-        value={raffleStatus}
-        onChange={(e) => handleFormChange({ raffleStatus: e })}
-        error={error && raffleStatus === ""}
-        label="Raffle Status"
-        inputStyle={{ width: "400px" }}
-      /> */}
-      <AdminSelect
-        value={raffleStatus}
-        onChange={(e) => handleFormChange({ raffleStatus: e as string })}
-        itemList={[
-          {
-            name: "Testing",
-            value: "Testing",
-          },
-          {
-            name: "Live",
-            value: "Live",
-          },
-          {
-            name: "Completed",
-            value: "Completed",
-          },
-        ]}
-        placeholder="Select Raffle Status"
-        label="Raffle Status"
-        error={error && raffleStatus === ""}
-      />
-      <AdminInput
-        value={operatorWa}
-        onChange={(e) => handleFormChange({ operatorWa: e })}
-        error={error && operatorWa === ""}
-        label="Operator Wallet Addresses"
-        inputStyle={{ width: "400px" }}
-      />
+
       <AdminButtonArea className="btn-area">
         <AdminButton
           disable={submiting}
           type="submit"
-          onClick={() => setSubmiting(true)}
+          onClick={(e: any) => {
+            e.preventDefault();
+            setSubmiting(true);
+          }}
         >
           Submit
         </AdminButton>

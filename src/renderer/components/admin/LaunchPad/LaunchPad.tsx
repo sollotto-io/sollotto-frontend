@@ -17,7 +17,6 @@ import { LAUNCHPAD_STATUS_CHAGED } from "../../../../graphql/mutations";
 import { useMutation } from "@apollo/react-hooks";
 import useReduxState from "../../../hooks/useReduxState";
 
-
 const StyledTableCell = withStyles({
   root: {
     backgroundColor: "transparent",
@@ -32,68 +31,66 @@ const StyledPaper = withStyles({
   },
 })(Paper);
 
-
 export default function LaunchPad({ data }: { data: ILaunch[] }): JSX.Element {
-    const [changeStatus] = useMutation(LAUNCHPAD_STATUS_CHAGED)
-    const [globalData, setGlobalData] = useReduxState(
-        (state) => state.globalData
-      );
-    const [modalState, setModalState] = useState({
-        state: false,
-        type: false,
-        id: "",
-      });
-      const [state, setState] = useState(false);
-      const handleModalState = (
-        e: React.MouseEvent<HTMLElement>,
-        val: boolean,
-        id: string
-      ) => {
-        e.stopPropagation();
-        setModalState({
-          state: true,
-          type: val,
-          id: id,
-        });
-      };
-      const handleModalClose = () => {
-        setModalState({
-          state: false,
-          type: false,
-          id: "",
-        });
-      };
-      const handleLaunchStatus = async (
-        event: React.ChangeEvent<HTMLInputElement>,
-        id: string
-      ) => {
-        await changeStatus({
-          variables: {
-            Id: id,
-            Status: event.target.checked,
+  const [changeStatus] = useMutation(LAUNCHPAD_STATUS_CHAGED);
+  const [globalData, setGlobalData] = useReduxState(
+    (state) => state.globalData
+  );
+  const [modalState, setModalState] = useState({
+    state: false,
+    type: false,
+    id: "",
+  });
+  const [state, setState] = useState(false);
+  const handleModalState = (
+    e: React.MouseEvent<HTMLElement>,
+    val: boolean,
+    id: string
+  ) => {
+    e.stopPropagation();
+    setModalState({
+      state: true,
+      type: val,
+      id: id,
+    });
+  };
+  const handleModalClose = () => {
+    setModalState({
+      state: false,
+      type: false,
+      id: "",
+    });
+  };
+  const handleLaunchStatus = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+    id: string
+  ) => {
+    await changeStatus({
+      variables: {
+        Id: id,
+        Status: event.target.checked,
+      },
+    });
+    setState(!state);
+  };
+  useEffect(() => {
+    (async () => {
+      const newRaffle = await globalData.raffles.refetch();
+      if (newRaffle) {
+        setGlobalData({
+          type: "SET_GLOBAL_DATA",
+          arg: {
+            launchPad: {
+              ...globalData.launchPad,
+              launchPad: newRaffle.data.getAllLaunched,
+            },
           },
         });
-        setState(!state);
-      };
-      useEffect(() => {
-        (async () => {
-          const newRaffle = await globalData.raffles.refetch();
-          if (newRaffle) {
-            setGlobalData({
-              type: "SET_GLOBAL_DATA",
-              arg: {
-                launchPad: {
-                  ...globalData.launchPad,
-                  launchPad: newRaffle.data.getAllLaunched,
-                },
-              },
-            });
-          }
-        })();
-      }, [state]);
+      }
+    })();
+  }, [state,modalState.state]);
 
-
-    return (
+  return (
     <>
       <button
         onClick={(e) => handleModalState(e, true, "")}
@@ -107,6 +104,7 @@ export default function LaunchPad({ data }: { data: ILaunch[] }): JSX.Element {
             <TableRow>
               <StyledTableCell>Pool Name</StyledTableCell>
               <StyledTableCell>Pool Image</StyledTableCell>
+              <StyledTableCell align="left">Total Winners</StyledTableCell>
               <StyledTableCell align="left">Time Remaining</StyledTableCell>
               <StyledTableCell align="left">Max Deposits</StyledTableCell>
               <StyledTableCell align="left"></StyledTableCell>
@@ -121,7 +119,10 @@ export default function LaunchPad({ data }: { data: ILaunch[] }): JSX.Element {
                   </StyledTableCell>
 
                   <StyledTableCell align="left">
-                    <img src={row.PoolImage} width={50} height={50} alt="img" />
+                  <img src={`${process.env.REACT_APP_IMAGE_LINK}${row.PoolImage}`} width={50} height={50} alt="" />
+                  </StyledTableCell>
+                  <StyledTableCell align="left">
+                    {row.TotalWinners}
                   </StyledTableCell>
                   <StyledTableCell align="left">
                     <Countdown date={row.TimeRemaining} />
@@ -131,7 +132,7 @@ export default function LaunchPad({ data }: { data: ILaunch[] }): JSX.Element {
                   </StyledTableCell>
                   <StyledTableCell>
                     <IconButton
-                    onClick={(e) => handleModalState(e, false, row.id)}
+                      onClick={(e) => handleModalState(e, false, row.id)}
                     >
                       <EditRoundedIcon className="edit-delete-button" />
                     </IconButton>
@@ -153,10 +154,11 @@ export default function LaunchPad({ data }: { data: ILaunch[] }): JSX.Element {
         </Table>
       </TableContainer>
       <LaunchModal
-                open={modalState.state}
-                onClose={handleModalClose}
-                edit={!modalState.type}
-              />
+        open={modalState.state}
+        onClose={handleModalClose}
+        edit={!modalState.type}
+        id={modalState.id}
+      />
     </>
   );
 }

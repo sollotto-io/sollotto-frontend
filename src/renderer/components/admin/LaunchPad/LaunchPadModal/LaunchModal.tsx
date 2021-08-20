@@ -5,10 +5,12 @@ export default function LaunchModal({
   open,
   onClose,
   edit,
+  id
 }: {
   open: boolean;
   edit?: boolean;
   onClose: () => void;
+  id:string;
 }): JSX.Element {
   return (
     <Modal
@@ -20,16 +22,16 @@ export default function LaunchModal({
     >
       <div className="r-modal gradientBg gradientBorder">
         <div className="r-modal-header">
-          <h1>{edit ? "Edit Raffle" : "Add Raffle"}</h1>
+          <h1>{edit ? "Edit LaunchPad Lottery" : "Add LaunchPad Lottery"}</h1>
         </div>
         <div className="r-modal-body">
-          <form>
+         
             {edit ? (
-              <LaunchForm closeModal={onClose} edit={edit} />
+              <LaunchForm closeModal={onClose} edit={edit} id={id} />
             ) : (
-              <LaunchForm closeModal={onClose} />
+              <LaunchForm closeModal={onClose} id={id} />
             )}
-          </form>
+         
         </div>
       </div>
     </Modal>

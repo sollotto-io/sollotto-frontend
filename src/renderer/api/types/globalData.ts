@@ -6,7 +6,7 @@ export interface ICharity {
   id: string;
   charityName: string;
   projectDetails: string;
-  ImageURL:string;
+  ImageURL: string;
   fundUse: string;
   currentVotes: number;
   addedBy: string;
@@ -29,34 +29,41 @@ export interface Icharities {
   charities: ICharity[];
 }
 
-export interface IRaffle{
-  id:string,
-  raffleName: string,
-  publicKey: string,
-  Status: boolean,
-  ImageURL:string,
+export interface IRaffle {
+  id: string;
+  raffleName:string;
+  urlSlug:string;
+  raffleImage:string;
+  sollotoBranding:boolean;
+  testingWA:string;
+  liveWA:string;
+  operatorWa:string;
+  vanityUrl:string;
+  raffleStatus:string;
+  Status:boolean
 }
-export interface ILaunch{
-  id:string,
-  PoolName: string,
-  PoolImage: string,
-  TimeRemaining: string,
-  MaxDeposit:number,
-  Status: boolean
+export interface ILaunch {
+  id: string;
+  PoolName: string;
+  PoolImage: string;
+  TimeRemaining: string;
+  TotalWinners: number;
+  MaxDeposit: number;
+  Status: boolean;
 }
-export interface IRaffles{
-  refetch: Refetch | null,
-  raffles: IRaffle []
+export interface IRaffles {
+  refetch: Refetch | null;
+  raffles: IRaffle[];
 }
-export interface ILaunchPad{
-  launchPad: ILaunch []
+export interface ILaunchPad {
+  launchPad: ILaunch[];
 }
 
 export interface IglobalData {
   holdingWalletId: string;
   charities: Icharities;
   raffles: IRaffles;
-  launchPad:ILaunchPad;
+  launchPad: ILaunchPad;
   selectedWallet: PhantomProvider | null;
   walletBalance: number;
   walletConnectedFlag: boolean;

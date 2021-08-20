@@ -61,7 +61,7 @@ export default function CharityAdminTable({
         });
       }
     })();
-  }, [state,modalState]);
+  }, [state,modalState.state]);
 
   const history = useHistory();
   const poolDetails = (param: string) => {

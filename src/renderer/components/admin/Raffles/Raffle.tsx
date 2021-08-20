@@ -36,6 +36,7 @@ export default function RaffleTable({
 }: {
   data: IRaffle[];
 }): JSX.Element {
+ 
   const [changeStatus] = useMutation(CHANGE_RAFFLE_STATUS);
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
@@ -61,7 +62,8 @@ export default function RaffleTable({
         });
       }
     })();
-  }, [state]);
+   
+  }, [state,modalState]);
 
   /*   const history = useHistory(); */
   const handleModalState = (
@@ -115,14 +117,14 @@ export default function RaffleTable({
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((row: IRaffle, index: number) => (
+              {data.map((row:IRaffle, index: number) => (
                 <TableRow className="tableRow" key={index}>
                   <StyledTableCell component="th" scope="row">
                     {row.raffleName}
                   </StyledTableCell>
 
                   <StyledTableCell align="left">
-                    {row.publicKey}
+                    {row.liveWA}
                   </StyledTableCell>
                   <StyledTableCell>
                     <IconButton
@@ -150,10 +152,11 @@ export default function RaffleTable({
           open={modalState.state}
           onClose={handleModalClose}
           edit={!modalState.type}
+          id={modalState.id}
         />
       </>
     );
   }
 
-  return <></>;
+  return <h1>hello</h1>;
 }

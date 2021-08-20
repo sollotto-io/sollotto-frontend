@@ -1,6 +1,6 @@
-import "./index.scss";
+import "../adminInput/index.scss";
 import { useState } from "react";
-export default function AdminInput({
+export default function AdminInputNumber({
   label,
   inputStyle,
   labelStyle,
@@ -8,15 +8,17 @@ export default function AdminInput({
   errorMesage,
   value,
   onChange,
+  type
 }: {
-  value?: string;
-  onChange?: (value: string) => void;
+  value?: number;
+  onChange?: (value: number) => void;
   label: string;
   inputStyle?: React.CSSProperties;
   labelStyle?: React.CSSProperties;
   error?: boolean;
   errorMesage?: string;
   conpleted?: boolean;
+  type:string
 }): JSX.Element {
   const [err, setErr] = useState(error ?? false);
   return (
@@ -28,8 +30,9 @@ export default function AdminInput({
         {...(value !== undefined &&
           onChange !== undefined && {
             defaultValue:value,
-            onChange: (e) => onChange(e.target.value),
+            onChange: (e) => onChange(parseInt(e.target.value)),
           })}
+          type={type}
         className="ad-input"
         style={{ ...inputStyle } ?? {}}
         onBlur={(e) => {
