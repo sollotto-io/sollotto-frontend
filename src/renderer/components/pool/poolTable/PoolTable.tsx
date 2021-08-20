@@ -7,6 +7,8 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import solana from "../../../../assets/images/logos/solana-logo-black.png";
+import PoolModal from "./poolModal/poolModal";
 import { withStyles } from "@material-ui/core";
 import { useHistory } from "react-router";
 import moment from "moment";
@@ -28,9 +30,9 @@ export default function PoolTable({
 }: {
   rows: {
     Pool: string;
-    PrizePool: string;
+    PrizePool: number;
     TimeRemaining: string;
-    PoolARP: string;
+    yourDeposit: number;
     TotalDeposit: number;
   }[];
 }): JSX.Element {
@@ -46,8 +48,8 @@ export default function PoolTable({
           <TableRow>
             <StyledTableCell>Pool</StyledTableCell>
             <StyledTableCell align="center">Prize Pool</StyledTableCell>
-            <StyledTableCell align="center">Last Date</StyledTableCell>
-            <StyledTableCell align="center">Pool ARP</StyledTableCell>
+            <StyledTableCell align="center">Time Remaining</StyledTableCell>
+            <StyledTableCell align="center">Your Deposit</StyledTableCell>
             <StyledTableCell align="center">Total Deposit</StyledTableCell>
             <StyledTableCell align="center"></StyledTableCell>
           </TableRow>
@@ -60,17 +62,28 @@ export default function PoolTable({
               key={index}
             >
               <StyledTableCell component="th" scope="row">
-                {row.Pool}
+                <div className="p-name">
+                  <img src={solana} /> {row.Pool}
+                </div>
               </StyledTableCell>
               <StyledTableCell align="center">{row.PrizePool}</StyledTableCell>
               <StyledTableCell align="center">
                 {moment(row.TimeRemaining).format("L")}
               </StyledTableCell>
-              <StyledTableCell align="center">{row.PoolARP}</StyledTableCell>
+              <StyledTableCell align="center">
+                {row.yourDeposit}
+              </StyledTableCell>
               <StyledTableCell align="center">
                 {row.TotalDeposit}
               </StyledTableCell>
-              <StyledTableCell align="center"></StyledTableCell>
+              <StyledTableCell align="center">
+                <PoolModal
+                  rowIndex={index}
+                  id={`rowIndex`}
+                  tokenName="SOL"
+                  depositLeft={10000}
+                />
+              </StyledTableCell>
             </TableRow>
           ))}
         </TableBody>

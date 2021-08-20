@@ -20,6 +20,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { FETCH_ALL_CHARITIES, FETCH_UPCOMING_DRAWING } from "./graphql/queries";
 import Admin from "./renderer/views/Admin";
 import GrapeIDO from "./renderer/views/GrapeIDO";
+import Pool2 from "./renderer/views/Pool/Pool2/Pool2";
 
 function Main(): JSX.Element {
   const [globalData, setGlobalData] = useReduxState(
@@ -135,7 +136,7 @@ function Main(): JSX.Element {
                 <Suggest />
               </Route> */}
               <Route exact path="/pools">
-                <Pool />
+                <Pool2 />
               </Route>
               <Route exact path="/verify">
                 <Verify />

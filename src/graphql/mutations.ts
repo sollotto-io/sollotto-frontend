@@ -173,3 +173,89 @@ export const CHANGE_RAFFLE_STATUS = gql`
     changeRaffleStatus(raffleId: $raffleId, status: $status)
   }
 `;
+
+export const ADD_POOL = gql`
+  mutation addPool(
+    $tokenName: String!
+    $tokenLogo: String!
+    $prizePool: Float!
+    $DueDate: String!
+    $tokenAddress: String!
+    $depositLimit: Int!
+    $numberOfWinners: Int!
+  ) {
+    addPool(
+      poolInput: {
+        tokenName: $tokenName
+        tokenLogo: $tokenLogo
+        prizePool: $prizePool
+        DueDate: $DueDate
+        tokenAddress: $tokenAddress
+        depositLimit: $depositLimit
+        numberOfWinners: $numberOfWinners
+      }
+    ) {
+      id
+      tokenAddress
+      tokenLogo
+      prizePool
+      tokenName
+      DueDate
+      depositLimit
+      numberOfWinners
+      status
+    }
+  }
+`;
+
+export const UPDATE_POOL = gql`
+  mutation editPool(
+    $id: ID!
+    $tokenName: String!
+    $tokenLogo: String!
+    $prizePool: Float!
+    $DueDate: String!
+    $tokenAddress: String!
+    $depositLimit: Int!
+    $numberOfWinners: Int!
+  ) {
+    updatePool(
+      poolId: $id
+      poolInput: {
+        tokenName: $tokenName
+        tokenLogo: $tokenLogo
+        prizePool: $prizePool
+        DueDate: $DueDate
+        tokenAddress: $tokenAddress
+        depositLimit: $depositLimit
+        numberOfWinners: $numberOfWinners
+      }
+    ) {
+      id
+      tokenAddress
+      tokenLogo
+      prizePool
+      tokenName
+      DueDate
+      depositLimit
+      numberOfWinners
+      status
+    }
+  }
+`;
+
+export const UPDATE_POOL_STATUS = gql`
+  mutation editPool($id: ID!, $status: Boolean) {
+    changePoolStatus(poolId: $id, status: $status) {
+      id
+      tokenAddress
+      tokenLogo
+      prizePool
+      tokenName
+      DueDate
+      depositLimit
+      numberOfWinners
+      status
+    }
+  }
+`;
