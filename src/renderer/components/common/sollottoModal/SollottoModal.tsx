@@ -1,6 +1,6 @@
 import "./index.scss";
 import { Modal, Fade } from "@material-ui/core";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CloseIcon from "@material-ui/icons/Close";
 import { useState, useCallback } from "react";

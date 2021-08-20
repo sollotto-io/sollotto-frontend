@@ -1,5 +1,5 @@
 import "./index.scss";
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import "./index.scss";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,6 +18,7 @@ export default function PoolModal({
   tokenName: string;
   depositLeft: number;
 }): JSX.Element {
+  console.log(id, rowIndex);
   const [modal, setModal] = useState(false);
   const [{ walletConnectedFlag }] = useReduxState((state) => state.globalData);
 
