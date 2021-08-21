@@ -47,10 +47,25 @@ export interface IRaffles {
   raffles: IRaffle[];
 }
 
+export interface IPool {
+  id: string;
+  tokenName: string;
+  tokenLogo: string;
+  dueDate: string;
+  tokenAddress: string;
+  status: boolean;
+}
+
+export interface IPools {
+  pools: IPool[];
+  refetch: Refetch | null;
+}
+
 export interface IglobalData {
   holdingWalletId: string;
   charities: Icharities;
   raffles: IRaffles;
+  pools: IPools;
   selectedWallet: PhantomProvider | null;
   walletBalance: number;
   walletConnectedFlag: boolean;

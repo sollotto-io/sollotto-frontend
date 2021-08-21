@@ -1,14 +1,14 @@
 import "./Tab.scss";
 
-interface ITabView{
-  tabState: number,
-  setTabState: (value:number) =>void
+interface ITabView {
+  tabState: number;
+  setTabState: (value: number) => void;
 }
 
-export default function TabView({tabState,setTabState}:ITabView): JSX.Element {
-  
-  
-  
+export default function TabView({
+  tabState,
+  setTabState,
+}: ITabView): JSX.Element {
   const handleTabChange = (value: number) => {
     setTabState(value);
   };
@@ -35,11 +35,10 @@ export default function TabView({tabState,setTabState}:ITabView): JSX.Element {
             onClick={() => handleTabChange(2)}
             className={tabState === 2 ? "active" : ""}
           >
-            Statistics
+            Pool
           </p>
         </span>
       </div>
-   
     </div>
   );
 }

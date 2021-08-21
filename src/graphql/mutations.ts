@@ -178,31 +178,22 @@ export const ADD_POOL = gql`
   mutation addPool(
     $tokenName: String!
     $tokenLogo: String!
-    $prizePool: Float!
-    $DueDate: String!
+    $dueDate: String!
     $tokenAddress: String!
-    $depositLimit: Int!
-    $numberOfWinners: Int!
   ) {
     addPool(
       poolInput: {
         tokenName: $tokenName
         tokenLogo: $tokenLogo
-        prizePool: $prizePool
-        DueDate: $DueDate
+        dueDate: $dueDate
         tokenAddress: $tokenAddress
-        depositLimit: $depositLimit
-        numberOfWinners: $numberOfWinners
       }
     ) {
       id
       tokenAddress
       tokenLogo
-      prizePool
       tokenName
-      DueDate
-      depositLimit
-      numberOfWinners
+      dueDate
       status
     }
   }
@@ -213,32 +204,23 @@ export const UPDATE_POOL = gql`
     $id: ID!
     $tokenName: String!
     $tokenLogo: String!
-    $prizePool: Float!
-    $DueDate: String!
+    $dueDate: String!
     $tokenAddress: String!
-    $depositLimit: Int!
-    $numberOfWinners: Int!
   ) {
     updatePool(
       poolId: $id
       poolInput: {
         tokenName: $tokenName
         tokenLogo: $tokenLogo
-        prizePool: $prizePool
-        DueDate: $DueDate
+        dueDate: $dueDate
         tokenAddress: $tokenAddress
-        depositLimit: $depositLimit
-        numberOfWinners: $numberOfWinners
       }
     ) {
       id
       tokenAddress
       tokenLogo
-      prizePool
       tokenName
-      DueDate
-      depositLimit
-      numberOfWinners
+      dueDate
       status
     }
   }
@@ -250,11 +232,8 @@ export const UPDATE_POOL_STATUS = gql`
       id
       tokenAddress
       tokenLogo
-      prizePool
       tokenName
-      DueDate
-      depositLimit
-      numberOfWinners
+      dueDate
       status
     }
   }
