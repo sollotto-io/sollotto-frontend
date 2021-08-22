@@ -174,8 +174,8 @@ export const EDIT_RAFFLE = gql`
 `;
 
 export const CHANGE_RAFFLE_STATUS = gql`
-  mutation changeRaffleStatus($raffleId: ID!, $status: Boolean) {
-    changeRaffleStatus(raffleId: $raffleId, status: $status)
+  mutation changeRaffleStatus($raffleId: ID!, $Status: Boolean) {
+    changeRaffleStatus(raffleId: $raffleId, Status: $Status)
   }
 `;
 
