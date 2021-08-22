@@ -198,3 +198,24 @@ export const ADD_LAUNCHPAD = gql`
     )
   }
 `;
+export const EDIT_LAUNCH = gql`
+  mutation EditLaunchPad(
+    $Id: ID!
+    $PoolName: String!
+    $PoolImage: String!
+    $TotalWinners: Int!
+    $TimeRemaining: String!
+    $MaxDeposit: Int!
+  ) {
+    EditLaunchPad(
+      Id: $Id
+      LaunchPadInput: {
+        PoolName: $PoolName
+        PoolImage: $PoolImage
+        TotalWinners: $TotalWinners
+        TimeRemaining: $TimeRemaining
+        MaxDeposit: $MaxDeposit
+      }
+    )
+  }
+`;

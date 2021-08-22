@@ -7,7 +7,7 @@ import {
   AdminInput,
   AdminInputNumber,
 } from "../../../forms/AdminFormCore";
-import { ADD_LAUNCHPAD } from "../../../../../../graphql/mutations";
+import { ADD_LAUNCHPAD, EDIT_LAUNCH } from "../../../../../../graphql/mutations";
 import { useEffect, useState } from "react";
 import { useCallback } from "react";
 import useDidUpdateEffect from "../../../../../hooks/useDidUpdateEffect";
@@ -31,12 +31,20 @@ export default function LaunchForm({
   edit?: boolean;
   id: string;
 }): JSX.Element {
-  const [addLaunchPadLottery /* { data: addRes, loading: addloading } */] =
+  const [addLaunchPadLottery ] =
     useMutation(ADD_LAUNCHPAD, {
       onCompleted: () => {
         closeModal();
       },
     });
+    const [updateLaunch] = useMutation(EDIT_LAUNCH,{
+      onCompleted: () => {
+        closeModal();
+      },
+      onError:(e)=>{
+        console.log(e.stack)
+      }
+      })
   const [globalData] = useReduxState((state) => state.globalData);
   let editInitialState: ILaunchForm = {
     PoolName: "",
@@ -85,13 +93,7 @@ useEffect(() => {
   const [submiting, setSubmiting] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const { PoolName, PoolImage, TimeRemaining } = raffleForm;
-  // const [editRaffle /* { data: editRes, loading: editloading } */] =
-  //   useMutation(EDIT_RAFFLE, {
-  //     onCompleted: () => {
-
-  //       closeModal();
-  //     },
-  //   });
+  
 
   const validateFields = (): boolean => {
     if (
@@ -111,7 +113,15 @@ useEffect(() => {
       if (validateFields()) {
         (async () => {
           if (edit) {
-           console.log(raffleForm)
+            console.log(id)
+            updateLaunch({variables:{
+              Id:id,
+              PoolName:raffleForm.PoolName,
+              PoolImage:raffleForm.PoolImage,
+              TimeRemaining:raffleForm.TimeRemaining,
+              TotalWinners: raffleForm.TotalWinners,
+              MaxDeposit: raffleForm.MaxDeposit
+            } })
           } else {
             addLaunchPadLottery({ variables: raffleForm });
           }
