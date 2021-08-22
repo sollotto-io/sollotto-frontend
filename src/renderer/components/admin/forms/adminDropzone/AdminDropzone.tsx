@@ -10,6 +10,7 @@ interface IAdminDropzone {
   dirName: string;
   error?: boolean;
   initialImage?: string;
+  style?: React.CSSProperties;
 }
 
 export default function AdminDropZone({
@@ -18,6 +19,7 @@ export default function AdminDropZone({
   dirName,
   error,
   initialImage,
+  style,
 }: IAdminDropzone): JSX.Element {
   const [image, setImage] = useState(initialImage ?? "");
 
@@ -28,7 +30,7 @@ export default function AdminDropZone({
     }
   }, [image]);
   return (
-    <span className="ad-dropzone">
+    <span className="ad-dropzone" style={style ?? {}}>
       <Dropzone
         onDrop={(acceptedFiles) => {
           const data = new FormData();

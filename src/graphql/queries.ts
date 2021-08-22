@@ -166,6 +166,7 @@ export const FETCH_ALL_POOLS = gql`
       tokenName
       tokenLogo
       id
+      status
     }
   }
 `;

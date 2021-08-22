@@ -4,6 +4,7 @@ import AdminInput from "./adminInput/AdminInput";
 import AdminRadioButton from "./adminRadioButton/AdminRadioButton";
 import AdminSelect from "./adminSelect/AdminSelect";
 import AdminButtonArea from "./adminButtonArea/AdminButtonArea";
+import AdminDatePicker from "./adminDatePicker/AdminDatePicker";
 
 export {
   AdminButton,
@@ -12,4 +13,5 @@ export {
   AdminInput,
   AdminRadioButton,
   AdminSelect,
+  AdminDatePicker,
 };

@@ -11,12 +11,10 @@ export default function PoolModal({
   id,
   rowIndex,
   tokenName,
-  depositLeft,
 }: {
   id: string;
   rowIndex: number;
   tokenName: string;
-  depositLeft: number;
 }): JSX.Element {
   console.log(id, rowIndex);
   const [modal, setModal] = useState(false);
@@ -26,16 +24,6 @@ export default function PoolModal({
     e.stopPropagation();
     if (!walletConnectedFlag) {
       toast.error("Please Connect Your Wallet", {
-        position: "bottom-left",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    } else if (depositLeft === 0) {
-      toast.error("You can't deposit more", {
         position: "bottom-left",
         autoClose: 3000,
         hideProgressBar: true,
@@ -63,7 +51,8 @@ export default function PoolModal({
         open={modal}
         handleClose={() => setModal(false)}
         onSubmit={(value) => console.log(value)}
-        max={depositLeft}
+        max={5}
+        disablevalidation={true}
       />
     </>
   );

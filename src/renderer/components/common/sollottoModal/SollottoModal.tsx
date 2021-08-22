@@ -14,6 +14,7 @@ interface ISollottoModal {
   title: string;
   inputLabel: string;
   countTitle: string;
+  disablevalidation?: boolean;
 }
 export default function SollottoModal({
   open,
@@ -23,6 +24,7 @@ export default function SollottoModal({
   title,
   inputLabel,
   countTitle,
+  disablevalidation,
 }: ISollottoModal): JSX.Element {
   const [inputValue, setInputValue] = useState<number>(max ?? 0);
   const [hasChanged, setHasChanged] = useState<boolean>(false);
@@ -66,21 +68,25 @@ export default function SollottoModal({
               <div className="s-modal-header">
                 <h3>{title}</h3>
                 <p>
-                  {countTitle}:{" "}
-                  {((): number => {
-                    if (!hasChanged) {
-                      return max;
-                    } else {
-                      if (max > inputValue) {
-                        if (inputValue < 0) {
+                  {!disablevalidation && (
+                    <>
+                      {countTitle}:{" "}
+                      {((): number => {
+                        if (!hasChanged) {
                           return max;
                         } else {
-                          return max - inputValue;
+                          if (max > inputValue) {
+                            if (inputValue < 0) {
+                              return max;
+                            } else {
+                              return max - inputValue;
+                            }
+                          }
                         }
-                      }
-                    }
-                    return 0;
-                  })()}
+                        return 0;
+                      })()}
+                    </>
+                  )}
                 </p>
                 <div onClick={handleClose}>
                   <CloseIcon />
@@ -93,8 +99,12 @@ export default function SollottoModal({
                     type="number"
                     onChange={handleInputValue}
                     onBlur={() => {
-                      if (inputValue > max) {
-                        setInputValue(max);
+                      if (!disablevalidation) {
+                        if (inputValue > max) {
+                          setInputValue(max);
+                        } else if (inputValue < 0) {
+                          setInputValue(0);
+                        }
                       } else if (inputValue < 0) {
                         setInputValue(0);
                       }
