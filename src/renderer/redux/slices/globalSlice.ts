@@ -8,7 +8,7 @@ const initialState: IglobalData = {
   charities: { refetch: null, charities: [] },
   selectedWallet: null,
   raffles:{refetch: null, raffles: []},
-  launchPad:{launchPad: []},
+  launchPad:{refetch:null,launchPad: []},
   pools: { refetch: null, pools: [] },
   walletBalance: 0,
   walletConnectedFlag: false,

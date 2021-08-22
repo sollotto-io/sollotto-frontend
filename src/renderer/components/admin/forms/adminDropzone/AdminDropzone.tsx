@@ -22,8 +22,6 @@ export default function AdminDropZone({
   style,
 }: IAdminDropzone): JSX.Element {
   const [image, setImage] = useState(initialImage ?? "");
-
-  console.log(initialImage);
   useDidUpdateEffect(() => {
     if (image !== "") {
       onDrop(image);

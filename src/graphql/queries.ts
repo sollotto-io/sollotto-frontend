@@ -155,18 +155,21 @@ export const FETCH_RAFFLES = gql`
       raffleStatus
       Status
     }
-    getAllLaunched{
-    id
-    PoolName
-    PoolImage
-    TimeRemaining
-    MaxDeposit
-    TotalWinners
-    Status
-  }
   }
 `;
-
+export const FETCH_LAUNCHES = gql`
+  {
+    getAllLaunched {
+      id
+      PoolName
+      PoolImage
+      TimeRemaining
+      MaxDeposit
+      TotalWinners
+      Status
+    }
+  }
+`;
 export const FETCH_ALL_POOLS = gql`
   {
     getAllPools {
@@ -182,9 +185,9 @@ export const FETCH_ALL_POOLS = gql`
 
 export const FETCH_LOTTERY_DATA_ACCOUNT = gql`
   {
-  getLotteryInfo {
-    LotteryDataAccount
-    LotteryId
-  }
+    getLotteryInfo {
+      LotteryDataAccount
+      LotteryId
+    }
   }
 `;

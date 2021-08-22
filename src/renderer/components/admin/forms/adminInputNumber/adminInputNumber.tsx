@@ -29,7 +29,7 @@ export default function AdminInputNumber({
       <input
         {...(value !== undefined &&
           onChange !== undefined && {
-            defaultValue:value,
+            value:value,
             onChange: (e) => onChange(parseInt(e.target.value)),
           })}
           type={type}

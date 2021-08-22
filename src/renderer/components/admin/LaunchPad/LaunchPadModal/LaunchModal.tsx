@@ -10,8 +10,11 @@ export default function LaunchModal({
   open: boolean;
   edit?: boolean;
   onClose: () => void;
-  id:string;
+  id:string
 }): JSX.Element {
+  
+
+
   return (
     <Modal
       open={open}
@@ -29,7 +32,7 @@ export default function LaunchModal({
             {edit ? (
               <LaunchForm closeModal={onClose} edit={edit} id={id} />
             ) : (
-              <LaunchForm closeModal={onClose} id={id} />
+              <LaunchForm closeModal={onClose}  />
             )}
          
         </div>

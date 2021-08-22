@@ -57,6 +57,7 @@ export interface IRaffles {
   raffles: IRaffle[];
 }
 export interface ILaunchPad {
+  refetch: Refetch | null;
   launchPad: ILaunch[];
 }
 

@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { ticketPurchase } from "../utils/ticketPurchase";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { POST_TICKET } from "../../../../graphql/mutations";
-import { FETCH_LOTTERY_DATA_ACCOUNT, FETCH_SINGLE_USER } from "../../../../graphql/queries";
+import { FETCH_SINGLE_USER } from "../../../../graphql/queries";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { AppState } from "../../../redux/stores/store";
 import { ICharity } from "../../../api/types/globalData";

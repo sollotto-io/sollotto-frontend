@@ -97,8 +97,6 @@ export default function RaffleForm({
   useDidUpdateEffect(() => {
     if (submiting) {
       if (validateFields()) {
-        console.log(JSON.stringify(raffleForm));
-        console.log(JSON.stringify({ ...raffleForm, raffleId: data?.id }));
         (async () => {
           if (edit) {
             await editRaffle({

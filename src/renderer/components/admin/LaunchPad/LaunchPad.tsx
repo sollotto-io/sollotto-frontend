@@ -11,11 +11,12 @@ import Paper from "@material-ui/core/Paper";
 import { IconButton, withStyles } from "@material-ui/core";
 import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
 import Countdown from "react-countdown";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LaunchModal from "./LaunchPadModal/LaunchModal";
 import { LAUNCHPAD_STATUS_CHAGED } from "../../../../graphql/mutations";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import useReduxState from "../../../hooks/useReduxState";
+import { FETCH_LAUNCHES } from "../../../../graphql/queries";
 
 const StyledTableCell = withStyles({
   root: {
@@ -31,9 +32,32 @@ const StyledPaper = withStyles({
   },
 })(Paper);
 
-export default function LaunchPad({ data }: { data: ILaunch[] }): JSX.Element {
-  console.log(data)
-  const [changeStatus] = useMutation(LAUNCHPAD_STATUS_CHAGED);
+export default function LaunchPad(): JSX.Element {
+  const {
+    loading: launchLoading,
+    data,
+    refetch,
+  } = useQuery(FETCH_LAUNCHES, {
+    onCompleted: (data) => {
+      setGlobalData({
+        type: "SET_GLOBAL_DATA",
+        arg: {
+          ...globalData,
+          launchPad: {
+            refetch: refetch,
+            launchPad: data.getAllLaunched,
+          },
+        },
+      });
+    },
+  });
+
+  const [changeStatus] = useMutation(LAUNCHPAD_STATUS_CHAGED, {
+    onCompleted: async() => {
+       await globalData.launchPad.refetch()
+      
+    },
+  });
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
   );
@@ -55,7 +79,7 @@ export default function LaunchPad({ data }: { data: ILaunch[] }): JSX.Element {
       id: id,
     });
   };
-  const handleModalClose = () => {
+  const handleModalClose =() => {
     setModalState({
       state: false,
       type: false,
@@ -74,22 +98,11 @@ export default function LaunchPad({ data }: { data: ILaunch[] }): JSX.Element {
     });
     setState(!state);
   };
-  useEffect(() => {
-    (async () => {
-      const newRaffle = await globalData.raffles.refetch();
-      if (newRaffle) {
-        setGlobalData({
-          type: "SET_GLOBAL_DATA",
-          arg: {
-            launchPad: {
-              ...globalData.launchPad,
-              launchPad: newRaffle.data.getAllLaunched,
-            },
-          },
-        });
-      }
-    })();
-  }, [state,modalState]);
+  
+
+  if (launchLoading) {
+    return <h1>loading</h1>;
+  }
 
   return (
     <>
@@ -112,7 +125,7 @@ export default function LaunchPad({ data }: { data: ILaunch[] }): JSX.Element {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((row: ILaunch, index: number) => {
+            {data.getAllLaunched.map((row: ILaunch, index: number) => {
               return (
                 <TableRow className="tableRow" key={index}>
                   <StyledTableCell component="th" scope="row">
@@ -120,7 +133,12 @@ export default function LaunchPad({ data }: { data: ILaunch[] }): JSX.Element {
                   </StyledTableCell>
 
                   <StyledTableCell align="left">
-                  <img src={`${process.env.REACT_APP_IMAGE_LINK}${row.PoolImage}`} width={50} height={50} alt="" />
+                    <img
+                      src={`${process.env.REACT_APP_IMAGE_LINK}${row.PoolImage}`}
+                      width={50}
+                      height={50}
+                      alt=""
+                    />
                   </StyledTableCell>
                   <StyledTableCell align="left">
                     {row.TotalWinners}

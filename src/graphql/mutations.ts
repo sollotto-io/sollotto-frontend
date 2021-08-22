@@ -246,11 +246,11 @@ export const UPDATE_POOL_STATUS = gql`
 
 export const ADD_LAUNCHPAD = gql`
   mutation AddLaunchPad(
-    $PoolName: String
-    $PoolImage: String
-    $TotalWinners: Int
-    $TimeRemaining: String
-    $MaxDeposit: Int
+    $PoolName: String!
+    $PoolImage: String!
+    $TotalWinners: Int!
+    $TimeRemaining: String!
+    $MaxDeposit: Int!
   ) {
     AddLaunchPad(
       LaunchPadInput: {

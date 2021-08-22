@@ -7,8 +7,11 @@ import {
   AdminInput,
   AdminInputNumber,
 } from "../../../forms/AdminFormCore";
-import { ADD_LAUNCHPAD, EDIT_LAUNCH } from "../../../../../../graphql/mutations";
-import { useEffect, useState } from "react";
+import {
+  ADD_LAUNCHPAD,
+  EDIT_LAUNCH,
+} from "../../../../../../graphql/mutations";
+import { useState } from "react";
 import { useCallback } from "react";
 import useDidUpdateEffect from "../../../../../hooks/useDidUpdateEffect";
 import useReduxState from "../../../../../hooks/useReduxState";
@@ -29,71 +32,46 @@ export default function LaunchForm({
 }: {
   closeModal: () => void;
   edit?: boolean;
-  id: string;
+  id?: string;
 }): JSX.Element {
-  const [addLaunchPadLottery ] =
-    useMutation(ADD_LAUNCHPAD, {
-      onCompleted: () => {
-        closeModal();
-      },
-    });
-    const [updateLaunch] = useMutation(EDIT_LAUNCH,{
-      onCompleted: () => {
-        closeModal();
-      },
-      onError:(e)=>{
-        console.log(e.stack)
-      }
-      })
+  const [addLaunchPadLottery] = useMutation(ADD_LAUNCHPAD, {
+    onCompleted: async () => {
+      await globalData.launchPad.refetch();
+      closeModal();
+    },
+    onError: (e) => {
+      console.log(e);
+    },
+  });
+  const [updateLaunch] = useMutation(EDIT_LAUNCH, {
+    onCompleted: async () => {
+      await globalData.launchPad.refetch();
+      closeModal();
+    },
+    onError: (e) => {
+      console.log(e.stack);
+    },
+  });
   const [globalData] = useReduxState((state) => state.globalData);
-  let editInitialState: ILaunchForm = {
-    PoolName: "",
-    PoolImage: "",
-    TimeRemaining: "",
-    MaxDeposit: 0,
-    TotalWinners: 0,
-  };
-  if (edit) {
-    const FindLaunch: ILaunchForm = globalData.launchPad.launchPad.find(
-      (t: ILaunch) => t.id === id
-    );
-    editInitialState = {
-      PoolName: FindLaunch.PoolName,
-      PoolImage: FindLaunch.PoolImage,
-      TimeRemaining: FindLaunch.TimeRemaining,
-      MaxDeposit: FindLaunch.MaxDeposit,
-      TotalWinners: FindLaunch.TotalWinners,
-    };
-  }
+  const FindLaunch = globalData.launchPad.launchPad.find(
+    (t: ILaunch) => t.id === id
+  );
+
+  const [data] = useState<ILaunch>(FindLaunch);
 
   const initialState: ILaunchForm = {
-    PoolName: "",
-    PoolImage: "",
-    TimeRemaining: "",
-    MaxDeposit: 0,
-    TotalWinners: 0,
+    PoolName: data !== undefined ? data.PoolName : "",
+    PoolImage: data !== undefined ? data.PoolImage : "",
+    TimeRemaining: data !== undefined ? data.TimeRemaining : "",
+    MaxDeposit: data !== undefined ? data.MaxDeposit : 0,
+    TotalWinners: data !== undefined ? data.TotalWinners : 0,
   };
-
   const [raffleForm, setRaffleForm] = useState<ILaunchForm>(initialState);
-useEffect(() => {
-  if(edit){
-    const FindLaunch: ILaunchForm = globalData.launchPad.launchPad.find(
-      (t: ILaunch) => t.id === id
-    );
-    editInitialState = {
-      PoolName: FindLaunch.PoolName,
-      PoolImage: FindLaunch.PoolImage,
-      TimeRemaining: FindLaunch.TimeRemaining,
-      MaxDeposit: FindLaunch.MaxDeposit,
-      TotalWinners: FindLaunch.TotalWinners,
-    };
-    setRaffleForm(editInitialState)
-  }
-}, [])
+
   const [submiting, setSubmiting] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const { PoolName, PoolImage, TimeRemaining } = raffleForm;
-  
+  const { PoolName, PoolImage, TimeRemaining, MaxDeposit, TotalWinners } =
+    raffleForm;
 
   const validateFields = (): boolean => {
     if (
@@ -113,16 +91,18 @@ useEffect(() => {
       if (validateFields()) {
         (async () => {
           if (edit) {
-            console.log(id)
-            updateLaunch({variables:{
-              Id:id,
-              PoolName:raffleForm.PoolName,
-              PoolImage:raffleForm.PoolImage,
-              TimeRemaining:raffleForm.TimeRemaining,
-              TotalWinners: raffleForm.TotalWinners,
-              MaxDeposit: raffleForm.MaxDeposit
-            } })
+            updateLaunch({
+              variables: {
+                Id: data.id,
+                PoolName: raffleForm.PoolName,
+                PoolImage: raffleForm.PoolImage,
+                TimeRemaining: raffleForm.TimeRemaining,
+                TotalWinners: raffleForm.TotalWinners,
+                MaxDeposit: raffleForm.MaxDeposit,
+              },
+            });
           } else {
+            console.log(raffleForm);
             addLaunchPadLottery({ variables: raffleForm });
           }
         })();
@@ -145,7 +125,7 @@ useEffect(() => {
   return (
     <form className="r-form">
       <AdminInput
-        value={edit ? editInitialState.PoolName : PoolName}
+        value={PoolName}
         onChange={(e) => handleFormChange({ PoolName: e })}
         error={error && PoolName === ""}
         label="Pool Name"
@@ -154,14 +134,14 @@ useEffect(() => {
 
       <AdminDropZone
         endpoint="uploadLaunchPad"
-        onDrop={(img) => handleFormChange({PoolImage: img })}
+        onDrop={(img) => handleFormChange({ PoolImage: img })}
         dirName="launchImages"
         error={error && PoolImage == ""}
       />
       <span className="datepicker-toggle gradientBg">
         <input
           type="date"
-          defaultValue={edit ? new Date(editInitialState.TimeRemaining).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]}
+          defaultValue={new Date().toISOString().split("T")[0]}
           className="datepicker-input"
           onChange={(e) =>
             setRaffleForm({
@@ -172,7 +152,7 @@ useEffect(() => {
         />
       </span>
       <AdminInputNumber
-        value={edit ? editInitialState.TotalWinners : initialState.TotalWinners}
+        value={TotalWinners}
         onChange={(e: number) => handleFormChange({ TotalWinners: e })}
         error={error && PoolName === ""}
         label="Total Winners"
@@ -181,7 +161,7 @@ useEffect(() => {
       />
 
       <AdminInputNumber
-        value={edit ? editInitialState.MaxDeposit : initialState.MaxDeposit}
+        value={MaxDeposit}
         onChange={(e: number) => handleFormChange({ MaxDeposit: e })}
         error={error && PoolName === ""}
         label="Max Deposit"

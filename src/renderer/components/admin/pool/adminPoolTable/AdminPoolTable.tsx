@@ -18,7 +18,7 @@ import {
 import PoolTableModal from "./poolTableModal/PoolTableModal";
 import { useState } from "react";
 import useReduxState from "../../../../hooks/useReduxState";
-
+import Countdown from "react-countdown";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
 
 export default function AdminPoolTable({
@@ -71,7 +71,6 @@ export default function AdminPoolTable({
     status: boolean;
     index: number;
   }) => {
-    console.log(JSON.stringify({ poolId: id, status: status }));
     (async () => {
       const newPool = await updatePoolStatus({
         variables: { id: id, status: status },
@@ -112,6 +111,7 @@ export default function AdminPoolTable({
           </TableHead>
           <TableBody>
             {data.map((row: IPool, index: number) => (
+              
               <TableRow className="tableRow" key={index}>
                 <StyledTableCell component="th" scope="row">
                   <div className="apt-tokenName">
@@ -126,7 +126,7 @@ export default function AdminPoolTable({
                 <StyledTableCell component="th" align="left">
                   {row.tokenAddress}
                 </StyledTableCell>
-                <StyledTableCell align="left">{row.dueDate}</StyledTableCell>
+                <StyledTableCell align="left"><Countdown date={parseInt(row.dueDate)} /></StyledTableCell>
                 <StyledTableCell
                   style={{ display: "flex", justifyContent: "center" }}
                 >
