@@ -1,7 +1,7 @@
 import { Connection, PublicKey, Transaction } from "@solana/web3.js";
 import Wallet from "@project-serum/sol-wallet-adapter";
 
-type Refetch = () => Promise<void>;
+type Refetch = () => Promise<any>;
 export interface ICharity {
   id: string;
   charityName: string;
@@ -50,6 +50,16 @@ export interface ILaunch {
   TotalWinners: number;
   MaxDeposit: number;
   Status: boolean;
+  raffleName: string;
+  urlSlug: string;
+  raffleImage: string;
+  sollotoBranding: boolean;
+  testingWA: string;
+  liveWA: string;
+  operatorWa: string;
+  vanityUrl: string;
+  raffleStatus: "Testing" | "Completed" | "Live";
+  status: boolean;
 }
 export interface IRaffles {
   refetch: Refetch | null;
@@ -59,11 +69,26 @@ export interface ILaunchPad {
   launchPad: ILaunch[];
 }
 
+export interface IPool {
+  id: string;
+  tokenName: string;
+  tokenLogo: string;
+  dueDate: string;
+  tokenAddress: string;
+  status: boolean;
+}
+
+export interface IPools {
+  pools: IPool[];
+  refetch: Refetch | null;
+}
+
 export interface IglobalData {
   holdingWalletId: string;
   charities: Icharities;
   raffles: IRaffles;
   launchPad: ILaunchPad;
+  pools: IPools;
   selectedWallet: PhantomProvider | null;
   walletBalance: number;
   walletConnectedFlag: boolean;

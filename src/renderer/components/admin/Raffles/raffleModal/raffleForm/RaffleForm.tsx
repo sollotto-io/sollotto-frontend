@@ -10,12 +10,11 @@ import {
   AdminInput,
   AdminSelect,
 } from "../../../forms/AdminFormCore";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useCallback } from "react";
 import useDidUpdateEffect from "../../../../../hooks/useDidUpdateEffect";
-import useReduxState from "../../../../../hooks/useReduxState";
 import { IRaffle } from "../../../../../api/types/globalData";
-
+import useReduxState from "../../../../../hooks/useReduxState";
 
 interface IRaffleForm {
   raffleName: string;
@@ -32,59 +31,30 @@ interface IRaffleForm {
 export default function RaffleForm({
   closeModal,
   edit,
-  id,
+  data,
 }: {
   closeModal: () => void;
   edit?: boolean;
-  id: string;
+  data?: IRaffle;
 }): JSX.Element {
-  const [globalData] = useReduxState(
+  const initialState: IRaffleForm = {
+    raffleName: data?.raffleName ?? "",
+    urlSlug: data?.urlSlug ?? "",
+    raffleImage: data?.raffleImage ?? "",
+    sollotoBranding: data?.sollotoBranding ?? true,
+    testingWA: data?.testingWA ?? "",
+    liveWA: data?.liveWA ?? "",
+    operatorWa: data?.operatorWa ?? "",
+    vanityUrl: data?.vanityUrl ?? "",
+    raffleStatus: data?.raffleStatus ?? "",
+  };
+
+  const [{ raffles }, setGlobalState] = useReduxState(
     (state) => state.globalData
   );
-  let editInitialState: IRaffleForm = {
-    raffleName: "",
-    urlSlug: "",
-    raffleImage: "",
-    sollotoBranding: true,
-    testingWA: "",
-    liveWA: "",
-    operatorWa: "",
-    vanityUrl: "",
-    raffleStatus: "",
-  };
- 
-
-  const initialState: IRaffleForm = {
-    raffleName: "",
-    urlSlug: "",
-    raffleImage: "",
-    sollotoBranding: true,
-    testingWA: "",
-    liveWA: "",
-    operatorWa: "",
-    vanityUrl: "",
-    raffleStatus: "",
-  };
 
   const [raffleForm, setRaffleForm] = useState<IRaffleForm>(initialState);
-  useEffect(() => {
-    if (edit) {
-      const FindRaffle = globalData.raffles.raffles.find(
-        (t: IRaffle) => t.id === id
-      );
-      editInitialState = {
-        raffleName: FindRaffle.raffleName,
-        urlSlug: FindRaffle.urlSlug,
-        raffleImage: FindRaffle.raffleImage,
-        sollotoBranding: FindRaffle.sollotoBranding,
-        testingWA: FindRaffle.testingWA,
-        liveWA: FindRaffle.liveWA,
-        operatorWa: FindRaffle.operatorWa,
-        vanityUrl: FindRaffle.vanityUrl,
-        raffleStatus: FindRaffle.raffleStatus,
-      };
-    }
-  }, [])
+
   const [submiting, setSubmiting] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const {
@@ -99,33 +69,22 @@ export default function RaffleForm({
     raffleImage,
   } = raffleForm;
 
-  const [addRaffle /* { data: addRes, loading: addloading } */] = useMutation(
-    ADD_RAFFLE,
-    {
-      onCompleted: () => {
-      
-        closeModal();
-      },
-    }
-  );
+  const [addRaffle /* { data: addRes, loading: addloading } */] =
+    useMutation(ADD_RAFFLE);
   const [editRaffle /* { data: editRes, loading: editloading } */] =
-    useMutation(EDIT_RAFFLE, {
-      onCompleted: () => {
-      
-        closeModal();
-      },
-    });
+    useMutation(EDIT_RAFFLE);
 
   const validateFields = (): boolean => {
     if (
-      (raffleName === "" ||
-        urlSlug === "" ||
-        testingWA === "" ||
-        liveWA === "" ||
-        operatorWa === "" ||
-        raffleStatus === "" ||
-        vanityUrl === "") &&
-      !edit
+      raffleName === "" ||
+      urlSlug === "" ||
+      testingWA === "" ||
+      liveWA === "" ||
+      operatorWa === "" ||
+      raffleStatus === null ||
+      raffleStatus === "" ||
+      vanityUrl === "" ||
+      raffleImage === ""
     ) {
       setError(true);
       return false;
@@ -138,26 +97,47 @@ export default function RaffleForm({
   useDidUpdateEffect(() => {
     if (submiting) {
       if (validateFields()) {
+        console.log(JSON.stringify(raffleForm));
+        console.log(JSON.stringify({ ...raffleForm, raffleId: data?.id }));
         (async () => {
           if (edit) {
-            console.log(id, raffleForm);
             await editRaffle({
-              variables: {
-                raffleId: id,
-                raffleName: raffleForm.raffleName,
-                urlSlug: raffleForm.urlSlug,
-                raffleImage: raffleForm.raffleImage,
-                sollotoBranding: raffleForm.sollotoBranding,
-                testingWA: raffleForm.testingWA,
-                liveWA: raffleForm.liveWA,
-                operatorWa: raffleForm.operatorWa,
-                vanityUrl: raffleForm.vanityUrl,
-                raffleStatus: raffleForm.raffleStatus,
-              },
+              variables: { ...raffleForm, raffleId: data?.id },
             });
+            if (raffles.refetch) {
+              const { data } = await raffles.refetch();
+              if (data.getAllRaffle) {
+                setGlobalState({
+                  type: "SET_GLOBAL_DATA",
+                  arg: {
+                    raffles: {
+                      ...raffles,
+                      raffles: data.getAllRaffle,
+                    },
+                  },
+                });
+              }
+            }
           } else {
-            await addRaffle({ variables: raffleForm });
+            await addRaffle({
+              variables: raffleForm,
+            });
+            if (raffles.refetch) {
+              const { data } = await raffles.refetch();
+              if (data.getAllRaffle) {
+                setGlobalState({
+                  type: "SET_GLOBAL_DATA",
+                  arg: {
+                    raffles: {
+                      ...raffles,
+                      raffles: data.getAllRaffle,
+                    },
+                  },
+                });
+              }
+            }
           }
+          closeModal();
         })();
       }
       setSubmiting(false);
@@ -178,14 +158,14 @@ export default function RaffleForm({
   return (
     <form className="r-form">
       <AdminInput
-        value={edit ? editInitialState.raffleName : raffleName}
+        value={raffleName}
         onChange={(e) => handleFormChange({ raffleName: e })}
         error={error && raffleName === ""}
         label="Raffle Name"
         inputStyle={{ width: "400px" }}
       />
       <AdminInput
-        value={edit ? editInitialState.urlSlug : initialState.urlSlug}
+        value={urlSlug}
         onChange={(e) => handleFormChange({ urlSlug: e })}
         error={error && urlSlug === ""}
         label="URL slug"
@@ -197,10 +177,11 @@ export default function RaffleForm({
         onDrop={(img) => handleFormChange({ raffleImage: img })}
         dirName="raffleImages"
         error={error && raffleImage == ""}
+        initialImage={data?.raffleImage ?? ""}
       />
       <AdminInput
         label="Verification Vanity URL"
-        value={edit ? editInitialState.vanityUrl : vanityUrl}
+        value={vanityUrl}
         onChange={(e) => handleFormChange({ vanityUrl: e })}
         error={error && vanityUrl === ""}
         inputStyle={{ width: "400px" }}
@@ -212,14 +193,14 @@ export default function RaffleForm({
         onChange={() => handleFormChange({ sollotoBranding: !sollotoBranding })}
       />
       <AdminInput
-        value={edit ? editInitialState.testingWA : testingWA}
+        value={testingWA}
         onChange={(e) => handleFormChange({ testingWA: e })}
         error={error && testingWA === ""}
         label="Testing Wallet Address"
         inputStyle={{ width: "400px" }}
       />
       <AdminInput
-        value={edit ? editInitialState.liveWA : liveWA}
+        value={liveWA}
         onChange={(e) => handleFormChange({ liveWA: e })}
         error={error && liveWA === ""}
         label="Live Raffle Wallet Address"
@@ -233,7 +214,7 @@ export default function RaffleForm({
         inputStyle={{ width: "400px" }}
       /> */}
       <AdminSelect
-        value={edit ? editInitialState.raffleStatus : raffleStatus}
+        value={raffleStatus}
         onChange={(e) => handleFormChange({ raffleStatus: e as string })}
         itemList={[
           {
@@ -254,7 +235,7 @@ export default function RaffleForm({
         error={error && raffleStatus === ""}
       />
       <AdminInput
-        value={edit ? editInitialState.operatorWa : operatorWa}
+        value={operatorWa}
         onChange={(e) => handleFormChange({ operatorWa: e })}
         error={error && operatorWa === ""}
         label="Operator Wallet Addresses"

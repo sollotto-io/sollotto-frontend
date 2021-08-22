@@ -155,6 +155,19 @@ export const FETCH_RAFFLES = gql`
       raffleStatus
       Status
     }
+  }
+`;
+
+export const FETCH_ALL_POOLS = gql`
+  {
+    getAllPools {
+      dueDate
+      tokenAddress
+      tokenName
+      tokenLogo
+      id
+      status
+    }
     getAllLaunched{
     id
     PoolName

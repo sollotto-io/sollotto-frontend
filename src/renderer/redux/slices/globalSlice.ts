@@ -9,6 +9,7 @@ const initialState: IglobalData = {
   selectedWallet: null,
   raffles:{refetch: null, raffles: []},
   launchPad:{launchPad: []},
+  pools: { refetch: null, pools: [] },
   walletBalance: 0,
   walletConnectedFlag: false,
   connection: new Connection("https://api.devnet.solana.com"),

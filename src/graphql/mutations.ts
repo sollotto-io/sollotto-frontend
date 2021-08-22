@@ -174,8 +174,73 @@ export const EDIT_RAFFLE = gql`
 `;
 
 export const CHANGE_RAFFLE_STATUS = gql`
-  mutation changeRaffleStatus($raffleId: ID!, $Status: Boolean) {
-    changeRaffleStatus(raffleId: $raffleId, Status: $Status)
+  mutation changeRaffleStatus($raffleId: ID!, $status: Boolean) {
+    changeRaffleStatus(raffleId: $raffleId, status: $status)
+  }
+`;
+
+export const ADD_POOL = gql`
+  mutation addPool(
+    $tokenName: String!
+    $tokenLogo: String!
+    $dueDate: String!
+    $tokenAddress: String!
+  ) {
+    addPool(
+      poolInput: {
+        tokenName: $tokenName
+        tokenLogo: $tokenLogo
+        dueDate: $dueDate
+        tokenAddress: $tokenAddress
+      }
+    ) {
+      id
+      tokenAddress
+      tokenLogo
+      tokenName
+      dueDate
+      status
+    }
+  }
+`;
+
+export const UPDATE_POOL = gql`
+  mutation editPool(
+    $id: ID!
+    $tokenName: String!
+    $tokenLogo: String!
+    $dueDate: String!
+    $tokenAddress: String!
+  ) {
+    updatePool(
+      poolId: $id
+      poolInput: {
+        tokenName: $tokenName
+        tokenLogo: $tokenLogo
+        dueDate: $dueDate
+        tokenAddress: $tokenAddress
+      }
+    ) {
+      id
+      tokenAddress
+      tokenLogo
+      tokenName
+      dueDate
+      status
+    }
+  }
+`;
+
+export const UPDATE_POOL_STATUS = gql`
+  mutation editPool($id: ID!, $status: Boolean) {
+    changePoolStatus(poolId: $id, status: $status) {
+      id
+      tokenAddress
+      tokenLogo
+      tokenName
+      dueDate
+      status
+    }
   }
 `;
 

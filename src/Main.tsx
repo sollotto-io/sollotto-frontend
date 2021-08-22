@@ -12,7 +12,7 @@ import Navbar from "./renderer/components/navbar/Navbar";
 import CharityDetail from "./renderer/components/charity/charityDetail/CharityDetail";
 import Results from "./renderer/views/Results/Results";
 import ResultDetail from "./renderer/components/result/resultDetail/ResultDetail";
-import Pool from "./renderer/views/Pool/Pool";
+/* import Pool from "./renderer/views/Pool/Pool"; */
 import Verify from "./renderer/views/Verify/Verify";
 import Footer from "./renderer/views/Footer/Footer";
 import useReduxState from "./renderer/hooks/useReduxState";
@@ -21,6 +21,8 @@ import { FETCH_ALL_CHARITIES, FETCH_UPCOMING_DRAWING } from "./graphql/queries";
 import Admin from "./renderer/views/Admin";
 import LaunchPad from "./renderer/views/LauchPad/LaunchPad";
 // import GrapeIDO from "./renderer/views/GrapeIDO";
+// import GrapeIDO from "./renderer/views/GrapeIDO";
+import Pool2 from "./renderer/views/Pool/Pool2/Pool2";
 
 function Main(): JSX.Element {
   const [globalData, setGlobalData] = useReduxState(
@@ -75,13 +77,18 @@ function Main(): JSX.Element {
       });
       globalData.selectedWallet.connect();
       return () => {
-        globalData.selectedWallet.disconnect();
+        if (globalData.selectedWallet) {
+          globalData.selectedWallet.disconnect();
+        }
       };
     }
   }, [globalData.selectedWallet]);
 
   useEffect(() => {
-    if (globalData.selectedWallet !== null) {
+    if (
+      globalData.selectedWallet !== null &&
+      globalData.selectedWallet.publicKey
+    ) {
       const bal = globalData.connection.getBalance(
         globalData.selectedWallet.publicKey
       );
@@ -131,7 +138,7 @@ function Main(): JSX.Element {
                 <Suggest />
               </Route> */}
               <Route exact path="/pools">
-                <Pool />
+                <Pool2 />
               </Route>
               <Route exact path="/lauchpad">
                 <LaunchPad/>
