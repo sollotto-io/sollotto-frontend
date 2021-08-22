@@ -8,7 +8,7 @@ import {
   AdminInputNumber,
 } from "../../../forms/AdminFormCore";
 import { ADD_LAUNCHPAD } from "../../../../../../graphql/mutations";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCallback } from "react";
 import useDidUpdateEffect from "../../../../../hooks/useDidUpdateEffect";
 import useReduxState from "../../../../../hooks/useReduxState";
@@ -67,7 +67,21 @@ export default function LaunchForm({
   };
 
   const [raffleForm, setRaffleForm] = useState<ILaunchForm>(initialState);
-
+useEffect(() => {
+  if(edit){
+    const FindLaunch: ILaunchForm = globalData.launchPad.launchPad.find(
+      (t: ILaunch) => t.id === id
+    );
+    editInitialState = {
+      PoolName: FindLaunch.PoolName,
+      PoolImage: FindLaunch.PoolImage,
+      TimeRemaining: FindLaunch.TimeRemaining,
+      MaxDeposit: FindLaunch.MaxDeposit,
+      TotalWinners: FindLaunch.TotalWinners,
+    };
+    setRaffleForm(editInitialState)
+  }
+}, [])
   const [submiting, setSubmiting] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const { PoolName, PoolImage, TimeRemaining } = raffleForm;
@@ -97,7 +111,7 @@ export default function LaunchForm({
       if (validateFields()) {
         (async () => {
           if (edit) {
-            console.log("edit");
+           console.log(raffleForm)
           } else {
             addLaunchPadLottery({ variables: raffleForm });
           }

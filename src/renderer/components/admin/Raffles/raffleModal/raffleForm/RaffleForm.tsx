@@ -10,7 +10,7 @@ import {
   AdminInput,
   AdminSelect,
 } from "../../../forms/AdminFormCore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCallback } from "react";
 import useDidUpdateEffect from "../../../../../hooks/useDidUpdateEffect";
 import useReduxState from "../../../../../hooks/useReduxState";
@@ -52,22 +52,7 @@ export default function RaffleForm({
     vanityUrl: "",
     raffleStatus: "",
   };
-  if (edit) {
-    const FindRaffle = globalData.raffles.raffles.find(
-      (t: IRaffle) => t.id === id
-    );
-    editInitialState = {
-      raffleName: FindRaffle.raffleName,
-      urlSlug: FindRaffle.urlSlug,
-      raffleImage: FindRaffle.raffleImage,
-      sollotoBranding: FindRaffle.sollotoBranding,
-      testingWA: FindRaffle.testingWA,
-      liveWA: FindRaffle.liveWA,
-      operatorWa: FindRaffle.operatorWa,
-      vanityUrl: FindRaffle.vanityUrl,
-      raffleStatus: FindRaffle.raffleStatus,
-    };
-  }
+ 
 
   const initialState: IRaffleForm = {
     raffleName: "",
@@ -82,7 +67,24 @@ export default function RaffleForm({
   };
 
   const [raffleForm, setRaffleForm] = useState<IRaffleForm>(initialState);
-
+  useEffect(() => {
+    if (edit) {
+      const FindRaffle = globalData.raffles.raffles.find(
+        (t: IRaffle) => t.id === id
+      );
+      editInitialState = {
+        raffleName: FindRaffle.raffleName,
+        urlSlug: FindRaffle.urlSlug,
+        raffleImage: FindRaffle.raffleImage,
+        sollotoBranding: FindRaffle.sollotoBranding,
+        testingWA: FindRaffle.testingWA,
+        liveWA: FindRaffle.liveWA,
+        operatorWa: FindRaffle.operatorWa,
+        vanityUrl: FindRaffle.vanityUrl,
+        raffleStatus: FindRaffle.raffleStatus,
+      };
+    }
+  }, [])
   const [submiting, setSubmiting] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const {
