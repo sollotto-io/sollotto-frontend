@@ -24,6 +24,7 @@ export default function Admin(): JSX.Element {
   const [tabState, setTabState] = useState(0);
   useEffect(() => {
     if (!loading) {
+      console.log(data, refetch);
       setGlobalData({
         type: "SET_GLOBAL_DATA",
         arg: {
@@ -60,8 +61,10 @@ export default function Admin(): JSX.Element {
         <CharityAdminTable rows={globalData.charities.charities} />
       ) : tabState === 1 ? (
         <Raffles data={globalData.raffles.raffles} />
-      ) : tabState === 2 ?<AdminPool data={globalData.pools.pools} /> :  (
-        <LaunchPad data = {globalData.launchPad.launchPad} />
+      ) : tabState === 2 ? (
+        <AdminPool data={globalData.pools.pools} />
+      ) : (
+        <LaunchPad data={globalData.launchPad.launchPad} />
       )}
     </div>
   );

@@ -36,7 +36,7 @@ export default function RaffleTable({
 }: {
   data: IRaffle[];
 }): JSX.Element {
- 
+  console.log(data)
   const [changeStatus] = useMutation(CHANGE_RAFFLE_STATUS);
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
@@ -53,6 +53,7 @@ export default function RaffleTable({
     (async () => {
       if (globalData.raffles.refetch) {
         const newRaffle = await globalData.raffles.refetch();
+        console.log(newRaffle)
         if (newRaffle.data) {
           setGlobalData({
             type: "SET_GLOBAL_DATA",

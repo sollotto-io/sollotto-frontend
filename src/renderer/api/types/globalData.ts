@@ -50,16 +50,7 @@ export interface ILaunch {
   TotalWinners: number;
   MaxDeposit: number;
   Status: boolean;
-  raffleName: string;
-  urlSlug: string;
-  raffleImage: string;
-  sollotoBranding: boolean;
-  testingWA: string;
-  liveWA: string;
-  operatorWa: string;
-  vanityUrl: string;
-  raffleStatus: "Testing" | "Completed" | "Live";
-  status: boolean;
+ 
 }
 export interface IRaffles {
   refetch: Refetch | null;

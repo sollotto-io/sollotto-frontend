@@ -32,6 +32,7 @@ const StyledPaper = withStyles({
 })(Paper);
 
 export default function LaunchPad({ data }: { data: ILaunch[] }): JSX.Element {
+  console.log(data)
   const [changeStatus] = useMutation(LAUNCHPAD_STATUS_CHAGED);
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
@@ -88,7 +89,7 @@ export default function LaunchPad({ data }: { data: ILaunch[] }): JSX.Element {
         });
       }
     })();
-  }, [state,modalState.state]);
+  }, [state,modalState]);
 
   return (
     <>

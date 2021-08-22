@@ -155,6 +155,15 @@ export const FETCH_RAFFLES = gql`
       raffleStatus
       Status
     }
+    getAllLaunched{
+    id
+    PoolName
+    PoolImage
+    TimeRemaining
+    MaxDeposit
+    TotalWinners
+    Status
+  }
   }
 `;
 
@@ -168,15 +177,6 @@ export const FETCH_ALL_POOLS = gql`
       id
       status
     }
-    getAllLaunched{
-    id
-    PoolName
-    PoolImage
-    TimeRemaining
-    MaxDeposit
-    TotalWinners
-    Status
-  }
   }
 `;
 
