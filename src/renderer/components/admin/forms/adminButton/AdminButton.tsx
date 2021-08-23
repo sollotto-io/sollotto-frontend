@@ -2,7 +2,7 @@ import "./index.scss";
 
 interface IAdminButton {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick: (e:any) => void;
   type?: "button" | "submit" | "reset";
   disable?: boolean;
 }

@@ -1,0 +1,11 @@
+.p-name {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-transform: uppercase;
+  img {
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+}

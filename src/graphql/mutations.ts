@@ -32,6 +32,11 @@ export const CHARITY_STATUS_CHAGED = gql`
     deleteCharity(charityId: $charityId, Status: $Status)
   }
 `;
+export const LAUNCHPAD_STATUS_CHAGED = gql`
+  mutation changeLaunchState($Id: ID!, $Status: Boolean!) {
+    changeLaunchState(Id: $Id, Status: $Status)
+  }
+`;
 
 export const UPDATE_CHARITY = gql`
   mutation updateCharity(
@@ -139,7 +144,7 @@ export const ADD_RAFFLE = gql`
 `;
 
 export const EDIT_RAFFLE = gql`
-  mutation addRaffle(
+  mutation editRaffle(
     $raffleId: ID!
     $raffleName: String!
     $urlSlug: String!
@@ -151,9 +156,9 @@ export const EDIT_RAFFLE = gql`
     $vanityUrl: String!
     $raffleStatus: String!
   ) {
-    addRaffle(
+    editRaffle(
       raffleId: $raffleId
-      affleInput: {
+      raffleInput: {
         raffleName: $raffleName
         urlSlug: $urlSlug
         raffleImage: $raffleImage
@@ -162,7 +167,7 @@ export const EDIT_RAFFLE = gql`
         liveWA: $liveWA
         operatorWa: $operatorWa
         vanityUrl: $vanityUrl
-        vanityUrl: $raffleStatus
+        raffleStatus: $raffleStatus
       }
     )
   }
@@ -171,5 +176,111 @@ export const EDIT_RAFFLE = gql`
 export const CHANGE_RAFFLE_STATUS = gql`
   mutation changeRaffleStatus($raffleId: ID!, $Status: Boolean) {
     changeRaffleStatus(raffleId: $raffleId, Status: $Status)
+  }
+`;
+
+export const ADD_POOL = gql`
+  mutation addPool(
+    $tokenName: String!
+    $tokenLogo: String!
+    $dueDate: String!
+    $tokenAddress: String!
+  ) {
+    addPool(
+      poolInput: {
+        tokenName: $tokenName
+        tokenLogo: $tokenLogo
+        dueDate: $dueDate
+        tokenAddress: $tokenAddress
+      }
+    ) {
+      id
+      tokenAddress
+      tokenLogo
+      tokenName
+      dueDate
+      status
+    }
+  }
+`;
+
+export const UPDATE_POOL = gql`
+  mutation editPool(
+    $id: ID!
+    $tokenName: String!
+    $tokenLogo: String!
+    $dueDate: String!
+    $tokenAddress: String!
+  ) {
+    updatePool(
+      poolId: $id
+      poolInput: {
+        tokenName: $tokenName
+        tokenLogo: $tokenLogo
+        dueDate: $dueDate
+        tokenAddress: $tokenAddress
+      }
+    ) {
+      id
+      tokenAddress
+      tokenLogo
+      tokenName
+      dueDate
+      status
+    }
+  }
+`;
+
+export const UPDATE_POOL_STATUS = gql`
+  mutation editPool($id: ID!, $status: Boolean) {
+    changePoolStatus(poolId: $id, status: $status) {
+      id
+      tokenAddress
+      tokenLogo
+      tokenName
+      dueDate
+      status
+    }
+  }
+`;
+
+export const ADD_LAUNCHPAD = gql`
+  mutation AddLaunchPad(
+    $PoolName: String!
+    $PoolImage: String!
+    $TotalWinners: Int!
+    $TimeRemaining: String!
+    $MaxDeposit: Int!
+  ) {
+    AddLaunchPad(
+      LaunchPadInput: {
+        PoolName: $PoolName
+        PoolImage: $PoolImage
+        TotalWinners: $TotalWinners
+        TimeRemaining: $TimeRemaining
+        MaxDeposit: $MaxDeposit
+      }
+    )
+  }
+`;
+export const EDIT_LAUNCH = gql`
+  mutation EditLaunchPad(
+    $Id: ID!
+    $PoolName: String!
+    $PoolImage: String!
+    $TotalWinners: Int!
+    $TimeRemaining: String!
+    $MaxDeposit: Int!
+  ) {
+    EditLaunchPad(
+      Id: $Id
+      LaunchPadInput: {
+        PoolName: $PoolName
+        PoolImage: $PoolImage
+        TotalWinners: $TotalWinners
+        TimeRemaining: $TimeRemaining
+        MaxDeposit: $MaxDeposit
+      }
+    )
   }
 `;

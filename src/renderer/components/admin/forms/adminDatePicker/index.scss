@@ -1,0 +1,82 @@
+.ad-datepicker {
+  .ad-dp-error {
+    color: red;
+    margin: 0;
+  }
+  > .MuiFormControl-root {
+    > .MuiInput-underline:hover:not(.Mui-disabled):before {
+      border-bottom: 1px solid var(--ocean);
+      height: 200px;
+    }
+
+    > .MuiInputBase-root {
+      &:hover {
+        &::before {
+          border-bottom: 1px solid var(--purple-dino);
+          height: 200px;
+        }
+      }
+      &::before {
+        border-bottom: 1px solid var(--purple-dino);
+      }
+      &::after {
+        border-bottom: 1px solid var(--ocean);
+      }
+      .MuiInputBase-input {
+        color: white;
+      }
+      .MuiSvgIcon-root {
+        fill: white;
+      }
+    }
+  }
+}
+
+.MuiPickersBasePicker-pickerView {
+  color: white !important;
+  .MuiPickersCalendar-week {
+    div {
+      button {
+        span {
+          p {
+            color: white !important;
+          }
+        }
+      }
+    }
+  }
+}
+.MuiPickersToolbar-toolbar {
+  background-color: var(--dark-blue) !important;
+}
+.MuiPickersCalendarHeader-daysHeader {
+  .MuiPickersCalendarHeader-dayLabel {
+    color: white !important;
+  }
+}
+
+.MuiDialogActions-root {
+  button {
+    span {
+      color: white !important;
+    }
+  }
+}
+.MuiPickersDay-daySelected {
+  background-color: var(--purple-dino) !important;
+}
+.MuiPickersCalendarHeader-switchHeader {
+  padding: 5px 10px;
+
+  > .MuiPickersCalendarHeader-iconButton {
+    padding: 5px;
+    &:hover {
+      background-color: var(--dark-blue);
+      span {
+        svg {
+          fill: white;
+        }
+      }
+    }
+  }
+}

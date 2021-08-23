@@ -1,0 +1,11 @@
+.pageWrapperPools {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 3%;
+  .pools {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+  }
+}

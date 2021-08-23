@@ -9,6 +9,8 @@ interface IAdminDropzone {
   onDrop: (url: string) => void;
   dirName: string;
   error?: boolean;
+  initialImage?: string;
+  style?: React.CSSProperties;
 }
 
 export default function AdminDropZone({
@@ -16,21 +18,22 @@ export default function AdminDropZone({
   onDrop,
   dirName,
   error,
+  initialImage,
+  style,
 }: IAdminDropzone): JSX.Element {
-  const [image, setImage] = useState("");
-
+  const [image, setImage] = useState(initialImage ?? "");
   useDidUpdateEffect(() => {
     if (image !== "") {
       onDrop(image);
     }
   }, [image]);
   return (
-    <span className="ad-dropzone">
+    <span className="ad-dropzone" style={style ?? {}}>
       <Dropzone
         onDrop={(acceptedFiles) => {
           const data = new FormData();
-          console.log(`${process.env.REACT_APP_IMAGE_LINK}/${endpoint}`);
           data.append("file", acceptedFiles[0]);
+        
           axios
             .post(`${process.env.REACT_APP_IMAGE_LINK}/${endpoint}`, data)
             .then((res) => {

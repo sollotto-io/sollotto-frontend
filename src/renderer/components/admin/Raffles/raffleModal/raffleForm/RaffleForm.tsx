@@ -13,6 +13,8 @@ import {
 import { useState } from "react";
 import { useCallback } from "react";
 import useDidUpdateEffect from "../../../../../hooks/useDidUpdateEffect";
+import { IRaffle } from "../../../../../api/types/globalData";
+import useReduxState from "../../../../../hooks/useReduxState";
 
 interface IRaffleForm {
   raffleName: string;
@@ -29,21 +31,31 @@ interface IRaffleForm {
 export default function RaffleForm({
   closeModal,
   edit,
+  id,
 }: {
   closeModal: () => void;
   edit?: boolean;
+  id?: string;
 }): JSX.Element {
+  const [globalData] = useReduxState((state) => state.globalData);
+  const FinalRaffle = globalData.raffles.raffles.find(
+    (t: IRaffle) => t.id === id
+  );
+
+  const [data] = useState<IRaffle>(FinalRaffle);
+
   const initialState: IRaffleForm = {
-    raffleName: "",
-    urlSlug: "",
-    raffleImage: "",
-    sollotoBranding: true,
-    testingWA: "",
-    liveWA: "",
-    operatorWa: "",
-    vanityUrl: "",
-    raffleStatus: "",
+    raffleName: data !== undefined ? data.raffleName : "",
+    urlSlug: data !== undefined ? data.urlSlug : "",
+    raffleImage: data !== undefined ? data.raffleImage : "",
+    sollotoBranding: data !== undefined ? data.sollotoBranding : true,
+    testingWA: data !== undefined ? data.testingWA : "",
+    liveWA: data !== undefined ? data.liveWA : "",
+    operatorWa: data !== undefined ? data.operatorWa : "",
+    vanityUrl: data !== undefined ? data.vanityUrl : "",
+    raffleStatus: data !== undefined ? data.raffleStatus : "",
   };
+
 
   const [raffleForm, setRaffleForm] = useState<IRaffleForm>(initialState);
 
@@ -61,10 +73,22 @@ export default function RaffleForm({
     raffleImage,
   } = raffleForm;
 
-  const [addRaffle /* { data: addRes, loading: addloading } */] =
-    useMutation(ADD_RAFFLE);
+  const [addRaffle /* { data: addRes, loading: addloading } */] = useMutation(
+    ADD_RAFFLE,
+    {
+      onCompleted: async () => {
+        await globalData.raffles.refetch();
+        closeModal();
+      },
+    }
+  );
   const [editRaffle /* { data: editRes, loading: editloading } */] =
-    useMutation(EDIT_RAFFLE);
+    useMutation(EDIT_RAFFLE, {
+      onCompleted: async () => {
+        await globalData.raffles.refetch();
+        closeModal();
+      },
+    });
 
   const validateFields = (): boolean => {
     if (
@@ -73,8 +97,10 @@ export default function RaffleForm({
       testingWA === "" ||
       liveWA === "" ||
       operatorWa === "" ||
+      raffleStatus === null ||
       raffleStatus === "" ||
-      vanityUrl === ""
+      vanityUrl === "" ||
+      raffleImage === ""
     ) {
       setError(true);
       return false;
@@ -87,13 +113,17 @@ export default function RaffleForm({
   useDidUpdateEffect(() => {
     if (submiting) {
       if (validateFields()) {
-        console.log(JSON.stringify(raffleForm));
         (async () => {
           if (edit) {
-            await editRaffle({ variables: raffleForm });
+            await editRaffle({
+              variables: { ...raffleForm, raffleId: data?.id },
+            });
           } else {
-            await addRaffle({ variables: raffleForm });
+            await addRaffle({
+              variables: raffleForm,
+            });
           }
+          closeModal();
         })();
       }
       setSubmiting(false);
@@ -133,6 +163,7 @@ export default function RaffleForm({
         onDrop={(img) => handleFormChange({ raffleImage: img })}
         dirName="raffleImages"
         error={error && raffleImage == ""}
+        initialImage={data?.raffleImage ?? ""}
       />
       <AdminInput
         label="Verification Vanity URL"

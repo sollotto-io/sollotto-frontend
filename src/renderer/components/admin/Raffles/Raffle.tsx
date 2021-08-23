@@ -9,13 +9,14 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { IconButton, withStyles } from "@material-ui/core";
 /* import { useHistory } from "react-router"; */
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { IRaffle } from "../../../api/types/globalData";
 import { CHANGE_RAFFLE_STATUS } from "../../../../graphql/mutations";
 import RaffleModal from "./raffleModal/RaffleModal";
 import useReduxState from "../../../hooks/useReduxState";
+import { FETCH_RAFFLES } from "../../../../graphql/queries";
 
 const StyledTableCell = withStyles({
   root: {
@@ -31,49 +32,54 @@ const StyledPaper = withStyles({
   },
 })(Paper);
 
-export default function RaffleTable({
-  data,
-}: {
-  data: IRaffle[];
-}): JSX.Element {
-  const [changeStatus] = useMutation(CHANGE_RAFFLE_STATUS);
+export default function RaffleTable(): JSX.Element {
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
   );
+  const [changeStatus] = useMutation(CHANGE_RAFFLE_STATUS,{
+    onCompleted:async()=>{
+      await globalData.raffles.refetch()
+    },
+    onError:(e)=>{
+      console.log(e)
+    }
+  });
+ 
   const [modalState, setModalState] = useState({
     state: false,
     type: false,
     id: "",
+    index: -1,
   });
-  const [state, setState] = useState(false);
-  useEffect(() => {
-    (async () => {
-      const newRaffle = await globalData.raffles.refetch();
-      if (newRaffle) {
-        setGlobalData({
-          type: "SET_GLOBAL_DATA",
-          arg: {
-            raffles: {
-              ...globalData.raffles,
-              raffles: newRaffle.data.getAllRaffle,
-            },
-          },
-        });
-      }
-    })();
-  }, [state]);
 
+  const [state, setState] = useState(false);
+  const { loading, data, refetch } = useQuery(FETCH_RAFFLES,{
+    onCompleted:()=>{
+      setGlobalData({
+        type: "SET_GLOBAL_DATA",
+        arg: {
+          ...globalData,
+          raffles: {
+            refetch: refetch,
+            raffles: data.getAllRaffle,
+          },
+        },
+      });
+    }
+  });
   /*   const history = useHistory(); */
   const handleModalState = (
     e: React.MouseEvent<HTMLElement>,
     val: boolean,
-    id: string
+    id: string,
+    index: number
   ) => {
     e.stopPropagation();
     setModalState({
       state: true,
       type: val,
       id: id,
+      index,
     });
   };
   const handleModalClose = () => {
@@ -81,6 +87,7 @@ export default function RaffleTable({
       state: false,
       type: false,
       id: "",
+      index: -1,
     });
   };
   const handleCharityStatus = async (
@@ -96,11 +103,15 @@ export default function RaffleTable({
     setState(!state);
   };
 
+  if(loading){
+    return <h1>loading</h1>
+  }
+
   if (data !== []) {
     return (
       <>
         <button
-          onClick={(e) => handleModalState(e, true, "")}
+          onClick={(e) => handleModalState(e, true, "", -1)}
           className="gradientBg addCharityButton"
         >
           <p>Add Raffle</p> <AddCircleRoundedIcon />
@@ -110,23 +121,25 @@ export default function RaffleTable({
             <TableHead>
               <TableRow>
                 <StyledTableCell>Raffle Name</StyledTableCell>
-                <StyledTableCell align="left">PublicKey</StyledTableCell>
-                <StyledTableCell align="left"></StyledTableCell>
+                <StyledTableCell align="left">Address</StyledTableCell>
+                <StyledTableCell align="center">Edit</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((row: IRaffle, index: number) => (
+              {data.getAllRaffle.map((row:IRaffle, index: number) => (
                 <TableRow className="tableRow" key={index}>
                   <StyledTableCell component="th" scope="row">
                     {row.raffleName}
                   </StyledTableCell>
 
-                  <StyledTableCell align="left">
-                    {row.publicKey}
+                  <StyledTableCell component="th" align="left">
+                    {row.raffleStatus === "Testing"
+                      ? row.testingWA
+                      : row.liveWA}
                   </StyledTableCell>
                   <StyledTableCell>
                     <IconButton
-                      onClick={(e) => handleModalState(e, false, row.id)}
+                      onClick={(e) => handleModalState(e, false, row.id, index)}
                     >
                       <EditRoundedIcon className="edit-delete-button" />
                     </IconButton>
@@ -150,10 +163,11 @@ export default function RaffleTable({
           open={modalState.state}
           onClose={handleModalClose}
           edit={!modalState.type}
+          id={modalState.id}
         />
       </>
     );
   }
 
-  return <></>;
+  return <h1>hello</h1>;
 }

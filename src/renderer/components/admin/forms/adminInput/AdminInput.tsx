@@ -27,7 +27,7 @@ export default function AdminInput({
       <input
         {...(value !== undefined &&
           onChange !== undefined && {
-            value: value,
+            defaultValue:value,
             onChange: (e) => onChange(e.target.value),
           })}
         className="ad-input"

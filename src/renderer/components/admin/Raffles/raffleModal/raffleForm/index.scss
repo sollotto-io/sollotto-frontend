@@ -9,3 +9,33 @@
     grid-column: 2/3;
   }
 }
+@media (max-width: 768px) {
+  .r-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .r-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  .r-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1400px) {
+}
+
+@media (min-width: 1400px) and (max-width: 2500px) {
+}
+@media (min-width: 2500px) {
+}
