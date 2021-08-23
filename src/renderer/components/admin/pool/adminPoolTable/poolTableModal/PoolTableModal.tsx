@@ -29,7 +29,7 @@ export default function PoolTableModal({
           <h1>{edit ? "Edit Pool" : "Add Pool"}</h1>
         </div>
         <div className="p-modal-body">
-          <form>
+         
             {edit ? (
               <PoolForm
                 closeModal={onClose}
@@ -40,7 +40,7 @@ export default function PoolTableModal({
             ) : (
               <PoolForm closeModal={onClose} />
             )}
-          </form>
+         
         </div>
       </div>
     </Modal>

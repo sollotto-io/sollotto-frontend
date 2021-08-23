@@ -9,13 +9,14 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { IconButton, withStyles } from "@material-ui/core";
 /* import { useHistory } from "react-router"; */
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { IRaffle } from "../../../api/types/globalData";
 import { CHANGE_RAFFLE_STATUS } from "../../../../graphql/mutations";
 import RaffleModal from "./raffleModal/RaffleModal";
 import useReduxState from "../../../hooks/useReduxState";
+import { FETCH_RAFFLES } from "../../../../graphql/queries";
 
 const StyledTableCell = withStyles({
   root: {
@@ -31,15 +32,19 @@ const StyledPaper = withStyles({
   },
 })(Paper);
 
-export default function RaffleTable({
-  data,
-}: {
-  data: IRaffle[];
-}): JSX.Element {
-  const [changeStatus] = useMutation(CHANGE_RAFFLE_STATUS);
+export default function RaffleTable(): JSX.Element {
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
   );
+  const [changeStatus] = useMutation(CHANGE_RAFFLE_STATUS,{
+    onCompleted:async()=>{
+      await globalData.raffles.refetch()
+    },
+    onError:(e)=>{
+      console.log(e)
+    }
+  });
+ 
   const [modalState, setModalState] = useState({
     state: false,
     type: false,
@@ -48,25 +53,20 @@ export default function RaffleTable({
   });
 
   const [state, setState] = useState(false);
-  useEffect(() => {
-    (async () => {
-      if (globalData.raffles.refetch) {
-        const newRaffle = await globalData.raffles.refetch();
-        if (newRaffle.data) {
-          setGlobalData({
-            type: "SET_GLOBAL_DATA",
-            arg: {
-              raffles: {
-                ...globalData.raffles,
-                raffles: newRaffle.data.getAllRaffle,
-              },
-            },
-          });
-        }
-      }
-    })();
-  }, [state]);
-
+  const { loading, data, refetch } = useQuery(FETCH_RAFFLES,{
+    onCompleted:()=>{
+      setGlobalData({
+        type: "SET_GLOBAL_DATA",
+        arg: {
+          ...globalData,
+          raffles: {
+            refetch: refetch,
+            raffles: data.getAllRaffle,
+          },
+        },
+      });
+    }
+  });
   /*   const history = useHistory(); */
   const handleModalState = (
     e: React.MouseEvent<HTMLElement>,
@@ -97,11 +97,15 @@ export default function RaffleTable({
     await changeStatus({
       variables: {
         raffleId: id,
-        status: event.target.checked,
+        Status: event.target.checked,
       },
     });
     setState(!state);
   };
+
+  if(loading){
+    return <h1>loading</h1>
+  }
 
   if (data !== []) {
     return (
@@ -122,7 +126,7 @@ export default function RaffleTable({
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((row: IRaffle, index: number) => (
+              {data.getAllRaffle.map((row:IRaffle, index: number) => (
                 <TableRow className="tableRow" key={index}>
                   <StyledTableCell component="th" scope="row">
                     {row.raffleName}
@@ -141,7 +145,7 @@ export default function RaffleTable({
                     </IconButton>
                     <Switch
                       onClick={(e) => e.stopPropagation()}
-                      checked={row.status}
+                      checked={row.Status}
                       onChange={(e) => {
                         handleCharityStatus(e, row.id);
                       }}
@@ -159,11 +163,11 @@ export default function RaffleTable({
           open={modalState.state}
           onClose={handleModalClose}
           edit={!modalState.type}
-          data={data[modalState.index]}
+          id={modalState.id}
         />
       </>
     );
   }
 
-  return <></>;
+  return <h1>hello</h1>;
 }

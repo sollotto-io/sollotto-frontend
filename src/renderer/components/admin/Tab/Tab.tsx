@@ -35,7 +35,13 @@ export default function TabView({
             onClick={() => handleTabChange(2)}
             className={tabState === 2 ? "active" : ""}
           >
-            Pool
+            Pools
+          </p>
+          <p
+            onClick={() => handleTabChange(3)}
+            className={tabState === 3 ? "active" : ""}
+          >
+            Launch Pad
           </p>
         </span>
       </div>

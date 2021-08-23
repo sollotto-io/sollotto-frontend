@@ -3,14 +3,16 @@ import TabView from "../../components/admin/Tab/Tab";
 import { useEffect, useState } from "react";
 import CharityAdminTable from "../../components/admin/Charities/AdminCharity";
 import Raffles from "../../components/admin/Raffles/Raffle";
+// import Statistics from "../../components/admin/Statistics/Statistics";
+import LaunchPad from "../../components/admin/LaunchPad/LaunchPad";
 /* import Statistics from "../../components/admin/Statistics/Statistics"; */
 import AdminPool from "../../components/admin/pool/AdminPool";
 import useReduxState from "../../hooks/useReduxState";
-import { FETCH_RAFFLES, FETCH_ALL_POOLS } from "../../../graphql/queries";
+import { FETCH_ALL_POOLS } from "../../../graphql/queries";
 import { useQuery } from "@apollo/react-hooks";
 
 export default function Admin(): JSX.Element {
-  const { loading, data, refetch } = useQuery(FETCH_RAFFLES);
+ 
   const {
     loading: loadingPools,
     data: poolData,
@@ -21,21 +23,8 @@ export default function Admin(): JSX.Element {
   );
   const [tabState, setTabState] = useState(0);
   useEffect(() => {
-    if (!loading) {
-      setGlobalData({
-        type: "SET_GLOBAL_DATA",
-        arg: {
-          ...globalData,
-          raffles: {
-            refetch: refetch,
-            raffles: data.getAllRaffle,
-          },
-        },
-      });
-    }
-
+  
     if (!loadingPools) {
-      console.log(poolData);
       setGlobalData({
         type: "SET_GLOBAL_DATA",
         arg: {
@@ -47,16 +36,18 @@ export default function Admin(): JSX.Element {
         },
       });
     }
-  }, [loading, loadingPools]);
+  }, [loadingPools]);
   return (
     <div className="admin-wrapper">
       <TabView tabState={tabState} setTabState={setTabState} />
       {tabState === 0 ? (
         <CharityAdminTable rows={globalData.charities.charities} />
       ) : tabState === 1 ? (
-        <Raffles data={globalData.raffles.raffles} />
-      ) : (
+        <Raffles />
+      ) : tabState === 2 ? (
         <AdminPool data={globalData.pools.pools} />
+      ) : (
+        <LaunchPad />
       )}
     </div>
   );

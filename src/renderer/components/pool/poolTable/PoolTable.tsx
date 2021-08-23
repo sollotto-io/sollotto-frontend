@@ -6,13 +6,15 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { PublicKey } from "@solana/web3.js";
 
 import PoolModal from "./poolModal/poolModal";
 import { withStyles } from "@material-ui/core";
-import CountDown from "../../common/countDown/CountDown";
+import Countdown from "react-countdown";
 import { IPool } from "../../../api/types/globalData";
-import useTypedReduxState from "../../../hooks/useTypedReduxState";
+import { useQuery } from "@apollo/client";
+import useReduxState from "../../../hooks/useReduxState";
+import { FETCH_ALL_POOLS } from "../../../../graphql/queries";
+import Loader from "../../common/loader/Loader";
 import { useEffect } from "react";
 
 const StyledTableCell = withStyles({
@@ -27,26 +29,35 @@ const StyledPaper = withStyles({
   },
 })(Paper);
 
-export default function PoolTable({ rows }: { rows: IPool[] }): JSX.Element {
-  const [{ connection }] = useTypedReduxState((state) => state.globalData);
-
+export default function PoolTable(): JSX.Element {
+  const [, setGlobalData] = useReduxState((state) => state.globalData);
+  const {
+    loading: loadingPools,
+    data: poolData,
+    refetch: poolRefetch,
+  } = useQuery(FETCH_ALL_POOLS, {
+    onCompleted: () => {
+      setGlobalData({
+        type: "SET_GLOBAL_DATA",
+        arg: {
+          pools: {
+            refetch: poolRefetch,
+            pools: poolData.getAllPools,
+          },
+        },
+      });
+    },
+  });
   useEffect(() => {
     (async () => {
-      const tok = await connection.getAccountInfo(
-        new PublicKey("DR9bNjsv25meGDeXqQLqf6Xoo1LBpdhP6wiuQ4ir2Jmo")
-      );
-      const tok2 = await connection.getConfirmedSignaturesForAddress2(
-        new PublicKey("DR9bNjsv25meGDeXqQLqf6Xoo1LBpdhP6wiuQ4ir2Jmo")
-      );
-
-      const tx = await connection.getParsedConfirmedTransactions(
-        tok2.map((t) => t.signature)
-      );
-      console.log(tx);
-      console.log(tok);
-      console.log(tok2);
+      const data = await poolRefetch();
+      console.log(data);
+      console.log("mounted");
     })();
   }, []);
+  if (loadingPools) {
+    return <Loader />;
+  }
   return (
     <TableContainer component={StyledPaper}>
       <Table className="table" aria-label="simple table">
@@ -61,32 +72,34 @@ export default function PoolTable({ rows }: { rows: IPool[] }): JSX.Element {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => (
-            <TableRow className="tableRow" key={index}>
-              <StyledTableCell component="th" scope="row">
-                <div className="p-name">
-                  <img
-                    src={`${process.env.REACT_APP_IMAGE_LINK}${row.tokenLogo}`}
-                  />{" "}
-                  {row.tokenName}
-                </div>
-              </StyledTableCell>
-              <StyledTableCell align="center">{1000}</StyledTableCell>
-              <StyledTableCell align="center">
-                <CountDown date={row.dueDate} />
-                {/* {moment(row.dueDate).format("L")} */}
-              </StyledTableCell>
-              <StyledTableCell align="center">{10000}</StyledTableCell>
-              <StyledTableCell align="center">{10000}</StyledTableCell>
-              <StyledTableCell align="center">
-                <PoolModal
-                  rowIndex={index}
-                  id={`rowIndex`}
-                  tokenName={row.tokenName}
-                />
-              </StyledTableCell>
-            </TableRow>
-          ))}
+          {poolData.getAllPools
+            .filter((ps: IPool) => ps.status)
+            .map((row: IPool, index: number) => (
+              <TableRow className="tableRow" key={index}>
+                <StyledTableCell component="th" scope="row">
+                  <div className="p-name">
+                    <img
+                      src={`${process.env.REACT_APP_IMAGE_LINK}${row.tokenLogo}`}
+                    />{" "}
+                    {row.tokenName}
+                  </div>
+                </StyledTableCell>
+                <StyledTableCell align="center">{1000}</StyledTableCell>
+                <StyledTableCell align="center">
+                  {console.log(new Date(parseInt(row.dueDate)))}
+                  <Countdown date={parseInt(row.dueDate)} />
+                </StyledTableCell>
+                <StyledTableCell align="center">{10000}</StyledTableCell>
+                <StyledTableCell align="center">{10000}</StyledTableCell>
+                <StyledTableCell align="center">
+                  <PoolModal
+                    rowIndex={index}
+                    id={`rowIndex`}
+                    tokenName={row.tokenName}
+                  />
+                </StyledTableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </TableContainer>

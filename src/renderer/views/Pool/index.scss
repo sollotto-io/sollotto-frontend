@@ -54,10 +54,11 @@
 }
 .table {
   min-width: 20em;
-  background-color: var(--dark-blue);
+  background-color: var(--dark-blue) !important;
   border: 0;
   box-shadow: 0;
 }
+
 .tableRow {
   cursor: pointer;
 }
@@ -186,7 +187,7 @@
   }
   .table {
     min-width: 40em;
-    background-color: var(--dark-blue);
+    background-color: var(--dark-blue) !important;
     border: 0;
     box-shadow: 0;
   }

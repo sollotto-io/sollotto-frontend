@@ -23,7 +23,6 @@ import { Link } from "react-router-dom";
 
 export default function PurchaseForm(): JSX.Element {
   const [addTicket] = useMutation(POST_TICKET);
-
   const [globalData, setGlobalData] = useReduxState(
     (state: AppState) => state.globalData
   );

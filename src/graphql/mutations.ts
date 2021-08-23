@@ -32,6 +32,11 @@ export const CHARITY_STATUS_CHAGED = gql`
     deleteCharity(charityId: $charityId, Status: $Status)
   }
 `;
+export const LAUNCHPAD_STATUS_CHAGED = gql`
+  mutation changeLaunchState($Id: ID!, $Status: Boolean!) {
+    changeLaunchState(Id: $Id, Status: $Status)
+  }
+`;
 
 export const UPDATE_CHARITY = gql`
   mutation updateCharity(
@@ -169,8 +174,8 @@ export const EDIT_RAFFLE = gql`
 `;
 
 export const CHANGE_RAFFLE_STATUS = gql`
-  mutation changeRaffleStatus($raffleId: ID!, $status: Boolean) {
-    changeRaffleStatus(raffleId: $raffleId, status: $status)
+  mutation changeRaffleStatus($raffleId: ID!, $Status: Boolean) {
+    changeRaffleStatus(raffleId: $raffleId, Status: $Status)
   }
 `;
 
@@ -236,5 +241,46 @@ export const UPDATE_POOL_STATUS = gql`
       dueDate
       status
     }
+  }
+`;
+
+export const ADD_LAUNCHPAD = gql`
+  mutation AddLaunchPad(
+    $PoolName: String!
+    $PoolImage: String!
+    $TotalWinners: Int!
+    $TimeRemaining: String!
+    $MaxDeposit: Int!
+  ) {
+    AddLaunchPad(
+      LaunchPadInput: {
+        PoolName: $PoolName
+        PoolImage: $PoolImage
+        TotalWinners: $TotalWinners
+        TimeRemaining: $TimeRemaining
+        MaxDeposit: $MaxDeposit
+      }
+    )
+  }
+`;
+export const EDIT_LAUNCH = gql`
+  mutation EditLaunchPad(
+    $Id: ID!
+    $PoolName: String!
+    $PoolImage: String!
+    $TotalWinners: Int!
+    $TimeRemaining: String!
+    $MaxDeposit: Int!
+  ) {
+    EditLaunchPad(
+      Id: $Id
+      LaunchPadInput: {
+        PoolName: $PoolName
+        PoolImage: $PoolImage
+        TotalWinners: $TotalWinners
+        TimeRemaining: $TimeRemaining
+        MaxDeposit: $MaxDeposit
+      }
+    )
   }
 `;

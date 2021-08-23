@@ -19,7 +19,9 @@ import useReduxState from "./renderer/hooks/useReduxState";
 import { useQuery } from "@apollo/react-hooks";
 import { FETCH_ALL_CHARITIES, FETCH_UPCOMING_DRAWING } from "./graphql/queries";
 import Admin from "./renderer/views/Admin";
-import GrapeIDO from "./renderer/views/GrapeIDO";
+import LaunchPad from "./renderer/views/LauchPad/LaunchPad";
+// import GrapeIDO from "./renderer/views/GrapeIDO";
+// import GrapeIDO from "./renderer/views/GrapeIDO";
 import Pool2 from "./renderer/views/Pool/Pool2/Pool2";
 
 function Main(): JSX.Element {
@@ -109,7 +111,7 @@ function Main(): JSX.Element {
       <div className="App">
         <Switch>
           <Route exact path="/admin" component={Admin} />
-          <Route exact path="/grape-parrot-ido" component={GrapeIDO} />
+          {/* <Route exact path="/grape-parrot-ido" component={GrapeIDO} /> */}
           <Route path="/">
             <Navbar />
             <Switch>
@@ -132,11 +134,14 @@ function Main(): JSX.Element {
               <Route exact path="/charities">
                 <Charities charityloading={charityloading && loading} />
               </Route>
-              {/*           <Route exact path="/suggest">
+              {/* <Route exact path="/suggest">
                 <Suggest />
               </Route> */}
               <Route exact path="/pools">
                 <Pool2 />
+              </Route>
+              <Route exact path="/lauchpad">
+                <LaunchPad/>
               </Route>
               <Route exact path="/verify">
                 <Verify />

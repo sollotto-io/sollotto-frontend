@@ -8,7 +8,7 @@ import NumberSelectorIDO from "../numberSelector/NumberSelector";
 import reduxAction from "../../../redux/reduxAction";
 import IDOButton from "./IDOButton";
 import { sendWinnerNumbers } from "../utils/sendWinnerNumbers";
-import { RandomTicketGenerator } from "../utils/randomWinnerNumbers";
+import { RandomTicketGeneratorIDO } from "../utils/randomWinnerNumbers";
 import { CSVReader } from "react-papaparse";
 
 export interface IusersProps {
@@ -57,7 +57,7 @@ export default function IDOForm({
         progress: undefined,
       });
     } else {
-      const tempticketArr = RandomTicketGenerator(users, winners);
+      const tempticketArr = RandomTicketGeneratorIDO(users, winners);
 
       const ticketNumbers = sortTicketNumber(tempticketArr);
       if (globalData.selectedWallet === null) {

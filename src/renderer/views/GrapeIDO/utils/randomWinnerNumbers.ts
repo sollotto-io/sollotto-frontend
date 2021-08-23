@@ -5,7 +5,7 @@ export const sortTicketNumber = (ticketNumber: number[]): number[] => [
   ticketNumber[ticketNumber.length - 1],
 ];
 
-export const RandomTicketGenerator = (
+export const RandomTicketGeneratorIDO = (
   users:number,
   winners:number,
 ): number[] => {
@@ -16,7 +16,7 @@ export const RandomTicketGenerator = (
       if (i < winners) {
         let invalidNumber = true;
         while (invalidNumber) {
-          randomNumber = random.int(0, users);
+          randomNumber = random.int(1, users);
           if (winningNumber.indexOf(randomNumber) === -1) {
             winningNumber.push(randomNumber);
             invalidNumber = false;

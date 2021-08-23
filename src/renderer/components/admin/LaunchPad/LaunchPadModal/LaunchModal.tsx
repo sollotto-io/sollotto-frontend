@@ -1,18 +1,19 @@
 import "./index.scss";
 import { Modal } from "@material-ui/core";
-import RaffleForm from "./raffleForm/RaffleForm";
-
-export default function RaffleModal({
+import LaunchForm from "./LaunchForm/LaunchForm"
+export default function LaunchModal({
   open,
   onClose,
   edit,
-  id,
+  id
 }: {
   open: boolean;
   edit?: boolean;
-  id?: string;
   onClose: () => void;
+  id:string
 }): JSX.Element {
+  
+
 
   return (
     <Modal
@@ -24,16 +25,16 @@ export default function RaffleModal({
     >
       <div className="r-modal gradientBg gradientBorder">
         <div className="r-modal-header">
-          <h1>{edit ? "Edit Raffle" : "Add Raffle"}</h1>
+          <h1>{edit ? "Edit LaunchPad Lottery" : "Add LaunchPad Lottery"}</h1>
         </div>
         <div className="r-modal-body">
-          
+         
             {edit ? (
-              <RaffleForm closeModal={onClose} edit={edit} id={id} />
+              <LaunchForm closeModal={onClose} edit={edit} id={id} />
             ) : (
-              <RaffleForm closeModal={onClose} />
+              <LaunchForm closeModal={onClose}  />
             )}
-          
+         
         </div>
       </div>
     </Modal>

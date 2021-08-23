@@ -1,4 +1,5 @@
 .ad-select {
+  background-color: var(--dark-blue);
   width: 100%;
   position: relative;
   .ad-select-error {
@@ -41,7 +42,8 @@
 }
 
 .MuiPaper-root {
-  background-color: var(--navy-blue) !important;
+    background-color: var(--dark-blue) !important ;
+
   > ul {
     > li {
       color: white;

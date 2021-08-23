@@ -22,8 +22,6 @@ export default function AdminDropZone({
   style,
 }: IAdminDropzone): JSX.Element {
   const [image, setImage] = useState(initialImage ?? "");
-
-  console.log(initialImage);
   useDidUpdateEffect(() => {
     if (image !== "") {
       onDrop(image);
@@ -35,6 +33,7 @@ export default function AdminDropZone({
         onDrop={(acceptedFiles) => {
           const data = new FormData();
           data.append("file", acceptedFiles[0]);
+        
           axios
             .post(`${process.env.REACT_APP_IMAGE_LINK}/${endpoint}`, data)
             .then((res) => {

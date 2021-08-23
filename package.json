@@ -26,7 +26,6 @@
     "axios": "^0.21.1",
     "bn.js": "^5.2.0",
     "borsh": "^0.4.0",
-    "buffer-layout": "^1.2.2",
     "crypto-js": "^4.1.1",
     "date-fns": "^2.23.0",
     "dotenv": "^8.2.0",
@@ -40,6 +39,7 @@
     "random": "^3.0.6",
     "react": "^17.0.2",
     "react-countdown": "^2.3.2",
+    "react-datepicker": "^4.2.1",
     "react-dom": "^17.0.2",
     "react-dropzone": "^11.3.4",
     "react-papaparse": "^3.17.0",
@@ -80,6 +80,7 @@
   "devDependencies": {
     "@types/apollo-upload-client": "^14.1.0",
     "@types/crypto-js": "^4.0.2",
+    "@types/react-datepicker": "^4.1.4",
     "@types/react-responsive": "^8.0.3",
     "@types/react-router-dom": "^5.1.7",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
