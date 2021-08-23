@@ -1,0 +1,24 @@
+.p-modal-w {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.p-modal {
+  background-color: white;
+  width: fit-content;
+  .p-modal-header {
+    h1 {
+      margin: 0;
+      font-size: 40px;
+    }
+    margin: 3px;
+    padding: 10px;
+  }
+  > div {
+    background-color: var(--dark-blue);
+  }
+  .p-modal-body {
+    padding: 15px;
+    margin: 0 3px 3px 3px;
+  }
+}

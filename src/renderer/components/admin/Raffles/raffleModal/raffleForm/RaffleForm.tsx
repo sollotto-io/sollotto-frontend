@@ -31,27 +31,31 @@ interface IRaffleForm {
 export default function RaffleForm({
   closeModal,
   edit,
-  data,
+  id,
 }: {
   closeModal: () => void;
   edit?: boolean;
-  data?: IRaffle;
+  id?: string;
 }): JSX.Element {
+  const [globalData] = useReduxState((state) => state.globalData);
+  const FinalRaffle = globalData.raffles.raffles.find(
+    (t: IRaffle) => t.id === id
+  );
+
+  const [data] = useState<IRaffle>(FinalRaffle);
+
   const initialState: IRaffleForm = {
-    raffleName: data?.raffleName ?? "",
-    urlSlug: data?.urlSlug ?? "",
-    raffleImage: data?.raffleImage ?? "",
-    sollotoBranding: data?.sollotoBranding ?? true,
-    testingWA: data?.testingWA ?? "",
-    liveWA: data?.liveWA ?? "",
-    operatorWa: data?.operatorWa ?? "",
-    vanityUrl: data?.vanityUrl ?? "",
-    raffleStatus: data?.raffleStatus ?? "",
+    raffleName: data !== undefined ? data.raffleName : "",
+    urlSlug: data !== undefined ? data.urlSlug : "",
+    raffleImage: data !== undefined ? data.raffleImage : "",
+    sollotoBranding: data !== undefined ? data.sollotoBranding : true,
+    testingWA: data !== undefined ? data.testingWA : "",
+    liveWA: data !== undefined ? data.liveWA : "",
+    operatorWa: data !== undefined ? data.operatorWa : "",
+    vanityUrl: data !== undefined ? data.vanityUrl : "",
+    raffleStatus: data !== undefined ? data.raffleStatus : "",
   };
 
-  const [{ raffles }, setGlobalState] = useReduxState(
-    (state) => state.globalData
-  );
 
   const [raffleForm, setRaffleForm] = useState<IRaffleForm>(initialState);
 
@@ -69,10 +73,22 @@ export default function RaffleForm({
     raffleImage,
   } = raffleForm;
 
-  const [addRaffle /* { data: addRes, loading: addloading } */] =
-    useMutation(ADD_RAFFLE);
+  const [addRaffle /* { data: addRes, loading: addloading } */] = useMutation(
+    ADD_RAFFLE,
+    {
+      onCompleted: async () => {
+        await globalData.raffles.refetch();
+        closeModal();
+      },
+    }
+  );
   const [editRaffle /* { data: editRes, loading: editloading } */] =
-    useMutation(EDIT_RAFFLE);
+    useMutation(EDIT_RAFFLE, {
+      onCompleted: async () => {
+        await globalData.raffles.refetch();
+        closeModal();
+      },
+    });
 
   const validateFields = (): boolean => {
     if (
@@ -97,45 +113,15 @@ export default function RaffleForm({
   useDidUpdateEffect(() => {
     if (submiting) {
       if (validateFields()) {
-        console.log(JSON.stringify(raffleForm));
-        console.log(JSON.stringify({ ...raffleForm, raffleId: data?.id }));
         (async () => {
           if (edit) {
             await editRaffle({
               variables: { ...raffleForm, raffleId: data?.id },
             });
-            if (raffles.refetch) {
-              const { data } = await raffles.refetch();
-              if (data.getAllRaffle) {
-                setGlobalState({
-                  type: "SET_GLOBAL_DATA",
-                  arg: {
-                    raffles: {
-                      ...raffles,
-                      raffles: data.getAllRaffle,
-                    },
-                  },
-                });
-              }
-            }
           } else {
             await addRaffle({
               variables: raffleForm,
             });
-            if (raffles.refetch) {
-              const { data } = await raffles.refetch();
-              if (data.getAllRaffle) {
-                setGlobalState({
-                  type: "SET_GLOBAL_DATA",
-                  arg: {
-                    raffles: {
-                      ...raffles,
-                      raffles: data.getAllRaffle,
-                    },
-                  },
-                });
-              }
-            }
           }
           closeModal();
         })();

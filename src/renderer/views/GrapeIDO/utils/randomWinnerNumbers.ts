@@ -5,7 +5,7 @@ export const sortTicketNumber = (ticketNumber: number[]): number[] => [
   ticketNumber[ticketNumber.length - 1],
 ];
 
-export const RandomTicketGenerator = (
+export const RandomTicketGeneratorIDO = (
   users:number,
   winners:number,
 ): number[] => {

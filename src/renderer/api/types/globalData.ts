@@ -31,26 +31,56 @@ export interface Icharities {
 
 export interface IRaffle {
   id: string;
-  raffleName: string;
-  urlSlug: string;
-  raffleImage: string;
-  sollotoBranding: boolean;
-  testingWA: string;
-  liveWA: string;
-  operatorWa: string;
-  vanityUrl: string;
-  raffleStatus: "Testing" | "Completed" | "Live";
-  status: boolean;
+  raffleName:string;
+  urlSlug:string;
+  raffleImage:string;
+  sollotoBranding:boolean;
+  testingWA:string;
+  liveWA:string;
+  operatorWa:string;
+  vanityUrl:string;
+  raffleStatus:string;
+  Status:boolean
+}
+export interface ILaunch {
+  id: string;
+  PoolName: string;
+  PoolImage: string;
+  TimeRemaining: string;
+  TotalWinners: number;
+  MaxDeposit: number;
+  Status: boolean;
+ 
 }
 export interface IRaffles {
   refetch: Refetch | null;
   raffles: IRaffle[];
+}
+export interface ILaunchPad {
+  refetch: Refetch | null;
+  launchPad: ILaunch[];
+}
+
+export interface IPool {
+  id: string;
+  tokenName: string;
+  tokenLogo: string;
+  dueDate: string;
+  tokenAddress: string;
+  status: boolean;
+}
+
+export interface IPools {
+  pools: IPool[];
+  refetch: Refetch | null;
 }
 
 export interface IglobalData {
   holdingWalletId: string;
   charities: Icharities;
   raffles: IRaffles;
+  launchPad: ILaunchPad;
+  pools: IPools;
   selectedWallet: PhantomProvider | null;
   walletBalance: number;
   walletConnectedFlag: boolean;
