@@ -9,8 +9,13 @@ import Paper from "@material-ui/core/Paper";
 
 import PoolModal from "./poolModal/poolModal";
 import { withStyles } from "@material-ui/core";
-import CountDown from "../../common/countDown/CountDown";
+import Countdown from "react-countdown";
 import { IPool } from "../../../api/types/globalData";
+import { useQuery } from "@apollo/client";
+import useReduxState from "../../../hooks/useReduxState";
+import { FETCH_ALL_POOLS } from "../../../../graphql/queries";
+import Loader from "../../common/loader/Loader";
+import { useEffect } from "react";
 
 const StyledTableCell = withStyles({
   root: {
@@ -24,7 +29,35 @@ const StyledPaper = withStyles({
   },
 })(Paper);
 
-export default function PoolTable({ rows }: { rows: IPool[] }): JSX.Element {
+export default function PoolTable(): JSX.Element {
+  const [, setGlobalData] = useReduxState((state) => state.globalData);
+  const {
+    loading: loadingPools,
+    data: poolData,
+    refetch: poolRefetch,
+  } = useQuery(FETCH_ALL_POOLS,{
+    onCompleted:()=>{
+      setGlobalData({
+        type: "SET_GLOBAL_DATA",
+        arg: {
+          pools: {
+            refetch: poolRefetch,
+            pools: poolData.getAllPools,
+          },
+        },
+      });
+    }
+  });
+  useEffect(() => {
+    (async()=>{
+     const data =  await poolRefetch();
+      console.log(data)
+      console.log("mounted")
+    })()
+  }, []);
+if(loadingPools){
+  return <Loader />
+}
   return (
     <TableContainer component={StyledPaper}>
       <Table className="table" aria-label="simple table">
@@ -39,7 +72,7 @@ export default function PoolTable({ rows }: { rows: IPool[] }): JSX.Element {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => (
+          {poolData.getAllPools.filter((ps:IPool)=>ps.status).map((row:IPool, index:number) => (
             <TableRow className="tableRow" key={index}>
               <StyledTableCell component="th" scope="row">
                 <div className="p-name">
@@ -51,8 +84,9 @@ export default function PoolTable({ rows }: { rows: IPool[] }): JSX.Element {
               </StyledTableCell>
               <StyledTableCell align="center">{1000}</StyledTableCell>
               <StyledTableCell align="center">
-                <CountDown date={row.dueDate} />
-                {/* {moment(row.dueDate).format("L")} */}
+                {console.log(new Date(parseInt(row.dueDate)))}
+                <Countdown date={parseInt(row.dueDate)} />
+               
               </StyledTableCell>
               <StyledTableCell align="center">{10000}</StyledTableCell>
               <StyledTableCell align="center">{10000}</StyledTableCell>

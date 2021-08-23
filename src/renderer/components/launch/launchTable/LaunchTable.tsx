@@ -8,6 +8,11 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core";
 import Countdown from "react-countdown";
+import { FETCH_LAUNCHES } from "../../../../graphql/queries";
+import { useQuery } from "@apollo/react-hooks";
+import useReduxState from "../../../hooks/useReduxState";
+import { ILaunch } from "../../../api/types/globalData";
+import { useEffect } from "react";
 
 const StyledTableCell = withStyles({
   root: {
@@ -24,6 +29,30 @@ const StyledPaper = withStyles({
 })(Paper);
 
 export default function LaunchTable(): JSX.Element {
+  const [, setGlobalData] = useReduxState((state) => state.globalData);
+
+  const { loading, data, refetch } = useQuery(FETCH_LAUNCHES, {
+    onCompleted: () => {
+      setGlobalData({
+        type: "SET_GLOBAL_DATA",
+        arg: {
+          launchPad: {
+            refetch: refetch,
+            launchPad: data.getAllLaunched,
+          },
+        },
+      });
+    },
+  });
+  useEffect(() => {
+    (async () => {
+      await refetch();
+    })();
+  }, []);
+
+  if (loading) {
+    return <h1>Loading</h1>;
+  }
   return (
     <TableContainer component={StyledPaper}>
       <Table className="table" aria-label="simple table">
@@ -40,24 +69,41 @@ export default function LaunchTable(): JSX.Element {
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow className="tableRow">
-            <StyledTableCell component="th" scope="row">
-              CRAY
-            </StyledTableCell>
-            <StyledTableCell align="left">1000 CRAY</StyledTableCell>
-            <StyledTableCell align="left">5</StyledTableCell>
+          {data.getAllLaunched.map((row: ILaunch, index: number) => (
+            <TableRow key={index} className="tableRow">
+              <StyledTableCell component="th" scope="row">
+                <span
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    columnGap: 10,
+                  }}
+                >
+                  <img
+                    src={`${process.env.REACT_APP_IMAGE_LINK}${row.PoolImage}`}
+                    height={30}
+                    width={30}
+                    alt=""
+                  />
+                  {row.PoolName}
+                </span>
+              </StyledTableCell>
+              <StyledTableCell align="left">1000 CRAY</StyledTableCell>
+              <StyledTableCell align="left">{row.TotalWinners}</StyledTableCell>
 
-           
-            <StyledTableCell align="left"><Countdown date={"2021-08-22T00:00:00+00:00"}/></StyledTableCell>
-            <StyledTableCell align="left">50 CRAY</StyledTableCell>
-            <StyledTableCell align="left">10 CRAY</StyledTableCell>
-            <StyledTableCell align="left">1000 CRAY</StyledTableCell>
-            <StyledTableCell align="left">
-              <p id="addedBy-Table" className="gradientBg gradientBorder">
-                Deposit
-              </p>
-            </StyledTableCell>
-          </TableRow>
+              <StyledTableCell align="left">
+                <Countdown date={row.TimeRemaining} />
+              </StyledTableCell>
+              <StyledTableCell align="left">{row.MaxDeposit}</StyledTableCell>
+              <StyledTableCell align="left">10 CRAY</StyledTableCell>
+              <StyledTableCell align="left">1000 CRAY</StyledTableCell>
+              <StyledTableCell align="left">
+                <p id="addedBy-Table" className="gradientBg gradientBorder">
+                  Deposit
+                </p>
+              </StyledTableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
