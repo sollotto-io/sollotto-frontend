@@ -6,11 +6,14 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { PublicKey } from "@solana/web3.js";
 
 import PoolModal from "./poolModal/poolModal";
 import { withStyles } from "@material-ui/core";
 import CountDown from "../../common/countDown/CountDown";
 import { IPool } from "../../../api/types/globalData";
+import useTypedReduxState from "../../../hooks/useTypedReduxState";
+import { useEffect } from "react";
 
 const StyledTableCell = withStyles({
   root: {
@@ -25,6 +28,25 @@ const StyledPaper = withStyles({
 })(Paper);
 
 export default function PoolTable({ rows }: { rows: IPool[] }): JSX.Element {
+  const [{ connection }] = useTypedReduxState((state) => state.globalData);
+
+  useEffect(() => {
+    (async () => {
+      const tok = await connection.getAccountInfo(
+        new PublicKey("DR9bNjsv25meGDeXqQLqf6Xoo1LBpdhP6wiuQ4ir2Jmo")
+      );
+      const tok2 = await connection.getConfirmedSignaturesForAddress2(
+        new PublicKey("DR9bNjsv25meGDeXqQLqf6Xoo1LBpdhP6wiuQ4ir2Jmo")
+      );
+
+      const tx = await connection.getParsedConfirmedTransactions(
+        tok2.map((t) => t.signature)
+      );
+      console.log(tx);
+      console.log(tok);
+      console.log(tok2);
+    })();
+  }, []);
   return (
     <TableContainer component={StyledPaper}>
       <Table className="table" aria-label="simple table">
