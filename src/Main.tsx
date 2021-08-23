@@ -12,17 +12,17 @@ import Navbar from "./renderer/components/navbar/Navbar";
 import CharityDetail from "./renderer/components/charity/charityDetail/CharityDetail";
 import Results from "./renderer/views/Results/Results";
 import ResultDetail from "./renderer/components/result/resultDetail/ResultDetail";
-/* import Pool from "./renderer/views/Pool/Pool"; */
-import Verify from "./renderer/views/Verify/Verify";
+ import Pool from "./renderer/views/Pool/Pool"; 
 import Footer from "./renderer/views/Footer/Footer";
 import useReduxState from "./renderer/hooks/useReduxState";
 import { useQuery } from "@apollo/react-hooks";
 import { FETCH_ALL_CHARITIES, FETCH_UPCOMING_DRAWING } from "./graphql/queries";
-import Admin from "./renderer/views/Admin";
-import LaunchPad from "./renderer/views/LauchPad/LaunchPad";
+// import Verify from "./renderer/views/Verify/Verify";
+// import Admin from "./renderer/views/Admin";
+// import LaunchPad from "./renderer/views/LauchPad/LaunchPad";
 // import GrapeIDO from "./renderer/views/GrapeIDO";
 // import GrapeIDO from "./renderer/views/GrapeIDO";
-import Pool2 from "./renderer/views/Pool/Pool2/Pool2";
+// import Pool2 from "./renderer/views/Pool/Pool2/Pool2";
 
 function Main(): JSX.Element {
   const [globalData, setGlobalData] = useReduxState(
@@ -117,7 +117,7 @@ function Main(): JSX.Element {
               return null;
             }}
           />
-          <Route exact path="/admin" component={Admin} />
+          {/* <Route exact path="/admin" component={Admin} /> */}
           {/* <Route exact path="/grape-parrot-ido" component={GrapeIDO} /> */}
           <Route path="/">
             <Navbar />
@@ -145,14 +145,15 @@ function Main(): JSX.Element {
                 <Suggest />
               </Route> */}
               <Route exact path="/pools">
-                <Pool2 />
+                {/* <Pool2 /> */}
+                <Pool/>
               </Route>
-              <Route exact path="/lauchpad">
+              {/* <Route exact path="/lauchpad">
                 <LaunchPad/>
-              </Route>
-              <Route exact path="/verify">
+              </Route> */}
+              {/* <Route exact path="/verify">
                 <Verify />
-              </Route>
+              </Route> */}
               <Route exact path="/charities/:id">
                 <CharityDetail />
               </Route>
