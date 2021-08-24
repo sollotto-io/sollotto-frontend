@@ -1,0 +1,56 @@
+.auth-form-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  > .gradientBg {
+    border-radius: 25px;
+  }
+  .auth-form {
+    background-color: var(--dark-blue);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: fit-content;
+    padding: 10px;
+    border-radius: 25px;
+    > h1 {
+      text-align: center;
+      font-size: 35px;
+      text-align: center;
+    }
+    > img {
+      width: 50%;
+      height: auto;
+    }
+    > form {
+      display: grid;
+      justify-items: center;
+      align-items: center;
+      row-gap: 20px;
+
+      padding: 25px;
+      border-radius: 25px;
+    }
+  }
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+}
+
+@media (min-width: 1200px) and (max-width: 1400px) {
+}
+
+@media (min-width: 1400px) and (max-width: 2500px) {
+}
+@media (min-width: 2500px) {
+}

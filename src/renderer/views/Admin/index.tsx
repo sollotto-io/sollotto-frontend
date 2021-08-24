@@ -10,9 +10,11 @@ import AdminPool from "../../components/admin/pool/AdminPool";
 import useReduxState from "../../hooks/useReduxState";
 import { FETCH_ALL_POOLS } from "../../../graphql/queries";
 import { useQuery } from "@apollo/react-hooks";
+import useTypedReduxState from "../../hooks/useTypedReduxState";
+import AuthenticationForm from "../../components/admin/authenticationForm/AuthenticationForm";
 
 export default function Admin(): JSX.Element {
- 
+  const [{ authenticated }] = useTypedReduxState((state) => state.adminData);
   const {
     loading: loadingPools,
     data: poolData,
@@ -23,7 +25,6 @@ export default function Admin(): JSX.Element {
   );
   const [tabState, setTabState] = useState(0);
   useEffect(() => {
-  
     if (!loadingPools) {
       setGlobalData({
         type: "SET_GLOBAL_DATA",
@@ -37,6 +38,10 @@ export default function Admin(): JSX.Element {
       });
     }
   }, [loadingPools]);
+
+  if (!authenticated) {
+    return <AuthenticationForm />;
+  }
   return (
     <div className="admin-wrapper">
       <TabView tabState={tabState} setTabState={setTabState} />
