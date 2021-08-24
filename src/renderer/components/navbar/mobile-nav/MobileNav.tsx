@@ -15,10 +15,12 @@ import { useLocation } from "react-router";
 import useReduxState from "../../../hooks/useReduxState";
 import WalletDisconnect from "../../common/walletDisconnect/WalletDisconnect";
 import DevnetButton from "../devnet-Button/DevnetButton";
+import { useHistory } from "react-router";
 
 export default function MobileNav(): JSX.Element {
   const { pathname } = useLocation();
   const [drawer, setDrawer] = useState<boolean>(false);
+  const history = useHistory();
   const [{ walletConnectedFlag }] = useReduxState((state) => state.globalData);
   const handleDrawerOpen = () => {
     setDrawer(!drawer);
@@ -28,7 +30,11 @@ export default function MobileNav(): JSX.Element {
       <AppBar position="fixed" className="app-bar">
         <Toolbar>
           <IconButton color="inherit" aria-label="open drawer" edge="start">
-            <img className="m-appbar-icon" src={SollotoLogoH} />
+            <img
+              className="m-appbar-icon"
+              src={SollotoLogoH}
+              onClick={() => history.push("/")}
+            />
             <DevnetButton />
           </IconButton>
           <div className="m-nav-actions">
