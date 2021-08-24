@@ -35,8 +35,8 @@ export default function PoolTable(): JSX.Element {
     loading: loadingPools,
     data: poolData,
     refetch: poolRefetch,
-  } = useQuery(FETCH_ALL_POOLS,{
-    onCompleted:()=>{
+  } = useQuery(FETCH_ALL_POOLS, {
+    onCompleted: () => {
       setGlobalData({
         type: "SET_GLOBAL_DATA",
         arg: {
@@ -46,18 +46,18 @@ export default function PoolTable(): JSX.Element {
           },
         },
       });
-    }
+    },
   });
   useEffect(() => {
-    (async()=>{
-     const data =  await poolRefetch();
-      console.log(data)
-      console.log("mounted")
-    })()
+    (async () => {
+      const data = await poolRefetch();
+      console.log(data);
+      console.log("mounted");
+    })();
   }, []);
-if(loadingPools){
-  return <Loader />
-}
+  if (loadingPools) {
+    return <Loader />;
+  }
   return (
     <TableContainer component={StyledPaper}>
       <Table className="table" aria-label="simple table">
@@ -72,33 +72,33 @@ if(loadingPools){
           </TableRow>
         </TableHead>
         <TableBody>
-          {poolData.getAllPools.filter((ps:IPool)=>ps.status).map((row:IPool, index:number) => (
-            <TableRow className="tableRow" key={index}>
-              <StyledTableCell component="th" scope="row">
-                <div className="p-name">
-                  <img
-                    src={`${process.env.REACT_APP_IMAGE_LINK}${row.tokenLogo}`}
-                  />{" "}
-                  {row.tokenName}
-                </div>
-              </StyledTableCell>
-              <StyledTableCell align="center">{1000}</StyledTableCell>
-              <StyledTableCell align="center">
-                {console.log(new Date(parseInt(row.dueDate)))}
-                <Countdown date={parseInt(row.dueDate)} />
-               
-              </StyledTableCell>
-              <StyledTableCell align="center">{10000}</StyledTableCell>
-              <StyledTableCell align="center">{10000}</StyledTableCell>
-              <StyledTableCell align="center">
-                <PoolModal
-                  rowIndex={index}
-                  id={`rowIndex`}
-                  tokenName={row.tokenName}
-                />
-              </StyledTableCell>
-            </TableRow>
-          ))}
+          {poolData.getAllPools
+            .filter((ps: IPool) => ps.status)
+            .map((row: IPool, index: number) => (
+              <TableRow className="tableRow" key={index}>
+                <StyledTableCell component="th" scope="row">
+                  <div className="p-name">
+                    <img
+                      src={`${process.env.REACT_APP_IMAGE_LINK}${row.tokenLogo}`}
+                    />{" "}
+                    {row.tokenName}
+                  </div>
+                </StyledTableCell>
+                <StyledTableCell align="center">{1000}</StyledTableCell>
+                <StyledTableCell align="center">
+                  <Countdown date={new Date(row.dueDate)} />
+                </StyledTableCell>
+                <StyledTableCell align="center">{10000}</StyledTableCell>
+                <StyledTableCell align="center">{10000}</StyledTableCell>
+                <StyledTableCell align="center">
+                  <PoolModal
+                    rowIndex={index}
+                    id={`rowIndex`}
+                    tokenName={row.tokenName}
+                  />
+                </StyledTableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </TableContainer>

@@ -37,7 +37,7 @@ export default function useCountdown(endDate: string): {
     let diff = (Date.parse(endDate) - Date.now()) / 1000;
 
     // clear countdown when date is reached
-    // if (diff <= 0) return false;
+    if (diff <= 0) return false;
 
     const timeLeft = {
       years: 0,
