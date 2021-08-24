@@ -2,6 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import { IAdminData } from "../../api/types/AdminData";
 import { PayloadAction } from "@reduxjs/toolkit";
 
+/*eslint-disable @typescript-eslint/no-non-null-assertion */
+/*eslint-disable @typescript-eslint/no-unused-vars */
+
 const initialState: IAdminData = {
   user: {
     username: "",
