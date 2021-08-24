@@ -1,5 +1,4 @@
 import "./index.scss";
-import { useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -11,13 +10,15 @@ import WalletBalance from "../walletBalance/WalletBalance";
 import { useLocation } from "react-router";
 import useReduxState from "../../../hooks/useReduxState";
 import WalletDisconnect from "../../common/walletDisconnect/WalletDisconnect";
+import DevnetButton from "../devnet-Button/DevnetButton";
+import { useHistory } from "react-router";
 
 export default function DesktopNav(): JSX.Element {
   const { pathname } = useLocation();
-  const [drawer, setDrawer] = useState<boolean>(false);
   const [{ walletConnectedFlag }] = useReduxState((state) => state.globalData);
-  const handleDrawerOpen = () => {
-    setDrawer(!drawer);
+  const history = useHistory();
+  const backToHome = () => {
+    history.push("/purchase");
   };
   return (
     <nav style={{ marginBottom: "60px" }}>
@@ -27,9 +28,10 @@ export default function DesktopNav(): JSX.Element {
             color="inherit"
             aria-label="open drawer"
             edge="start"
-            onClick={handleDrawerOpen}
+            onClick={backToHome}
           >
             <img className="d-appbar-icon" src={SollotoLogoH} />
+            <DevnetButton />
           </IconButton>
           <div className="d-navigation-list">
             {navList.map(

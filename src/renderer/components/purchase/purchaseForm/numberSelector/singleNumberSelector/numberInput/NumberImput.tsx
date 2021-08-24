@@ -26,12 +26,12 @@ export default function NumberInput({
         value={ticketNumberArr[ticketPos] ?? ""}
         className="numberSelectorInput"
         name={`ticketNumber${ticketPos}`}
-        max={ticketPos >= 0 && ticketPos <= 4 ? 69 : 26}
+        max={ticketPos >= 0 && ticketPos <= 4 ? 49 : 26}
         min="1"
         onBlur={(event) => {
           if (ticketPos >= 0 && ticketPos <= 4) {
             setTicketNumber(
-              Math.min(Math.max(parseInt(event.target.value), 1), 69)
+              Math.min(Math.max(parseInt(event.target.value), 1), 49)
             );
           } else {
             setTicketNumber(

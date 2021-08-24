@@ -1,0 +1,51 @@
+.pageHeaderIDO{
+    margin-top: 50px;
+    column-gap: 10px;
+    row-gap: 7px;
+  img{
+    width: 485px;
+    height: 150px;
+  }
+}
+.csv-list{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  h4{
+    margin: 0;
+    margin: 10px 0px;
+  }
+}
+.pageWrapperIDO{
+    height: 100%;
+    p{
+        margin: 0;
+        display: grid;
+        align-items: center;
+        grid-template-columns: auto auto auto;
+        column-gap: 5px;
+        width: fit-content;
+        font-size: 15px;
+
+    }
+}
+#users{
+   border: 0;
+   padding: 7px;
+   color: white;
+  
+   input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  outline: none;
+  background-color: transparent;
+  border-bottom: 1px white solid;
+  caret-color: white;
+}

@@ -7,9 +7,13 @@ const initialState: IglobalData = {
   holdingWalletId: process.env.REACT_APP_HOLDING_WALLET_PK_STRING as string,
   charities: { refetch: null, charities: [] },
   selectedWallet: null,
+  raffles:{refetch: null, raffles: []},
+  launchPad:{refetch:null,launchPad: []},
+  pools: { refetch: null, pools: [] },
   walletBalance: 0,
   walletConnectedFlag: false,
   connection: new Connection("https://api.devnet.solana.com"),
+  user: null,
 };
 
 const globalSlice = createSlice({

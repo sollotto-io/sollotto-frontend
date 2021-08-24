@@ -13,7 +13,7 @@ export const RandomTicketGenerator = (): number[] => {
     if (i < 5) {
       let invalidNumber = true;
       while (invalidNumber) {
-        randomNumber = random.int(1, 69);
+        randomNumber = random.int(1, 49);
         if (winningNumber.indexOf(randomNumber) === -1) {
           winningNumber.push(randomNumber);
           invalidNumber = false;
@@ -40,7 +40,7 @@ export const ticketNumberValidator = (ticketNumber: number[]): boolean => {
       ticketNumber.reduce(
         (accumulator: number[], number: number, index: number) => {
           if (index < ticketNumber.length - 1) {
-            if (number >= 1 && number <= 69) accumulator.push(number);
+            if (number >= 1 && number <= 49) accumulator.push(number);
             return accumulator;
           } else {
             if (number >= 1 && number <= 26) accumulator.push(number);
@@ -51,7 +51,7 @@ export const ticketNumberValidator = (ticketNumber: number[]): boolean => {
       ).length !== 6
     ) {
       toast.error(
-        "First 5 Numbers should be 1-69 and last number should be 1-26 ",
+        "First 5 Numbers should be 1-49 and last number should be 1-26 ",
         {
           position: "bottom-left",
           autoClose: 3000,
@@ -66,7 +66,6 @@ export const ticketNumberValidator = (ticketNumber: number[]): boolean => {
     }
 
     if (!avoidRepeatedNumbers(ticketNumber)) {
-      console.log("hola");
       toast.error("The first 5 numbers cannot be repeated", {
         position: "bottom-left",
         autoClose: 3000,

@@ -54,7 +54,7 @@ export default function SingleCharitySelector({
           style={{ position: "absolute", right: "5px" }}
           to={{
             pathname: `/charities/${lotteryData.Charities[index].charityName}`,
-            state: { fromPurchase: true },
+            state: { fromPurchase: true ,fromAdmin:false },
           }}
         >
           <IconButton id="info-circle">
@@ -62,7 +62,7 @@ export default function SingleCharitySelector({
           </IconButton>
         </Link>
 
-        <CharityImage charityId={lotteryData.Charities[index].charityName} />
+        <CharityImage charityId={lotteryData.Charities[index].ImageURL} />
         <CharityName charityIndex={index} />
         <SolLottoLogo selected={selected} charitySelectorIcon={true} />
       </div>

@@ -34,7 +34,7 @@ export default function WalletConnect(): JSX.Element {
         onClick={handleClickOpen}
       >
         <AccountBalanceWalletOutlinedIcon fontSize="small" />
-        <span>
+        <span id="accountAddress">
           {globalData.walletConnectedFlag === true
             ? `${globalData.selectedWallet.publicKey
                 .toBase58()

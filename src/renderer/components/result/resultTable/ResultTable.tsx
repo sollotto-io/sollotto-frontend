@@ -63,11 +63,11 @@ export default function ResultTable({
           <TableHead>
             <TableRow>
               <StyledTableCell>Drawing Name</StyledTableCell>
-              <StyledTableCell align="left">Drawing Date</StyledTableCell>
-              <StyledTableCell align="left">Winning Numbers</StyledTableCell>
-              <StyledTableCell align="left">Prize Pool</StyledTableCell>
-              <StyledTableCell align="left">Total Winners</StyledTableCell>
-              <StyledTableCell align="left">Winning Charity</StyledTableCell>
+              <StyledTableCell align="center">Drawing Date</StyledTableCell>
+              <StyledTableCell align="center">Winning Numbers</StyledTableCell>
+              <StyledTableCell align="center">Prize Pool</StyledTableCell>
+              <StyledTableCell align="center">Total Winners</StyledTableCell>
+              <StyledTableCell align="center">Winning Charity</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -81,28 +81,30 @@ export default function ResultTable({
                   <StyledTableCell component="th" scope="row">
                     Pick 6
                   </StyledTableCell>
-                  <StyledTableCell align="left">
+                  <StyledTableCell align="center">
                     {moment(row.EndDate).format("MMM Do YY")}
                   </StyledTableCell>
 
-                  <StyledTableCell
-                    align={`${
-                      row.WinningNumbers.length !== 6 ? "center" : "left"
-                    }`}
-                  >
-                    {row.WinningNumbers.length !== 6
-                      ? "TBD"
-                      : row.WinningNumbers[0]}
-                    &nbsp; {row.WinningNumbers[1]}&nbsp; {row.WinningNumbers[2]}
-                    &nbsp; {row.WinningNumbers[3]}&nbsp; {row.WinningNumbers[4]}
-                    &nbsp; {row.WinningNumbers[5]}
+                  <StyledTableCell align={"center"}>
+                    {row.WinningNumbers.length !== 6 ? (
+                      "TBD"
+                    ) : (
+                      <>
+                        {row.WinningNumbers[0]} &nbsp; {row.WinningNumbers[1]}
+                        &nbsp; {row.WinningNumbers[2]}
+                        &nbsp; {row.WinningNumbers[3]}&nbsp;
+                        {row.WinningNumbers[4]}
+                        &nbsp; {row.WinningNumbers[5]}
+                      </>
+                    )}
                   </StyledTableCell>
-                  <StyledTableCell align="left">
+                  <StyledTableCell align="center">
                     {row.TotalPoolValue === null
                       ? 0
-                      : row.TotalPoolValue.toFixed(2)}
+                      : row.TotalPoolValue.toFixed(2)}{" "}
+                    SOL
                   </StyledTableCell>
-                  <StyledTableCell align="left">
+                  <StyledTableCell align="center">
                     {" "}
                     {row.WinnerWallet.length === 0 &&
                     new Date(row.EndDate) < new Date(Date.now())
@@ -112,7 +114,7 @@ export default function ResultTable({
                       ? "TBD"
                       : row.WinnerWallet.length}
                   </StyledTableCell>
-                  <StyledTableCell align="left">
+                  <StyledTableCell align="center">
                     {row.WinningCharity.length === 0
                       ? "TBD"
                       : row.WinningCharity.length === 1
@@ -129,7 +131,7 @@ export default function ResultTable({
                   <StyledTableCell component="th" scope="row">
                     Pick 6
                   </StyledTableCell>
-                  <StyledTableCell align="left">
+                  <StyledTableCell align="center">
                     {moment(row.EndDate).format("MMM Do YY")}
                   </StyledTableCell>
 
@@ -145,12 +147,12 @@ export default function ResultTable({
                     &nbsp; {row.WinningNumbers[3]}&nbsp; {row.WinningNumbers[4]}
                     &nbsp; {row.WinningNumbers[5]}
                   </StyledTableCell>
-                  <StyledTableCell align="left">
+                  <StyledTableCell align="center">
                     {row.TotalPoolValue === null
                       ? 0
-                      : row.TotalPoolValue.toFixed(2)}
+                      : row.TotalPoolValue.toFixed(2)} SOL
                   </StyledTableCell>
-                  <StyledTableCell align="left">
+                  <StyledTableCell align="center">
                     {" "}
                     {row.WinnerWallet.length === 0 &&
                     new Date(row.EndDate) < new Date(Date.now())
@@ -160,7 +162,7 @@ export default function ResultTable({
                       ? "TBD"
                       : row.WinnerWallet.length}
                   </StyledTableCell>
-                  <StyledTableCell align="left">
+                  <StyledTableCell align="center">
                     {row.WinningCharity.length === 0
                       ? "TBD"
                       : row.WinningCharity.length === 1

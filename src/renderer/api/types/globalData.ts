@@ -1,38 +1,91 @@
 import { Connection, PublicKey, Transaction } from "@solana/web3.js";
 import Wallet from "@project-serum/sol-wallet-adapter";
 
-type Refetch = () => Promise<void>;
-
+type Refetch = () => Promise<any>;
 export interface ICharity {
   id: string;
   charityName: string;
   projectDetails: string;
+  ImageURL: string;
   fundUse: string;
   currentVotes: number;
   addedBy: string;
   lifeTimeVotes: number;
   lifeTimeWins: number;
-  Status: string;
+  Status: boolean;
   Years: string;
   URL: string;
-  isWatch: Boolean;
+  isWatch: boolean;
   Grade: string;
   Impact: string;
   webURL: string;
   socialMedia: string;
   nominationVotes: number;
+  lifeTimeNominationVotes: number;
+  publicKey: string;
 }
 export interface Icharities {
   refetch: Refetch | null;
   charities: ICharity[];
 }
+
+export interface IRaffle {
+  id: string;
+  raffleName:string;
+  urlSlug:string;
+  raffleImage:string;
+  sollotoBranding:boolean;
+  testingWA:string;
+  liveWA:string;
+  operatorWa:string;
+  vanityUrl:string;
+  raffleStatus:string;
+  Status:boolean
+}
+export interface ILaunch {
+  id: string;
+  PoolName: string;
+  PoolImage: string;
+  TimeRemaining: string;
+  TotalWinners: number;
+  MaxDeposit: number;
+  Status: boolean;
+ 
+}
+export interface IRaffles {
+  refetch: Refetch | null;
+  raffles: IRaffle[];
+}
+export interface ILaunchPad {
+  refetch: Refetch | null;
+  launchPad: ILaunch[];
+}
+
+export interface IPool {
+  id: string;
+  tokenName: string;
+  tokenLogo: string;
+  dueDate: string;
+  tokenAddress: string;
+  status: boolean;
+}
+
+export interface IPools {
+  pools: IPool[];
+  refetch: Refetch | null;
+}
+
 export interface IglobalData {
   holdingWalletId: string;
   charities: Icharities;
+  raffles: IRaffles;
+  launchPad: ILaunchPad;
+  pools: IPools;
   selectedWallet: PhantomProvider | null;
   walletBalance: number;
   walletConnectedFlag: boolean;
   connection: Connection;
+  user: { id: string; TokenValue: number; UserPK: string } | null;
 }
 
 type PhantomEvent = "disconnect" | "connect";

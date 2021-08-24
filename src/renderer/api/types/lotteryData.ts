@@ -14,7 +14,7 @@ export interface Ilottery {
   Tickets: IlotteryTicket[];
 }
 
-type Refetch = () => Promise<void>;
+type Refetch = () => any;
 export interface IlotteryData {
   loading: boolean;
   lotteryData: Ilottery[];
@@ -47,6 +47,7 @@ export interface IDrawingId {
     charityId: {
       charityName: string;
     };
+    TransactionId: string;
   }[];
   WinningNumbers: number[];
   EndDate: string;

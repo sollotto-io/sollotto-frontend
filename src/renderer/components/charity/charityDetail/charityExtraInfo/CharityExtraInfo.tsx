@@ -19,16 +19,12 @@ const CharityExtraInfo = ({
             target="_blank"
             href={charityDetail.URL}
           >
-            {charityDetail.isWatch
-              ? "Charity Watch Link"
-              : "Charity Givewell Link"}
+            {charityDetail.isWatch ? "Charity Watch Link" : "Givewell Link"}
           </a>
         </div>
         <div id="info">
-          {charityDetail.isWatch
-            ? "Charity Watch Grade"
-            : "Charity Givewell Grade"}{" "}
-          : {charityDetail.Grade}
+          {charityDetail.isWatch ? "Charity Watch Grade" : "Givewell Grade"} :{" "}
+          {charityDetail.Grade}
         </div>
 
         <div id="info">Impact Area : {charityDetail.Impact}</div>

@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from "@apollo/react-hooks";
 
 export const FETCH_ALL_CHARITIES = gql`
   {
@@ -19,6 +19,10 @@ export const FETCH_ALL_CHARITIES = gql`
       Impact
       webURL
       socialMedia
+      publicKey
+      lifeTimeNominationVotes
+      nominationVotes
+      ImageURL
     }
   }
 `;
@@ -47,6 +51,7 @@ export const FETCH_UPCOMING_DRAWING = gql`
         id
         charityName
         projectDetails
+        ImageURL
         fundUse
         currentVotes
         addedBy
@@ -59,6 +64,7 @@ export const FETCH_UPCOMING_DRAWING = gql`
         isWatch
         Impact
         webURL
+        publicKey
       }
       StartDate
       EndDate
@@ -106,6 +112,7 @@ export const FETCH_LOTTERY_BY_ID = gql`
         charityId {
           charityName
         }
+        TransactionId
       }
       WinningNumbers
       EndDate
@@ -119,6 +126,68 @@ export const FETCH_LOTTERY_BY_ID = gql`
         }
         votes
       }
+    }
+  }
+`;
+
+export const FETCH_SINGLE_USER = gql`
+  query getSingleUser($UserPK: String) {
+    getSingleUser(UserPK: $UserPK) {
+      id
+      TokenValue
+      UserPK
+    }
+  }
+`;
+
+export const FETCH_RAFFLES = gql`
+  {
+    getAllRaffle {
+      id
+      raffleName
+      urlSlug
+      raffleImage
+      sollotoBranding
+      testingWA
+      liveWA
+      operatorWa
+      vanityUrl
+      raffleStatus
+      Status
+    }
+  }
+`;
+export const FETCH_LAUNCHES = gql`
+  {
+    getAllLaunched {
+      id
+      PoolName
+      PoolImage
+      TimeRemaining
+      MaxDeposit
+      TotalWinners
+      Status
+    }
+  }
+`;
+export const FETCH_ALL_POOLS = gql`
+  {
+    getAllPools {
+      dueDate
+      tokenAddress
+      tokenName
+      tokenLogo
+      id
+      status
+    }
+  }
+`;
+
+export const FETCH_LOTTERY_DATA_ACCOUNT = gql`
+  {
+    getLotteryInfo {
+      LotteryDataAccount
+      LotteryId
     }
   }
 `;

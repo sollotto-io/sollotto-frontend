@@ -12,22 +12,17 @@ import Navbar from "./renderer/components/navbar/Navbar";
 import CharityDetail from "./renderer/components/charity/charityDetail/CharityDetail";
 import Results from "./renderer/views/Results/Results";
 import ResultDetail from "./renderer/components/result/resultDetail/ResultDetail";
-import Pool from "./renderer/views/Pool/Pool";
+import Pool from "./renderer/views/Pool/Pool"; 
 import Footer from "./renderer/views/Footer/Footer";
-/* import Nav from "./components/Nav";
-import Purchase from "./pages/Purchase";
-import Charities from "./pages/Charities";
-import Suggest from "./pages/Suggest";
-import Results from "./pages/Results";
-import Pool from "./pages/Pool";
-import CharityDetailPage from "./components/Charity/CharityDetailPage.js";
-import Loader from "./components/common/Loader";
-import Footer from "./pages/Footer";
-import ResultDetail from "./components/Result/ResultDetail"; */
-/* import "./css/pool.css"; */
 import useReduxState from "./renderer/hooks/useReduxState";
 import { useQuery } from "@apollo/react-hooks";
 import { FETCH_ALL_CHARITIES, FETCH_UPCOMING_DRAWING } from "./graphql/queries";
+// import Verify from "./renderer/views/Verify/Verify";
+// import Admin from "./renderer/views/Admin";
+// import LaunchPad from "./renderer/views/LauchPad/LaunchPad";
+// import GrapeIDO from "./renderer/views/GrapeIDO";
+// import GrapeIDO from "./renderer/views/GrapeIDO";
+// import Pool2 from "./renderer/views/Pool/Pool2/Pool2";
 
 function Main(): JSX.Element {
   const [globalData, setGlobalData] = useReduxState(
@@ -43,7 +38,6 @@ function Main(): JSX.Element {
 
   useEffect(() => {
     if (charityloading === false) {
-      console.log(charities);
       setGlobalData({
         type: "SET_GLOBAL_DATA",
         arg: {
@@ -83,13 +77,18 @@ function Main(): JSX.Element {
       });
       globalData.selectedWallet.connect();
       return () => {
-        globalData.selectedWallet.disconnect();
+        if (globalData.selectedWallet) {
+          globalData.selectedWallet.disconnect();
+        }
       };
     }
   }, [globalData.selectedWallet]);
 
   useEffect(() => {
-    if (globalData.selectedWallet !== null) {
+    if (
+      globalData.selectedWallet !== null &&
+      globalData.selectedWallet.publicKey
+    ) {
       const bal = globalData.connection.getBalance(
         globalData.selectedWallet.publicKey
       );
@@ -108,42 +107,54 @@ function Main(): JSX.Element {
     return <Loader />;
   }
   return (
-    <div className="App">
-      <Router>
-        <Navbar />
+    <Router>
+      <div className="App">
         <Switch>
-          {/* Redirecting to purchase page if at '/' */}
-          <Route exact path="/">
-            <Redirect to="/purchase" />
-          </Route>
-          {/* Routes  */}
+          {/* <Route exact path="/admin" component={Admin} /> */}
+          {/* <Route exact path="/grape-parrot-ido" component={GrapeIDO} /> */}
+          <Route path="/">
+            <Navbar />
+            <Switch>
+              {/* Redirecting to purchase page if at '/' */}
+              {/* Routes  */}
 
-          <Route exact path="/purchase">
-            <Purchase />
-          </Route>
-          <Route exact path="/results">
-            <Results />
-          </Route>
-          <Route exact path="/results/:id">
-            <ResultDetail />
-          </Route>
+              <Route exact path="/">
+                <Redirect to="/purchase" />
+              </Route>
+              <Route exact path="/purchase">
+                <Purchase />
+              </Route>
+              <Route exact path="/results">
+                <Results />
+              </Route>
+              <Route exact path="/results/:id">
+                <ResultDetail />
+              </Route>
 
-          <Route exact path="/charities">
-            <Charities charityloading={charityloading} />
-          </Route>
-          {/*           <Route exact path="/suggest">
-            <Suggest />
-          </Route> */}
-          <Route exact path="/pools">
-            <Pool />
-          </Route>
-          <Route exact path="/charities/:id">
-            <CharityDetail />
+              <Route exact path="/charities">
+                <Charities charityloading={charityloading && loading} />
+              </Route>
+              {/* <Route exact path="/suggest">
+                <Suggest />
+              </Route> */}
+              <Route exact path="/pools">
+                <Pool />
+              </Route>
+              {/* <Route exact path="/lauchpad">
+                <LaunchPad/>
+              </Route>
+              <Route exact path="/verify">
+                <Verify />
+              </Route> */}
+              <Route exact path="/charities/:id">
+                <CharityDetail />
+              </Route>
+            </Switch>
+            <Footer />
           </Route>
         </Switch>
-        <Footer />
-      </Router>
-    </div>
+      </div>
+    </Router>
   );
 }
 

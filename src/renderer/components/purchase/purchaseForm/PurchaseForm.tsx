@@ -4,8 +4,9 @@ import CharitySelector from "./charitySelector/CharitySelector";
 import PurchaseButton from "./purchaseButton/PurchaseButton";
 import { ToastContainer, toast } from "react-toastify";
 import { ticketPurchase } from "../utils/ticketPurchase";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { POST_TICKET } from "../../../../graphql/mutations";
+import { FETCH_SINGLE_USER } from "../../../../graphql/queries";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { AppState } from "../../../redux/stores/store";
 import { ICharity } from "../../../api/types/globalData";
@@ -33,11 +34,31 @@ export default function PurchaseForm(): JSX.Element {
     (state: AppState) => state.purchaseData
   );
   const [loading, setLoading] = useState(false);
+  const { data: user, refetch: userRefetch } = useQuery(FETCH_SINGLE_USER, {
+    variables: {
+      UserPK:
+        globalData.selectedWallet &&
+        globalData.selectedWallet.publicKey &&
+        globalData.selectedWallet.publicKey.toString(),
+    },
+    skip: !globalData.selectedWallet,
+  });
 
   async function handleSubmit() {
     const ticketNumbers = sortTicketNumber(ticketNumberArr);
 
-    if (ticketNumberValidator(ticketNumbers) && selectedCharity != null) {
+    if (selectedCharity === null) {
+      toast.warn("Please Select A Charity", {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return false;
+    } else if (ticketNumberValidator(ticketNumbers)) {
       if (globalData.selectedWallet === null) {
         toast.error("Please Connect your Wallet! ", {
           position: "bottom-left",
@@ -50,13 +71,13 @@ export default function PurchaseForm(): JSX.Element {
         });
         return false;
       }
+
       const ticketData = {
         charityId: selectedCharity,
         userWalletPK: globalData.selectedWallet.publicKey.toBytes(),
         ticketNumArr: ticketNumbers,
       };
       setLoading(true);
-
       if (globalData.walletBalance === 0) {
         toast.error(
           "Ticket purchase unsuccessful. You dont have enough SOL in your wallet to purchase a ticket",
@@ -73,7 +94,6 @@ export default function PurchaseForm(): JSX.Element {
         setLoading(false);
       } else {
         const result = await ticketPurchase(ticketData);
-
         if (result.success === true) {
           try {
             await addTicket({
@@ -86,18 +106,8 @@ export default function PurchaseForm(): JSX.Element {
                 ticketArray: ticketNumbers,
                 charityId: ticketData.charityId,
                 drawingId: lotteryData.id,
-              },
-            });
-            const charityUpdatedData = await globalData.charities.refetch();
-
-            await setGlobalData({
-              type: "SET_GLOBAL_DATA",
-              arg: {
-                ...globalData,
-                charities: {
-                  ...globalData.charities,
-                  charities: charityUpdatedData.data.getAllCharities,
-                },
+                TransactionId: result.signature,
+                UserPK: globalData.selectedWallet.publicKey.toString(),
               },
             });
             const dataUpdated = await refetch();
@@ -111,17 +121,15 @@ export default function PurchaseForm(): JSX.Element {
 
             setLoading(false);
             reduxAction({ type: "RESET_PURCHASE_DATA", arg: null });
-            const balance = globalData.connection.getBalance(
-              globalData.selectedWallet.publicKey
-            );
-            balance.then((t: number) => {
-              setGlobalData({
+            (async () => {
+              await setGlobalData({
                 type: "SET_GLOBAL_DATA",
                 arg: {
-                  walletBalance: t,
+                  ...globalData,
+                  walletBalance: globalData.walletBalance - 0.1 * 1000000000,
                 },
               });
-            });
+            })();
             toast.success(
               <div>
                 Ticket purchase is successful, your purchased tickets can be
@@ -171,6 +179,15 @@ export default function PurchaseForm(): JSX.Element {
             );
 
             reduxAction({ type: "RESET_PURCHASE_DATA", arg: null });
+            (async () => {
+              await userRefetch();
+              await setGlobalData({
+                type: "SET_GLOBAL_DATA",
+                arg: {
+                  user: user.getSingleUser,
+                },
+              });
+            })();
           } catch (e) {
             console.log(e);
           }
@@ -186,6 +203,8 @@ export default function PurchaseForm(): JSX.Element {
             draggable: true,
             progress: undefined,
           });
+
+          setLoading(false);
         }
       }
     }

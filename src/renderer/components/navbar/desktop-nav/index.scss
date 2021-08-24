@@ -5,7 +5,9 @@ nav {
 .desktop-app-bar {
   position: relative;
 }
-
+.MuiToolbar-root {
+  background-color: var(--navy-blue);
+}
 .desktop-nav-item {
   color: white;
   font-size: 20px;
@@ -23,6 +25,7 @@ nav {
   left: 50%;
   transform: translate(-50%, 0);
 }
+
 .d-appbar-icon {
   width: 150px;
   height: auto;

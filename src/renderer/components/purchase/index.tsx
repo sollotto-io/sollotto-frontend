@@ -45,20 +45,18 @@ export default function PurchaseCard(): JSX.Element {
   };
 
   useDidUpdateEffect(() => {
-    if (
-      !ticketNumberArr.some((n) => n === undefined) &&
-      !loading &&
-      verifyRepeatedTicket()
-    ) {
-      toast.warn("Warning: You alredy bought that ticket", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+    if (!ticketNumberArr.some((n) => n === undefined) && !loading) {
+      if (verifyRepeatedTicket()) {
+        toast.warn("Warning: You alredy bought that ticket", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
     }
   }, [ticketNumberArr]);
   return (
@@ -76,7 +74,7 @@ export default function PurchaseCard(): JSX.Element {
               color: valid ? "#FFF" : "#ff604f",
             }}
           >
-            Please pick your numbers. Choose a number between 1-69 for the first
+            Please pick your numbers. Choose a number between 1-49 for the first
             5 selections, and a number between 1-26 for the 6th selection
           </p>
           <RandomButton

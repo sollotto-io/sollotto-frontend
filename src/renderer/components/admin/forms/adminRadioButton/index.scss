@@ -1,0 +1,15 @@
+.ad-radio {
+  p {
+    margin: 0;
+  }
+  width: 100%;
+  > .MuiSwitch-root {
+    transform: translateX(-12px);
+    .MuiSwitch-colorSecondary.Mui-checked {
+      color: var(--purple-dino);
+    }
+    .MuiSwitch-colorSecondary.Mui-checked + .MuiSwitch-track {
+      background-color: var(--purple-dino);
+    }
+  }
+}
