@@ -39,6 +39,12 @@ export default function Admin(): JSX.Element {
     }
   }, [loadingPools]);
 
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem("jwt");
+    };
+  }, []);
+
   if (!authenticated) {
     return <AuthenticationForm />;
   }

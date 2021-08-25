@@ -4,6 +4,7 @@ export interface IUser {
 }
 
 export interface IAdminData {
-  user: IUser;
+  username: string;
   authenticated: boolean;
+  error?: string;
 }

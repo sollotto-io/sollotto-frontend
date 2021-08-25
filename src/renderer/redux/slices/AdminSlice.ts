@@ -6,10 +6,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 /*eslint-disable @typescript-eslint/no-unused-vars */
 
 const initialState: IAdminData = {
-  user: {
-    username: "",
-    id: "",
-  },
+  username: "",
   authenticated: false,
 };
 

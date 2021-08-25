@@ -284,3 +284,12 @@ export const EDIT_LAUNCH = gql`
     )
   }
 `;
+
+export const LOGIN_ADMIN = gql`
+  mutation ($username: String!, $password: String!) {
+    loginUser(userInput: { username: $username, password: $password }) {
+      token
+      username
+    }
+  }
+`;
