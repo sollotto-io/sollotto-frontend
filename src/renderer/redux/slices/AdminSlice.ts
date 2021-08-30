@@ -8,6 +8,8 @@ import { PayloadAction } from "@reduxjs/toolkit";
 const initialState: IAdminData = {
   username: "",
   authenticated: false,
+  authErr: false,
+  admin: false,
 };
 
 const adminSlice = createSlice({

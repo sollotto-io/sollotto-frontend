@@ -36,6 +36,11 @@ export default function PoolTable(): JSX.Element {
     data: poolData,
     refetch: poolRefetch,
   } = useQuery(FETCH_ALL_POOLS, {
+    context: {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
     onCompleted: () => {
       setGlobalData({
         type: "SET_GLOBAL_DATA",

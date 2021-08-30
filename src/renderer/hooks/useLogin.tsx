@@ -15,9 +15,11 @@ export default function useLogin(): [
           authenticated: true,
           username: e.loginUser.username,
           error: "",
+          authErr: false,
+          admin: e.loginUser.admin,
         },
       });
-      localStorage.setItem("jwt", e.loginUser.token);
+      localStorage.setItem("token", e.loginUser.token);
     },
     onError: (e) => {
       setAdminData({

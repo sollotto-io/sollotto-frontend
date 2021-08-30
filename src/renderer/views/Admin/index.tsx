@@ -7,58 +7,62 @@ import Raffles from "../../components/admin/Raffles/Raffle";
 import LaunchPad from "../../components/admin/LaunchPad/LaunchPad";
 /* import Statistics from "../../components/admin/Statistics/Statistics"; */
 import AdminPool from "../../components/admin/pool/AdminPool";
-import useReduxState from "../../hooks/useReduxState";
-import { FETCH_ALL_POOLS } from "../../../graphql/queries";
-import { useQuery } from "@apollo/react-hooks";
+import AdminUsers from "../../components/admin/adminUsers/adminUsers";
 import useTypedReduxState from "../../hooks/useTypedReduxState";
 import AuthenticationForm from "../../components/admin/authenticationForm/AuthenticationForm";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Admin(): JSX.Element {
-  const [{ authenticated }] = useTypedReduxState((state) => state.adminData);
-  const {
-    loading: loadingPools,
-    data: poolData,
-    refetch: poolRefetch,
-  } = useQuery(FETCH_ALL_POOLS);
-  const [globalData, setGlobalData] = useReduxState(
-    (state) => state.globalData
+  const [{ authenticated, authErr }] = useTypedReduxState(
+    (state) => state.adminData
   );
+  const [globalData] = useTypedReduxState((state) => state.globalData);
+  const [{ admin }] = useTypedReduxState((state) => state.adminData);
   const [tabState, setTabState] = useState(0);
-  useEffect(() => {
-    if (!loadingPools) {
-      setGlobalData({
-        type: "SET_GLOBAL_DATA",
-        arg: {
-          ...globalData,
-          pools: {
-            refetch: poolRefetch,
-            pools: poolData.getAllPools,
-          },
-        },
-      });
-    }
-  }, [loadingPools]);
 
   useEffect(() => {
+    if (authErr) {
+      toast.error("You are not authenticated", {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }, [authErr]);
+
+  useEffect(() => {
+    localStorage.removeItem("token");
     return () => {
-      localStorage.removeItem("jwt");
+      localStorage.removeItem("token");
     };
   }, []);
 
   if (!authenticated) {
-    return <AuthenticationForm />;
+    return (
+      <>
+        <ToastContainer />
+        <AuthenticationForm />
+      </>
+    );
   }
   return (
     <div className="admin-wrapper">
-      <TabView tabState={tabState} setTabState={setTabState} />
+      <ToastContainer />
+      <TabView tabState={tabState} setTabState={setTabState} admin={admin} />
       {tabState === 0 ? (
         <CharityAdminTable rows={globalData.charities.charities} />
       ) : tabState === 1 ? (
         <Raffles />
       ) : tabState === 2 ? (
         <AdminPool data={globalData.pools.pools} />
-      ) : (
+      ) : tabState === 3 ? (
         <LaunchPad />
+      ) : (
+        tabState === 4 && admin && <AdminUsers />
       )}
     </div>
   );

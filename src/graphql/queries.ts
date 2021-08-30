@@ -191,3 +191,12 @@ export const FETCH_LOTTERY_DATA_ACCOUNT = gql`
     }
   }
 `;
+
+export const GET_ALL_ADMIN_USERS = gql`
+  {
+    getAllUsers {
+      admin
+      username
+    }
+  }
+`;

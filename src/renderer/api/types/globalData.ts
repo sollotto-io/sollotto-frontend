@@ -1,5 +1,6 @@
 import { Connection, PublicKey, Transaction } from "@solana/web3.js";
 import Wallet from "@project-serum/sol-wallet-adapter";
+import { IAdminUser } from "./AdminData";
 
 type Refetch = () => Promise<any>;
 export interface ICharity {
@@ -31,16 +32,16 @@ export interface Icharities {
 
 export interface IRaffle {
   id: string;
-  raffleName:string;
-  urlSlug:string;
-  raffleImage:string;
-  sollotoBranding:boolean;
-  testingWA:string;
-  liveWA:string;
-  operatorWa:string;
-  vanityUrl:string;
-  raffleStatus:string;
-  Status:boolean
+  raffleName: string;
+  urlSlug: string;
+  raffleImage: string;
+  sollotoBranding: boolean;
+  testingWA: string;
+  liveWA: string;
+  operatorWa: string;
+  vanityUrl: string;
+  raffleStatus: string;
+  Status: boolean;
 }
 export interface ILaunch {
   id: string;
@@ -50,7 +51,6 @@ export interface ILaunch {
   TotalWinners: number;
   MaxDeposit: number;
   Status: boolean;
- 
 }
 export interface IRaffles {
   refetch: Refetch | null;
@@ -75,12 +75,18 @@ export interface IPools {
   refetch: Refetch | null;
 }
 
+export interface IAdminUsers {
+  users: IAdminUser[];
+  refetch: Refetch | null;
+}
+
 export interface IglobalData {
   holdingWalletId: string;
   charities: Icharities;
   raffles: IRaffles;
   launchPad: ILaunchPad;
   pools: IPools;
+  adminUsers: IAdminUsers;
   selectedWallet: PhantomProvider | null;
   walletBalance: number;
   walletConnectedFlag: boolean;

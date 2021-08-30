@@ -1,10 +1,12 @@
-export interface IUser {
+export interface IAdminUser {
   username: string;
-  id: string;
+  admin: boolean;
 }
 
 export interface IAdminData {
   username: string;
   authenticated: boolean;
+  authErr: boolean;
   error?: string;
+  admin: boolean;
 }

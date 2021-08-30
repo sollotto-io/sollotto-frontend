@@ -290,6 +290,23 @@ export const LOGIN_ADMIN = gql`
     loginUser(userInput: { username: $username, password: $password }) {
       token
       username
+      admin
+    }
+  }
+`;
+
+export const SIGN_UP_ADMIN = gql`
+  mutation addAdminUser(
+    $username: String!
+    $password: String!
+    $admin: Boolean!
+  ) {
+    signupUser(
+      userInput: { username: $username, password: $password, admin: $admin }
+    ) {
+      username
+      admin
+      token
     }
   }
 `;
