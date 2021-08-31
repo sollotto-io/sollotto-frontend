@@ -1,6 +1,7 @@
 export interface IAdminUser {
   username: string;
   admin: boolean;
+  id: string;
 }
 
 export interface IAdminData {

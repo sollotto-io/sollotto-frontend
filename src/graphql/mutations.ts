@@ -306,7 +306,39 @@ export const SIGN_UP_ADMIN = gql`
     ) {
       username
       admin
-      token
+      id
     }
+  }
+`;
+
+export const UPDATE_ADMINN_USER = gql`
+  mutation updateUser($username: String!, $admin: Boolean!, $id: ID!) {
+    updateUser(userEditInput: { username: $username, admin: $admin, id: $id }) {
+      username
+      admin
+      id
+    }
+  }
+`;
+
+export const CHANGE_ADMIN_USER_ROLE = gql`
+  mutation updateUserRole($admin: Boolean!, $id: ID!) {
+    updateUserRole(userId: $id, admin: $admin) {
+      username
+      admin
+      id
+    }
+  }
+`;
+
+export const CHANGE_ADMIN_USER_PASSWORD = gql`
+  mutation changePassword($id: ID!, $oldpassword: String!, $password: String!) {
+    changePassword(
+      changePasswordInput: {
+        id: $id
+        oldpassword: $oldpassword
+        password: $password
+      }
+    )
   }
 `;

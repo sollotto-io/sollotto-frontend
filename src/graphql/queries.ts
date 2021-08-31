@@ -197,6 +197,7 @@ export const GET_ALL_ADMIN_USERS = gql`
     getAllUsers {
       admin
       username
+      id
     }
   }
 `;

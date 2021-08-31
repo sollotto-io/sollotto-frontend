@@ -10,11 +10,7 @@ export default function AdminPool({ data }: { data: IPool[] }): JSX.Element {
   const [globalData, setGlobalData] = useTypedReduxState(
     (state) => state.globalData
   );
-  const {
-    loading: loadingPools,
-    data: poolData,
-    refetch: poolRefetch,
-  } = useQuery(FETCH_ALL_POOLS, {
+  const { refetch: poolRefetch } = useQuery(FETCH_ALL_POOLS, {
     onCompleted: (data) => {
       console.log(data);
       setGlobalData({
