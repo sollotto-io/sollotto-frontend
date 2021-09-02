@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import random from "random";
+import { IcryptoWallet } from "../renderer/api/types/globalData";
 
 export const sortTicketNumber = (ticketNumber: number[]): number[] => [
   ...[...ticketNumber].splice(0, ticketNumber.length - 1).sort((a, b) => a - b),
@@ -91,3 +92,10 @@ export const ticketNumberValidator = (ticketNumber: number[]): boolean => {
   }
   return true;
 };
+
+export function convertPK(wallet: IcryptoWallet): number[] | null {
+  if (wallet.publicKey) {
+    return Buffer.from(wallet.publicKey.toBytes()).toJSON().data;
+  }
+  return null;
+}

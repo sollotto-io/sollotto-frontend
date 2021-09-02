@@ -201,3 +201,14 @@ export const GET_ALL_ADMIN_USERS = gql`
     }
   }
 `;
+
+export const GET_TICKET_COUNT_BY_USER = gql`
+  query getTicketsByUserCount($walletId: [Int]!) {
+    getTicketsByUserCount(walletId: $walletId)
+  }
+`;
+export const GET_TICKET_COUNT = gql`
+  {
+    getTicketsCount
+  }
+`;

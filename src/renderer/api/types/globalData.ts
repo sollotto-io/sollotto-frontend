@@ -105,7 +105,7 @@ interface ConnectOpts {
   onlyIfTrusted: boolean;
 }
 
-interface PhantomProvider {
+export interface PhantomProvider {
   publicKey: PublicKey | null;
   isConnected: boolean | null;
   autoApprove: boolean | null;
@@ -127,4 +127,4 @@ interface ConnectOpts {
   onlyIfTrusted: boolean;
 }
  */
-export type IcryptoWallet = typeof Wallet;
+export type IcryptoWallet = PhantomProvider;

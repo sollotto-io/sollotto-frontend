@@ -20,7 +20,6 @@ interface IAdminForm {
   username: string;
   password: string;
   admin: boolean;
-  newPassword: string;
 }
 
 export default function AdminUsersForm({
@@ -40,7 +39,6 @@ export default function AdminUsersForm({
     username: data?.username ?? "",
     password: "",
     admin: data?.admin ?? false,
-    newPassword: "",
   };
   const [adminForm, setAdminForm] = useState<IAdminForm>(initialState);
 
@@ -50,7 +48,7 @@ export default function AdminUsersForm({
   const [{ adminUsers }, setAdminUser] = useTypedReduxState(
     (state) => state.globalData
   );
-  const { username, password, admin, newPassword } = adminForm;
+  const { username, password, admin } = adminForm;
 
   const [addUser] = useMutation(SIGN_UP_ADMIN, {
     onCompleted: (e) => {
@@ -142,12 +140,11 @@ export default function AdminUsersForm({
 
         if (passwordChange && !edit) {
           if (data) {
-            if (password !== "" && newPassword !== "") {
+            if (password !== "") {
               changePassword({
                 variables: {
                   id: data.id,
-                  oldpassword: password,
-                  password: newPassword,
+                  password: password,
                 },
               });
             }
@@ -178,19 +175,12 @@ export default function AdminUsersForm({
       {!edit && (
         <AdminInput
           type="password"
-          label={passwordChange ? "Old Password" : "password"}
+          label="password"
           value={password}
           onChange={(e) => handleFormChange({ password: e })}
         />
       )}
-      {passwordChange && (
-        <AdminInput
-          type="password"
-          label="New Password"
-          value={newPassword}
-          onChange={(e) => handleFormChange({ newPassword: e })}
-        />
-      )}
+
       {!passwordChange && (
         <AdminRadioButton
           label="Admin"

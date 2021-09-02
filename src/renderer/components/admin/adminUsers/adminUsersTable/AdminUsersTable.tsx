@@ -5,6 +5,7 @@ import CloseOutlinedIcon from "@material-ui/icons/CloseOutlined";
 import { useState } from "react";
 import { IAdminUser } from "../../../../api/types/AdminData";
 import AdminUsersModal from "./adminUsersModal/AdminUsersModal";
+import AdminUsersDeleteModal from "./adminUsersDeleteModal/AdminUsersDeleteModal";
 import {
   TableHead,
   TableContainer,
@@ -51,6 +52,10 @@ export default function AdminUsersTable({
     admin: false,
   });
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [userDelete, setUserDelete] = useState({
+    status: false,
+    id: "",
+  });
   const [{ adminUsers }, setAdminUser] = useTypedReduxState(
     (state) => state.globalData
   );
@@ -161,10 +166,11 @@ export default function AdminUsersTable({
                 <StyledTableCell align="center">
                   <IconButton
                     onClick={() => {
-                      setEditData(row);
-                      setPasswordChange(true);
-                      setEdit(false);
-                      setModal(true);
+                      setUserDelete({
+                        id: row.id,
+                        status: true,
+                      });
+                      setCurrentIndex(index);
                     }}
                   >
                     <CloseOutlinedIcon className="edit-delete-button" />
@@ -182,6 +188,17 @@ export default function AdminUsersTable({
         data={editData}
         index={currentIndex}
         passwordChange={passwordChange}
+      />
+      <AdminUsersDeleteModal
+        open={userDelete.status}
+        onClose={() =>
+          setUserDelete({
+            status: false,
+            id: "",
+          })
+        }
+        id={userDelete.id}
+        index={currentIndex}
       />
     </>
   );

@@ -332,13 +332,13 @@ export const CHANGE_ADMIN_USER_ROLE = gql`
 `;
 
 export const CHANGE_ADMIN_USER_PASSWORD = gql`
-  mutation changePassword($id: ID!, $oldpassword: String!, $password: String!) {
-    changePassword(
-      changePasswordInput: {
-        id: $id
-        oldpassword: $oldpassword
-        password: $password
-      }
-    )
+  mutation changePassword($id: ID!, $password: String!) {
+    changePassword(changePasswordInput: { id: $id, password: $password })
+  }
+`;
+
+export const DELETE_ADMIN_USER = gql`
+  mutation deleteUser($id: ID!) {
+    deleteUser(userId: $id)
   }
 `;
