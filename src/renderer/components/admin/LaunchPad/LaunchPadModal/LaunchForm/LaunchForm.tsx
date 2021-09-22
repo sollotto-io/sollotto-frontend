@@ -16,6 +16,7 @@ import { useCallback } from "react";
 import useDidUpdateEffect from "../../../../../hooks/useDidUpdateEffect";
 import useReduxState from "../../../../../hooks/useReduxState";
 import { ILaunch } from "../../../../../api/types/globalData";
+import { uploadToS3 } from "../../../../../../utils/api";
 
 interface ILaunchForm {
   PoolName: string;
@@ -67,6 +68,7 @@ export default function LaunchForm({
     TotalWinners: data !== undefined ? data.TotalWinners : 0,
   };
   const [raffleForm, setRaffleForm] = useState<ILaunchForm>(initialState);
+  const [poolImageFile, setPoolImageFile] = useState<File | null>(null);
 
   const [submiting, setSubmiting] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
@@ -90,20 +92,31 @@ export default function LaunchForm({
     if (submiting) {
       if (validateFields()) {
         (async () => {
+          const launchValues = { ...raffleForm };
+          if (poolImageFile) {
+            const poolImageUploaded = await uploadToS3(
+              poolImageFile,
+              "launchImages"
+            );
+            console.log(poolImageUploaded);
+            if (poolImageUploaded.key) {
+              launchValues.PoolImage = poolImageUploaded.key;
+            }
+          }
           if (edit) {
             updateLaunch({
               variables: {
                 Id: data.id,
-                PoolName: raffleForm.PoolName,
-                PoolImage: raffleForm.PoolImage,
-                TimeRemaining: raffleForm.TimeRemaining,
-                TotalWinners: raffleForm.TotalWinners,
-                MaxDeposit: raffleForm.MaxDeposit,
+                PoolName: launchValues.PoolName,
+                PoolImage: launchValues.PoolImage,
+                TimeRemaining: launchValues.TimeRemaining,
+                TotalWinners: launchValues.TotalWinners,
+                MaxDeposit: launchValues.MaxDeposit,
               },
             });
           } else {
-            console.log(raffleForm);
-            addLaunchPadLottery({ variables: raffleForm });
+            console.log(JSON.stringify(launchValues));
+            addLaunchPadLottery({ variables: launchValues });
           }
         })();
         setSubmiting(false);
@@ -134,7 +147,11 @@ export default function LaunchForm({
 
       <AdminDropZone
         endpoint="uploadLaunchPad"
-        onDrop={(img) => handleFormChange({ PoolImage: img })}
+        onDrop={(img) => {
+          handleFormChange({ PoolImage: img.path });
+          setPoolImageFile(img.image);
+        }}
+        initialImage={PoolImage}
         dirName="launchImages"
         error={error && PoolImage == ""}
       />

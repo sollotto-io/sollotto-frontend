@@ -1,6 +1,14 @@
 import axios from "axios";
 
-export const uploadToS3 = async (file: File, dir: string) => {
+interface IUploadtoS3 {
+  url: string;
+  key: string;
+}
+
+export const uploadToS3 = async (
+  file: File,
+  dir: string
+): Promise<IUploadtoS3 | any> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);

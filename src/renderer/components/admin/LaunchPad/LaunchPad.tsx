@@ -53,9 +53,8 @@ export default function LaunchPad(): JSX.Element {
   });
 
   const [changeStatus] = useMutation(LAUNCHPAD_STATUS_CHAGED, {
-    onCompleted: async() => {
-       await globalData.launchPad.refetch()
-      
+    onCompleted: async () => {
+      await globalData.launchPad.refetch();
     },
   });
   const [globalData, setGlobalData] = useReduxState(
@@ -79,7 +78,7 @@ export default function LaunchPad(): JSX.Element {
       id: id,
     });
   };
-  const handleModalClose =() => {
+  const handleModalClose = () => {
     setModalState({
       state: false,
       type: false,
@@ -98,12 +97,11 @@ export default function LaunchPad(): JSX.Element {
     });
     setState(!state);
   };
-  
 
   if (launchLoading) {
     return <h1>loading</h1>;
   }
-
+  console.log(data.getAllLaunched);
   return (
     <>
       <button

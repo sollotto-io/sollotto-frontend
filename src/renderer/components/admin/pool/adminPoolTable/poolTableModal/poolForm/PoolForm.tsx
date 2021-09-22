@@ -16,6 +16,7 @@ import { useMutation } from "@apollo//react-hooks";
 
 import { ADD_POOL, UPDATE_POOL } from "../../../../../../../graphql/mutations";
 import { IPool } from "../../../../../../api/types/globalData";
+import { uploadToS3 } from "../../../../../../../utils/api";
 
 interface IPoolForm {
   tokenName: string;
@@ -45,6 +46,8 @@ export default function PoolForm({
       : new Date(Date.now()).toDateString(),
   };
   const [poolForm, setPoolForm] = useState<IPoolForm>(initialState);
+
+  const [tokenLogoFile, setTokenLogoFile] = useState<File | null>(null);
 
   const [error, setError] = useState(false);
   const [submiting, setSubmiting] = useState(false);
@@ -87,9 +90,17 @@ export default function PoolForm({
 
   useEffect(() => {
     if (submiting) {
-      if (!edit) {
-        (async () => {
-          const newPool = await addPool({ variables: poolForm });
+      (async () => {
+        const formValues = { ...poolForm };
+        if (tokenLogoFile) {
+          const uploadedLogo = await uploadToS3(tokenLogoFile, "poolImages");
+          if (uploadedLogo.key) {
+            formValues.tokenLogo = uploadedLogo.key;
+          }
+        }
+
+        if (!edit) {
+          const newPool = await addPool({ variables: formValues });
           console.log(newPool);
           if (newPool && newPool.data && newPool.data.addPool) {
             setGlobalState({
@@ -102,11 +113,9 @@ export default function PoolForm({
               },
             });
           }
-        })();
-      } else {
-        (async () => {
+        } else {
           const updatedPool = await updatePool({
-            variables: { id: data?.id, ...poolForm },
+            variables: { id: data?.id, ...formValues },
           });
           if (updatedPool && updatedPool.data && updatedPool.data.updatePool) {
             const poolArr = [...pools.pools];
@@ -121,8 +130,8 @@ export default function PoolForm({
               },
             });
           }
-        })();
-      }
+        }
+      })();
       closeModal();
       setSubmiting(false);
     }
@@ -139,7 +148,9 @@ export default function PoolForm({
       />
       <AdminDropZone
         endpoint="uploadPool"
-        onDrop={(e) => handleFormChange({ tokenLogo: e })}
+        onDrop={(e) => {
+          setTokenLogoFile(e.image), handleFormChange({ tokenLogo: e.path });
+        }}
         dirName="poolImages"
         style={{ margin: 0 }}
         initialImage={tokenLogo}
