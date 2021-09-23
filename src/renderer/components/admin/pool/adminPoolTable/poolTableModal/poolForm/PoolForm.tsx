@@ -100,6 +100,7 @@ export default function PoolForm({
         }
 
         if (!edit) {
+          console.log(JSON.stringify(formValues));
           const newPool = await addPool({ variables: formValues });
           console.log(newPool);
           if (newPool && newPool.data && newPool.data.addPool) {
@@ -147,11 +148,9 @@ export default function PoolForm({
         error={error && tokenName === ""}
       />
       <AdminDropZone
-        endpoint="uploadPool"
         onDrop={(e) => {
           setTokenLogoFile(e.image), handleFormChange({ tokenLogo: e.path });
         }}
-        dirName="poolImages"
         style={{ margin: 0 }}
         initialImage={tokenLogo}
         error={error && tokenLogo === ""}

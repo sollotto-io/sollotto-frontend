@@ -1,8 +1,6 @@
 import { useMutation } from "@apollo/react-hooks";
 import { CircularProgress } from "@material-ui/core";
-import axios from "axios";
 import { useState } from "react";
-import Dropzone from "react-dropzone";
 import { toast } from "react-toastify";
 import { ADD_CHARITY } from "../../../../../../../graphql/mutations";
 import { AdminDropZone } from "../../../../forms/AdminFormCore";
@@ -191,12 +189,10 @@ export default function AddForm({
         </span>
         <span id="form-group-image">
           <AdminDropZone
-            endpoint="uploadPool"
             onDrop={(e) => {
               setImageFile(e.image);
               setAddCharity({ ...AddCharityState, ImageURL: e.path });
             }}
-            dirName="poolImages"
             style={{ margin: 0 }}
             initialImage={AddCharityState.ImageURL}
             error={errors.ImageURL === ""}

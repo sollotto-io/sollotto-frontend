@@ -127,6 +127,7 @@ export default function RaffleForm({
             }
           }
           if (edit) {
+            console.log({ ...raffleValues, raffleId: data?.id });
             await editRaffle({
               variables: { ...raffleValues, raffleId: data?.id },
             });
@@ -172,12 +173,10 @@ export default function RaffleForm({
       />
 
       <AdminDropZone
-        endpoint="uploadRaffle"
         onDrop={(img) => {
           handleFormChange({ raffleImage: img.path });
           setRaffleImageFile(img.image);
         }}
-        dirName="raffleImages"
         error={error && raffleImage == ""}
         initialImage={data?.raffleImage ?? ""}
       />

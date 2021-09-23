@@ -1,8 +1,6 @@
 import { useMutation } from "@apollo/react-hooks";
 import { CircularProgress } from "@material-ui/core";
-import axios from "axios";
 import { useState } from "react";
-import Dropzone from "react-dropzone";
 import { toast } from "react-toastify";
 import { UPDATE_CHARITY } from "../../../../../../../graphql/mutations";
 import { ICharity } from "../../../../../../api/types/globalData";
@@ -93,6 +91,7 @@ export default function EditForm({
     if (imageFile) {
       const imageUploaded = await uploadToS3(imageFile, "charityImages");
       if (imageUploaded.key) {
+        console.log(imageUploaded);
         charityValues.ImageURL = imageUploaded.key;
       }
     }
@@ -198,12 +197,10 @@ export default function EditForm({
         </span>
         <span id="form-group-image">
           <AdminDropZone
-            endpoint="uploadPool"
             onDrop={(e) => {
               setImageFile(e.image);
               setUpdatedCharity({ ...updateCharityState, ImageURL: e.path });
             }}
-            dirName="poolImages"
             style={{ margin: 0 }}
             initialImage={updateCharityState.ImageURL}
             error={errors.ImageURL === ""}

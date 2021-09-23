@@ -19,7 +19,7 @@ export const uploadToS3 = async (
           process.env.REACT_APP_UPLOAD_TO_S3 as string,
           {
             dir: dir,
-            file: (reader.result! as string)
+            file: (reader.result as string)
               .replace("data:", "")
               .replace(/^.+,/, ""),
             name: file.name,

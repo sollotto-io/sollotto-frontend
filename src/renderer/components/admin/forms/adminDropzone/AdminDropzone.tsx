@@ -1,13 +1,10 @@
 import "./index.scss";
 import Dropzone from "react-dropzone";
-import axios from "axios";
 import { useState } from "react";
 import useDidUpdateEffect from "../../../../hooks/useDidUpdateEffect";
 
 interface IAdminDropzone {
-  endpoint: string;
   onDrop: (image: IImage) => void;
-  dirName: string;
   error?: boolean;
   initialImage?: string;
   style?: React.CSSProperties;
@@ -18,9 +15,7 @@ interface IImage {
 }
 
 export default function AdminDropZone({
-  endpoint,
   onDrop,
-  dirName,
   error,
   initialImage,
   style,

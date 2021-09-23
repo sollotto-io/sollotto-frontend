@@ -146,13 +146,11 @@ export default function LaunchForm({
       />
 
       <AdminDropZone
-        endpoint="uploadLaunchPad"
         onDrop={(img) => {
           handleFormChange({ PoolImage: img.path });
           setPoolImageFile(img.image);
         }}
         initialImage={PoolImage}
-        dirName="launchImages"
         error={error && PoolImage == ""}
       />
       <span className="datepicker-toggle gradientBg">
