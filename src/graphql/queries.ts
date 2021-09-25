@@ -174,11 +174,17 @@ export const FETCH_ALL_POOLS = gql`
   {
     getAllPools {
       dueDate
+      endDate
       tokenAddress
       tokenName
       tokenLogo
       id
       status
+      frequency
+      passPools {
+        winningWalletId
+        finishDate
+      }
     }
   }
 `;

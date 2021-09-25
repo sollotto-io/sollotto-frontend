@@ -171,7 +171,6 @@ export default function LaunchForm({
         onChange={(e: number) => handleFormChange({ TotalWinners: e })}
         error={error && PoolName === ""}
         label="Total Winners"
-        type="number"
         inputStyle={{ width: "400px" }}
       />
 
@@ -180,7 +179,6 @@ export default function LaunchForm({
         onChange={(e: number) => handleFormChange({ MaxDeposit: e })}
         error={error && PoolName === ""}
         label="Max Deposit"
-        type="number"
         inputStyle={{ width: "400px" }}
       />
 

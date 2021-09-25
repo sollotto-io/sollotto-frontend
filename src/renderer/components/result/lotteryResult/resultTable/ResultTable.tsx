@@ -9,10 +9,10 @@ import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core";
 import { useHistory } from "react-router";
 import moment from "moment";
-import Loader from "../../common/loader/Loader";
+import Loader from "../../../common/loader/Loader";
 import { toast, ToastContainer } from "react-toastify";
-import useReduxState from "../../../hooks/useReduxState";
-import { IDrawing } from "../../../api/types/lotteryData";
+import useReduxState from "../../../../hooks/useReduxState";
+import { IDrawing } from "../../../../api/types/lotteryData";
 
 const StyledTableCell = withStyles({
   root: {
@@ -150,7 +150,8 @@ export default function ResultTable({
                   <StyledTableCell align="center">
                     {row.TotalPoolValue === null
                       ? 0
-                      : row.TotalPoolValue.toFixed(2)} SOL
+                      : row.TotalPoolValue.toFixed(2)}{" "}
+                    SOL
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {" "}

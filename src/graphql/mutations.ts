@@ -185,6 +185,7 @@ export const ADD_POOL = gql`
     $tokenLogo: String!
     $dueDate: String!
     $tokenAddress: String!
+    $frequency: Int!
   ) {
     addPool(
       poolInput: {
@@ -192,6 +193,7 @@ export const ADD_POOL = gql`
         tokenLogo: $tokenLogo
         dueDate: $dueDate
         tokenAddress: $tokenAddress
+        frequency: $frequency
       }
     ) {
       id
@@ -199,7 +201,9 @@ export const ADD_POOL = gql`
       tokenLogo
       tokenName
       dueDate
+      endDate
       status
+      frequency
     }
   }
 `;
@@ -211,6 +215,7 @@ export const UPDATE_POOL = gql`
     $tokenLogo: String!
     $dueDate: String!
     $tokenAddress: String!
+    $frequency: Int!
   ) {
     updatePool(
       poolId: $id
@@ -219,6 +224,7 @@ export const UPDATE_POOL = gql`
         tokenLogo: $tokenLogo
         dueDate: $dueDate
         tokenAddress: $tokenAddress
+        frequency: $frequency
       }
     ) {
       id
@@ -226,7 +232,9 @@ export const UPDATE_POOL = gql`
       tokenLogo
       tokenName
       dueDate
+      endDate
       status
+      frequency
     }
   }
 `;
@@ -239,7 +247,9 @@ export const UPDATE_POOL_STATUS = gql`
       tokenLogo
       tokenName
       dueDate
+      endDate
       status
+      frequency
     }
   }
 `;

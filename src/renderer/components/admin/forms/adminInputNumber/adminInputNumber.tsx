@@ -8,7 +8,6 @@ export default function AdminInputNumber({
   errorMesage,
   value,
   onChange,
-  type
 }: {
   value?: number;
   onChange?: (value: number) => void;
@@ -18,7 +17,6 @@ export default function AdminInputNumber({
   error?: boolean;
   errorMesage?: string;
   conpleted?: boolean;
-  type:string
 }): JSX.Element {
   const [err, setErr] = useState(error ?? false);
   return (
@@ -29,10 +27,10 @@ export default function AdminInputNumber({
       <input
         {...(value !== undefined &&
           onChange !== undefined && {
-            value:value,
+            value: value,
             onChange: (e) => onChange(parseInt(e.target.value)),
           })}
-          type={type}
+        type="number"
         className="ad-input"
         style={{ ...inputStyle } ?? {}}
         onBlur={(e) => {
@@ -40,6 +38,9 @@ export default function AdminInputNumber({
             setErr(true);
           } else {
             setErr(false);
+          }
+          if (parseInt(e.target.value) < 0) {
+            e.target.value = "0";
           }
         }}
       />

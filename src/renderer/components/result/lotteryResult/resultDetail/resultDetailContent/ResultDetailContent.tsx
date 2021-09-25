@@ -4,9 +4,9 @@ import { IconButton } from "@material-ui/core";
 import { useHistory } from "react-router";
 import checkIfWinner from "../../utils/checkIfWinner";
 import moment from "moment";
-import { sortTicketNumber } from "../../../../../utils/helpers";
-import useReduxState from "../../../../hooks/useReduxState";
-import { IDrawingId } from "../../../../api/types/lotteryData";
+import { sortTicketNumber } from "../../../../../../utils/helpers";
+import useReduxState from "../../../../../hooks/useReduxState";
+import { IDrawingId } from "../../../../../api/types/lotteryData";
 
 const ResultDetailContent = ({
   lotteryData,
@@ -72,7 +72,8 @@ const ResultDetailContent = ({
             <p>
               {lotteryData.TotalPoolValue === null
                 ? "TBD"
-                : lotteryData.TotalPoolValue.toFixed(2)} SOL
+                : lotteryData.TotalPoolValue.toFixed(2)}{" "}
+              SOL
             </p>
           </section>
           <section>
@@ -173,9 +174,7 @@ const WinningCharityResult = ({ lotteryData }: { lotteryData: IDrawingId }) => {
               >
                 {" "}
                 <p>{c.charityId.charityName}</p>
-                <p style={{ textAlign: "center" }}>
-                  {c.votes}
-                </p>
+                <p style={{ textAlign: "center" }}>{c.votes}</p>
                 <p style={{ textAlign: "center" }}>
                   {((c.votes / totalVotes) * 100).toFixed(2)}
                 </p>

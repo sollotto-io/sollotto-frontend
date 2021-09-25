@@ -7,6 +7,7 @@ import {
   AdminDatePicker,
   AdminButtonArea,
   AdminButton,
+  AdminInputNumber,
 } from "../../../../forms/AdminFormCore";
 
 import useDidUpdateEffect from "../../../../../../hooks/useDidUpdateEffect";
@@ -15,7 +16,7 @@ import useReduxState from "../../../../../../hooks/useReduxState";
 import { useMutation } from "@apollo//react-hooks";
 
 import { ADD_POOL, UPDATE_POOL } from "../../../../../../../graphql/mutations";
-import { IPool } from "../../../../../../api/types/globalData";
+import { IPoolForm as IPool } from "../../../../../../api/types/globalData";
 import { uploadToS3 } from "../../../../../../../utils/api";
 
 interface IPoolForm {
@@ -23,6 +24,7 @@ interface IPoolForm {
   tokenLogo: string;
   dueDate: string;
   tokenAddress: string;
+  frequency: number;
 }
 
 /* eslint-disable  @typescript-eslint/no-non-null-assertion */
@@ -37,13 +39,14 @@ export default function PoolForm({
   data?: IPool;
   index?: number;
 }): JSX.Element {
-  const initialState = {
+  const initialState: IPoolForm = {
     tokenName: data?.tokenName ?? "",
     tokenLogo: data?.tokenLogo ?? "",
     tokenAddress: data?.tokenAddress ?? "",
     dueDate: data?.dueDate
       ? new Date(data.dueDate).toDateString()
       : new Date(Date.now()).toDateString(),
+    frequency: 1,
   };
   const [poolForm, setPoolForm] = useState<IPoolForm>(initialState);
 
@@ -59,14 +62,15 @@ export default function PoolForm({
 
   const [updatePool] = useMutation(UPDATE_POOL);
 
-  const { tokenName, tokenLogo, tokenAddress, dueDate } = poolForm;
+  const { tokenName, tokenLogo, tokenAddress, dueDate, frequency } = poolForm;
 
   const verifyData = () => {
     if (
       tokenName === "" ||
       tokenLogo === "" ||
       tokenAddress === "" ||
-      dueDate === new Date(Date.now()).toDateString()
+      dueDate === new Date(Date.now()).toDateString() ||
+      frequency < 1
     ) {
       setError(true);
       return false;
@@ -100,7 +104,6 @@ export default function PoolForm({
         }
 
         if (!edit) {
-          console.log(JSON.stringify(formValues));
           const newPool = await addPool({ variables: formValues });
           console.log(newPool);
           if (newPool && newPool.data && newPool.data.addPool) {
@@ -167,6 +170,12 @@ export default function PoolForm({
         onChange={(e) => handleFormChange({ dueDate: e })}
         style={{ width: "100%" }}
         error={error && dueDate === new Date(Date.now()).toDateString()}
+      />
+      <AdminInputNumber
+        label="Pick frequency (in Days)"
+        inputStyle={{ width: "100%" }}
+        value={frequency}
+        onChange={(e) => handleFormChange({ frequency: e })}
       />
       <AdminButtonArea>
         <AdminButton

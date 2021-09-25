@@ -1,5 +1,4 @@
 import { Connection, PublicKey, Transaction } from "@solana/web3.js";
-import Wallet from "@project-serum/sol-wallet-adapter";
 import { IAdminUser } from "./AdminData";
 
 type Refetch = () => Promise<any>;
@@ -61,12 +60,37 @@ export interface ILaunchPad {
   launchPad: ILaunch[];
 }
 
+export interface IPassPool {
+  id: string;
+  winningWalletId: string;
+  finishDate: string;
+}
+
+export interface IcurrentPlayers {
+  id: string;
+  walletId: string;
+  deposit: string;
+}
+
 export interface IPool {
   id: string;
   tokenName: string;
   tokenLogo: string;
   dueDate: string;
   tokenAddress: string;
+  passPools: IPassPool[];
+  currentPlayers: IcurrentPlayers[];
+  endDate: string;
+  frequency: number;
+  status: boolean;
+}
+export interface IPoolForm {
+  id: string;
+  tokenName: string;
+  tokenLogo: string;
+  dueDate: string;
+  tokenAddress: string;
+  frequency: number;
   status: boolean;
 }
 

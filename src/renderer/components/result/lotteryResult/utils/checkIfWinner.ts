@@ -1,4 +1,4 @@
-import { IDrawingId } from "../../../api/types/lotteryData";
+import { IDrawingId } from "../../../../api/types/lotteryData";
 import compareArrs from "./compareArrs";
 
 export default function checkIfWinner(

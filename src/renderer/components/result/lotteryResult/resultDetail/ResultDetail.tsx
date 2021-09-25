@@ -4,14 +4,14 @@ import { useParams } from "react-router";
 import ResultDetailContent from "./resultDetailContent/ResultDetailContent";
 import { useQuery } from "@apollo/react-hooks";
 import LeftCountdown from "./leftCountDown/LetCountDown";
-import Loader from "../../common/loader/Loader";
+import Loader from "../../../common/loader/Loader";
 import moment from "moment";
 import _ from "lodash";
-import useReduxState from "../../../hooks/useReduxState";
-import { IDrawingId } from "../../../api/types/lotteryData";
-import { FETCH_LOTTERY_BY_ID } from "../../../../graphql/queries";
-import PageTitle from "../../common/pageTitle/PageTitle";
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import useReduxState from "../../../../hooks/useReduxState";
+import { IDrawingId } from "../../../../api/types/lotteryData";
+import { FETCH_LOTTERY_BY_ID } from "../../../../../graphql/queries";
+import PageTitle from "../../../common/pageTitle/PageTitle";
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 
 const ResultDetail = (): JSX.Element => {
   const { id }: { id: string } = useParams();
@@ -107,7 +107,17 @@ const ResultDetail = (): JSX.Element => {
                       </p>{" "}
                       <p className="chaColumn">{t.charity}</p>
                       {t.transactionId === "" ? (
-                        <span style={{display:"flex",justifyContent:"space-around"}}><ErrorOutlineIcon style={{color:"yellow"}}/> <p style={{color:"yellow" ,marginLeft:10}}>This ticket does not have a transaction ID</p></span>
+                        <span
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-around",
+                          }}
+                        >
+                          <ErrorOutlineIcon style={{ color: "yellow" }} />{" "}
+                          <p style={{ color: "yellow", marginLeft: 10 }}>
+                            This ticket does not have a transaction ID
+                          </p>
+                        </span>
                       ) : (
                         <a
                           style={{ textDecoration: "underline" }}

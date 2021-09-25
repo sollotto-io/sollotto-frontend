@@ -91,7 +91,7 @@ export default function PoolTable(): JSX.Element {
                 </StyledTableCell>
                 <StyledTableCell align="center">{1000}</StyledTableCell>
                 <StyledTableCell align="center">
-                  <Countdown date={new Date(row.dueDate)} />
+                  <Countdown date={new Date(row.endDate)} />
                 </StyledTableCell>
                 <StyledTableCell align="center">{10000}</StyledTableCell>
                 <StyledTableCell align="center">{10000}</StyledTableCell>

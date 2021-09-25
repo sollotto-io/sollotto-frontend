@@ -1,8 +1,8 @@
 import "./index.scss";
 import moment from "moment";
-import useReduxState from "../../../../hooks/useReduxState";
+import useReduxState from "../../../../../hooks/useReduxState";
 import checkIfWinner from "../../utils/checkIfWinner";
-import { IDrawingId } from "../../../../api/types/lotteryData";
+import { IDrawingId } from "../../../../../api/types/lotteryData";
 const LeftCountdown = ({
   lotteryData,
 }: {
