@@ -161,12 +161,19 @@ export const FETCH_LAUNCHES = gql`
   {
     getAllLaunched {
       id
-      PoolName
-      PoolImage
-      TimeRemaining
-      MaxDeposit
-      TotalWinners
-      Status
+      tokenName
+      tokenLogo
+      totalWinners
+      dueDate
+      endDate
+      frequency
+      maxDeposit
+      status
+      tokenAddress
+      passLaunches {
+        winnersWalletsId
+        finishDate
+      }
     }
   }
 `;

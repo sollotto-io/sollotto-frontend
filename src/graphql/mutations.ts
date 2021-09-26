@@ -32,11 +32,6 @@ export const CHARITY_STATUS_CHAGED = gql`
     deleteCharity(charityId: $charityId, Status: $Status)
   }
 `;
-export const LAUNCHPAD_STATUS_CHAGED = gql`
-  mutation changeLaunchState($Id: ID!, $Status: Boolean!) {
-    changeLaunchState(Id: $Id, Status: $Status)
-  }
-`;
 
 export const UPDATE_CHARITY = gql`
   mutation updateCharity(
@@ -256,42 +251,100 @@ export const UPDATE_POOL_STATUS = gql`
 
 export const ADD_LAUNCHPAD = gql`
   mutation AddLaunchPad(
-    $PoolName: String!
-    $PoolImage: String!
-    $TotalWinners: Int!
-    $TimeRemaining: String!
-    $MaxDeposit: Int!
+    $tokenName: String!
+    $tokenLogo: String!
+    $totalWinners: Int!
+    $dueDate: String!
+    $maxDeposit: Int!
+    $frequency: Int!
+    $tokenAddress: String!
   ) {
     AddLaunchPad(
       LaunchPadInput: {
-        PoolName: $PoolName
-        PoolImage: $PoolImage
-        TotalWinners: $TotalWinners
-        TimeRemaining: $TimeRemaining
-        MaxDeposit: $MaxDeposit
+        tokenName: $tokenName
+        tokenLogo: $tokenLogo
+        totalWinners: $totalWinners
+        dueDate: $dueDate
+        maxDeposit: $maxDeposit
+        frequency: $frequency
+        tokenAddress: $tokenAddress
       }
-    )
+    ) {
+      id
+      tokenName
+      tokenLogo
+      totalWinners
+      dueDate
+      endDate
+      frequency
+      maxDeposit
+      status
+      tokenAddress
+      passLaunches {
+        winnersWalletsId
+        finishDate
+      }
+    }
   }
 `;
 export const EDIT_LAUNCH = gql`
-  mutation EditLaunchPad(
+  mutation AddLaunchPad(
     $Id: ID!
-    $PoolName: String!
-    $PoolImage: String!
-    $TotalWinners: Int!
-    $TimeRemaining: String!
-    $MaxDeposit: Int!
+    $tokenName: String!
+    $tokenLogo: String!
+    $totalWinners: Int!
+    $dueDate: String!
+    $maxDeposit: Int!
+    $frequency: Int!
+    $tokenAddress: String!
   ) {
     EditLaunchPad(
       Id: $Id
       LaunchPadInput: {
-        PoolName: $PoolName
-        PoolImage: $PoolImage
-        TotalWinners: $TotalWinners
-        TimeRemaining: $TimeRemaining
-        MaxDeposit: $MaxDeposit
+        tokenName: $tokenName
+        tokenLogo: $tokenLogo
+        totalWinners: $totalWinners
+        dueDate: $dueDate
+        maxDeposit: $maxDeposit
+        frequency: $frequency
+        tokenAddress: $tokenAddress
       }
-    )
+    ) {
+      id
+      tokenName
+      tokenLogo
+      totalWinners
+      dueDate
+      endDate
+      frequency
+      maxDeposit
+      status
+      tokenAddress
+      passLaunches {
+        winnersWalletsId
+        finishDate
+      }
+    }
+  }
+`;
+export const LAUNCHPAD_STATUS_CHAGED = gql`
+  mutation changeLaunchState($Id: ID!, $status: Boolean!) {
+    changeLaunchState(Id: $Id, status: $status) {
+      id
+      tokenName
+      tokenLogo
+      totalWinners
+      dueDate
+      endDate
+      frequency
+      maxDeposit
+      status
+      tokenAddress
+      passLaunches {
+        winnersWalletsId
+        finishDate
+      }
+    }
   }
 `;
 

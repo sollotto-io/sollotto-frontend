@@ -42,14 +42,24 @@ export interface IRaffle {
   raffleStatus: string;
   Status: boolean;
 }
+
+export interface IPassLaunch {
+  id: string;
+  winnersWalletsId: string;
+  finishDate: string;
+}
 export interface ILaunch {
   id: string;
-  PoolName: string;
-  PoolImage: string;
-  TimeRemaining: string;
-  TotalWinners: number;
-  MaxDeposit: number;
-  Status: boolean;
+  tokenName: string;
+  tokenLogo: string;
+  status: boolean;
+  totalWinners: number;
+  passLaunches: IPassLaunch[];
+  dueDate: string;
+  endDate: string;
+  maxDeposit: number;
+  tokenAddress: string;
+  frequency: number;
 }
 export interface IRaffles {
   refetch: Refetch | null;

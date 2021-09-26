@@ -46,7 +46,7 @@ export default function PoolForm({
     dueDate: data?.dueDate
       ? new Date(data.dueDate).toDateString()
       : new Date(Date.now()).toDateString(),
-    frequency: 1,
+    frequency: data?.frequency ?? 1,
   };
   const [poolForm, setPoolForm] = useState<IPoolForm>(initialState);
 

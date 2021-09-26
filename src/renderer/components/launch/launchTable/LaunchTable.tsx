@@ -80,21 +80,21 @@ export default function LaunchTable(): JSX.Element {
                   }}
                 >
                   <img
-                    src={`${process.env.REACT_APP_IMAGE_LINK}${row.PoolImage}`}
+                    src={`${process.env.REACT_APP_IMAGE_LINK}${row.tokenLogo}`}
                     height={30}
                     width={30}
                     alt=""
                   />
-                  {row.PoolName}
+                  {row.tokenName}
                 </span>
               </StyledTableCell>
               <StyledTableCell align="left">1000 CRAY</StyledTableCell>
-              <StyledTableCell align="left">{row.TotalWinners}</StyledTableCell>
+              <StyledTableCell align="left">{row.totalWinners}</StyledTableCell>
 
               <StyledTableCell align="left">
-                <Countdown date={row.TimeRemaining} />
+                <Countdown date={row.endDate} />
               </StyledTableCell>
-              <StyledTableCell align="left">{row.MaxDeposit}</StyledTableCell>
+              <StyledTableCell align="left">{row.maxDeposit}</StyledTableCell>
               <StyledTableCell align="left">10 CRAY</StyledTableCell>
               <StyledTableCell align="left">1000 CRAY</StyledTableCell>
               <StyledTableCell align="left">
