@@ -10,6 +10,7 @@ const initialState: IglobalData = {
   raffles: { refetch: null, raffles: [] },
   launchPad: { refetch: null, launchPad: [] },
   pools: { refetch: null, pools: [] },
+  model4: { endDate: "", passModel4: [] },
   adminUsers: { refetch: null, users: [] },
   walletBalance: 0,
   walletConnectedFlag: false,

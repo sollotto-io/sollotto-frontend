@@ -31,7 +31,7 @@ const StyledPaper = withStyles({
 })(Paper);
 
 export default function Model4Table(): JSX.Element {
-  const [{ selectedWallet, walletConnectedFlag }] = useTypedReduxState(
+  const [{ selectedWallet, walletConnectedFlag, model4 }] = useTypedReduxState(
     (state) => state.globalData
   );
 
@@ -78,7 +78,7 @@ export default function Model4Table(): JSX.Element {
             </StyledTableCell>
             <StyledTableCell align="center">10000</StyledTableCell>
             <StyledTableCell align="center">
-              <Countdown date={new Date("09-12-2021")} />
+              <Countdown date={new Date(model4.endDate)} />
             </StyledTableCell>
             <StyledTableCell align="center">{yourTickets}</StyledTableCell>
             <StyledTableCell align="center">{totalTickets}</StyledTableCell>

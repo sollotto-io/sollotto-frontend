@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import useFetchAllPools from "../../hooks/useFetchAllPools";
 import LaunchPadResults from "./launchpadResults/LaunchpadResults";
 import ResultDivider from "../../components/result/resultDivider/ResultDivider";
+import Model4Results from "./model4Results/Model4Results";
 
 export default function Results(): JSX.Element {
   const fetchAllPools = useFetchAllPools();
@@ -25,6 +26,8 @@ export default function Results(): JSX.Element {
           <PoolResults />
           <ResultDivider />
           <LaunchPadResults />
+          <ResultDivider />
+          <Model4Results />
         </div>
       </div>
     </div>

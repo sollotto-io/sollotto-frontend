@@ -113,6 +113,15 @@ export interface IAdminUsers {
   users: IAdminUser[];
   refetch: Refetch | null;
 }
+export interface IPassModel4 {
+  id: string;
+  winningWalletId: string;
+  finishDate: string;
+}
+export interface IModel4 {
+  endDate: string;
+  passModel4: IPassModel4[];
+}
 
 export interface IglobalData {
   holdingWalletId: string;
@@ -120,6 +129,7 @@ export interface IglobalData {
   raffles: IRaffles;
   launchPad: ILaunchPad;
   pools: IPools;
+  model4: IModel4;
   adminUsers: IAdminUsers;
   selectedWallet: PhantomProvider | null;
   walletBalance: number;
