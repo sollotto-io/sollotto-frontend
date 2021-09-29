@@ -26,18 +26,18 @@ const StyledPaper = withStyles({
   },
 })(Paper);
 
-export default function PoolResultsTable(): JSX.Element {
+export default function LaunchPadResultsTable(): JSX.Element {
   const [
     {
-      pools: { pools },
+      launchPad: { launchPad },
     },
   ] = useTypedReduxState((state) => state.globalData);
   return (
     <>
-      {pools.map((row) => (
+      {launchPad.map((row) => (
         <>
           <PageSubTitle subtitle={row.tokenName} style={{ fontSize: "20px" }} />
-          {row.passPools.length > 0 ? (
+          {row.passLaunches.length > 0 ? (
             <>
               <TableContainer component={StyledPaper}>
                 <ToastContainer />
@@ -46,14 +46,14 @@ export default function PoolResultsTable(): JSX.Element {
                     <TableRow>
                       <StyledTableCell>Token</StyledTableCell>
                       <StyledTableCell>Prize Pool</StyledTableCell>
-                      <StyledTableCell>Winner</StyledTableCell>
+                      <StyledTableCell>Winners</StyledTableCell>
                       <StyledTableCell>Finish Date</StyledTableCell>
                     </TableRow>
                   </TableHead>
 
                   <TableBody>
-                    {row.passPools.map((passPool) => (
-                      <TableRow className="tableRow" key={passPool.id}>
+                    {row.passLaunches.map((passLaunch) => (
+                      <TableRow className="tableRow" key={passLaunch.id}>
                         <StyledTableCell align="center">
                           <div className="p-name">
                             <img
@@ -64,10 +64,16 @@ export default function PoolResultsTable(): JSX.Element {
                         </StyledTableCell>
                         <StyledTableCell>1000</StyledTableCell>
                         <StyledTableCell align="left">
-                          {passPool.winningWalletId}
+                          <ol>
+                            {passLaunch.winnersWalletsId.map((winner) => (
+                              <li style={{ marginBottom: "15px" }} key={winner}>
+                                {winner}
+                              </li>
+                            ))}
+                          </ol>
                         </StyledTableCell>
                         <StyledTableCell align="left">
-                          {moment(passPool.finishDate).format("MMM Do YY")}
+                          {moment(passLaunch.finishDate).format("MMM Do YY")}
                         </StyledTableCell>
                       </TableRow>
                     ))}

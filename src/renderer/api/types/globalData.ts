@@ -45,7 +45,7 @@ export interface IRaffle {
 
 export interface IPassLaunch {
   id: string;
-  winnersWalletsId: string;
+  winnersWalletsId: string[];
   finishDate: string;
 }
 export interface ILaunch {

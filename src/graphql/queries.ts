@@ -225,3 +225,15 @@ export const GET_TICKET_COUNT = gql`
     getTicketsCount
   }
 `;
+
+export const FETCH_MODEL_4 = gql`
+  {
+    getModel4 {
+      endDate
+      passModel4 {
+        winningWalletId
+        finishDate
+      }
+    }
+  }
+`;

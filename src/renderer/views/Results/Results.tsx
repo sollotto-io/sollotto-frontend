@@ -4,6 +4,8 @@ import LotteryResults from "./lotteryResults/LotteryResults";
 import PoolResults from "./poolResults/PoolResults";
 import { useEffect } from "react";
 import useFetchAllPools from "../../hooks/useFetchAllPools";
+import LaunchPadResults from "./launchpadResults/LaunchpadResults";
+import ResultDivider from "../../components/result/resultDivider/ResultDivider";
 
 export default function Results(): JSX.Element {
   const fetchAllPools = useFetchAllPools();
@@ -17,8 +19,12 @@ export default function Results(): JSX.Element {
       <div className="resultSection">
         <div id="resultHeader">
           <PageTitle title="Results" />
+          <ResultDivider />
           <LotteryResults />
+          <ResultDivider />
           <PoolResults />
+          <ResultDivider />
+          <LaunchPadResults />
         </div>
       </div>
     </div>
