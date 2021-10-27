@@ -11,6 +11,7 @@ const initialState: IglobalData = {
   launchPad: { refetch: null, launchPad: [] },
   pools: { refetch: null, pools: [] },
   model4: { endDate: "", passModel4: [] },
+  nfts: { refetch: null, nfts: [] },
   adminUsers: { refetch: null, users: [] },
   walletBalance: 0,
   walletConnectedFlag: false,

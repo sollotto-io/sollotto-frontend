@@ -28,7 +28,7 @@ export default function AdminInputNumber({
         {...(value !== undefined &&
           onChange !== undefined && {
             value: value,
-            onChange: (e) => onChange(parseInt(e.target.value)),
+            onChange: (e) => onChange(parseFloat(e.target.value)),
           })}
         type="number"
         className="ad-input"

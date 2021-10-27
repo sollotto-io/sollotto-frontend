@@ -1,0 +1,41 @@
+.nft-card-container {
+  background: rgba(19, 26, 53, 0.9);
+  padding: 10%;
+  max-width: 500px;
+  .nft-card {
+    margin-top: 10%;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr;
+    justify-items: center;
+    align-items: center;
+    > img {
+      width: 50%;
+      height: auto;
+    }
+    .nft-card-prize {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      > img {
+        width: 80%;
+        height: auto;
+      }
+      > p {
+        text-align: center;
+        margin-bottom: 0;
+      }
+    }
+  }
+  .nft-card-footer {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 10%;
+    .ticketPrice {
+      margin-bottom: 20px;
+    }
+  }
+}

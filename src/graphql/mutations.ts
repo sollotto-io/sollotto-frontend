@@ -348,6 +348,90 @@ export const LAUNCHPAD_STATUS_CHAGED = gql`
   }
 `;
 
+export const ADD_NFT_LOTTERY = gql`
+  mutation (
+    $endDate: String!
+    $ticketPrice: Float!
+    $status: Status!
+    $prizes: [prizeInput]!
+  ) {
+    addNFT(
+      nftInput: {
+        endDate: $endDate
+        ticketPrice: $ticketPrice
+        status: $status
+        prizes: $prizes
+      }
+    ) {
+      id
+      prizes {
+        image
+        collectionName
+        address
+        name
+      }
+      endDate
+      ticketPrice
+      status
+      tickets {
+        walletId
+      }
+    }
+  }
+`;
+
+export const UPDATE_NFT_LOTTERRY = gql`
+  mutation (
+    $id: ID!
+    $endDate: String!
+    $ticketPrice: Float!
+    $status: Status!
+    $prizes: [prizeInput]!
+  ) {
+    updateNFt(
+      nftId: $id
+      nftInput: {
+        endDate: $endDate
+        ticketPrice: $ticketPrice
+        status: $status
+        prizes: $prizes
+      }
+    ) {
+      id
+      prizes {
+        image
+        collectionName
+        address
+        name
+      }
+      endDate
+      ticketPrice
+      status
+      tickets {
+        walletId
+      }
+    }
+  }
+`;
+
+export const ADD_NFT_TICKET = gql`
+  mutation (
+    $walletId: String!
+    $dataAccountId: String!
+    $transactionId: String!
+  ) {
+    addNftTicket(
+      walletId: $walletId
+      dataAccountId: $dataAccountId
+      transactionId: $transactionId
+    ) {
+      walletId
+      dataAccountId
+      transactionId
+    }
+  }
+`;
+
 export const LOGIN_ADMIN = gql`
   mutation ($username: String!, $password: String!) {
     loginUser(userInput: { username: $username, password: $password }) {

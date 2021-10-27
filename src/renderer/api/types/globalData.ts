@@ -123,6 +123,49 @@ export interface IModel4 {
   passModel4: IPassModel4[];
 }
 
+export interface INftPrize {
+  image: string;
+  address: string;
+  name: string;
+  collectionName: string;
+}
+
+export interface INftTicket {
+  walletId: string;
+  dataAccountId: string;
+  transactionId: string;
+}
+
+export type TNftStatus = "draft" | "live" | "completed";
+
+export interface INft {
+  id: string;
+  prizes: INftPrize[];
+  endDate: string;
+  ticketPrice: number;
+  status: TNftStatus;
+  tickets: INftTicket[];
+}
+
+export interface INfts {
+  nfts: INft[];
+  refetch: Refetch | null;
+}
+
+export interface INftForm {
+  id: string;
+  prizes: INftPrize[];
+  endDate: string;
+  ticketPrice: number;
+  status: TNftStatus;
+}
+
+export interface INftFormAdd {
+  prizes: INftPrize[];
+  endDate: string;
+  ticketPrice: number;
+  status: TNftStatus;
+}
 export interface IglobalData {
   holdingWalletId: string;
   charities: Icharities;
@@ -130,6 +173,7 @@ export interface IglobalData {
   launchPad: ILaunchPad;
   pools: IPools;
   model4: IModel4;
+  nfts: INfts;
   adminUsers: IAdminUsers;
   selectedWallet: PhantomProvider | null;
   walletBalance: number;

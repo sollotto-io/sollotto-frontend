@@ -237,3 +237,46 @@ export const FETCH_MODEL_4 = gql`
     }
   }
 `;
+export const FETCH_ALL_NFT_LOTTERIES = gql`
+  {
+    getAllNfts {
+      id
+      prizes {
+        image
+        collectionName
+        address
+        name
+      }
+      endDate
+      ticketPrice
+      status
+      tickets {
+        walletId
+        dataAccountId
+        transactionId
+      }
+    }
+  }
+`;
+
+export const FETCH_ACTIVE_NFT_LOTTERY = gql`
+  {
+    getActiveNft {
+      id
+      prizes {
+        image
+        collectionName
+        address
+        name
+      }
+      endDate
+      ticketPrice
+      status
+      tickets {
+        walletId
+        dataAccountId
+        transactionId
+      }
+    }
+  }
+`;

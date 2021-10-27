@@ -99,7 +99,7 @@ export default function AdminPoolTable({
         onClick={() => HandleModal()}
         className="gradientBg addCharityButton"
       >
-        <p>Add Pool</p> <AddCircleRoundedIcon />
+        <p>Add Nft Lottery</p> <AddCircleRoundedIcon />
       </button>
       <TableContainer component={StyledPaper}>
         <Table className="table" aria-label="simple table">

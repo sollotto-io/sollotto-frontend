@@ -53,6 +53,12 @@ export default function TabView({
               Admin Users
             </p>
           )}
+          <p
+            onClick={() => handleTabChange(5)}
+            className={tabState === 5 ? "active" : ""}
+          >
+            Nfts
+          </p>
         </span>
       </div>
     </div>

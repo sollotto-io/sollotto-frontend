@@ -24,6 +24,7 @@ import Model4 from "./renderer/views/Model 4/Model4";
 // import GrapeIDO from "./renderer/views/GrapeIDO";
 // import GrapeIDO from "./renderer/views/GrapeIDO";
 import Pool2 from "./renderer/views/Pool/Pool2/Pool2";
+import NFT from "./renderer/views/Nft/Nft";
 
 function Main(): JSX.Element {
   const [globalData, setGlobalData] = useReduxState(
@@ -152,6 +153,9 @@ function Main(): JSX.Element {
               </Route>
               <Route exact path="/model4">
                 <Model4 />
+              </Route>
+              <Route exact path="/nft">
+                <NFT />
               </Route>
             </Switch>
             <Footer />

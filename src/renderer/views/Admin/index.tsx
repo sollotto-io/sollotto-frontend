@@ -11,6 +11,7 @@ import AdminUsers from "../../components/admin/adminUsers/adminUsers";
 import useTypedReduxState from "../../hooks/useTypedReduxState";
 import AuthenticationForm from "../../components/admin/authenticationForm/AuthenticationForm";
 import { ToastContainer, toast } from "react-toastify";
+import AdminNft from "../../components/admin/nft/adminNft";
 
 export default function Admin(): JSX.Element {
   const [{ authenticated, authErr }] = useTypedReduxState(
@@ -61,8 +62,10 @@ export default function Admin(): JSX.Element {
         <AdminPool data={globalData.pools.pools} />
       ) : tabState === 3 ? (
         <LaunchPad />
+      ) : tabState === 4 && admin ? (
+        <AdminUsers />
       ) : (
-        tabState === 4 && admin && <AdminUsers />
+        tabState === 5 && <AdminNft />
       )}
     </div>
   );

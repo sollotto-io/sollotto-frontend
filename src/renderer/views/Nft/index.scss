@@ -1,0 +1,45 @@
+#nft-section {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto 1fr;
+  justify-content: center;
+  margin: 2rem 0rem;
+  padding: 0rem 1rem;
+  .pageTitle {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    margin: 0px;
+    justify-self: start;
+    font-weight: 700;
+  }
+  .pageSubTitle {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    margin: 15px 0px;
+    justify-self: start;
+    font-weight: 700;
+  }
+  .card {
+    justify-self: start;
+    margin-top: 1.5rem;
+    border-radius: 4px;
+    display: grid;
+    place-content: center;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.nft-header {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto 1fr;
+  justify-content: stretch;
+}
