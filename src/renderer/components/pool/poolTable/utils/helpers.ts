@@ -1,3 +1,3 @@
-export function hola() {
-  console.log("holq");
+export function helper() {
+  console.log("helper");
 }

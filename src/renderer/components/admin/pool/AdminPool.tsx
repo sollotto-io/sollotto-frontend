@@ -12,7 +12,6 @@ export default function AdminPool({ data }: { data: IPool[] }): JSX.Element {
   );
   const { refetch: poolRefetch } = useQuery(FETCH_ALL_POOLS, {
     onCompleted: (data) => {
-      console.log(data);
       setGlobalData({
         type: "SET_GLOBAL_DATA",
         arg: {

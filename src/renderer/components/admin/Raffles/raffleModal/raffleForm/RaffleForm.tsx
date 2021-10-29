@@ -121,13 +121,11 @@ export default function RaffleForm({
               raffleImageFile,
               "raffleImages"
             );
-            console.log(uploadedImage);
             if (uploadedImage.key) {
               raffleValues.raffleImage = uploadedImage.key;
             }
           }
           if (edit) {
-            console.log({ ...raffleValues, raffleId: data?.id });
             await editRaffle({
               variables: { ...raffleValues, raffleId: data?.id },
             });

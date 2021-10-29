@@ -48,7 +48,7 @@ export default function NFTCard(): JSX.Element {
       }
     },
     onError: (e) => {
-      console.log(e);
+      console.log(e.message);
     },
   });
 
@@ -91,13 +91,6 @@ export default function NFTCard(): JSX.Element {
         } else {
           (async () => {
             setLoading(true);
-            console.log(
-              JSON.stringify({
-                walletId: selectedWallet.publicKey?.toString(),
-                dataAccountId: selectedWallet.publicKey?.toString(),
-                transactionId: selectedWallet.publicKey?.toString(),
-              })
-            );
             await addNftTicket({
               variables: {
                 walletId: selectedWallet.publicKey?.toString(),

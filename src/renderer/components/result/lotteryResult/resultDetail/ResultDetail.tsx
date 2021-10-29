@@ -18,7 +18,6 @@ const ResultDetail = (): JSX.Element => {
   const [globalData] = useReduxState((state) => state.globalData);
 
   if (globalData.selectedWallet === null) {
-    console.log("empty");
     window.location.href = "/results";
   }
 

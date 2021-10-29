@@ -120,14 +120,6 @@ export default function AdminUsersForm({
         }
         if (edit && !passwordChange) {
           if (data) {
-            console.log(data);
-            console.log(
-              JSON.stringify({
-                id: data.id,
-                admin: admin,
-                username: username,
-              })
-            );
             updateUser({
               variables: {
                 id: data.id,

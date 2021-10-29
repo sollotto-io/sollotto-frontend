@@ -91,7 +91,6 @@ export default function EditForm({
     if (imageFile) {
       const imageUploaded = await uploadToS3(imageFile, "charityImages");
       if (imageUploaded.key) {
-        console.log(imageUploaded);
         charityValues.ImageURL = imageUploaded.key;
       }
     }

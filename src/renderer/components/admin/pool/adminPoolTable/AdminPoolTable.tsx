@@ -78,7 +78,6 @@ export default function AdminPoolTable({
         variables: { id: id, status: status },
       });
       if (newPool && newPool.data.changePoolStatus) {
-        console.log(newPool);
         const poolsArr = [...pools.pools];
         poolsArr[index] = newPool.data.changePoolStatus;
         setGlobalState({

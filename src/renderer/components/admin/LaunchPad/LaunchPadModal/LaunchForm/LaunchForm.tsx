@@ -42,7 +42,6 @@ export default function LaunchForm({
     (state) => state.globalData
   );
   const FindLaunch = launchPad.launchPad.find((t: ILaunch) => t.id === id);
-  console.log(FindLaunch);
 
   const [data] = useState<ILaunch | undefined>(FindLaunch);
 
@@ -61,7 +60,7 @@ export default function LaunchForm({
       closeModal();
     },
     onError: (e) => {
-      console.log(e);
+      console.log(e.message);
     },
   });
   const [updateLaunch] = useMutation(EDIT_LAUNCH, {
@@ -148,12 +147,6 @@ export default function LaunchForm({
             }
           }
           if (edit && data) {
-            console.log(
-              JSON.stringify({
-                Id: data.id,
-                ...launchValues,
-              })
-            );
             updateLaunch({
               variables: {
                 Id: data.id,

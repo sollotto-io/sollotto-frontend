@@ -68,7 +68,6 @@ export default function AdminNftForm({
     status: data?.status ?? "draft",
   };
 
-  console.log(edit);
   const [nftForm, setNftForm] = useState<IAdminNftForm>(initialState);
 
   const [prizeImages, setPrizeImages] = useState<
@@ -99,7 +98,7 @@ export default function AdminNftForm({
       });
     },
     onError: (e) => {
-      console.log(e);
+      console.log(e.message);
     },
   });
 
@@ -120,7 +119,7 @@ export default function AdminNftForm({
       }
     },
     onError: (e) => {
-      console.log(e);
+      console.log(e.message);
     },
   });
 
@@ -212,16 +211,6 @@ export default function AdminNftForm({
         if (!edit) {
           await addNftLottery({ variables: { ...convertedFormValues } });
         } else {
-          console.log({
-            id: data?.id,
-            ...convertedFormValues,
-          });
-          console.log(
-            JSON.stringify({
-              id: data?.id,
-              ...convertedFormValues,
-            })
-          );
           await updatNftLottery({
             variables: {
               id: data?.id,

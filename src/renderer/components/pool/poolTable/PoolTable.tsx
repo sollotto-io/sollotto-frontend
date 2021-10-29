@@ -56,8 +56,6 @@ export default function PoolTable(): JSX.Element {
   useEffect(() => {
     (async () => {
       const data = await poolRefetch();
-      console.log(data);
-      console.log("mounted");
     })();
   }, []);
   if (loadingPools) {

@@ -105,7 +105,6 @@ export default function PoolForm({
 
         if (!edit) {
           const newPool = await addPool({ variables: formValues });
-          console.log(newPool);
           if (newPool && newPool.data && newPool.data.addPool) {
             setGlobalState({
               type: "SET_GLOBAL_DATA",

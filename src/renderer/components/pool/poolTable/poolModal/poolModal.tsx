@@ -16,7 +16,6 @@ export default function PoolModal({
   rowIndex: number;
   tokenName: string;
 }): JSX.Element {
-  console.log(id, rowIndex);
   const [modal, setModal] = useState(false);
   const [{ walletConnectedFlag }] = useReduxState((state) => state.globalData);
 

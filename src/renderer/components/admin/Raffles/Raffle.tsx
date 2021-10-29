@@ -11,7 +11,7 @@ import { IconButton, withStyles } from "@material-ui/core";
 /* import { useHistory } from "react-router"; */
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
-import {  useState } from "react";
+import { useState } from "react";
 import { IRaffle } from "../../../api/types/globalData";
 import { CHANGE_RAFFLE_STATUS } from "../../../../graphql/mutations";
 import RaffleModal from "./raffleModal/RaffleModal";
@@ -36,15 +36,15 @@ export default function RaffleTable(): JSX.Element {
   const [globalData, setGlobalData] = useReduxState(
     (state) => state.globalData
   );
-  const [changeStatus] = useMutation(CHANGE_RAFFLE_STATUS,{
-    onCompleted:async()=>{
-      await globalData.raffles.refetch()
+  const [changeStatus] = useMutation(CHANGE_RAFFLE_STATUS, {
+    onCompleted: async () => {
+      await globalData.raffles.refetch();
     },
-    onError:(e)=>{
-      console.log(e)
-    }
+    onError: (e) => {
+      console.log(e.message);
+    },
   });
- 
+
   const [modalState, setModalState] = useState({
     state: false,
     type: false,
@@ -53,8 +53,8 @@ export default function RaffleTable(): JSX.Element {
   });
 
   const [state, setState] = useState(false);
-  const { loading, data, refetch } = useQuery(FETCH_RAFFLES,{
-    onCompleted:()=>{
+  const { loading, data, refetch } = useQuery(FETCH_RAFFLES, {
+    onCompleted: () => {
       setGlobalData({
         type: "SET_GLOBAL_DATA",
         arg: {
@@ -65,7 +65,7 @@ export default function RaffleTable(): JSX.Element {
           },
         },
       });
-    }
+    },
   });
   /*   const history = useHistory(); */
   const handleModalState = (
@@ -103,8 +103,8 @@ export default function RaffleTable(): JSX.Element {
     setState(!state);
   };
 
-  if(loading){
-    return <h1>loading</h1>
+  if (loading) {
+    return <h1>loading</h1>;
   }
 
   if (data !== []) {
@@ -126,7 +126,7 @@ export default function RaffleTable(): JSX.Element {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.getAllRaffle.map((row:IRaffle, index: number) => (
+              {data.getAllRaffle.map((row: IRaffle, index: number) => (
                 <TableRow className="tableRow" key={index}>
                   <StyledTableCell component="th" scope="row">
                     {row.raffleName}

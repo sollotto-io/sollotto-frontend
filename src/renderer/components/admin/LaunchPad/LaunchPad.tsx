@@ -102,12 +102,6 @@ export default function LaunchPad(): JSX.Element {
     event: React.ChangeEvent<HTMLInputElement>,
     id: string
   ) => {
-    console.log(
-      JSON.stringify({
-        Id: id,
-        status: event.target.checked,
-      })
-    );
     await changeStatus({
       variables: {
         Id: id,

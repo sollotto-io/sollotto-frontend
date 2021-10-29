@@ -38,8 +38,8 @@ export default function AdminUsersDeleteModal({
         onClose();
       }
     },
-    onError: () => {
-      console.log("error");
+    onError: (e) => {
+      console.log(e.message);
     },
   });
   return (
