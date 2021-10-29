@@ -15,7 +15,6 @@ import { useQuery } from "@apollo/client";
 import useReduxState from "../../../hooks/useReduxState";
 import { FETCH_ALL_POOLS } from "../../../../graphql/queries";
 import Loader from "../../common/loader/Loader";
-import { useEffect } from "react";
 
 const StyledTableCell = withStyles({
   root: {
@@ -53,11 +52,7 @@ export default function PoolTable(): JSX.Element {
       });
     },
   });
-  useEffect(() => {
-    (async () => {
-      const data = await poolRefetch();
-    })();
-  }, []);
+
   if (loadingPools) {
     return <Loader />;
   }

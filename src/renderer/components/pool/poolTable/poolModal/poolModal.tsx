@@ -18,6 +18,7 @@ export default function PoolModal({
 }): JSX.Element {
   const [modal, setModal] = useState(false);
   const [{ walletConnectedFlag }] = useReduxState((state) => state.globalData);
+  console.log(id, rowIndex);
 
   const handleModalOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
