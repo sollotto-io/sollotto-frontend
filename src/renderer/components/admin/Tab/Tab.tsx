@@ -3,11 +3,13 @@ import "./Tab.scss";
 interface ITabView {
   tabState: number;
   setTabState: (value: number) => void;
+  admin: boolean;
 }
 
 export default function TabView({
   tabState,
   setTabState,
+  admin,
 }: ITabView): JSX.Element {
   const handleTabChange = (value: number) => {
     setTabState(value);
@@ -42,6 +44,20 @@ export default function TabView({
             className={tabState === 3 ? "active" : ""}
           >
             Launch Pad
+          </p>
+          {admin && (
+            <p
+              onClick={() => handleTabChange(4)}
+              className={tabState === 4 ? "active" : ""}
+            >
+              Admin Users
+            </p>
+          )}
+          <p
+            onClick={() => handleTabChange(5)}
+            className={tabState === 5 ? "active" : ""}
+          >
+            Nfts
           </p>
         </span>
       </div>

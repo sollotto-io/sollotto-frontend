@@ -47,9 +47,6 @@ export default function Charities({
         });
       }
     })();
-    // return () => {
-    //   console.log("unmounted");
-    // };
   }, []);
   useEffect(() => {
     if (!globalData.user) {

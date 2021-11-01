@@ -25,7 +25,7 @@ export default function AdminDatePicker({
         <KeyboardDatePicker
           value={new Date(value)}
           onChange={(e) => {
-            if (e) onChange(e?.toDateString());
+            if (e) onChange(e?.toDateString() + " GMT-8");
           }}
           style={style ?? {}}
         />

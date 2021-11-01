@@ -1,29 +1,39 @@
 import "./index.scss";
 import Dropzone from "react-dropzone";
-import axios from "axios";
 import { useState } from "react";
 import useDidUpdateEffect from "../../../../hooks/useDidUpdateEffect";
 
 interface IAdminDropzone {
-  endpoint: string;
-  onDrop: (url: string) => void;
-  dirName: string;
+  onDrop: (image: IImage) => void;
   error?: boolean;
   initialImage?: string;
   style?: React.CSSProperties;
 }
+interface IImage {
+  image: File | null;
+  path: string;
+}
 
 export default function AdminDropZone({
-  endpoint,
   onDrop,
-  dirName,
   error,
   initialImage,
   style,
 }: IAdminDropzone): JSX.Element {
-  const [image, setImage] = useState(initialImage ?? "");
+  const [image, setImage] = useState<IImage>(
+    initialImage
+      ? {
+          image: null,
+          path: initialImage,
+        }
+      : {
+          image: null,
+          path: "",
+        }
+  );
+  const [imagePath, setImagePath] = useState("");
   useDidUpdateEffect(() => {
-    if (image !== "") {
+    if (image.path !== "") {
       onDrop(image);
     }
   }, [image]);
@@ -31,14 +41,11 @@ export default function AdminDropZone({
     <span className="ad-dropzone" style={style ?? {}}>
       <Dropzone
         onDrop={(acceptedFiles) => {
-          const data = new FormData();
-          data.append("file", acceptedFiles[0]);
-        
-          axios
-            .post(`${process.env.REACT_APP_IMAGE_LINK}/${endpoint}`, data)
-            .then((res) => {
-              setImage(`/static/${dirName}/${res.data.originalname}`);
-            });
+          setImage({
+            path: URL.createObjectURL(acceptedFiles[0]),
+            image: acceptedFiles[0],
+          });
+          setImagePath(URL.createObjectURL(acceptedFiles[0]));
         }}
       >
         {({ getRootProps, getInputProps }) => (
@@ -50,10 +57,17 @@ export default function AdminDropZone({
           </section>
         )}
       </Dropzone>
-      {image === "" ? (
+      {image.path === "" && initialImage === "" ? (
         <p>Preview Image</p>
       ) : (
-        <img src={`${process.env.REACT_APP_IMAGE_LINK}${image}`} alt="" />
+        <img
+          src={
+            imagePath
+              ? image.path
+              : `${process.env.REACT_APP_IMAGE_LINK}${initialImage}`
+          }
+          alt=""
+        />
       )}
       {error && <p className="ad-dropzone-err">Please select an image</p>}
     </span>

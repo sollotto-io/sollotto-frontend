@@ -15,6 +15,7 @@ import { useCallback } from "react";
 import useDidUpdateEffect from "../../../../../hooks/useDidUpdateEffect";
 import { IRaffle } from "../../../../../api/types/globalData";
 import useReduxState from "../../../../../hooks/useReduxState";
+import { uploadToS3 } from "../../../../../../utils/api";
 
 interface IRaffleForm {
   raffleName: string;
@@ -56,8 +57,8 @@ export default function RaffleForm({
     raffleStatus: data !== undefined ? data.raffleStatus : "",
   };
 
-
   const [raffleForm, setRaffleForm] = useState<IRaffleForm>(initialState);
+  const [raffleImageFile, setRaffleImageFile] = useState<File | null>(null);
 
   const [submiting, setSubmiting] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
@@ -114,15 +115,26 @@ export default function RaffleForm({
     if (submiting) {
       if (validateFields()) {
         (async () => {
+          const raffleValues = { ...raffleForm };
+          if (raffleImageFile) {
+            const uploadedImage = await uploadToS3(
+              raffleImageFile,
+              "raffleImages"
+            );
+            if (uploadedImage.key) {
+              raffleValues.raffleImage = uploadedImage.key;
+            }
+          }
           if (edit) {
             await editRaffle({
-              variables: { ...raffleForm, raffleId: data?.id },
+              variables: { ...raffleValues, raffleId: data?.id },
             });
           } else {
             await addRaffle({
-              variables: raffleForm,
+              variables: raffleValues,
             });
           }
+
           closeModal();
         })();
       }
@@ -159,9 +171,10 @@ export default function RaffleForm({
       />
 
       <AdminDropZone
-        endpoint="uploadRaffle"
-        onDrop={(img) => handleFormChange({ raffleImage: img })}
-        dirName="raffleImages"
+        onDrop={(img) => {
+          handleFormChange({ raffleImage: img.path });
+          setRaffleImageFile(img.image);
+        }}
         error={error && raffleImage == ""}
         initialImage={data?.raffleImage ?? ""}
       />

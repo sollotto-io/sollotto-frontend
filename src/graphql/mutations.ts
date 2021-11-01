@@ -32,11 +32,6 @@ export const CHARITY_STATUS_CHAGED = gql`
     deleteCharity(charityId: $charityId, Status: $Status)
   }
 `;
-export const LAUNCHPAD_STATUS_CHAGED = gql`
-  mutation changeLaunchState($Id: ID!, $Status: Boolean!) {
-    changeLaunchState(Id: $Id, Status: $Status)
-  }
-`;
 
 export const UPDATE_CHARITY = gql`
   mutation updateCharity(
@@ -185,6 +180,7 @@ export const ADD_POOL = gql`
     $tokenLogo: String!
     $dueDate: String!
     $tokenAddress: String!
+    $frequency: Int!
   ) {
     addPool(
       poolInput: {
@@ -192,6 +188,7 @@ export const ADD_POOL = gql`
         tokenLogo: $tokenLogo
         dueDate: $dueDate
         tokenAddress: $tokenAddress
+        frequency: $frequency
       }
     ) {
       id
@@ -199,7 +196,9 @@ export const ADD_POOL = gql`
       tokenLogo
       tokenName
       dueDate
+      endDate
       status
+      frequency
     }
   }
 `;
@@ -211,6 +210,7 @@ export const UPDATE_POOL = gql`
     $tokenLogo: String!
     $dueDate: String!
     $tokenAddress: String!
+    $frequency: Int!
   ) {
     updatePool(
       poolId: $id
@@ -219,6 +219,7 @@ export const UPDATE_POOL = gql`
         tokenLogo: $tokenLogo
         dueDate: $dueDate
         tokenAddress: $tokenAddress
+        frequency: $frequency
       }
     ) {
       id
@@ -226,7 +227,9 @@ export const UPDATE_POOL = gql`
       tokenLogo
       tokenName
       dueDate
+      endDate
       status
+      frequency
     }
   }
 `;
@@ -239,48 +242,250 @@ export const UPDATE_POOL_STATUS = gql`
       tokenLogo
       tokenName
       dueDate
+      endDate
       status
+      frequency
     }
   }
 `;
 
 export const ADD_LAUNCHPAD = gql`
   mutation AddLaunchPad(
-    $PoolName: String!
-    $PoolImage: String!
-    $TotalWinners: Int!
-    $TimeRemaining: String!
-    $MaxDeposit: Int!
+    $tokenName: String!
+    $tokenLogo: String!
+    $totalWinners: Int!
+    $dueDate: String!
+    $maxDeposit: Int!
+    $frequency: Int!
+    $tokenAddress: String!
   ) {
     AddLaunchPad(
       LaunchPadInput: {
-        PoolName: $PoolName
-        PoolImage: $PoolImage
-        TotalWinners: $TotalWinners
-        TimeRemaining: $TimeRemaining
-        MaxDeposit: $MaxDeposit
+        tokenName: $tokenName
+        tokenLogo: $tokenLogo
+        totalWinners: $totalWinners
+        dueDate: $dueDate
+        maxDeposit: $maxDeposit
+        frequency: $frequency
+        tokenAddress: $tokenAddress
       }
-    )
+    ) {
+      id
+      tokenName
+      tokenLogo
+      totalWinners
+      dueDate
+      endDate
+      frequency
+      maxDeposit
+      status
+      tokenAddress
+      passLaunches {
+        winnersWalletsId
+        finishDate
+      }
+    }
   }
 `;
 export const EDIT_LAUNCH = gql`
-  mutation EditLaunchPad(
+  mutation AddLaunchPad(
     $Id: ID!
-    $PoolName: String!
-    $PoolImage: String!
-    $TotalWinners: Int!
-    $TimeRemaining: String!
-    $MaxDeposit: Int!
+    $tokenName: String!
+    $tokenLogo: String!
+    $totalWinners: Int!
+    $dueDate: String!
+    $maxDeposit: Int!
+    $frequency: Int!
+    $tokenAddress: String!
   ) {
     EditLaunchPad(
       Id: $Id
       LaunchPadInput: {
-        PoolName: $PoolName
-        PoolImage: $PoolImage
-        TotalWinners: $TotalWinners
-        TimeRemaining: $TimeRemaining
-        MaxDeposit: $MaxDeposit
+        tokenName: $tokenName
+        tokenLogo: $tokenLogo
+        totalWinners: $totalWinners
+        dueDate: $dueDate
+        maxDeposit: $maxDeposit
+        frequency: $frequency
+        tokenAddress: $tokenAddress
       }
-    )
+    ) {
+      id
+      tokenName
+      tokenLogo
+      totalWinners
+      dueDate
+      endDate
+      frequency
+      maxDeposit
+      status
+      tokenAddress
+      passLaunches {
+        winnersWalletsId
+        finishDate
+      }
+    }
+  }
+`;
+export const LAUNCHPAD_STATUS_CHAGED = gql`
+  mutation changeLaunchState($Id: ID!, $status: Boolean!) {
+    changeLaunchState(Id: $Id, status: $status) {
+      id
+      tokenName
+      tokenLogo
+      totalWinners
+      dueDate
+      endDate
+      frequency
+      maxDeposit
+      status
+      tokenAddress
+      passLaunches {
+        winnersWalletsId
+        finishDate
+      }
+    }
+  }
+`;
+
+export const ADD_NFT_LOTTERY = gql`
+  mutation (
+    $endDate: String!
+    $ticketPrice: Float!
+    $status: Status!
+    $prizes: [prizeInput]!
+  ) {
+    addNFT(
+      nftInput: {
+        endDate: $endDate
+        ticketPrice: $ticketPrice
+        status: $status
+        prizes: $prizes
+      }
+    ) {
+      id
+      prizes {
+        image
+        collectionName
+        address
+        name
+      }
+      endDate
+      ticketPrice
+      status
+      tickets {
+        walletId
+      }
+    }
+  }
+`;
+
+export const UPDATE_NFT_LOTTERRY = gql`
+  mutation (
+    $id: ID!
+    $endDate: String!
+    $ticketPrice: Float!
+    $status: Status!
+    $prizes: [prizeInput]!
+  ) {
+    updateNFt(
+      nftId: $id
+      nftInput: {
+        endDate: $endDate
+        ticketPrice: $ticketPrice
+        status: $status
+        prizes: $prizes
+      }
+    ) {
+      id
+      prizes {
+        image
+        collectionName
+        address
+        name
+      }
+      endDate
+      ticketPrice
+      status
+      tickets {
+        walletId
+      }
+    }
+  }
+`;
+
+export const ADD_NFT_TICKET = gql`
+  mutation (
+    $walletId: String!
+    $dataAccountId: String!
+    $transactionId: String!
+  ) {
+    addNftTicket(
+      walletId: $walletId
+      dataAccountId: $dataAccountId
+      transactionId: $transactionId
+    ) {
+      walletId
+      dataAccountId
+      transactionId
+    }
+  }
+`;
+
+export const LOGIN_ADMIN = gql`
+  mutation ($username: String!, $password: String!) {
+    loginUser(userInput: { username: $username, password: $password }) {
+      token
+      username
+      admin
+    }
+  }
+`;
+
+export const SIGN_UP_ADMIN = gql`
+  mutation addAdminUser(
+    $username: String!
+    $password: String!
+    $admin: Boolean!
+  ) {
+    signupUser(
+      userInput: { username: $username, password: $password, admin: $admin }
+    ) {
+      username
+      admin
+      id
+    }
+  }
+`;
+
+export const UPDATE_ADMINN_USER = gql`
+  mutation updateUser($username: String!, $admin: Boolean!, $id: ID!) {
+    updateUser(userEditInput: { username: $username, admin: $admin, id: $id }) {
+      username
+      admin
+      id
+    }
+  }
+`;
+
+export const CHANGE_ADMIN_USER_ROLE = gql`
+  mutation updateUserRole($admin: Boolean!, $id: ID!) {
+    updateUserRole(userId: $id, admin: $admin) {
+      username
+      admin
+      id
+    }
+  }
+`;
+
+export const CHANGE_ADMIN_USER_PASSWORD = gql`
+  mutation changePassword($id: ID!, $password: String!) {
+    changePassword(changePasswordInput: { id: $id, password: $password })
+  }
+`;
+
+export const DELETE_ADMIN_USER = gql`
+  mutation deleteUser($id: ID!) {
+    deleteUser(userId: $id)
   }
 `;

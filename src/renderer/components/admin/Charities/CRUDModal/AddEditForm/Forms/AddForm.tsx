@@ -1,11 +1,10 @@
 import { useMutation } from "@apollo/react-hooks";
 import { CircularProgress } from "@material-ui/core";
-import axios from "axios";
 import { useState } from "react";
-import Dropzone from "react-dropzone";
 import { toast } from "react-toastify";
 import { ADD_CHARITY } from "../../../../../../../graphql/mutations";
-
+import { AdminDropZone } from "../../../../forms/AdminFormCore";
+import { uploadToS3 } from "../../../../../../../utils/api";
 export default function AddForm({
   handleModalClose,
 }: {
@@ -31,6 +30,8 @@ export default function AddForm({
     socialMedia: "",
     publicKey: "",
   });
+
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [errors, setErrors] = useState({
     charityName: "",
     projectDetails: "",
@@ -82,23 +83,29 @@ export default function AddForm({
     e.preventDefault();
     e.stopPropagation();
     setLoading(true);
-    console.log(AddCharityState);
+    const charityValues = { ...AddCharityState };
+    if (imageFile) {
+      const imageUploaded = await uploadToS3(imageFile, "charityImages");
+      if (imageUploaded.key) {
+        charityValues.ImageURL = imageUploaded.key;
+      }
+    }
     await addCharity({
       variables: {
-        charityName: AddCharityState.charityName,
-        projectDetails: AddCharityState.projectDetails,
-        ImageURL: AddCharityState.ImageURL,
-        fundUse: AddCharityState.fundUse,
-        addedBy: AddCharityState.addedBy,
-        Status: AddCharityState.Status,
-        Years: AddCharityState.Years,
-        isWatch: AddCharityState.isWatch,
-        URL: AddCharityState.URL,
-        Grade: AddCharityState.Grade,
-        Impact: AddCharityState.Impact,
-        webURL: AddCharityState.webURL,
-        socialMedia: AddCharityState.socialMedia,
-        publicKey: AddCharityState.publicKey,
+        charityName: charityValues.charityName,
+        projectDetails: charityValues.projectDetails,
+        ImageURL: charityValues.ImageURL,
+        fundUse: charityValues.fundUse,
+        addedBy: charityValues.addedBy,
+        Status: charityValues.Status,
+        Years: charityValues.Years,
+        isWatch: charityValues.isWatch,
+        URL: charityValues.URL,
+        Grade: charityValues.Grade,
+        Impact: charityValues.Impact,
+        webURL: charityValues.webURL,
+        socialMedia: charityValues.socialMedia,
+        publicKey: charityValues.publicKey,
       },
     });
     toast.success("Charity Updated Successfully", {
@@ -181,38 +188,15 @@ export default function AddForm({
           )}
         </span>
         <span id="form-group-image">
-          <Dropzone
-            onDrop={(acceptedFiles) => {
-              const data = new FormData();
-
-              data.append("file", acceptedFiles[0]);
-              axios
-                .post("http://localhost:5000/uploadCharity", data)
-                .then((res) => {
-                  setAddCharity({
-                    ...AddCharityState,
-                    ImageURL: `/static/charityImages/${res.data.originalname}`,
-                  });
-                });
+          <AdminDropZone
+            onDrop={(e) => {
+              setImageFile(e.image);
+              setAddCharity({ ...AddCharityState, ImageURL: e.path });
             }}
-          >
-            {({ getRootProps, getInputProps }) => (
-              <section id="image-upload-field">
-                <div {...getRootProps()}>
-                  <input {...getInputProps()} />
-                  <p>Drag n drop some files here, or click to select files</p>
-                </div>
-              </section>
-            )}
-          </Dropzone>
-          {AddCharityState.ImageURL === "" ? (
-            <p>Preview Image</p>
-          ) : (
-            <img
-              src={`${process.env.REACT_APP_IMAGE_LINK}${AddCharityState.ImageURL}`}
-              alt=""
-            />
-          )}
+            style={{ margin: 0 }}
+            initialImage={AddCharityState.ImageURL}
+            error={errors.ImageURL === ""}
+          />
         </span>
         <span id="form-group">
           <label id="form-group-label">Website URL</label>
@@ -235,9 +219,7 @@ export default function AddForm({
               }
             }}
           />
-          {errors.webURL === "" ? null : (
-            <p id="error">{errors.webURL}</p>
-          )}
+          {errors.webURL === "" ? null : <p id="error">{errors.webURL}</p>}
         </span>
         <span id="form-group">
           <label id="form-group-label">Twitter URL</label>
@@ -285,9 +267,7 @@ export default function AddForm({
               }
             }}
           />
-          {errors.isWatch === "" ? null : (
-            <p id="error">{errors.isWatch}</p>
-          )}
+          {errors.isWatch === "" ? null : <p id="error">{errors.isWatch}</p>}
         </span>
         <span id="form-group">
           <label id="form-group-label">Verification Link</label>
@@ -310,9 +290,7 @@ export default function AddForm({
               }
             }}
           />
-          {errors.URL === "" ? null : (
-            <p id="error">{errors.URL}</p>
-          )}
+          {errors.URL === "" ? null : <p id="error">{errors.URL}</p>}
         </span>
         <span id="form-group">
           <label id="form-group-label">Verification Grade</label>
@@ -335,9 +313,7 @@ export default function AddForm({
               }
             }}
           />
-          {errors.Grade === "" ? null : (
-            <p id="error">{errors.Grade}</p>
-          )}
+          {errors.Grade === "" ? null : <p id="error">{errors.Grade}</p>}
         </span>
         <span id="form-group">
           <label id="form-group-label">Years operating</label>
@@ -360,9 +336,7 @@ export default function AddForm({
               }
             }}
           />
-          {errors.Years === "" ? null : (
-            <p id="error">{errors.Years}</p>
-          )}
+          {errors.Years === "" ? null : <p id="error">{errors.Years}</p>}
         </span>
         <span id="form-group">
           <label id="form-group-label">Impact Area</label>
@@ -385,9 +359,7 @@ export default function AddForm({
               }
             }}
           />
-          {errors.Impact === "" ? null : (
-            <p id="error">{errors.Impact}</p>
-          )}
+          {errors.Impact === "" ? null : <p id="error">{errors.Impact}</p>}
         </span>
         <span id="form-group">
           <label id="form-group-label">Added By</label>
@@ -410,9 +382,7 @@ export default function AddForm({
               }
             }}
           />
-          {errors.addedBy === "" ? null : (
-            <p id="error">{errors.addedBy}</p>
-          )}
+          {errors.addedBy === "" ? null : <p id="error">{errors.addedBy}</p>}
         </span>
         <span id="form-group">
           <label id="form-group-label">Mission</label>
@@ -459,9 +429,7 @@ export default function AddForm({
               }
             }}
           />
-          {errors.fundUse === "" ? null : (
-            <p id="error">{errors.fundUse}</p>
-          )}
+          {errors.fundUse === "" ? null : <p id="error">{errors.fundUse}</p>}
         </span>
       </form>
       <div className="form-button-group">

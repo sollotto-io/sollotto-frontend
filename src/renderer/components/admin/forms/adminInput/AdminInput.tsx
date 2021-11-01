@@ -8,6 +8,7 @@ export default function AdminInput({
   errorMesage,
   value,
   onChange,
+  type,
 }: {
   value?: string;
   onChange?: (value: string) => void;
@@ -17,6 +18,7 @@ export default function AdminInput({
   error?: boolean;
   errorMesage?: string;
   conpleted?: boolean;
+  type?: string;
 }): JSX.Element {
   const [err, setErr] = useState(error ?? false);
   return (
@@ -27,9 +29,10 @@ export default function AdminInput({
       <input
         {...(value !== undefined &&
           onChange !== undefined && {
-            defaultValue:value,
+            defaultValue: value,
             onChange: (e) => onChange(e.target.value),
           })}
+        type={type ?? "text"}
         className="ad-input"
         style={{ ...inputStyle } ?? {}}
         onBlur={(e) => {

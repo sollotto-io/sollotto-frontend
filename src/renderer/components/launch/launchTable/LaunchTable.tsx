@@ -10,9 +10,11 @@ import { withStyles } from "@material-ui/core";
 import Countdown from "react-countdown";
 import { FETCH_LAUNCHES } from "../../../../graphql/queries";
 import { useQuery } from "@apollo/react-hooks";
-import useReduxState from "../../../hooks/useReduxState";
+import useReduxState from "../../../hooks/useTypedReduxState";
 import { ILaunch } from "../../../api/types/globalData";
 import { useEffect } from "react";
+import Loader from "../../common/loader/Loader";
+import LaunchModal from "./launchModal/LaunchModal";
 
 const StyledTableCell = withStyles({
   root: {
@@ -29,16 +31,21 @@ const StyledPaper = withStyles({
 })(Paper);
 
 export default function LaunchTable(): JSX.Element {
-  const [, setGlobalData] = useReduxState((state) => state.globalData);
+  const [
+    {
+      launchPad: { launchPad },
+    },
+    setGlobalData,
+  ] = useReduxState((state) => state.globalData);
 
-  const { loading, data, refetch } = useQuery(FETCH_LAUNCHES, {
-    onCompleted: () => {
+  const { loading, refetch } = useQuery(FETCH_LAUNCHES, {
+    onCompleted: (e) => {
       setGlobalData({
         type: "SET_GLOBAL_DATA",
         arg: {
           launchPad: {
             refetch: refetch,
-            launchPad: data.getAllLaunched,
+            launchPad: e.getAllLaunched,
           },
         },
       });
@@ -51,7 +58,7 @@ export default function LaunchTable(): JSX.Element {
   }, []);
 
   if (loading) {
-    return <h1>Loading</h1>;
+    return <Loader />;
   }
   return (
     <TableContainer component={StyledPaper}>
@@ -69,7 +76,7 @@ export default function LaunchTable(): JSX.Element {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.getAllLaunched.map((row: ILaunch, index: number) => (
+          {launchPad.map((row: ILaunch, index: number) => (
             <TableRow key={index} className="tableRow">
               <StyledTableCell component="th" scope="row">
                 <span
@@ -80,27 +87,30 @@ export default function LaunchTable(): JSX.Element {
                   }}
                 >
                   <img
-                    src={`${process.env.REACT_APP_IMAGE_LINK}${row.PoolImage}`}
+                    src={`${process.env.REACT_APP_IMAGE_LINK}${row.tokenLogo}`}
                     height={30}
                     width={30}
                     alt=""
                   />
-                  {row.PoolName}
+                  {row.tokenName}
                 </span>
               </StyledTableCell>
               <StyledTableCell align="left">1000 CRAY</StyledTableCell>
-              <StyledTableCell align="left">{row.TotalWinners}</StyledTableCell>
+              <StyledTableCell align="left">{row.totalWinners}</StyledTableCell>
 
               <StyledTableCell align="left">
-                <Countdown date={row.TimeRemaining} />
+                <Countdown date={row.endDate} />
               </StyledTableCell>
-              <StyledTableCell align="left">{row.MaxDeposit}</StyledTableCell>
+              <StyledTableCell align="left">{row.maxDeposit}</StyledTableCell>
               <StyledTableCell align="left">10 CRAY</StyledTableCell>
               <StyledTableCell align="left">1000 CRAY</StyledTableCell>
               <StyledTableCell align="left">
-                <p id="addedBy-Table" className="gradientBg gradientBorder">
-                  Deposit
-                </p>
+                <LaunchModal
+                  id={row.id}
+                  rowIndex={index}
+                  tokenName={row.tokenName}
+                  maxDeposit={row.maxDeposit}
+                />
               </StyledTableCell>
             </TableRow>
           ))}

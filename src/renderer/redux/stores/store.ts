@@ -4,11 +4,13 @@ import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import purchaseSlice from "../slices/purchaseSlice";
 import globalSlice from "../slices/globalSlice";
 import lotterySlice from "../slices/lotterySlice";
+import adminSlice from "../slices/AdminSlice";
 
 const combinedReducer = combineReducers({
   purchaseData: purchaseSlice.reducer,
   globalData: globalSlice.reducer,
   lotteryData: lotterySlice.reducer,
+  adminData: adminSlice.reducer,
 });
 
 type RootReducerType = typeof combinedReducer;

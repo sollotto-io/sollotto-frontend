@@ -6,6 +6,7 @@ import {
   AdminDropZone,
   AdminInput,
   AdminInputNumber,
+  AdminDatePicker,
 } from "../../../forms/AdminFormCore";
 import {
   ADD_LAUNCHPAD,
@@ -14,15 +15,18 @@ import {
 import { useState } from "react";
 import { useCallback } from "react";
 import useDidUpdateEffect from "../../../../../hooks/useDidUpdateEffect";
-import useReduxState from "../../../../../hooks/useReduxState";
+import useReduxState from "../../../../../hooks/useTypedReduxState";
 import { ILaunch } from "../../../../../api/types/globalData";
+import { uploadToS3 } from "../../../../../../utils/api";
 
 interface ILaunchForm {
-  PoolName: string;
-  PoolImage: string;
-  TimeRemaining: string;
-  MaxDeposit: number;
-  TotalWinners: number;
+  tokenName: string;
+  tokenLogo: string;
+  totalWinners: number;
+  dueDate: string;
+  maxDeposit: number;
+  tokenAddress: string;
+  frequency: number;
 }
 
 export default function LaunchForm({
@@ -34,48 +38,90 @@ export default function LaunchForm({
   edit?: boolean;
   id?: string;
 }): JSX.Element {
+  const [{ launchPad }, setGlobalState] = useReduxState(
+    (state) => state.globalData
+  );
+  const FindLaunch = launchPad.launchPad.find((t: ILaunch) => t.id === id);
+
+  const [data] = useState<ILaunch | undefined>(FindLaunch);
+
   const [addLaunchPadLottery] = useMutation(ADD_LAUNCHPAD, {
-    onCompleted: async () => {
-      await globalData.launchPad.refetch();
+    onCompleted: async (e) => {
+      setGlobalState({
+        type: "SET_GLOBAL_DATA",
+        arg: {
+          launchPad: {
+            ...launchPad,
+            launchPad: [...launchPad.launchPad, e.AddLaunchPad],
+          },
+        },
+      });
+
       closeModal();
     },
     onError: (e) => {
-      console.log(e);
+      console.log(e.message);
     },
   });
   const [updateLaunch] = useMutation(EDIT_LAUNCH, {
-    onCompleted: async () => {
-      await globalData.launchPad.refetch();
+    onCompleted: async (e) => {
+      const launches = [...launchPad.launchPad];
+      const index = launches.findIndex((launch) => launch.id == id);
+      if (index !== -1) {
+        launches[index] = e.EditLaunchPad;
+      }
+      setGlobalState({
+        type: "SET_GLOBAL_DATA",
+        arg: {
+          launchPad: {
+            ...launchPad,
+            launchPad: [...launches],
+          },
+        },
+      });
       closeModal();
     },
     onError: (e) => {
       console.log(e.stack);
     },
   });
-  const [globalData] = useReduxState((state) => state.globalData);
-  const FindLaunch = globalData.launchPad.launchPad.find(
-    (t: ILaunch) => t.id === id
-  );
-
-  const [data] = useState<ILaunch>(FindLaunch);
 
   const initialState: ILaunchForm = {
-    PoolName: data !== undefined ? data.PoolName : "",
-    PoolImage: data !== undefined ? data.PoolImage : "",
-    TimeRemaining: data !== undefined ? data.TimeRemaining : "",
-    MaxDeposit: data !== undefined ? data.MaxDeposit : 0,
-    TotalWinners: data !== undefined ? data.TotalWinners : 0,
+    tokenName: data !== undefined && edit ? data.tokenName : "",
+    tokenLogo: data !== undefined && edit ? data.tokenLogo : "",
+    dueDate:
+      data !== undefined && edit
+        ? data.dueDate
+        : new Date(Date.now()).toDateString(),
+    maxDeposit: data !== undefined && edit ? data.maxDeposit : 0,
+    totalWinners: data !== undefined && edit ? data.totalWinners : 0,
+    frequency: data !== undefined && edit ? data.frequency : 1,
+    tokenAddress: data !== undefined && edit ? data.tokenAddress : "",
   };
   const [raffleForm, setRaffleForm] = useState<ILaunchForm>(initialState);
+  const [poolImageFile, settokenLogoFile] = useState<File | null>(null);
 
   const [submiting, setSubmiting] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const { PoolName, PoolImage, TimeRemaining, MaxDeposit, TotalWinners } =
-    raffleForm;
+  const {
+    tokenName,
+    tokenLogo,
+    dueDate,
+    maxDeposit,
+    totalWinners,
+    frequency,
+    tokenAddress,
+  } = raffleForm;
 
   const validateFields = (): boolean => {
     if (
-      (PoolName === "" || PoolImage === "" || TimeRemaining === "") &&
+      (tokenName === "" ||
+        tokenLogo === "" ||
+        dueDate === "" ||
+        totalWinners === 0 ||
+        frequency === 0 ||
+        tokenAddress === "" ||
+        maxDeposit === 0) &&
       !edit
     ) {
       setError(true);
@@ -90,20 +136,25 @@ export default function LaunchForm({
     if (submiting) {
       if (validateFields()) {
         (async () => {
-          if (edit) {
+          const launchValues = { ...raffleForm };
+          if (poolImageFile) {
+            const poolImageUploaded = await uploadToS3(
+              poolImageFile,
+              "launchImages"
+            );
+            if (poolImageUploaded.key) {
+              launchValues.tokenLogo = poolImageUploaded.key;
+            }
+          }
+          if (edit && data) {
             updateLaunch({
               variables: {
                 Id: data.id,
-                PoolName: raffleForm.PoolName,
-                PoolImage: raffleForm.PoolImage,
-                TimeRemaining: raffleForm.TimeRemaining,
-                TotalWinners: raffleForm.TotalWinners,
-                MaxDeposit: raffleForm.MaxDeposit,
+                ...launchValues,
               },
             });
           } else {
-            console.log(raffleForm);
-            addLaunchPadLottery({ variables: raffleForm });
+            addLaunchPadLottery({ variables: launchValues });
           }
         })();
         setSubmiting(false);
@@ -123,52 +174,61 @@ export default function LaunchForm({
   );
 
   return (
-    <form className="r-form">
-      <AdminInput
-        value={PoolName}
-        onChange={(e) => handleFormChange({ PoolName: e })}
-        error={error && PoolName === ""}
-        label="Pool Name"
-        inputStyle={{ width: "400px" }}
-      />
-
-      <AdminDropZone
-        endpoint="uploadLaunchPad"
-        onDrop={(img) => handleFormChange({ PoolImage: img })}
-        dirName="launchImages"
-        error={error && PoolImage == ""}
-      />
-      <span className="datepicker-toggle gradientBg">
-        <input
-          type="date"
-          defaultValue={new Date().toISOString().split("T")[0]}
-          className="datepicker-input"
-          onChange={(e) =>
-            setRaffleForm({
-              ...raffleForm,
-              TimeRemaining: new Date(e.target.value).toISOString(),
-            })
-          }
+    <>
+      <form className="r-form">
+        <AdminInput
+          value={tokenName}
+          onChange={(e) => handleFormChange({ tokenName: e })}
+          error={error && tokenName === ""}
+          label="Pool Name"
+          inputStyle={{ width: "400px" }}
         />
-      </span>
-      <AdminInputNumber
-        value={TotalWinners}
-        onChange={(e: number) => handleFormChange({ TotalWinners: e })}
-        error={error && PoolName === ""}
-        label="Total Winners"
-        type="number"
-        inputStyle={{ width: "400px" }}
-      />
 
-      <AdminInputNumber
-        value={MaxDeposit}
-        onChange={(e: number) => handleFormChange({ MaxDeposit: e })}
-        error={error && PoolName === ""}
-        label="Max Deposit"
-        type="number"
-        inputStyle={{ width: "400px" }}
-      />
+        <AdminDropZone
+          onDrop={(img) => {
+            handleFormChange({ tokenLogo: img.path });
+            settokenLogoFile(img.image);
+          }}
+          initialImage={tokenLogo}
+          error={error && tokenLogo == ""}
+        />
+        <AdminInput
+          label="Token Address"
+          value={tokenAddress}
+          onChange={(e) => handleFormChange({ tokenAddress: e })}
+          inputStyle={{ width: "400px" }}
+          error={error && tokenAddress === ""}
+        />
+        <AdminDatePicker
+          value={dueDate}
+          onChange={(e) => handleFormChange({ dueDate: e })}
+          style={{ width: "400px" }}
+          error={error && dueDate === new Date(Date.now()).toDateString()}
+        />
+        <AdminInputNumber
+          value={totalWinners}
+          onChange={(e: number) => handleFormChange({ totalWinners: e })}
+          label="Total Winners"
+          inputStyle={{ width: "400px" }}
+          error={error && totalWinners === 0}
+        />
 
+        <AdminInputNumber
+          value={maxDeposit}
+          onChange={(e: number) => handleFormChange({ maxDeposit: e })}
+          label="Max Deposit"
+          inputStyle={{ width: "400px" }}
+          error={error && maxDeposit === 0}
+        />
+
+        <AdminInputNumber
+          label="Pick frequency (in Days)"
+          inputStyle={{ width: "400px" }}
+          value={frequency}
+          onChange={(e) => handleFormChange({ frequency: e })}
+          error={error && frequency === 0}
+        />
+      </form>
       <AdminButtonArea className="btn-area">
         <AdminButton
           disable={submiting}
@@ -184,6 +244,6 @@ export default function LaunchForm({
           Cancel
         </AdminButton>
       </AdminButtonArea>
-    </form>
+    </>
   );
 }

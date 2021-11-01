@@ -7,6 +7,7 @@ import {
   AdminDatePicker,
   AdminButtonArea,
   AdminButton,
+  AdminInputNumber,
 } from "../../../../forms/AdminFormCore";
 
 import useDidUpdateEffect from "../../../../../../hooks/useDidUpdateEffect";
@@ -15,13 +16,15 @@ import useReduxState from "../../../../../../hooks/useReduxState";
 import { useMutation } from "@apollo//react-hooks";
 
 import { ADD_POOL, UPDATE_POOL } from "../../../../../../../graphql/mutations";
-import { IPool } from "../../../../../../api/types/globalData";
+import { IPoolForm as IPool } from "../../../../../../api/types/globalData";
+import { uploadToS3 } from "../../../../../../../utils/api";
 
 interface IPoolForm {
   tokenName: string;
   tokenLogo: string;
   dueDate: string;
   tokenAddress: string;
+  frequency: number;
 }
 
 /* eslint-disable  @typescript-eslint/no-non-null-assertion */
@@ -36,15 +39,18 @@ export default function PoolForm({
   data?: IPool;
   index?: number;
 }): JSX.Element {
-  const initialState = {
+  const initialState: IPoolForm = {
     tokenName: data?.tokenName ?? "",
     tokenLogo: data?.tokenLogo ?? "",
     tokenAddress: data?.tokenAddress ?? "",
     dueDate: data?.dueDate
       ? new Date(data.dueDate).toDateString()
       : new Date(Date.now()).toDateString(),
+    frequency: data?.frequency ?? 1,
   };
   const [poolForm, setPoolForm] = useState<IPoolForm>(initialState);
+
+  const [tokenLogoFile, setTokenLogoFile] = useState<File | null>(null);
 
   const [error, setError] = useState(false);
   const [submiting, setSubmiting] = useState(false);
@@ -56,14 +62,15 @@ export default function PoolForm({
 
   const [updatePool] = useMutation(UPDATE_POOL);
 
-  const { tokenName, tokenLogo, tokenAddress, dueDate } = poolForm;
+  const { tokenName, tokenLogo, tokenAddress, dueDate, frequency } = poolForm;
 
   const verifyData = () => {
     if (
       tokenName === "" ||
       tokenLogo === "" ||
       tokenAddress === "" ||
-      dueDate === new Date(Date.now()).toDateString()
+      dueDate === new Date(Date.now()).toDateString() ||
+      frequency < 1
     ) {
       setError(true);
       return false;
@@ -87,10 +94,17 @@ export default function PoolForm({
 
   useEffect(() => {
     if (submiting) {
-      if (!edit) {
-        (async () => {
-          const newPool = await addPool({ variables: poolForm });
-          console.log(newPool);
+      (async () => {
+        const formValues = { ...poolForm };
+        if (tokenLogoFile) {
+          const uploadedLogo = await uploadToS3(tokenLogoFile, "poolImages");
+          if (uploadedLogo.key) {
+            formValues.tokenLogo = uploadedLogo.key;
+          }
+        }
+
+        if (!edit) {
+          const newPool = await addPool({ variables: formValues });
           if (newPool && newPool.data && newPool.data.addPool) {
             setGlobalState({
               type: "SET_GLOBAL_DATA",
@@ -102,11 +116,9 @@ export default function PoolForm({
               },
             });
           }
-        })();
-      } else {
-        (async () => {
+        } else {
           const updatedPool = await updatePool({
-            variables: { id: data?.id, ...poolForm },
+            variables: { id: data?.id, ...formValues },
           });
           if (updatedPool && updatedPool.data && updatedPool.data.updatePool) {
             const poolArr = [...pools.pools];
@@ -121,8 +133,8 @@ export default function PoolForm({
               },
             });
           }
-        })();
-      }
+        }
+      })();
       closeModal();
       setSubmiting(false);
     }
@@ -138,9 +150,9 @@ export default function PoolForm({
         error={error && tokenName === ""}
       />
       <AdminDropZone
-        endpoint="uploadPool"
-        onDrop={(e) => handleFormChange({ tokenLogo: e })}
-        dirName="poolImages"
+        onDrop={(e) => {
+          setTokenLogoFile(e.image), handleFormChange({ tokenLogo: e.path });
+        }}
         style={{ margin: 0 }}
         initialImage={tokenLogo}
         error={error && tokenLogo === ""}
@@ -157,6 +169,12 @@ export default function PoolForm({
         onChange={(e) => handleFormChange({ dueDate: e })}
         style={{ width: "100%" }}
         error={error && dueDate === new Date(Date.now()).toDateString()}
+      />
+      <AdminInputNumber
+        label="Pick frequency (in Days)"
+        inputStyle={{ width: "100%" }}
+        value={frequency}
+        onChange={(e) => handleFormChange({ frequency: e })}
       />
       <AdminButtonArea>
         <AdminButton

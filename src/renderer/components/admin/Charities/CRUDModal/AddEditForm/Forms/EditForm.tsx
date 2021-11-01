@@ -1,11 +1,11 @@
 import { useMutation } from "@apollo/react-hooks";
 import { CircularProgress } from "@material-ui/core";
-import axios from "axios";
 import { useState } from "react";
-import Dropzone from "react-dropzone";
 import { toast } from "react-toastify";
 import { UPDATE_CHARITY } from "../../../../../../../graphql/mutations";
 import { ICharity } from "../../../../../../api/types/globalData";
+import { AdminDropZone } from "../../../../forms/AdminFormCore";
+import { uploadToS3 } from "../../../../../../../utils/api";
 
 export default function EditForm({
   charity,
@@ -51,6 +51,8 @@ export default function EditForm({
     publicKey: "",
   });
 
+  const [imageFile, setImageFile] = useState<File | null>(null);
+
   const handleEditInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.name === "isWatch") {
       if (e.target.value.substring(0, 3).toLowerCase() == "wat") {
@@ -85,23 +87,30 @@ export default function EditForm({
     e.preventDefault();
     e.stopPropagation();
     setLoading(true);
+    const charityValues = { ...updateCharityState };
+    if (imageFile) {
+      const imageUploaded = await uploadToS3(imageFile, "charityImages");
+      if (imageUploaded.key) {
+        charityValues.ImageURL = imageUploaded.key;
+      }
+    }
     await updateCharity({
       variables: {
         charityId: charity.id,
-        charityName: updateCharityState.charityName,
-        projectDetails: updateCharityState.projectDetails,
-        ImageURL: updateCharityState.ImageURL,
-        fundUse: updateCharityState.fundUse,
-        addedBy: updateCharityState.addedBy,
-        Status: updateCharityState.Status,
-        Years: updateCharityState.Years,
-        isWatch: updateCharityState.isWatch,
-        URL: updateCharityState.URL,
-        Grade: updateCharityState.Grade,
-        Impact: updateCharityState.Impact,
-        webURL: updateCharityState.webURL,
-        socialMedia: updateCharityState.socialMedia,
-        publicKey: updateCharityState.publicKey,
+        charityName: charityValues.charityName,
+        projectDetails: charityValues.projectDetails,
+        ImageURL: charityValues.ImageURL,
+        fundUse: charityValues.fundUse,
+        addedBy: charityValues.addedBy,
+        Status: charityValues.Status,
+        Years: charityValues.Years,
+        isWatch: charityValues.isWatch,
+        URL: charityValues.URL,
+        Grade: charityValues.Grade,
+        Impact: charityValues.Impact,
+        webURL: charityValues.webURL,
+        socialMedia: charityValues.socialMedia,
+        publicKey: charityValues.publicKey,
       },
     });
     toast.success("Charity Updated Successfully", {
@@ -136,26 +145,28 @@ export default function EditForm({
         <span id="form-group">
           <label id="form-group-label">Charity Name</label>
           <input
-          onBlur={(e)=>{
-            if(e.target.value === ""){
-              setErrors({
-                ...errors,
-                [e.currentTarget.name]:"This field is mandatory"
-              })
-            }else{
-              setErrors({
-                ...errors,
-                [e.currentTarget.name]:""
-              })
-            }
-          }}
+            onBlur={(e) => {
+              if (e.target.value === "") {
+                setErrors({
+                  ...errors,
+                  [e.currentTarget.name]: "This field is mandatory",
+                });
+              } else {
+                setErrors({
+                  ...errors,
+                  [e.currentTarget.name]: "",
+                });
+              }
+            }}
             id="form-group-input"
             name="charityName"
             type="text"
             onChange={(e) => handleEditInputChange(e)}
             defaultValue={charity.charityName}
           />
-        {errors.charityName === "" ? null : <p id="error">{errors.charityName}</p>}
+          {errors.charityName === "" ? null : (
+            <p id="error">{errors.charityName}</p>
+          )}
         </span>
         <span id="form-group">
           <label id="form-group-label">Wallet Address</label>
@@ -165,56 +176,34 @@ export default function EditForm({
             name="publicKey"
             type="text"
             defaultValue={charity.publicKey}
-            onBlur={(e)=>{
-              if(e.target.value === ""){
+            onBlur={(e) => {
+              if (e.target.value === "") {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:"This field is mandatory"
-                })
-              }else{
+                  [e.currentTarget.name]: "This field is mandatory",
+                });
+              } else {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:""
-                })
+                  [e.currentTarget.name]: "",
+                });
               }
             }}
           />
-        {errors.publicKey === "" ? null : <p id="error">{errors.publicKey}</p>}
-
+          {errors.publicKey === "" ? null : (
+            <p id="error">{errors.publicKey}</p>
+          )}
         </span>
         <span id="form-group-image">
-          <Dropzone
-            onDrop={(acceptedFiles) => {
-              const data = new FormData();
-
-              data.append("file", acceptedFiles[0]);
-              axios
-                .post("http://localhost:5000/uploadCharity", data)
-                .then((res) => {
-                  setUpdatedCharity({
-                    ...updateCharityState,
-                    ImageURL: `/static/charityImages/${res.data.originalname}`,
-                  });
-                });
+          <AdminDropZone
+            onDrop={(e) => {
+              setImageFile(e.image);
+              setUpdatedCharity({ ...updateCharityState, ImageURL: e.path });
             }}
-          >
-            {({ getRootProps, getInputProps }) => (
-              <section id="image-upload-field">
-                <div {...getRootProps()}>
-                  <input {...getInputProps()} />
-                  <p>Drag n drop some files here, or click to select files</p>
-                </div>
-              </section>
-            )}
-          </Dropzone>
-          {updateCharityState.ImageURL === "" ? (
-            <p>Preview Image</p>
-          ) : (
-            <img
-              src={`${process.env.REACT_APP_IMAGE_LINK}${updateCharityState.ImageURL}`}
-              alt=""
-            />
-          )}
+            style={{ margin: 0 }}
+            initialImage={updateCharityState.ImageURL}
+            error={errors.ImageURL === ""}
+          />
         </span>
         <span id="form-group">
           <label id="form-group-label">Website URL</label>
@@ -224,23 +213,21 @@ export default function EditForm({
             name="webURL"
             type="text"
             defaultValue={charity.webURL}
-            onBlur={(e)=>{
-              if(e.target.value === ""){
+            onBlur={(e) => {
+              if (e.target.value === "") {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:"This field is mandatory"
-                })
-              }else{
+                  [e.currentTarget.name]: "This field is mandatory",
+                });
+              } else {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:""
-                })
+                  [e.currentTarget.name]: "",
+                });
               }
             }}
-            
           />
-        {errors.webURL === "" ? null : <p id="error">{errors.webURL}</p>}
-
+          {errors.webURL === "" ? null : <p id="error">{errors.webURL}</p>}
         </span>
         <span id="form-group">
           <label id="form-group-label">Twitter URL</label>
@@ -250,22 +237,23 @@ export default function EditForm({
             name="socialMedia"
             defaultValue={charity.socialMedia}
             type="text"
-            onBlur={(e)=>{
-              if(e.target.value === ""){
+            onBlur={(e) => {
+              if (e.target.value === "") {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:"This field is mandatory"
-                })
-              }else{
+                  [e.currentTarget.name]: "This field is mandatory",
+                });
+              } else {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:""
-                })
+                  [e.currentTarget.name]: "",
+                });
               }
             }}
           />
-        {errors.socialMedia === "" ? null : <p id="error">{errors.socialMedia}</p>}
-
+          {errors.socialMedia === "" ? null : (
+            <p id="error">{errors.socialMedia}</p>
+          )}
         </span>
         <span id="form-group">
           <label id="form-group-label">Verification Source</label>
@@ -275,22 +263,21 @@ export default function EditForm({
             name="isWatch"
             type="text"
             defaultValue={charity.isWatch ? "Watch" : "GiveWell"}
-            onBlur={(e)=>{
-              if(e.target.value === ""){
+            onBlur={(e) => {
+              if (e.target.value === "") {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:"This field is mandatory"
-                })
-              }else{
+                  [e.currentTarget.name]: "This field is mandatory",
+                });
+              } else {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:""
-                })
+                  [e.currentTarget.name]: "",
+                });
               }
             }}
           />
-        {errors.isWatch === "" ? null : <p id="error">{errors.isWatch}</p>}
-
+          {errors.isWatch === "" ? null : <p id="error">{errors.isWatch}</p>}
         </span>
         <span id="form-group">
           <label id="form-group-label">Verification Link</label>
@@ -299,23 +286,22 @@ export default function EditForm({
             onChange={(e) => handleEditInputChange(e)}
             name="URL"
             defaultValue={charity.URL}
-            onBlur={(e)=>{
-              if(e.target.value === ""){
+            onBlur={(e) => {
+              if (e.target.value === "") {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:"This field is mandatory"
-                })
-              }else{
+                  [e.currentTarget.name]: "This field is mandatory",
+                });
+              } else {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:""
-                })
+                  [e.currentTarget.name]: "",
+                });
               }
             }}
             type="text"
           />
-        {errors.URL === "" ? null : <p id="error">{errors.URL}</p>}
-
+          {errors.URL === "" ? null : <p id="error">{errors.URL}</p>}
         </span>
         <span id="form-group">
           <label id="form-group-label">Verification Grade</label>
@@ -324,23 +310,22 @@ export default function EditForm({
             onChange={(e) => handleEditInputChange(e)}
             name="Grade"
             defaultValue={charity.Grade}
-            onBlur={(e)=>{
-              if(e.target.value === ""){
+            onBlur={(e) => {
+              if (e.target.value === "") {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:"This field is mandatory"
-                })
-              }else{
+                  [e.currentTarget.name]: "This field is mandatory",
+                });
+              } else {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:""
-                })
+                  [e.currentTarget.name]: "",
+                });
               }
             }}
             type="text"
           />
-        {errors.Grade === "" ? null : <p id="error">{errors.Grade}</p>}
-
+          {errors.Grade === "" ? null : <p id="error">{errors.Grade}</p>}
         </span>
         <span id="form-group">
           <label id="form-group-label">Years operating</label>
@@ -349,23 +334,22 @@ export default function EditForm({
             onChange={(e) => handleEditInputChange(e)}
             name="Years"
             defaultValue={charity.Years}
-            onBlur={(e)=>{
-              if(e.target.value === ""){
+            onBlur={(e) => {
+              if (e.target.value === "") {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:"This field is mandatory"
-                })
-              }else{
+                  [e.currentTarget.name]: "This field is mandatory",
+                });
+              } else {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:""
-                })
+                  [e.currentTarget.name]: "",
+                });
               }
             }}
             type="text"
           />
-        {errors.Years === "" ? null : <p id="error">{errors.Years}</p>}
-
+          {errors.Years === "" ? null : <p id="error">{errors.Years}</p>}
         </span>
         <span id="form-group">
           <label id="form-group-label">Impact Area</label>
@@ -374,23 +358,22 @@ export default function EditForm({
             onChange={(e) => handleEditInputChange(e)}
             name="Impact"
             defaultValue={charity.Impact}
-            onBlur={(e)=>{
-              if(e.target.value === ""){
+            onBlur={(e) => {
+              if (e.target.value === "") {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:"This field is mandatory"
-                })
-              }else{
+                  [e.currentTarget.name]: "This field is mandatory",
+                });
+              } else {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:""
-                })
+                  [e.currentTarget.name]: "",
+                });
               }
             }}
             type="text"
           />
-        {errors.Impact === "" ? null : <p id="error">{errors.Impact}</p>}
-
+          {errors.Impact === "" ? null : <p id="error">{errors.Impact}</p>}
         </span>
         <span id="form-group">
           <label id="form-group-label">Added By</label>
@@ -399,23 +382,22 @@ export default function EditForm({
             onChange={(e) => handleEditInputChange(e)}
             name="addedBy"
             defaultValue={charity.addedBy}
-            onBlur={(e)=>{
-              if(e.target.value === ""){
+            onBlur={(e) => {
+              if (e.target.value === "") {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:"This field is mandatory"
-                })
-              }else{
+                  [e.currentTarget.name]: "This field is mandatory",
+                });
+              } else {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:""
-                })
+                  [e.currentTarget.name]: "",
+                });
               }
             }}
             type="text"
           />
-        {errors.addedBy === "" ? null : <p id="error">{errors.addedBy}</p>}
-
+          {errors.addedBy === "" ? null : <p id="error">{errors.addedBy}</p>}
         </span>
         <span id="form-group">
           <label id="form-group-label">Mission</label>
@@ -426,22 +408,23 @@ export default function EditForm({
               handleEditTextAreaChange(e);
             }}
             defaultValue={charity.projectDetails}
-            onBlur={(e)=>{
-              if(e.target.value === ""){
+            onBlur={(e) => {
+              if (e.target.value === "") {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:"This field is mandatory"
-                })
-              }else{
+                  [e.currentTarget.name]: "This field is mandatory",
+                });
+              } else {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:""
-                })
+                  [e.currentTarget.name]: "",
+                });
               }
             }}
           />
-        {errors.projectDetails === "" ? null : <p id="error">{errors.projectDetails}</p>}
-
+          {errors.projectDetails === "" ? null : (
+            <p id="error">{errors.projectDetails}</p>
+          )}
         </span>
         <span id="form-group">
           <label id="form-group-label">Use Of Funds</label>
@@ -450,23 +433,22 @@ export default function EditForm({
             onChange={(e) => handleEditInputChange(e)}
             name="fundUse"
             defaultValue={charity.fundUse}
-            onBlur={(e)=>{
-              if(e.target.value === ""){
+            onBlur={(e) => {
+              if (e.target.value === "") {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:"This field is mandatory"
-                })
-              }else{
+                  [e.currentTarget.name]: "This field is mandatory",
+                });
+              } else {
                 setErrors({
                   ...errors,
-                  [e.currentTarget.name]:""
-                })
+                  [e.currentTarget.name]: "",
+                });
               }
             }}
             type="text"
           />
-        {errors.fundUse === "" ? null : <p id="error">{errors.fundUse}</p>}
-
+          {errors.fundUse === "" ? null : <p id="error">{errors.fundUse}</p>}
         </span>
       </form>
       <div className="form-button-group">

@@ -15,7 +15,6 @@ import { useQuery } from "@apollo/client";
 import useReduxState from "../../../hooks/useReduxState";
 import { FETCH_ALL_POOLS } from "../../../../graphql/queries";
 import Loader from "../../common/loader/Loader";
-import { useEffect } from "react";
 
 const StyledTableCell = withStyles({
   root: {
@@ -36,6 +35,11 @@ export default function PoolTable(): JSX.Element {
     data: poolData,
     refetch: poolRefetch,
   } = useQuery(FETCH_ALL_POOLS, {
+    context: {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
     onCompleted: () => {
       setGlobalData({
         type: "SET_GLOBAL_DATA",
@@ -48,13 +52,7 @@ export default function PoolTable(): JSX.Element {
       });
     },
   });
-  useEffect(() => {
-    (async () => {
-      const data = await poolRefetch();
-      console.log(data);
-      console.log("mounted");
-    })();
-  }, []);
+
   if (loadingPools) {
     return <Loader />;
   }
@@ -86,7 +84,7 @@ export default function PoolTable(): JSX.Element {
                 </StyledTableCell>
                 <StyledTableCell align="center">{1000}</StyledTableCell>
                 <StyledTableCell align="center">
-                  <Countdown date={new Date(row.dueDate)} />
+                  <Countdown date={new Date(row.endDate)} />
                 </StyledTableCell>
                 <StyledTableCell align="center">{10000}</StyledTableCell>
                 <StyledTableCell align="center">{10000}</StyledTableCell>

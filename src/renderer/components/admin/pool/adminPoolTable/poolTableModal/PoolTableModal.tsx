@@ -1,6 +1,6 @@
 import "./index.scss";
 import { Modal } from "@material-ui/core";
-import { IPool } from "../../../../../api/types/globalData";
+import { IPoolForm } from "../../../../../api/types/globalData";
 import PoolForm from "./poolForm/PoolForm";
 
 export default function PoolTableModal({
@@ -12,7 +12,7 @@ export default function PoolTableModal({
 }: {
   open: boolean;
   edit?: boolean;
-  data?: IPool;
+  data?: IPoolForm;
   index?: number;
   onClose: () => void;
 }): JSX.Element {
@@ -29,18 +29,16 @@ export default function PoolTableModal({
           <h1>{edit ? "Edit Pool" : "Add Pool"}</h1>
         </div>
         <div className="p-modal-body">
-         
-            {edit ? (
-              <PoolForm
-                closeModal={onClose}
-                edit={edit}
-                data={data}
-                index={index}
-              />
-            ) : (
-              <PoolForm closeModal={onClose} />
-            )}
-         
+          {edit ? (
+            <PoolForm
+              closeModal={onClose}
+              edit={edit}
+              data={data}
+              index={index}
+            />
+          ) : (
+            <PoolForm closeModal={onClose} />
+          )}
         </div>
       </div>
     </Modal>

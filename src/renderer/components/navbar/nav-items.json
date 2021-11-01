@@ -14,5 +14,13 @@
   {
     "name": "Pools",
     "link": "/pools"
+  },
+  {
+    "name": "Launch",
+    "link": "/lauchpad"
+  },
+  {
+    "name": "Model 4",
+    "link": "/model4"
   }
 ]

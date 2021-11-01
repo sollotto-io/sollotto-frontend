@@ -161,12 +161,19 @@ export const FETCH_LAUNCHES = gql`
   {
     getAllLaunched {
       id
-      PoolName
-      PoolImage
-      TimeRemaining
-      MaxDeposit
-      TotalWinners
-      Status
+      tokenName
+      tokenLogo
+      totalWinners
+      dueDate
+      endDate
+      frequency
+      maxDeposit
+      status
+      tokenAddress
+      passLaunches {
+        winnersWalletsId
+        finishDate
+      }
     }
   }
 `;
@@ -174,11 +181,17 @@ export const FETCH_ALL_POOLS = gql`
   {
     getAllPools {
       dueDate
+      endDate
       tokenAddress
       tokenName
       tokenLogo
       id
       status
+      frequency
+      passPools {
+        winningWalletId
+        finishDate
+      }
     }
   }
 `;
@@ -188,6 +201,82 @@ export const FETCH_LOTTERY_DATA_ACCOUNT = gql`
     getLotteryInfo {
       LotteryDataAccount
       LotteryId
+    }
+  }
+`;
+
+export const GET_ALL_ADMIN_USERS = gql`
+  {
+    getAllUsers {
+      admin
+      username
+      id
+    }
+  }
+`;
+
+export const GET_TICKET_COUNT_BY_USER = gql`
+  query getTicketsByUserCount($walletId: [Int]!) {
+    getTicketsByUserCount(walletId: $walletId)
+  }
+`;
+export const GET_TICKET_COUNT = gql`
+  {
+    getTicketsCount
+  }
+`;
+
+export const FETCH_MODEL_4 = gql`
+  {
+    getModel4 {
+      endDate
+      passModel4 {
+        winningWalletId
+        finishDate
+      }
+    }
+  }
+`;
+export const FETCH_ALL_NFT_LOTTERIES = gql`
+  {
+    getAllNfts {
+      id
+      prizes {
+        image
+        collectionName
+        address
+        name
+      }
+      endDate
+      ticketPrice
+      status
+      tickets {
+        walletId
+        dataAccountId
+        transactionId
+      }
+    }
+  }
+`;
+
+export const FETCH_ACTIVE_NFT_LOTTERY = gql`
+  {
+    getActiveNft {
+      id
+      prizes {
+        image
+        collectionName
+        address
+        name
+      }
+      endDate
+      ticketPrice
+      status
+      tickets {
+        walletId
+        dataAccountId
+        transactionId
+      }
     }
   }
 `;

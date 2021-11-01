@@ -1,5 +1,5 @@
 import { Connection, PublicKey, Transaction } from "@solana/web3.js";
-import Wallet from "@project-serum/sol-wallet-adapter";
+import { IAdminUser } from "./AdminData";
 
 type Refetch = () => Promise<any>;
 export interface ICharity {
@@ -31,26 +31,35 @@ export interface Icharities {
 
 export interface IRaffle {
   id: string;
-  raffleName:string;
-  urlSlug:string;
-  raffleImage:string;
-  sollotoBranding:boolean;
-  testingWA:string;
-  liveWA:string;
-  operatorWa:string;
-  vanityUrl:string;
-  raffleStatus:string;
-  Status:boolean
+  raffleName: string;
+  urlSlug: string;
+  raffleImage: string;
+  sollotoBranding: boolean;
+  testingWA: string;
+  liveWA: string;
+  operatorWa: string;
+  vanityUrl: string;
+  raffleStatus: string;
+  Status: boolean;
+}
+
+export interface IPassLaunch {
+  id: string;
+  winnersWalletsId: string[];
+  finishDate: string;
 }
 export interface ILaunch {
   id: string;
-  PoolName: string;
-  PoolImage: string;
-  TimeRemaining: string;
-  TotalWinners: number;
-  MaxDeposit: number;
-  Status: boolean;
- 
+  tokenName: string;
+  tokenLogo: string;
+  status: boolean;
+  totalWinners: number;
+  passLaunches: IPassLaunch[];
+  dueDate: string;
+  endDate: string;
+  maxDeposit: number;
+  tokenAddress: string;
+  frequency: number;
 }
 export interface IRaffles {
   refetch: Refetch | null;
@@ -61,12 +70,37 @@ export interface ILaunchPad {
   launchPad: ILaunch[];
 }
 
+export interface IPassPool {
+  id: string;
+  winningWalletId: string;
+  finishDate: string;
+}
+
+export interface IcurrentPlayers {
+  id: string;
+  walletId: string;
+  deposit: string;
+}
+
 export interface IPool {
   id: string;
   tokenName: string;
   tokenLogo: string;
   dueDate: string;
   tokenAddress: string;
+  passPools: IPassPool[];
+  currentPlayers: IcurrentPlayers[];
+  endDate: string;
+  frequency: number;
+  status: boolean;
+}
+export interface IPoolForm {
+  id: string;
+  tokenName: string;
+  tokenLogo: string;
+  dueDate: string;
+  tokenAddress: string;
+  frequency: number;
   status: boolean;
 }
 
@@ -75,12 +109,72 @@ export interface IPools {
   refetch: Refetch | null;
 }
 
+export interface IAdminUsers {
+  users: IAdminUser[];
+  refetch: Refetch | null;
+}
+export interface IPassModel4 {
+  id: string;
+  winningWalletId: string;
+  finishDate: string;
+}
+export interface IModel4 {
+  endDate: string;
+  passModel4: IPassModel4[];
+}
+
+export interface INftPrize {
+  image: string;
+  address: string;
+  name: string;
+  collectionName: string;
+}
+
+export interface INftTicket {
+  walletId: string;
+  dataAccountId: string;
+  transactionId: string;
+}
+
+export type TNftStatus = "draft" | "live" | "completed";
+
+export interface INft {
+  id: string;
+  prizes: INftPrize[];
+  endDate: string;
+  ticketPrice: number;
+  status: TNftStatus;
+  tickets: INftTicket[];
+}
+
+export interface INfts {
+  nfts: INft[];
+  refetch: Refetch | null;
+}
+
+export interface INftForm {
+  id: string;
+  prizes: INftPrize[];
+  endDate: string;
+  ticketPrice: number;
+  status: TNftStatus;
+}
+
+export interface INftFormAdd {
+  prizes: INftPrize[];
+  endDate: string;
+  ticketPrice: number;
+  status: TNftStatus;
+}
 export interface IglobalData {
   holdingWalletId: string;
   charities: Icharities;
   raffles: IRaffles;
   launchPad: ILaunchPad;
   pools: IPools;
+  model4: IModel4;
+  nfts: INfts;
+  adminUsers: IAdminUsers;
   selectedWallet: PhantomProvider | null;
   walletBalance: number;
   walletConnectedFlag: boolean;
@@ -99,7 +193,7 @@ interface ConnectOpts {
   onlyIfTrusted: boolean;
 }
 
-interface PhantomProvider {
+export interface PhantomProvider {
   publicKey: PublicKey | null;
   isConnected: boolean | null;
   autoApprove: boolean | null;
@@ -121,4 +215,4 @@ interface ConnectOpts {
   onlyIfTrusted: boolean;
 }
  */
-export type IcryptoWallet = typeof Wallet;
+export type IcryptoWallet = PhantomProvider;
