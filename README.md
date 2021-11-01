@@ -57,7 +57,7 @@ REACT_APP_IMAGE_LINK =""
 REACT_APP_UPLOAD_TO_S3 =""
 ```
 
-- **SOLANA_INIT_PROGRAM:** Is the address for the on-chain model 1 lottery initialization. The on-chain model 1 program source code can be found in the [sollotto backend](https://github.com/sollotto-io/sollotto-backend.git) in the **feature/model4** branch
+- **SOLANA_INIT_PROGRAM:** Is the address for the on-chain model 1 lottery initialization. The on-chain model 1 program source code can be found in the [sollotto backend](https://github.com/sollotto-io/sollotto-backend.git) repo
 
 - **SOLANA_NETWORK:** The Solana network in which the program operates, for example: `https://api.devnet.solana.com/`
 
