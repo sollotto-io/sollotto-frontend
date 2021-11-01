@@ -3,7 +3,7 @@ import Grape from "../../../assets/images/pictures/grape-poker-tournament.jpg";
 import Sollotto from "../../../assets/images/pictures/sollotto.gif";
 import "./index.scss";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { AppState } from "../../redux/stores/store";
 
@@ -13,9 +13,7 @@ function GrapeIDO(): JSX.Element {
   );
   const [csvInput, setCsvInput] = useState<any>([]);
   const [isSelectionOver, setSelection] = useState<boolean>(false);
-  useEffect(() => {
-    console.log(ticketNumberArr);
-  }, [isSelectionOver]);
+
   return (
     <div className="pageWrapperIDO">
       <div id="purchaseSection">
